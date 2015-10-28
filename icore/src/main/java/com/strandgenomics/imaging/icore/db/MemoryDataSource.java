@@ -1,0 +1,91 @@
+/*
+ * MemoryDataSource.java
+ *
+ * Project Enterprise Framework
+ * Enterprise Common Library
+ *
+ * Copyright 2005-2006 by Strand Life Sciences
+ * 237, Sir C.V.Raman Avenue
+ * RajMahal Vilas
+ * Bangalore 560080
+ * India
+ * All rights reserved.
+ *
+ * This software is the confidential and proprietary information
+ * of Strand Life Sciences., ("Confidential Information").  You
+ * shall not disclose such Confidential Information and shall use
+ * it only in accordance with the terms of the license agreement
+ * you entered into with Strand Life Sciences.
+ */
+package com.strandgenomics.imaging.icore.db;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import javax.activation.DataSource;
+
+ /**
+  * The DataSource interface provides the JavaBeans Activation Framework
+  * with an abstraction of an arbitrary collection of data.
+  * It provides a type for that data as well as access to it in the form of
+  * InputStreams and OutputStreams where appropriate. <br>
+  *
+  * MemoryDataSource is a memory based data source
+  */
+public class MemoryDataSource implements DataSource {
+
+    private String m_name = null;
+    private ByteArrayOutputStream m_sink = null;
+
+    public MemoryDataSource(String name, ByteArrayOutputStream data) 
+    {
+    	m_name = name;
+        m_sink = data;
+    }
+    
+    /**
+     * This method returns the MIME type of the data in the form of a string.
+     */
+    public String getContentType()
+    {
+        return "application/octet-stream";
+    }
+    
+    /**
+     * additional method to determine the size of the data source
+     */
+    public int getContentLength(){
+        return m_sink.size();
+    }
+
+    /**
+     * This method returns an InputStream representing the data and
+     * throws the appropriate exception if it can not do so.
+     */
+    public InputStream getInputStream() throws IOException 
+    {
+        return new ByteArrayInputStream(m_sink.toByteArray());
+    }
+
+    /**
+     * Return the name of this object where the name of the object is
+     * dependant on the nature of the underlying objects.
+     * in our case, it is the name of the remote file
+     */
+    public String getName()
+    {
+        return m_name;
+    }
+
+    /**
+     * This method returns an OutputStream where the data can be written and
+     * throws the appropriate exception if it can not do so.
+     */
+    public OutputStream getOutputStream() throws IOException 
+    {
+        return m_sink;
+    }
+}

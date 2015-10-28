@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://artifacts.openmicroscopy.org/artifactory/gradle/'
+    }
+}
+
+dependencies {
+    compile 'ome:loci_tools:5.1.5'
+    compile 'colt:colt:1.2.0'
+    compile 'org.apache.commons:commons-compress:1.3'
+    compile 'commons-dbcp:commons-dbcp:1.2.2'
+    compile 'org.apache.commons:commons-lang3:3.1'
+    compile 'commons-httpclient:commons-httpclient:3.0.1'
+}
+
