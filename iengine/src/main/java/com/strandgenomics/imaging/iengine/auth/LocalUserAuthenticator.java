@@ -1,0 +1,70 @@
+/*
+ * LocalUserAuthenticator.java
+ *
+ * AVADIS Image Management System
+ * Server Implementation
+ *
+ * Copyright 2011-2012 by Strand Life Sciences
+ * 5th Floor, Kirloskar Business Park, 
+ * Bellary Road, Hebbal
+ * Bangalore 560024
+ * Karnataka, India
+ * 
+ * All rights reserved.
+ *
+ * This software is the confidential and proprietary information
+ * of Strand Life Sciences., ("Confidential Information").  You
+ * shall not disclose such Confidential Information and shall use
+ * it only in accordance with the terms of the license agreement
+ * you entered into with Strand Life Sciences.
+ */
+package com.strandgenomics.imaging.iengine.auth;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.strandgenomics.imaging.icore.db.DataAccessException;
+import com.strandgenomics.imaging.icore.util.EncryptionUtil;
+import com.strandgenomics.imaging.icore.util.Util;
+import com.strandgenomics.imaging.iengine.dao.ImageSpaceDAOFactory;
+import com.strandgenomics.imaging.iengine.dao.UserDAO;
+import com.strandgenomics.imaging.iengine.models.User;
+
+public class LocalUserAuthenticator implements UserAuthenticator {
+
+	protected Logger logger = Logger.getLogger("com.strandgenomics.imaging.iengine.auth");
+
+	@Override
+	public boolean authenticateUser(String login, String password) throws DataAccessException 
+	{
+		if (login == null || password == null) 
+		{
+			logger.logp(Level.INFO, "LocalUserAuthenticator", "authenticateUser", "incomplete arguments ...");
+			return false;
+		}
+
+		boolean authenticated = false;
+
+		ImageSpaceDAOFactory factory = ImageSpaceDAOFactory.getDAOFactory();
+		UserDAO userDao = factory.getUserDAO();
+		User userObj = userDao.findUser(login);
+
+		// in the database, passwords are stored as md5 hash of the original text
+		password = Util.toHexString(EncryptionUtil.computeMessageDigest(password));
+		
+        if( password.equals(userObj.getPassword()) )
+        {
+            logger.logp(Level.INFO, "LocalUserAuthenticator", "authenticateUser", "validated for "+login);
+            authenticated = true;
+            userObj.dispose();
+        }
+
+		return authenticated;
+	}
+
+	@Override
+	public boolean changePassword(String login, String oldPassword, String newPassword) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+}
