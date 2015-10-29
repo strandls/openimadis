@@ -1,0 +1,2 @@
+{"recordids":[206,204,226,225,227,228,229,231,232,233,234],
+"imageAccessesPerUser":250,"probability_of_record_change":0.1,"baseUrl":"http://localhost/iManage/","baseDir":"/home/devendra/sandbox/img/loadtest/","userList":["a","administrator","a","administrator"],"passwords":["a","admin1234","a","admin1234"]}
