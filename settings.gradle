@@ -1,0 +1,4 @@
+rootProject.name = 'imaging'
+
+include ':icore', ':iengine'
+
