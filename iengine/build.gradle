@@ -9,12 +9,9 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: '../icore/build/libs', include: '**/*.jar')
-    compile files('../../../rep/pkg/external/bioformats/4.4.10.1/lib/loci_tools.jar')
+    compile project(':icore')
     compile 'commons-collections:commons-collections:3.2.1'
     compile 'com.google.code.simple-spring-memcached:spymemcached:2.8.4'
-    compile 'commons-codec:commons-codec:1.6'
-    compile 'org.apache.commons:commons-lang3:3.1'
     compile 'javax.mail:mail:1.4'
     compile 'xuggle:xuggle-xuggler:5.4'
     compile 'org.apache.solr:solr-solrj:3.5.0'
