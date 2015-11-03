@@ -2,7 +2,7 @@
  * ISearchSoapBindingStub.java
  *
  * This file was auto-generated from WSDL
- * by the Apache Axis 1.4 Sep 25, 2006 (02:39:47 GMT+05:30) WSDL2Java emitter.
+ * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
 package com.strandgenomics.imaging.iserver.services.ws.search;
@@ -43,45 +43,6 @@ public class ISearchSoapBindingStub extends org.apache.axis.client.Stub implemen
         _operations[0] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("getAvailableDynamicMetaData");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
-        oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
-        oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("urn:isearch", "ArrayOfSearchField"));
-        oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.search.SearchField[].class);
-        oper.setReturnQName(new javax.xml.namespace.QName("", "getAvailableDynamicMetaDataReturn"));
-        oper.setStyle(org.apache.axis.constants.Style.RPC);
-        oper.setUse(org.apache.axis.constants.Use.ENCODED);
-        _operations[1] = oper;
-
-        oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("getAvailableUserAnnotations");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
-        oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
-        oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("urn:isearch", "ArrayOfSearchField"));
-        oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.search.SearchField[].class);
-        oper.setReturnQName(new javax.xml.namespace.QName("", "getAvailableUserAnnotationsReturn"));
-        oper.setStyle(org.apache.axis.constants.Style.RPC);
-        oper.setUse(org.apache.axis.constants.Use.ENCODED);
-        _operations[2] = oper;
-
-        oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("getNavigableFields");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
-        oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
-        oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("urn:isearch", "ArrayOfSearchField"));
-        oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.search.SearchField[].class);
-        oper.setReturnQName(new javax.xml.namespace.QName("", "getNavigableFieldsReturn"));
-        oper.setStyle(org.apache.axis.constants.Style.RPC);
-        oper.setUse(org.apache.axis.constants.Use.ENCODED);
-        _operations[3] = oper;
-
-        oper = new org.apache.axis.description.OperationDesc();
         oper.setName("findRecords");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
         oper.addParameter(param);
@@ -94,7 +55,33 @@ public class ISearchSoapBindingStub extends org.apache.axis.client.Stub implemen
         oper.setReturnQName(new javax.xml.namespace.QName("", "findRecordsReturn"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
-        _operations[4] = oper;
+        _operations[1] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("getNavigableFields");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("urn:isearch", "ArrayOfSearchField"));
+        oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.search.SearchField[].class);
+        oper.setReturnQName(new javax.xml.namespace.QName("", "getNavigableFieldsReturn"));
+        oper.setStyle(org.apache.axis.constants.Style.RPC);
+        oper.setUse(org.apache.axis.constants.Use.ENCODED);
+        _operations[2] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("getAvailableUserAnnotations");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("urn:isearch", "ArrayOfSearchField"));
+        oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.search.SearchField[].class);
+        oper.setReturnQName(new javax.xml.namespace.QName("", "getAvailableUserAnnotationsReturn"));
+        oper.setStyle(org.apache.axis.constants.Style.RPC);
+        oper.setUse(org.apache.axis.constants.Use.ENCODED);
+        _operations[3] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getNavigationBins");
@@ -109,6 +96,19 @@ public class ISearchSoapBindingStub extends org.apache.axis.client.Stub implemen
         oper.setReturnType(new javax.xml.namespace.QName("urn:isearch", "ArrayOfSearchNode"));
         oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.search.SearchNode[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "getNavigationBinsReturn"));
+        oper.setStyle(org.apache.axis.constants.Style.RPC);
+        oper.setUse(org.apache.axis.constants.Use.ENCODED);
+        _operations[4] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("getAvailableDynamicMetaData");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("urn:isearch", "ArrayOfSearchField"));
+        oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.search.SearchField[].class);
+        oper.setReturnQName(new javax.xml.namespace.QName("", "getAvailableDynamicMetaDataReturn"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
         _operations[5] = oper;
@@ -308,7 +308,7 @@ public class ISearchSoapBindingStub extends org.apache.axis.client.Stub implemen
 }
     }
 
-    public com.strandgenomics.imaging.iserver.services.ws.search.SearchField[] getAvailableDynamicMetaData(java.lang.String in0, java.lang.String in1) throws java.rmi.RemoteException {
+    public long[] findRecords(java.lang.String in0, java.lang.String in1, com.strandgenomics.imaging.iserver.services.ws.search.SearchCondition[] in2) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -317,7 +317,38 @@ public class ISearchSoapBindingStub extends org.apache.axis.client.Stub implemen
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("urn:isearch", "getAvailableDynamicMetaData"));
+        _call.setOperationName(new javax.xml.namespace.QName("urn:isearch", "findRecords"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0, in1, in2});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (long[]) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (long[]) org.apache.axis.utils.JavaUtils.convert(_resp, long[].class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public com.strandgenomics.imaging.iserver.services.ws.search.SearchField[] getNavigableFields(java.lang.String in0, java.lang.String in1) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[2]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("");
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("urn:isearch", "getNavigableFields"));
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -344,7 +375,7 @@ public class ISearchSoapBindingStub extends org.apache.axis.client.Stub implemen
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[2]);
+        _call.setOperation(_operations[3]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
@@ -370,74 +401,12 @@ public class ISearchSoapBindingStub extends org.apache.axis.client.Stub implemen
 }
     }
 
-    public com.strandgenomics.imaging.iserver.services.ws.search.SearchField[] getNavigableFields(java.lang.String in0, java.lang.String in1) throws java.rmi.RemoteException {
-        if (super.cachedEndpoint == null) {
-            throw new org.apache.axis.NoEndPointException();
-        }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[3]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("urn:isearch", "getNavigableFields"));
-
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0, in1});
-
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
-        }
-        else {
-            extractAttachments(_call);
-            try {
-                return (com.strandgenomics.imaging.iserver.services.ws.search.SearchField[]) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (com.strandgenomics.imaging.iserver.services.ws.search.SearchField[]) org.apache.axis.utils.JavaUtils.convert(_resp, com.strandgenomics.imaging.iserver.services.ws.search.SearchField[].class);
-            }
-        }
-  } catch (org.apache.axis.AxisFault axisFaultException) {
-  throw axisFaultException;
-}
-    }
-
-    public long[] findRecords(java.lang.String in0, java.lang.String in1, com.strandgenomics.imaging.iserver.services.ws.search.SearchCondition[] in2) throws java.rmi.RemoteException {
-        if (super.cachedEndpoint == null) {
-            throw new org.apache.axis.NoEndPointException();
-        }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[4]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("urn:isearch", "findRecords"));
-
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0, in1, in2});
-
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
-        }
-        else {
-            extractAttachments(_call);
-            try {
-                return (long[]) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (long[]) org.apache.axis.utils.JavaUtils.convert(_resp, long[].class);
-            }
-        }
-  } catch (org.apache.axis.AxisFault axisFaultException) {
-  throw axisFaultException;
-}
-    }
-
     public com.strandgenomics.imaging.iserver.services.ws.search.SearchNode[] getNavigationBins(java.lang.String in0, java.lang.String in1, com.strandgenomics.imaging.iserver.services.ws.search.SearchCondition[] in2, com.strandgenomics.imaging.iserver.services.ws.search.SearchCondition in3) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[5]);
+        _call.setOperation(_operations[4]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
@@ -456,6 +425,37 @@ public class ISearchSoapBindingStub extends org.apache.axis.client.Stub implemen
                 return (com.strandgenomics.imaging.iserver.services.ws.search.SearchNode[]) _resp;
             } catch (java.lang.Exception _exception) {
                 return (com.strandgenomics.imaging.iserver.services.ws.search.SearchNode[]) org.apache.axis.utils.JavaUtils.convert(_resp, com.strandgenomics.imaging.iserver.services.ws.search.SearchNode[].class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public com.strandgenomics.imaging.iserver.services.ws.search.SearchField[] getAvailableDynamicMetaData(java.lang.String in0, java.lang.String in1) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[5]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("");
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("urn:isearch", "getAvailableDynamicMetaData"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0, in1});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (com.strandgenomics.imaging.iserver.services.ws.search.SearchField[]) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (com.strandgenomics.imaging.iserver.services.ws.search.SearchField[]) org.apache.axis.utils.JavaUtils.convert(_resp, com.strandgenomics.imaging.iserver.services.ws.search.SearchField[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

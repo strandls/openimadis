@@ -2,7 +2,7 @@
  * IWorkersSoapBindingStub.java
  *
  * This file was auto-generated from WSDL
- * by the Apache Axis 1.4 Sep 25, 2006 (02:39:47 GMT+05:30) WSDL2Java emitter.
+ * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
 package com.strandgenomics.imaging.iserver.services.ws.worker;
@@ -37,19 +37,6 @@ public class IWorkersSoapBindingStub extends org.apache.axis.client.Stub impleme
         _operations[0] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("publishApplications");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
-        oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:iworkers", "ArrayOfApplication"), com.strandgenomics.imaging.iserver.services.ws.worker.Application[].class, false, false);
-        oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "Directive"));
-        oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.worker.Directive.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("", "publishApplicationsReturn"));
-        oper.setStyle(org.apache.axis.constants.Style.RPC);
-        oper.setUse(org.apache.axis.constants.Use.ENCODED);
-        _operations[1] = oper;
-
-        oper = new org.apache.axis.description.OperationDesc();
         oper.setName("removeApplications");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
         oper.addParameter(param);
@@ -60,31 +47,20 @@ public class IWorkersSoapBindingStub extends org.apache.axis.client.Stub impleme
         oper.setReturnQName(new javax.xml.namespace.QName("", "removeApplicationsReturn"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
+        _operations[1] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("publishApplications");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:iworkers", "ArrayOfApplication"), com.strandgenomics.imaging.iserver.services.ws.worker.Application[].class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "Directive"));
+        oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.worker.Directive.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("", "publishApplicationsReturn"));
+        oper.setStyle(org.apache.axis.constants.Style.RPC);
+        oper.setUse(org.apache.axis.constants.Use.ENCODED);
         _operations[2] = oper;
-
-        oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("ping");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
-        oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:iworkers", "Request"), com.strandgenomics.imaging.iserver.services.ws.worker.Request.class, false, false);
-        oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "Response"));
-        oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.worker.Response.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("", "pingReturn"));
-        oper.setStyle(org.apache.axis.constants.Style.RPC);
-        oper.setUse(org.apache.axis.constants.Use.ENCODED);
-        _operations[3] = oper;
-
-        oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("testMethod0");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
-        oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "StringListConstraints"));
-        oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.worker.StringListConstraints.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("", "testMethod0Return"));
-        oper.setStyle(org.apache.axis.constants.Style.RPC);
-        oper.setUse(org.apache.axis.constants.Use.ENCODED);
-        _operations[4] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("testMethod1");
@@ -95,18 +71,7 @@ public class IWorkersSoapBindingStub extends org.apache.axis.client.Stub impleme
         oper.setReturnQName(new javax.xml.namespace.QName("", "testMethod1Return"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
-        _operations[5] = oper;
-
-        oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("testMethod2");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
-        oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "DoubleRangeConstraints"));
-        oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.worker.DoubleRangeConstraints.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("", "testMethod2Return"));
-        oper.setStyle(org.apache.axis.constants.Style.RPC);
-        oper.setUse(org.apache.axis.constants.Use.ENCODED);
-        _operations[6] = oper;
+        _operations[3] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("testMethod3");
@@ -117,7 +82,18 @@ public class IWorkersSoapBindingStub extends org.apache.axis.client.Stub impleme
         oper.setReturnQName(new javax.xml.namespace.QName("", "testMethod3Return"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
-        _operations[7] = oper;
+        _operations[4] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("testMethod2");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "DoubleRangeConstraints"));
+        oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.worker.DoubleRangeConstraints.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("", "testMethod2Return"));
+        oper.setStyle(org.apache.axis.constants.Style.RPC);
+        oper.setUse(org.apache.axis.constants.Use.ENCODED);
+        _operations[5] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("testMethod4");
@@ -126,6 +102,30 @@ public class IWorkersSoapBindingStub extends org.apache.axis.client.Stub impleme
         oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "LongRangeConstraints"));
         oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.worker.LongRangeConstraints.class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "testMethod4Return"));
+        oper.setStyle(org.apache.axis.constants.Style.RPC);
+        oper.setUse(org.apache.axis.constants.Use.ENCODED);
+        _operations[6] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("testMethod0");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "StringListConstraints"));
+        oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.worker.StringListConstraints.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("", "testMethod0Return"));
+        oper.setStyle(org.apache.axis.constants.Style.RPC);
+        oper.setUse(org.apache.axis.constants.Use.ENCODED);
+        _operations[7] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("ping");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:iworkers", "Request"), com.strandgenomics.imaging.iserver.services.ws.worker.Request.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "Response"));
+        oper.setReturnClass(com.strandgenomics.imaging.iserver.services.ws.worker.Response.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("", "pingReturn"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
         _operations[8] = oper;
@@ -420,43 +420,12 @@ public class IWorkersSoapBindingStub extends org.apache.axis.client.Stub impleme
 }
     }
 
-    public com.strandgenomics.imaging.iserver.services.ws.worker.Directive publishApplications(java.lang.String in0, com.strandgenomics.imaging.iserver.services.ws.worker.Application[] in1) throws java.rmi.RemoteException {
-        if (super.cachedEndpoint == null) {
-            throw new org.apache.axis.NoEndPointException();
-        }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[1]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("urn:iworkers", "publishApplications"));
-
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0, in1});
-
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
-        }
-        else {
-            extractAttachments(_call);
-            try {
-                return (com.strandgenomics.imaging.iserver.services.ws.worker.Directive) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (com.strandgenomics.imaging.iserver.services.ws.worker.Directive) org.apache.axis.utils.JavaUtils.convert(_resp, com.strandgenomics.imaging.iserver.services.ws.worker.Directive.class);
-            }
-        }
-  } catch (org.apache.axis.AxisFault axisFaultException) {
-  throw axisFaultException;
-}
-    }
-
     public com.strandgenomics.imaging.iserver.services.ws.worker.Directive removeApplications(java.lang.String in0, com.strandgenomics.imaging.iserver.services.ws.worker.Application[] in1) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[2]);
+        _call.setOperation(_operations[1]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
@@ -482,16 +451,16 @@ public class IWorkersSoapBindingStub extends org.apache.axis.client.Stub impleme
 }
     }
 
-    public com.strandgenomics.imaging.iserver.services.ws.worker.Response ping(java.lang.String in0, com.strandgenomics.imaging.iserver.services.ws.worker.Request in1) throws java.rmi.RemoteException {
+    public com.strandgenomics.imaging.iserver.services.ws.worker.Directive publishApplications(java.lang.String in0, com.strandgenomics.imaging.iserver.services.ws.worker.Application[] in1) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[3]);
+        _call.setOperation(_operations[2]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("urn:iworkers", "ping"));
+        _call.setOperationName(new javax.xml.namespace.QName("urn:iworkers", "publishApplications"));
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -503,40 +472,9 @@ public class IWorkersSoapBindingStub extends org.apache.axis.client.Stub impleme
         else {
             extractAttachments(_call);
             try {
-                return (com.strandgenomics.imaging.iserver.services.ws.worker.Response) _resp;
+                return (com.strandgenomics.imaging.iserver.services.ws.worker.Directive) _resp;
             } catch (java.lang.Exception _exception) {
-                return (com.strandgenomics.imaging.iserver.services.ws.worker.Response) org.apache.axis.utils.JavaUtils.convert(_resp, com.strandgenomics.imaging.iserver.services.ws.worker.Response.class);
-            }
-        }
-  } catch (org.apache.axis.AxisFault axisFaultException) {
-  throw axisFaultException;
-}
-    }
-
-    public com.strandgenomics.imaging.iserver.services.ws.worker.StringListConstraints testMethod0(java.lang.String in0) throws java.rmi.RemoteException {
-        if (super.cachedEndpoint == null) {
-            throw new org.apache.axis.NoEndPointException();
-        }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[4]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("urn:iworkers", "testMethod0"));
-
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0});
-
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
-        }
-        else {
-            extractAttachments(_call);
-            try {
-                return (com.strandgenomics.imaging.iserver.services.ws.worker.StringListConstraints) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (com.strandgenomics.imaging.iserver.services.ws.worker.StringListConstraints) org.apache.axis.utils.JavaUtils.convert(_resp, com.strandgenomics.imaging.iserver.services.ws.worker.StringListConstraints.class);
+                return (com.strandgenomics.imaging.iserver.services.ws.worker.Directive) org.apache.axis.utils.JavaUtils.convert(_resp, com.strandgenomics.imaging.iserver.services.ws.worker.Directive.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -549,7 +487,7 @@ public class IWorkersSoapBindingStub extends org.apache.axis.client.Stub impleme
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[5]);
+        _call.setOperation(_operations[3]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
@@ -575,43 +513,12 @@ public class IWorkersSoapBindingStub extends org.apache.axis.client.Stub impleme
 }
     }
 
-    public com.strandgenomics.imaging.iserver.services.ws.worker.DoubleRangeConstraints testMethod2(java.lang.String in0) throws java.rmi.RemoteException {
-        if (super.cachedEndpoint == null) {
-            throw new org.apache.axis.NoEndPointException();
-        }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[6]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("urn:iworkers", "testMethod2"));
-
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0});
-
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
-        }
-        else {
-            extractAttachments(_call);
-            try {
-                return (com.strandgenomics.imaging.iserver.services.ws.worker.DoubleRangeConstraints) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (com.strandgenomics.imaging.iserver.services.ws.worker.DoubleRangeConstraints) org.apache.axis.utils.JavaUtils.convert(_resp, com.strandgenomics.imaging.iserver.services.ws.worker.DoubleRangeConstraints.class);
-            }
-        }
-  } catch (org.apache.axis.AxisFault axisFaultException) {
-  throw axisFaultException;
-}
-    }
-
     public com.strandgenomics.imaging.iserver.services.ws.worker.LongListConstraints testMethod3(java.lang.String in0) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[7]);
+        _call.setOperation(_operations[4]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
@@ -637,12 +544,43 @@ public class IWorkersSoapBindingStub extends org.apache.axis.client.Stub impleme
 }
     }
 
+    public com.strandgenomics.imaging.iserver.services.ws.worker.DoubleRangeConstraints testMethod2(java.lang.String in0) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[5]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("");
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("urn:iworkers", "testMethod2"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (com.strandgenomics.imaging.iserver.services.ws.worker.DoubleRangeConstraints) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (com.strandgenomics.imaging.iserver.services.ws.worker.DoubleRangeConstraints) org.apache.axis.utils.JavaUtils.convert(_resp, com.strandgenomics.imaging.iserver.services.ws.worker.DoubleRangeConstraints.class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
     public com.strandgenomics.imaging.iserver.services.ws.worker.LongRangeConstraints testMethod4(java.lang.String in0) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[8]);
+        _call.setOperation(_operations[6]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
@@ -661,6 +599,68 @@ public class IWorkersSoapBindingStub extends org.apache.axis.client.Stub impleme
                 return (com.strandgenomics.imaging.iserver.services.ws.worker.LongRangeConstraints) _resp;
             } catch (java.lang.Exception _exception) {
                 return (com.strandgenomics.imaging.iserver.services.ws.worker.LongRangeConstraints) org.apache.axis.utils.JavaUtils.convert(_resp, com.strandgenomics.imaging.iserver.services.ws.worker.LongRangeConstraints.class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public com.strandgenomics.imaging.iserver.services.ws.worker.StringListConstraints testMethod0(java.lang.String in0) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[7]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("");
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("urn:iworkers", "testMethod0"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (com.strandgenomics.imaging.iserver.services.ws.worker.StringListConstraints) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (com.strandgenomics.imaging.iserver.services.ws.worker.StringListConstraints) org.apache.axis.utils.JavaUtils.convert(_resp, com.strandgenomics.imaging.iserver.services.ws.worker.StringListConstraints.class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public com.strandgenomics.imaging.iserver.services.ws.worker.Response ping(java.lang.String in0, com.strandgenomics.imaging.iserver.services.ws.worker.Request in1) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[8]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("");
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("urn:iworkers", "ping"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {in0, in1});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (com.strandgenomics.imaging.iserver.services.ws.worker.Response) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (com.strandgenomics.imaging.iserver.services.ws.worker.Response) org.apache.axis.utils.JavaUtils.convert(_resp, com.strandgenomics.imaging.iserver.services.ws.worker.Response.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

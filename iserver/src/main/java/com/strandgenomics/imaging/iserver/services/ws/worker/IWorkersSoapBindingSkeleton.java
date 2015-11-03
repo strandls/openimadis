@@ -2,7 +2,7 @@
  * IWorkersSoapBindingSkeleton.java
  *
  * This file was auto-generated from WSDL
- * by the Apache Axis 1.4 Sep 25, 2006 (02:39:47 GMT+05:30) WSDL2Java emitter.
+ * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
 package com.strandgenomics.imaging.iserver.services.ws.worker;
@@ -47,19 +47,6 @@ public class IWorkersSoapBindingSkeleton implements com.strandgenomics.imaging.i
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:iworkers", "ArrayOfApplication"), com.strandgenomics.imaging.iserver.services.ws.worker.Application[].class, false, false), 
         };
-        _oper = new org.apache.axis.description.OperationDesc("publishApplications", _params, new javax.xml.namespace.QName("", "publishApplicationsReturn"));
-        _oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "Directive"));
-        _oper.setElementQName(new javax.xml.namespace.QName("urn:iworkers", "publishApplications"));
-        _oper.setSoapAction("");
-        _myOperationsList.add(_oper);
-        if (_myOperations.get("publishApplications") == null) {
-            _myOperations.put("publishApplications", new java.util.ArrayList());
-        }
-        ((java.util.List)_myOperations.get("publishApplications")).add(_oper);
-        _params = new org.apache.axis.description.ParameterDesc [] {
-            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
-            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:iworkers", "ArrayOfApplication"), com.strandgenomics.imaging.iserver.services.ws.worker.Application[].class, false, false), 
-        };
         _oper = new org.apache.axis.description.OperationDesc("removeApplications", _params, new javax.xml.namespace.QName("", "removeApplicationsReturn"));
         _oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "Directive"));
         _oper.setElementQName(new javax.xml.namespace.QName("urn:iworkers", "removeApplications"));
@@ -71,29 +58,17 @@ public class IWorkersSoapBindingSkeleton implements com.strandgenomics.imaging.i
         ((java.util.List)_myOperations.get("removeApplications")).add(_oper);
         _params = new org.apache.axis.description.ParameterDesc [] {
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
-            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:iworkers", "Request"), com.strandgenomics.imaging.iserver.services.ws.worker.Request.class, false, false), 
+            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:iworkers", "ArrayOfApplication"), com.strandgenomics.imaging.iserver.services.ws.worker.Application[].class, false, false), 
         };
-        _oper = new org.apache.axis.description.OperationDesc("ping", _params, new javax.xml.namespace.QName("", "pingReturn"));
-        _oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "Response"));
-        _oper.setElementQName(new javax.xml.namespace.QName("urn:iworkers", "ping"));
+        _oper = new org.apache.axis.description.OperationDesc("publishApplications", _params, new javax.xml.namespace.QName("", "publishApplicationsReturn"));
+        _oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "Directive"));
+        _oper.setElementQName(new javax.xml.namespace.QName("urn:iworkers", "publishApplications"));
         _oper.setSoapAction("");
         _myOperationsList.add(_oper);
-        if (_myOperations.get("ping") == null) {
-            _myOperations.put("ping", new java.util.ArrayList());
+        if (_myOperations.get("publishApplications") == null) {
+            _myOperations.put("publishApplications", new java.util.ArrayList());
         }
-        ((java.util.List)_myOperations.get("ping")).add(_oper);
-        _params = new org.apache.axis.description.ParameterDesc [] {
-            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
-        };
-        _oper = new org.apache.axis.description.OperationDesc("testMethod0", _params, new javax.xml.namespace.QName("", "testMethod0Return"));
-        _oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "StringListConstraints"));
-        _oper.setElementQName(new javax.xml.namespace.QName("urn:iworkers", "testMethod0"));
-        _oper.setSoapAction("");
-        _myOperationsList.add(_oper);
-        if (_myOperations.get("testMethod0") == null) {
-            _myOperations.put("testMethod0", new java.util.ArrayList());
-        }
-        ((java.util.List)_myOperations.get("testMethod0")).add(_oper);
+        ((java.util.List)_myOperations.get("publishApplications")).add(_oper);
         _params = new org.apache.axis.description.ParameterDesc [] {
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
         };
@@ -109,18 +84,6 @@ public class IWorkersSoapBindingSkeleton implements com.strandgenomics.imaging.i
         _params = new org.apache.axis.description.ParameterDesc [] {
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
         };
-        _oper = new org.apache.axis.description.OperationDesc("testMethod2", _params, new javax.xml.namespace.QName("", "testMethod2Return"));
-        _oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "DoubleRangeConstraints"));
-        _oper.setElementQName(new javax.xml.namespace.QName("urn:iworkers", "testMethod2"));
-        _oper.setSoapAction("");
-        _myOperationsList.add(_oper);
-        if (_myOperations.get("testMethod2") == null) {
-            _myOperations.put("testMethod2", new java.util.ArrayList());
-        }
-        ((java.util.List)_myOperations.get("testMethod2")).add(_oper);
-        _params = new org.apache.axis.description.ParameterDesc [] {
-            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
-        };
         _oper = new org.apache.axis.description.OperationDesc("testMethod3", _params, new javax.xml.namespace.QName("", "testMethod3Return"));
         _oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "LongListConstraints"));
         _oper.setElementQName(new javax.xml.namespace.QName("urn:iworkers", "testMethod3"));
@@ -133,6 +96,18 @@ public class IWorkersSoapBindingSkeleton implements com.strandgenomics.imaging.i
         _params = new org.apache.axis.description.ParameterDesc [] {
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
         };
+        _oper = new org.apache.axis.description.OperationDesc("testMethod2", _params, new javax.xml.namespace.QName("", "testMethod2Return"));
+        _oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "DoubleRangeConstraints"));
+        _oper.setElementQName(new javax.xml.namespace.QName("urn:iworkers", "testMethod2"));
+        _oper.setSoapAction("");
+        _myOperationsList.add(_oper);
+        if (_myOperations.get("testMethod2") == null) {
+            _myOperations.put("testMethod2", new java.util.ArrayList());
+        }
+        ((java.util.List)_myOperations.get("testMethod2")).add(_oper);
+        _params = new org.apache.axis.description.ParameterDesc [] {
+            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
+        };
         _oper = new org.apache.axis.description.OperationDesc("testMethod4", _params, new javax.xml.namespace.QName("", "testMethod4Return"));
         _oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "LongRangeConstraints"));
         _oper.setElementQName(new javax.xml.namespace.QName("urn:iworkers", "testMethod4"));
@@ -142,11 +117,35 @@ public class IWorkersSoapBindingSkeleton implements com.strandgenomics.imaging.i
             _myOperations.put("testMethod4", new java.util.ArrayList());
         }
         ((java.util.List)_myOperations.get("testMethod4")).add(_oper);
+        _params = new org.apache.axis.description.ParameterDesc [] {
+            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
+        };
+        _oper = new org.apache.axis.description.OperationDesc("testMethod0", _params, new javax.xml.namespace.QName("", "testMethod0Return"));
+        _oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "StringListConstraints"));
+        _oper.setElementQName(new javax.xml.namespace.QName("urn:iworkers", "testMethod0"));
+        _oper.setSoapAction("");
+        _myOperationsList.add(_oper);
+        if (_myOperations.get("testMethod0") == null) {
+            _myOperations.put("testMethod0", new java.util.ArrayList());
+        }
+        ((java.util.List)_myOperations.get("testMethod0")).add(_oper);
+        _params = new org.apache.axis.description.ParameterDesc [] {
+            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
+            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:iworkers", "Request"), com.strandgenomics.imaging.iserver.services.ws.worker.Request.class, false, false), 
+        };
+        _oper = new org.apache.axis.description.OperationDesc("ping", _params, new javax.xml.namespace.QName("", "pingReturn"));
+        _oper.setReturnType(new javax.xml.namespace.QName("urn:iworkers", "Response"));
+        _oper.setElementQName(new javax.xml.namespace.QName("urn:iworkers", "ping"));
+        _oper.setSoapAction("");
+        _myOperationsList.add(_oper);
+        if (_myOperations.get("ping") == null) {
+            _myOperations.put("ping", new java.util.ArrayList());
+        }
+        ((java.util.List)_myOperations.get("ping")).add(_oper);
     }
 
     public IWorkersSoapBindingSkeleton() {
-//        this.impl = new com.strandgenomics.imaging.iserver.services.ws.worker.IWorkersSoapBindingImpl();
-    	this.impl = new com.strandgenomics.imaging.iserver.services.impl.ImageSpaceWorkerManagerImpl();
+        this.impl = new com.strandgenomics.imaging.iserver.services.ws.worker.IWorkersSoapBindingImpl();
     }
 
     public IWorkersSoapBindingSkeleton(com.strandgenomics.imaging.iserver.services.ws.worker.ImageSpaceWorkers impl) {
@@ -158,27 +157,15 @@ public class IWorkersSoapBindingSkeleton implements com.strandgenomics.imaging.i
         return ret;
     }
 
-    public com.strandgenomics.imaging.iserver.services.ws.worker.Directive publishApplications(java.lang.String in0, com.strandgenomics.imaging.iserver.services.ws.worker.Application[] in1) throws java.rmi.RemoteException
-    {
-        com.strandgenomics.imaging.iserver.services.ws.worker.Directive ret = impl.publishApplications(in0, in1);
-        return ret;
-    }
-
     public com.strandgenomics.imaging.iserver.services.ws.worker.Directive removeApplications(java.lang.String in0, com.strandgenomics.imaging.iserver.services.ws.worker.Application[] in1) throws java.rmi.RemoteException
     {
         com.strandgenomics.imaging.iserver.services.ws.worker.Directive ret = impl.removeApplications(in0, in1);
         return ret;
     }
 
-    public com.strandgenomics.imaging.iserver.services.ws.worker.Response ping(java.lang.String in0, com.strandgenomics.imaging.iserver.services.ws.worker.Request in1) throws java.rmi.RemoteException
+    public com.strandgenomics.imaging.iserver.services.ws.worker.Directive publishApplications(java.lang.String in0, com.strandgenomics.imaging.iserver.services.ws.worker.Application[] in1) throws java.rmi.RemoteException
     {
-        com.strandgenomics.imaging.iserver.services.ws.worker.Response ret = impl.ping(in0, in1);
-        return ret;
-    }
-
-    public com.strandgenomics.imaging.iserver.services.ws.worker.StringListConstraints testMethod0(java.lang.String in0) throws java.rmi.RemoteException
-    {
-        com.strandgenomics.imaging.iserver.services.ws.worker.StringListConstraints ret = impl.testMethod0(in0);
+        com.strandgenomics.imaging.iserver.services.ws.worker.Directive ret = impl.publishApplications(in0, in1);
         return ret;
     }
 
@@ -188,21 +175,33 @@ public class IWorkersSoapBindingSkeleton implements com.strandgenomics.imaging.i
         return ret;
     }
 
-    public com.strandgenomics.imaging.iserver.services.ws.worker.DoubleRangeConstraints testMethod2(java.lang.String in0) throws java.rmi.RemoteException
-    {
-        com.strandgenomics.imaging.iserver.services.ws.worker.DoubleRangeConstraints ret = impl.testMethod2(in0);
-        return ret;
-    }
-
     public com.strandgenomics.imaging.iserver.services.ws.worker.LongListConstraints testMethod3(java.lang.String in0) throws java.rmi.RemoteException
     {
         com.strandgenomics.imaging.iserver.services.ws.worker.LongListConstraints ret = impl.testMethod3(in0);
         return ret;
     }
 
+    public com.strandgenomics.imaging.iserver.services.ws.worker.DoubleRangeConstraints testMethod2(java.lang.String in0) throws java.rmi.RemoteException
+    {
+        com.strandgenomics.imaging.iserver.services.ws.worker.DoubleRangeConstraints ret = impl.testMethod2(in0);
+        return ret;
+    }
+
     public com.strandgenomics.imaging.iserver.services.ws.worker.LongRangeConstraints testMethod4(java.lang.String in0) throws java.rmi.RemoteException
     {
         com.strandgenomics.imaging.iserver.services.ws.worker.LongRangeConstraints ret = impl.testMethod4(in0);
+        return ret;
+    }
+
+    public com.strandgenomics.imaging.iserver.services.ws.worker.StringListConstraints testMethod0(java.lang.String in0) throws java.rmi.RemoteException
+    {
+        com.strandgenomics.imaging.iserver.services.ws.worker.StringListConstraints ret = impl.testMethod0(in0);
+        return ret;
+    }
+
+    public com.strandgenomics.imaging.iserver.services.ws.worker.Response ping(java.lang.String in0, com.strandgenomics.imaging.iserver.services.ws.worker.Request in1) throws java.rmi.RemoteException
+    {
+        com.strandgenomics.imaging.iserver.services.ws.worker.Response ret = impl.ping(in0, in1);
         return ret;
     }
 

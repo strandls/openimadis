@@ -350,7 +350,7 @@ public class ImageSpaceLoaderImpl implements ImageSpaceLoader, Serializable {
         String clientIP = null;
         if(session instanceof AxisHttpSession)
         {
-            clientIP = ((AxisHttpSession) session).getClientAddress();
+            //clientIP = ((AxisHttpSession) session).getClientAddress();
         }
 
         if(clientIP == null)

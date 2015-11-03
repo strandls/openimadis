@@ -2,7 +2,7 @@
  * IUpdateSoapBindingSkeleton.java
  *
  * This file was auto-generated from WSDL
- * by the Apache Axis 1.4 Sep 25, 2006 (02:39:47 GMT+05:30) WSDL2Java emitter.
+ * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
 package com.strandgenomics.imaging.iserver.services.ws.update;
@@ -34,16 +34,16 @@ public class IUpdateSoapBindingSkeleton implements com.strandgenomics.imaging.is
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false), 
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in2"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
+            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in3"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
         };
-        _oper = new org.apache.axis.description.OperationDesc("getAttachmentUploadURL", _params, new javax.xml.namespace.QName("", "getAttachmentUploadURLReturn"));
-        _oper.setReturnType(new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"));
-        _oper.setElementQName(new javax.xml.namespace.QName("urn:iupdate", "getAttachmentUploadURL"));
+        _oper = new org.apache.axis.description.OperationDesc("updateAttachmentNotes", _params, null);
+        _oper.setElementQName(new javax.xml.namespace.QName("urn:iupdate", "updateAttachmentNotes"));
         _oper.setSoapAction("");
         _myOperationsList.add(_oper);
-        if (_myOperations.get("getAttachmentUploadURL") == null) {
-            _myOperations.put("getAttachmentUploadURL", new java.util.ArrayList());
+        if (_myOperations.get("updateAttachmentNotes") == null) {
+            _myOperations.put("updateAttachmentNotes", new java.util.ArrayList());
         }
-        ((java.util.List)_myOperations.get("getAttachmentUploadURL")).add(_oper);
+        ((java.util.List)_myOperations.get("updateAttachmentNotes")).add(_oper);
         _params = new org.apache.axis.description.ParameterDesc [] {
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false), 
@@ -60,31 +60,32 @@ public class IUpdateSoapBindingSkeleton implements com.strandgenomics.imaging.is
         _params = new org.apache.axis.description.ParameterDesc [] {
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false), 
-            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in2"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
+            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in2"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:iupdate", "ArrayOf_xsd_int"), int[].class, false, false), 
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in3"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
+            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in4"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:iupdate", "ArrayOfVOIndex"), com.strandgenomics.imaging.iserver.services.ws.update.VOIndex[].class, false, false), 
         };
-        _oper = new org.apache.axis.description.OperationDesc("updateAttachmentNotes", _params, null);
-        _oper.setElementQName(new javax.xml.namespace.QName("urn:iupdate", "updateAttachmentNotes"));
+        _oper = new org.apache.axis.description.OperationDesc("deleteTextObjects", _params, null);
+        _oper.setElementQName(new javax.xml.namespace.QName("urn:iupdate", "deleteTextObjects"));
         _oper.setSoapAction("");
         _myOperationsList.add(_oper);
-        if (_myOperations.get("updateAttachmentNotes") == null) {
-            _myOperations.put("updateAttachmentNotes", new java.util.ArrayList());
+        if (_myOperations.get("deleteTextObjects") == null) {
+            _myOperations.put("deleteTextObjects", new java.util.ArrayList());
         }
-        ((java.util.List)_myOperations.get("updateAttachmentNotes")).add(_oper);
+        ((java.util.List)_myOperations.get("deleteTextObjects")).add(_oper);
         _params = new org.apache.axis.description.ParameterDesc [] {
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false), 
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in2"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
-            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in3"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "anyType"), java.lang.Object.class, false, false), 
         };
-        _oper = new org.apache.axis.description.OperationDesc("updateRecordUserAnnotation", _params, null);
-        _oper.setElementQName(new javax.xml.namespace.QName("urn:iupdate", "updateRecordUserAnnotation"));
+        _oper = new org.apache.axis.description.OperationDesc("getAttachmentUploadURL", _params, new javax.xml.namespace.QName("", "getAttachmentUploadURLReturn"));
+        _oper.setReturnType(new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"));
+        _oper.setElementQName(new javax.xml.namespace.QName("urn:iupdate", "getAttachmentUploadURL"));
         _oper.setSoapAction("");
         _myOperationsList.add(_oper);
-        if (_myOperations.get("updateRecordUserAnnotation") == null) {
-            _myOperations.put("updateRecordUserAnnotation", new java.util.ArrayList());
+        if (_myOperations.get("getAttachmentUploadURL") == null) {
+            _myOperations.put("getAttachmentUploadURL", new java.util.ArrayList());
         }
-        ((java.util.List)_myOperations.get("updateRecordUserAnnotation")).add(_oper);
+        ((java.util.List)_myOperations.get("getAttachmentUploadURL")).add(_oper);
         _params = new org.apache.axis.description.ParameterDesc [] {
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false), 
@@ -117,33 +118,29 @@ public class IUpdateSoapBindingSkeleton implements com.strandgenomics.imaging.is
         _params = new org.apache.axis.description.ParameterDesc [] {
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false), 
-            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in2"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:iupdate", "ArrayOf_xsd_int"), int[].class, false, false), 
-            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in3"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
-            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in4"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:iupdate", "ArrayOfVOIndex"), com.strandgenomics.imaging.iserver.services.ws.update.VOIndex[].class, false, false), 
+            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in2"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
+            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in3"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "anyType"), java.lang.Object.class, false, false), 
         };
-        _oper = new org.apache.axis.description.OperationDesc("deleteTextObjects", _params, null);
-        _oper.setElementQName(new javax.xml.namespace.QName("urn:iupdate", "deleteTextObjects"));
+        _oper = new org.apache.axis.description.OperationDesc("updateRecordUserAnnotation", _params, null);
+        _oper.setElementQName(new javax.xml.namespace.QName("urn:iupdate", "updateRecordUserAnnotation"));
         _oper.setSoapAction("");
         _myOperationsList.add(_oper);
-        if (_myOperations.get("deleteTextObjects") == null) {
-            _myOperations.put("deleteTextObjects", new java.util.ArrayList());
+        if (_myOperations.get("updateRecordUserAnnotation") == null) {
+            _myOperations.put("updateRecordUserAnnotation", new java.util.ArrayList());
         }
-        ((java.util.List)_myOperations.get("deleteTextObjects")).add(_oper);
+        ((java.util.List)_myOperations.get("updateRecordUserAnnotation")).add(_oper);
     }
 
-    public IUpdateSoapBindingSkeleton() 
-    {
-       // this.impl = new com.strandgenomics.imaging.iserver.services.ws.update.IUpdateSoapBindingImpl();
-        this.impl = new com.strandgenomics.imaging.iserver.services.impl.ImageSpaceUpdateImpl();
+    public IUpdateSoapBindingSkeleton() {
+        this.impl = new com.strandgenomics.imaging.iserver.services.ws.update.IUpdateSoapBindingImpl();
     }
 
     public IUpdateSoapBindingSkeleton(com.strandgenomics.imaging.iserver.services.ws.update.ImageSpaceUpdate impl) {
         this.impl = impl;
     }
-    public java.lang.String getAttachmentUploadURL(java.lang.String in0, long in1, java.lang.String in2) throws java.rmi.RemoteException
+    public void updateAttachmentNotes(java.lang.String in0, long in1, java.lang.String in2, java.lang.String in3) throws java.rmi.RemoteException
     {
-        java.lang.String ret = impl.getAttachmentUploadURL(in0, in1, in2);
-        return ret;
+        impl.updateAttachmentNotes(in0, in1, in2, in3);
     }
 
     public void deleteAttachment(java.lang.String in0, long in1, java.lang.String in2) throws java.rmi.RemoteException
@@ -151,14 +148,15 @@ public class IUpdateSoapBindingSkeleton implements com.strandgenomics.imaging.is
         impl.deleteAttachment(in0, in1, in2);
     }
 
-    public void updateAttachmentNotes(java.lang.String in0, long in1, java.lang.String in2, java.lang.String in3) throws java.rmi.RemoteException
+    public void deleteTextObjects(java.lang.String in0, long in1, int[] in2, java.lang.String in3, com.strandgenomics.imaging.iserver.services.ws.update.VOIndex[] in4) throws java.rmi.RemoteException
     {
-        impl.updateAttachmentNotes(in0, in1, in2, in3);
+        impl.deleteTextObjects(in0, in1, in2, in3, in4);
     }
 
-    public void updateRecordUserAnnotation(java.lang.String in0, long in1, java.lang.String in2, java.lang.Object in3) throws java.rmi.RemoteException
+    public java.lang.String getAttachmentUploadURL(java.lang.String in0, long in1, java.lang.String in2) throws java.rmi.RemoteException
     {
-        impl.updateRecordUserAnnotation(in0, in1, in2, in3);
+        java.lang.String ret = impl.getAttachmentUploadURL(in0, in1, in2);
+        return ret;
     }
 
     public void deleteVisualOverlays(java.lang.String in0, long in1, int in2, java.lang.String in3) throws java.rmi.RemoteException
@@ -171,9 +169,9 @@ public class IUpdateSoapBindingSkeleton implements com.strandgenomics.imaging.is
         impl.deleteVisualObjects(in0, in1, in2, in3, in4);
     }
 
-    public void deleteTextObjects(java.lang.String in0, long in1, int[] in2, java.lang.String in3, com.strandgenomics.imaging.iserver.services.ws.update.VOIndex[] in4) throws java.rmi.RemoteException
+    public void updateRecordUserAnnotation(java.lang.String in0, long in1, java.lang.String in2, java.lang.Object in3) throws java.rmi.RemoteException
     {
-        impl.deleteTextObjects(in0, in1, in2, in3, in4);
+        impl.updateRecordUserAnnotation(in0, in1, in2, in3);
     }
 
 }

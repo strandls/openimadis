@@ -2,7 +2,7 @@
  * ImageSpaceAuthorizationServiceLocator.java
  *
  * This file was auto-generated from WSDL
- * by the Apache Axis 1.4 Sep 25, 2006 (02:39:47 GMT+05:30) WSDL2Java emitter.
+ * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
 package com.strandgenomics.imaging.iserver.services.ws.auth;
@@ -22,7 +22,7 @@ public class ImageSpaceAuthorizationServiceLocator extends org.apache.axis.clien
     }
 
     // Use to get a proxy class for iAuth
-    private java.lang.String iAuth_address = "http://localhost:8080/iManage/services/";
+    private java.lang.String iAuth_address = "http://localhost:8080/imanage/services/";
 
     public java.lang.String getiAuthAddress() {
         return iAuth_address;

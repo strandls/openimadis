@@ -321,7 +321,7 @@ public class ImageSpaceWorkerManagerImpl implements ImageSpaceWorkers, Serializa
         String clientIP = null;
         if(session instanceof AxisHttpSession)
         {
-            clientIP = ((AxisHttpSession) session).getClientAddress();
+            //clientIP = ((AxisHttpSession) session).getClientAddress();
         }
 
         if(clientIP == null)

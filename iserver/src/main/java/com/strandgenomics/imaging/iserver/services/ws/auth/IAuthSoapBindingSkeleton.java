@@ -2,7 +2,7 @@
  * IAuthSoapBindingSkeleton.java
  *
  * This file was auto-generated from WSDL
- * by the Apache Axis 1.4 Sep 25, 2006 (02:39:47 GMT+05:30) WSDL2Java emitter.
+ * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
 package com.strandgenomics.imaging.iserver.services.ws.auth;
@@ -30,6 +30,18 @@ public class IAuthSoapBindingSkeleton implements com.strandgenomics.imaging.iser
         org.apache.axis.description.OperationDesc _oper;
         org.apache.axis.description.FaultDesc _fault;
         org.apache.axis.description.ParameterDesc [] _params;
+        _params = new org.apache.axis.description.ParameterDesc [] {
+            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
+            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
+        };
+        _oper = new org.apache.axis.description.OperationDesc("surrenderAccessToken", _params, null);
+        _oper.setElementQName(new javax.xml.namespace.QName("urn:iauth", "surrenderAccessToken"));
+        _oper.setSoapAction("");
+        _myOperationsList.add(_oper);
+        if (_myOperations.get("surrenderAccessToken") == null) {
+            _myOperations.put("surrenderAccessToken", new java.util.ArrayList());
+        }
+        ((java.util.List)_myOperations.get("surrenderAccessToken")).add(_oper);
         _params = new org.apache.axis.description.ParameterDesc [] {
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
@@ -67,29 +79,20 @@ public class IAuthSoapBindingSkeleton implements com.strandgenomics.imaging.iser
             _myOperations.put("getExpiryTime", new java.util.ArrayList());
         }
         ((java.util.List)_myOperations.get("getExpiryTime")).add(_oper);
-        _params = new org.apache.axis.description.ParameterDesc [] {
-            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
-            new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "in1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://schemas.xmlsoap.org/soap/encoding/", "string"), java.lang.String.class, false, false), 
-        };
-        _oper = new org.apache.axis.description.OperationDesc("surrenderAccessToken", _params, null);
-        _oper.setElementQName(new javax.xml.namespace.QName("urn:iauth", "surrenderAccessToken"));
-        _oper.setSoapAction("");
-        _myOperationsList.add(_oper);
-        if (_myOperations.get("surrenderAccessToken") == null) {
-            _myOperations.put("surrenderAccessToken", new java.util.ArrayList());
-        }
-        ((java.util.List)_myOperations.get("surrenderAccessToken")).add(_oper);
     }
 
     public IAuthSoapBindingSkeleton() {
-    	//this.impl = new com.strandgenomics.imaging.iserver.services.ws.auth.IAuthSoapBindingImpl();
-    	//this is the only change that needs to be made
-        this.impl = new com.strandgenomics.imaging.iserver.services.impl.ImageSpaceAuthorizationImpl();
+        this.impl = new com.strandgenomics.imaging.iserver.services.ws.auth.IAuthSoapBindingImpl();
     }
 
     public IAuthSoapBindingSkeleton(com.strandgenomics.imaging.iserver.services.ws.auth.ImageSpaceAuthorization impl) {
         this.impl = impl;
     }
+    public void surrenderAccessToken(java.lang.String in0, java.lang.String in1) throws java.rmi.RemoteException
+    {
+        impl.surrenderAccessToken(in0, in1);
+    }
+
     public java.lang.String getAccessToken(java.lang.String in0, java.lang.String in1) throws java.rmi.RemoteException
     {
         java.lang.String ret = impl.getAccessToken(in0, in1);
@@ -106,11 +109,6 @@ public class IAuthSoapBindingSkeleton implements com.strandgenomics.imaging.iser
     {
         long ret = impl.getExpiryTime(in0);
         return ret;
-    }
-
-    public void surrenderAccessToken(java.lang.String in0, java.lang.String in1) throws java.rmi.RemoteException
-    {
-        impl.surrenderAccessToken(in0, in1);
     }
 
 }

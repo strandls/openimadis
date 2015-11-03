@@ -594,7 +594,7 @@ public class ImageSpaceComputeImpl implements ImageSpaceCompute, Serializable {
         String clientIP = null;
         if(session instanceof AxisHttpSession)
         {
-            clientIP = ((AxisHttpSession) session).getClientAddress();
+            //clientIP = ((AxisHttpSession) session).getClientAddress();
         }
 
         if(clientIP == null)
