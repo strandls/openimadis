@@ -3,5 +3,6 @@ rootProject.name = 'imaging'
 include ':icore'
 include ':iengine'
 include ':iserver'
+include ':iclient'
 include ':ithreedview'
 
