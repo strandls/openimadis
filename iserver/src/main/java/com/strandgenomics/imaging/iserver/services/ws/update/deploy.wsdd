@@ -1,0 +1,49 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ImageSpaceUpdateService WSDL service -->
+
+  <service name="iUpdate" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:iupdate"/>
+      <parameter name="wsdlServiceElement" value="ImageSpaceUpdateService"/>
+      <parameter name="schemaUnqualified" value="urn:iupdate"/>
+      <parameter name="wsdlServicePort" value="iUpdate"/>
+      <parameter name="className" value="com.strandgenomics.imaging.iserver.services.ws.update.IUpdateSoapBindingSkeleton"/>
+      <parameter name="wsdlPortType" value="ImageSpaceUpdate"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <parameter name="allowedMethods" value="*"/>
+      <parameter name="scope" value="Request"/>
+
+      <typeMapping
+        xmlns:ns="urn:iupdate"
+        qname="ns:VOIndex"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.update.VOIndex"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:iupdate"
+        qname="ns:ArrayOfVOIndex"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.update.VOIndex[]"
+        innerType="cmp-ns:VOIndex" xmlns:cmp-ns="urn:iupdate"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:iupdate"
+        qname="ns:ArrayOf_xsd_int"
+        type="java:int[]"
+        innerType="cmp-ns:int" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

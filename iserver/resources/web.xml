@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+	<distributable />
+	<display-name>Avadis IMG Server</display-name>
+	<listener>
+		<listener-class>org.apache.axis.transport.http.AxisHTTPSessionListener</listener-class>
+	</listener>
+	
+	<!-- Servlet Classes -->
+	<servlet>
+		<servlet-name>DataExchangeServlet</servlet-name>
+		<display-name>Servlet for download and upload of archives, record attachments etc bypassing soap webservices</display-name>
+		<servlet-class>com.strandgenomics.imaging.iserver.services.impl.web.DataExchangeServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AuthenticationServlet</servlet-name>
+		<display-name>Servlet handling authentication related services</display-name>
+		<servlet-class>com.strandgenomics.imaging.iserver.services.impl.web.AuthenticationServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ProjectServlet</servlet-name>
+		<display-name>Servlet handling project related services</display-name>
+		<servlet-class>com.strandgenomics.imaging.iserver.services.impl.web.ProjectServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>RecordServlet</servlet-name>
+		<display-name>Servlet handling record related services</display-name>
+		<servlet-class>com.strandgenomics.imaging.iserver.services.impl.web.RecordServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>NavigatorServlet</servlet-name>
+		<display-name>Servlet handling navigator related queries</display-name>
+		<servlet-class>com.strandgenomics.imaging.iserver.services.impl.web.NavigatorServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AnnotationServlet</servlet-name>
+		<display-name>Servlet handling annotation related services</display-name>
+		<servlet-class>com.strandgenomics.imaging.iserver.services.impl.web.AnnotationServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ManageServlet</servlet-name>
+		<display-name>Servlet handling admin related services</display-name>
+		<servlet-class>com.strandgenomics.imaging.iserver.services.impl.web.ManageServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ComputeServlet</servlet-name>
+		<display-name>Servlet handling compute related services</display-name>
+		<servlet-class>com.strandgenomics.imaging.iserver.services.impl.web.ComputeServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AxisServlet</servlet-name>
+		<display-name>Apache-Axis Servlet</display-name>
+		<servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AdminServlet</servlet-name>
+		<display-name>Axis Admin Servlet</display-name>
+		<servlet-class>org.apache.axis.transport.http.AdminServlet</servlet-class>
+		<load-on-startup>100</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>SOAPMonitorService</servlet-name>
+		<display-name>SOAPMonitorService</display-name>
+		<servlet-class>org.apache.axis.monitor.SOAPMonitorService</servlet-class>
+		<init-param>
+			<param-name>SOAPMonitorPort</param-name>
+			<param-value>5001</param-value>
+		</init-param>
+		<load-on-startup>100</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>MovieServlet</servlet-name>
+		<display-name>Servlet handling movie related services</display-name>
+		<servlet-class>com.strandgenomics.imaging.iserver.services.impl.web.MovieServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ZoomServlet</servlet-name>
+		<display-name>Servlet handling zoom related services</display-name>
+		<servlet-class>com.strandgenomics.imaging.iserver.services.impl.web.ZoomServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>DownloadServlet</servlet-name>
+		<display-name>Servlet handling download related services</display-name>
+		<servlet-class>com.strandgenomics.imaging.iserver.services.impl.web.DownloadServlet</servlet-class>
+	</servlet>
+	
+	<!-- Servlet Mappings -->
+	<servlet-mapping>
+		<servlet-name>DataExchangeServlet</servlet-name>
+		<url-pattern>/exchange/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AuthenticationServlet</servlet-name>
+		<url-pattern>/auth/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProjectServlet</servlet-name>
+		<url-pattern>/project/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RecordServlet</servlet-name>
+		<url-pattern>/record/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NavigatorServlet</servlet-name>
+		<url-pattern>/navigator/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AnnotationServlet</servlet-name>
+		<url-pattern>/annotation/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ManageServlet</servlet-name>
+		<url-pattern>/admin/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ComputeServlet</servlet-name>
+		<url-pattern>/compute/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/servlet/AxisServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>*.jws</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SOAPMonitorService</servlet-name>
+		<url-pattern>/SOAPMonitor</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MovieServlet</servlet-name>
+		<url-pattern>/movie/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ZoomServlet</servlet-name>
+		<url-pattern>/zoom/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DownloadServlet</servlet-name>
+		<url-pattern>/download/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>JnlpDownloadServlet</servlet-name>
+		<servlet-class>jnlp.sample.servlet.JnlpDownloadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>JnlpDownloadServlet</servlet-name>
+		<url-pattern>*.jnlp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>JnlpDownloadServlet</servlet-name>
+		<url-pattern>*.jar</url-pattern>
+	</servlet-mapping>
+	<!-- uncomment this if you want the admin servlet -->
+	<servlet-mapping>
+		<servlet-name>AdminServlet</servlet-name>
+		<url-pattern>/servlet/AdminServlet</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<!-- Default to 5 minute session timeouts -->
+		<session-timeout>60</session-timeout>
+	</session-config>
+
+	<!-- currently the W3C havent settled on a media type for WSDL;
+	http://www.w3.org/TR/2003/WD-wsdl12-20030303/#ietf-draft
+	for now we go with the basic 'it's XML' response -->
+	<mime-mapping>
+		<extension>wsdl</extension>
+		 <mime-type>text/xml</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>xsd</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+
+	<welcome-file-list id="WelcomeFileList">
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jws</welcome-file>
+	</welcome-file-list>
+	
+	<error-page>
+		<description>Server Error</description>
+		<error-code>400</error-code>	
+		<location>/general-error.html</location>
+		<exception-type>java.lang.Throwable</exception-type>	
+		<location>/general-error.html</location>
+	</error-page>
+	<error-page>
+		<description>Server Error</description>
+		<error-code>400</error-code>
+		<location>/general-error.html</location>
+		<exception-type>java.lang.Throwable</exception-type>	
+		<location>/general-error.html</location>
+	</error-page>
+	<error-page>
+		<description>Server Error</description>
+		<error-code>404</error-code>	
+		<location>/general-error.html</location>
+	</error-page>
+	<error-page>
+		<description>Server Error</description>
+		<error-code>401</error-code>	
+		<location>/general-error.html</location>
+		<exception-type>java.lang.Throwable</exception-type>	
+		<location>/general-error.html</location>
+	</error-page>
+	<error-page>
+		<description>Server Error</description>
+		<error-code>403</error-code>	
+		<location>/general-error.html</location>
+		<exception-type>java.lang.Throwable</exception-type>	
+		<location>/general-error.html</location>
+	</error-page>
+	<error-page>
+		<description>Server Error</description>
+		<error-code>503</error-code>	
+		<location>/general-error.html</location>
+		<exception-type>java.lang.Throwable</exception-type>	
+		<location>/general-error.html</location>
+	</error-page>
+	
+	<filter>
+		<filter-name>AccessControlFilter</filter-name>
+		<filter-class>com.strandgenomics.imaging.iserver.services.impl.web.AccessControlFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AccessControlFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+</web-app>

@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="urn:isearch" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="urn:isearch" xmlns:intf="urn:isearch" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema targetNamespace="urn:isearch" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_soapenc_string">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="soapenc:string[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="SearchField">
+    <sequence>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="type" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="SearchCondition">
+    <complexContent>
+     <extension base="impl:SearchField">
+      <sequence>
+       <element name="lowerLimit" nillable="true" type="xsd:anyType"/>
+       <element name="upperLimit" nillable="true" type="xsd:anyType"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOfSearchCondition">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:SearchCondition[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_xsd_long">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:long[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOfSearchField">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:SearchField[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="SearchNode">
+    <sequence>
+     <element name="filters" nillable="true" type="impl:ArrayOfSearchCondition"/>
+     <element name="recordCount" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfSearchNode">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:SearchNode[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <message name="getNavigableFieldsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getNavigationBinsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="impl:ArrayOfSearchCondition"/>
+
+      <part name="in3" type="impl:SearchCondition"/>
+
+   </message>
+
+   <message name="getAvailableDynamicMetaDataResponse">
+
+      <part name="getAvailableDynamicMetaDataReturn" type="impl:ArrayOfSearchField"/>
+
+   </message>
+
+   <message name="getAvailableUserAnnotationsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="searchRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="impl:ArrayOf_soapenc_string"/>
+
+      <part name="in3" type="impl:ArrayOfSearchCondition"/>
+
+      <part name="in4" type="xsd:int"/>
+
+   </message>
+
+   <message name="findRecordsResponse">
+
+      <part name="findRecordsReturn" type="impl:ArrayOf_xsd_long"/>
+
+   </message>
+
+   <message name="getNavigableFieldsResponse">
+
+      <part name="getNavigableFieldsReturn" type="impl:ArrayOfSearchField"/>
+
+   </message>
+
+   <message name="findRecordsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="impl:ArrayOfSearchCondition"/>
+
+   </message>
+
+   <message name="getAvailableUserAnnotationsResponse">
+
+      <part name="getAvailableUserAnnotationsReturn" type="impl:ArrayOfSearchField"/>
+
+   </message>
+
+   <message name="searchResponse">
+
+      <part name="searchReturn" type="impl:ArrayOf_xsd_long"/>
+
+   </message>
+
+   <message name="getNavigationBinsResponse">
+
+      <part name="getNavigationBinsReturn" type="impl:ArrayOfSearchNode"/>
+
+   </message>
+
+   <message name="getAvailableDynamicMetaDataRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <portType name="ImageSpaceSearch">
+
+      <operation name="search" parameterOrder="in0 in1 in2 in3 in4">
+
+         <input message="impl:searchRequest" name="searchRequest"/>
+
+         <output message="impl:searchResponse" name="searchResponse"/>
+
+      </operation>
+
+      <operation name="getAvailableDynamicMetaData" parameterOrder="in0 in1">
+
+         <input message="impl:getAvailableDynamicMetaDataRequest" name="getAvailableDynamicMetaDataRequest"/>
+
+         <output message="impl:getAvailableDynamicMetaDataResponse" name="getAvailableDynamicMetaDataResponse"/>
+
+      </operation>
+
+      <operation name="getNavigableFields" parameterOrder="in0 in1">
+
+         <input message="impl:getNavigableFieldsRequest" name="getNavigableFieldsRequest"/>
+
+         <output message="impl:getNavigableFieldsResponse" name="getNavigableFieldsResponse"/>
+
+      </operation>
+
+      <operation name="getAvailableUserAnnotations" parameterOrder="in0 in1">
+
+         <input message="impl:getAvailableUserAnnotationsRequest" name="getAvailableUserAnnotationsRequest"/>
+
+         <output message="impl:getAvailableUserAnnotationsResponse" name="getAvailableUserAnnotationsResponse"/>
+
+      </operation>
+
+      <operation name="getNavigationBins" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:getNavigationBinsRequest" name="getNavigationBinsRequest"/>
+
+         <output message="impl:getNavigationBinsResponse" name="getNavigationBinsResponse"/>
+
+      </operation>
+
+      <operation name="findRecords" parameterOrder="in0 in1 in2">
+
+         <input message="impl:findRecordsRequest" name="findRecordsRequest"/>
+
+         <output message="impl:findRecordsResponse" name="findRecordsResponse"/>
+
+      </operation>
+
+   </portType>
+
+   <binding name="iSearchSoapBinding" type="impl:ImageSpaceSearch">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <operation name="search">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="searchRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:isearch" use="encoded"/>
+
+         </input>
+
+         <output name="searchResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:isearch" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getAvailableDynamicMetaData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getAvailableDynamicMetaDataRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:isearch" use="encoded"/>
+
+         </input>
+
+         <output name="getAvailableDynamicMetaDataResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:isearch" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getNavigableFields">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getNavigableFieldsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:isearch" use="encoded"/>
+
+         </input>
+
+         <output name="getNavigableFieldsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:isearch" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getAvailableUserAnnotations">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getAvailableUserAnnotationsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:isearch" use="encoded"/>
+
+         </input>
+
+         <output name="getAvailableUserAnnotationsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:isearch" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getNavigationBins">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getNavigationBinsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:isearch" use="encoded"/>
+
+         </input>
+
+         <output name="getNavigationBinsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:isearch" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="findRecords">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="findRecordsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:isearch" use="encoded"/>
+
+         </input>
+
+         <output name="findRecordsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:isearch" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+   </binding>
+
+   <service name="ImageSpaceSearchService">
+
+      <port binding="impl:iSearchSoapBinding" name="iSearch">
+
+         <wsdlsoap:address location="http://localhost:8080/imanage/services/"/>
+
+      </port>
+
+   </service>
+
+</definitions>

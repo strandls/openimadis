@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="urn:iworkers" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="urn:iworkers" xmlns:intf="urn:iworkers" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema targetNamespace="urn:iworkers" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="Constraints">
+    <sequence/>
+   </complexType>
+   <complexType name="Parameter">
+    <sequence>
+     <element name="constraints" nillable="true" type="impl:Constraints"/>
+     <element name="defaultValue" nillable="true" type="xsd:anyType"/>
+     <element name="description" nillable="true" type="soapenc:string"/>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="type" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfParameter">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:Parameter[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="Application">
+    <sequence>
+     <element name="categoryName" nillable="true" type="soapenc:string"/>
+     <element name="clientID" nillable="true" type="soapenc:string"/>
+     <element name="description" nillable="true" type="soapenc:string"/>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="parameters" nillable="true" type="impl:ArrayOfParameter"/>
+     <element name="version" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfApplication">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:Application[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="Directive">
+    <sequence>
+     <element name="directive" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_soapenc_double">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="soapenc:double[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="DoubleListConstraints">
+    <complexContent>
+     <extension base="impl:Constraints">
+      <sequence>
+       <element name="validValues" nillable="true" type="impl:ArrayOf_soapenc_double"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_soapenc_long">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="soapenc:long[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="LongListConstraints">
+    <complexContent>
+     <extension base="impl:Constraints">
+      <sequence>
+       <element name="validValues" nillable="true" type="impl:ArrayOf_soapenc_long"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="LongRangeConstraints">
+    <complexContent>
+     <extension base="impl:Constraints">
+      <sequence>
+       <element name="lowerLimit" type="xsd:long"/>
+       <element name="upperLimit" type="xsd:long"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="WorkStatus">
+    <sequence>
+     <element name="taskID" type="xsd:long"/>
+     <element name="taskState" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfWorkStatus">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:WorkStatus[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="Request">
+    <sequence>
+     <element name="activeJobs" nillable="true" type="impl:ArrayOfWorkStatus"/>
+     <element name="workerState" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="NVPair">
+    <sequence>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="value" nillable="true" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfNVPair">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:NVPair[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="Work">
+    <sequence>
+     <element name="appAuthCode" nillable="true" type="soapenc:string"/>
+     <element name="appName" nillable="true" type="soapenc:string"/>
+     <element name="inputRecords" nillable="true" type="impl:ArrayOf_soapenc_long"/>
+     <element name="parameters" nillable="true" type="impl:ArrayOfNVPair"/>
+     <element name="taskID" type="xsd:long"/>
+     <element name="version" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Response">
+    <complexContent>
+     <extension base="impl:Directive">
+      <sequence>
+       <element name="work" nillable="true" type="impl:Work"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_soapenc_string">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="soapenc:string[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="StringListConstraints">
+    <complexContent>
+     <extension base="impl:Constraints">
+      <sequence>
+       <element name="validValues" nillable="true" type="impl:ArrayOf_soapenc_string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="DoubleRangeConstraints">
+    <complexContent>
+     <extension base="impl:Constraints">
+      <sequence>
+       <element name="lowerLimit" type="xsd:double"/>
+       <element name="upperLimit" type="xsd:double"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <message name="testMethod0Request">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="testMethod4Request">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="registerRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="publishApplicationsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="impl:ArrayOfApplication"/>
+
+   </message>
+
+   <message name="testMethod4Response">
+
+      <part name="testMethod4Return" type="impl:LongRangeConstraints"/>
+
+   </message>
+
+   <message name="publishApplicationsResponse">
+
+      <part name="publishApplicationsReturn" type="impl:Directive"/>
+
+   </message>
+
+   <message name="registerResponse">
+
+      <part name="registerReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="testMethod2Request">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="removeApplicationsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="impl:ArrayOfApplication"/>
+
+   </message>
+
+   <message name="testMethod3Response">
+
+      <part name="testMethod3Return" type="impl:LongListConstraints"/>
+
+   </message>
+
+   <message name="testMethod0Response">
+
+      <part name="testMethod0Return" type="impl:StringListConstraints"/>
+
+   </message>
+
+   <message name="testMethod2Response">
+
+      <part name="testMethod2Return" type="impl:DoubleRangeConstraints"/>
+
+   </message>
+
+   <message name="testMethod1Response">
+
+      <part name="testMethod1Return" type="impl:DoubleListConstraints"/>
+
+   </message>
+
+   <message name="testMethod3Request">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="testMethod1Request">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="pingResponse">
+
+      <part name="pingReturn" type="impl:Response"/>
+
+   </message>
+
+   <message name="pingRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="impl:Request"/>
+
+   </message>
+
+   <message name="removeApplicationsResponse">
+
+      <part name="removeApplicationsReturn" type="impl:Directive"/>
+
+   </message>
+
+   <portType name="ImageSpaceWorkers">
+
+      <operation name="register" parameterOrder="in0 in1">
+
+         <input message="impl:registerRequest" name="registerRequest"/>
+
+         <output message="impl:registerResponse" name="registerResponse"/>
+
+      </operation>
+
+      <operation name="removeApplications" parameterOrder="in0 in1">
+
+         <input message="impl:removeApplicationsRequest" name="removeApplicationsRequest"/>
+
+         <output message="impl:removeApplicationsResponse" name="removeApplicationsResponse"/>
+
+      </operation>
+
+      <operation name="publishApplications" parameterOrder="in0 in1">
+
+         <input message="impl:publishApplicationsRequest" name="publishApplicationsRequest"/>
+
+         <output message="impl:publishApplicationsResponse" name="publishApplicationsResponse"/>
+
+      </operation>
+
+      <operation name="testMethod1" parameterOrder="in0">
+
+         <input message="impl:testMethod1Request" name="testMethod1Request"/>
+
+         <output message="impl:testMethod1Response" name="testMethod1Response"/>
+
+      </operation>
+
+      <operation name="testMethod3" parameterOrder="in0">
+
+         <input message="impl:testMethod3Request" name="testMethod3Request"/>
+
+         <output message="impl:testMethod3Response" name="testMethod3Response"/>
+
+      </operation>
+
+      <operation name="testMethod4" parameterOrder="in0">
+
+         <input message="impl:testMethod4Request" name="testMethod4Request"/>
+
+         <output message="impl:testMethod4Response" name="testMethod4Response"/>
+
+      </operation>
+
+      <operation name="ping" parameterOrder="in0 in1">
+
+         <input message="impl:pingRequest" name="pingRequest"/>
+
+         <output message="impl:pingResponse" name="pingResponse"/>
+
+      </operation>
+
+      <operation name="testMethod0" parameterOrder="in0">
+
+         <input message="impl:testMethod0Request" name="testMethod0Request"/>
+
+         <output message="impl:testMethod0Response" name="testMethod0Response"/>
+
+      </operation>
+
+      <operation name="testMethod2" parameterOrder="in0">
+
+         <input message="impl:testMethod2Request" name="testMethod2Request"/>
+
+         <output message="impl:testMethod2Response" name="testMethod2Response"/>
+
+      </operation>
+
+   </portType>
+
+   <binding name="iWorkersSoapBinding" type="impl:ImageSpaceWorkers">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <operation name="register">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="registerRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </input>
+
+         <output name="registerResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="removeApplications">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="removeApplicationsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </input>
+
+         <output name="removeApplicationsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="publishApplications">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="publishApplicationsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </input>
+
+         <output name="publishApplicationsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="testMethod1">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="testMethod1Request">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </input>
+
+         <output name="testMethod1Response">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="testMethod3">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="testMethod3Request">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </input>
+
+         <output name="testMethod3Response">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="testMethod4">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="testMethod4Request">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </input>
+
+         <output name="testMethod4Response">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="ping">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="pingRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </input>
+
+         <output name="pingResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="testMethod0">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="testMethod0Request">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </input>
+
+         <output name="testMethod0Response">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="testMethod2">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="testMethod2Request">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </input>
+
+         <output name="testMethod2Response">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iworkers" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+   </binding>
+
+   <service name="ImageSpaceWorkersService">
+
+      <port binding="impl:iWorkersSoapBinding" name="iWorkers">
+
+         <wsdlsoap:address location="http://localhost:8080/imanage/services/"/>
+
+      </port>
+
+   </service>
+
+</definitions>

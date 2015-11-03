@@ -1,0 +1,354 @@
+   <!--  context for enterprise  server  -->
+    <Context path="/iManage" docBase="iManage" debug="5" reloadable="true" crossContext="true" cookies="true">
+    
+    <!-- 
+    Restricting Access to Specific Hosts
+    =====================================
+    In case the adminiostrator wants to block out sertain IP's from accessing the Enterprise Server, he should just specify the host names or IP addresses of the same in the 'Value' tag below.
+    
+    
+    The Valves allow administrator to filter requests by host name or by IP address, and to allow or deny hosts that match, similar to the per-directory Allow/Deny directives in Apache httpd. If you run an Admin application and want to only allow access to it from localhost,add the following lines:
+    
+    
+      <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+             allow="127.0.0.1" deny=""/>
+             
+    To block an entire range, wildcards can be used. For example
+    
+      <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+             allow="" deny="192.168.55.*"/>
+    will block traffic from all IP starting with 192.168.55
+    
+    If no allow pattern is given, then patterns that match the deny attribute patterns will be rejected, and all others will be allowed. Similarly, if no deny pattern is given, patterns that match the allow attribute will be allowed, and all others will be denied.
+    -->
+
+    <!-- Uncomment these lines to block hosts by IP.
+          Ensure to remove the sample IP's
+          
+    <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+
+        deny=" 206.19.143.249, 203.200.1.82 "/>
+             
+    --> 
+             
+    <!-- Uncomment these lines to block hosts by Hostname.
+          Ensure to remove the sample IP's
+          
+    <Valve className="org.apache.catalina.valves.RemoteHostValve"
+
+        deny=" www.stratagene.com, www.strandls.com "/>
+             
+    -->
+       
+		<!-- database info -->
+		<Environment name="param/DatabaseType" 
+                value="mysql"
+                type="java.lang.String" 
+                override="false"/>
+
+        <!-- session timeout in seconds:one-hour= 60 * 60 = 3600 seconds , 24 hours = 24 * 3600 = 86400 -->
+        <Environment name="param/SessionTimeout" 
+                value="86400"
+                type="java.lang.Integer" 
+                override="false"/> 
+
+	<!-- Web Application -->
+         <Environment name="param/WebClientName" 
+                value="iManage - Image Management System"  
+                type="java.lang.String" 
+                override="false"/>
+
+         <Environment name="param/WebAdminClientName" 
+                value="iManage - Admin"  
+                type="java.lang.String" 
+                override="false"/>
+
+         <Environment name="param/WebClientVersion" 
+                value="1.14"  
+                type="java.lang.String" 
+                override="false"/>
+         
+         <!-- Log info -->
+         <Environment name="param/LogFileName" 
+                value="avadis_iserver.txt"  
+                type="java.lang.String" 
+                override="false"/>
+
+        <Environment name="param/LogLevel" 
+                value="INFO"  
+                type="java.lang.String" 
+                override="false"/>
+
+        <Environment name="param/LogInterval" 
+                value="1"  
+                type="java.lang.Integer" 
+                override="false"/>
+
+        <Environment name="param/MaxLogSize" 
+                value="1000000"  
+                type="java.lang.Long" 
+                override="false"/>
+
+        <Environment name="param/LogScope" 
+                value="com.strandgenomics"  
+                type="java.lang.String" 
+                override="false"/>
+
+        <Environment name="param/LogRoot" 
+                value="C:\\iManage\\storage\\log_storage"  
+                type="java.lang.String" 
+                override="false"/>
+        <!-- Log info -->
+        
+        <Environment name="param/MailStore" 
+                value="${catalina.home}/webapps/iManage/WEB-INF/mail.conf"
+                type="java.lang.String" 
+                override="false"/>
+		
+		<Environment name="param/KeyStore" 
+                value="${catalina.home}/webapps/iManage/WEB-INF/serverKeys.conf"
+                type="java.lang.String" 
+                override="false"/>
+       
+        <!-- Local Authentication -->
+        <Environment name="param/LocalAuthenticationClass" 
+                value="com.strandgenomics.imaging.iengine.auth.LocalUserAuthenticator"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <!-- External Authentication, Typically based on LDAP -->
+        <Environment name="param/ExtnAuthenticationClass" 
+                value="com.strandgenomics.imaging.iengine.auth.LDAPUserAuthenticator"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <!-- Concurrently Active Image Readers Pool -->
+        <Environment name="param/BufferedReaderPoolSize" 
+                value="20"  
+                type="java.lang.String" 
+                override="false"/>
+				
+		<!-- Concurrently Active Acquisition Clients -->
+		<Environment name="param/AcqClientLicenses" 
+                value="20"  
+                type="java.lang.Integer" 
+                override="false"/>
+                
+        <Environment name="param/DefaultAdminPassword" 
+                value="Admin#1234"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <!-- Concurrently Active Image Readers Per Archive -->
+        <Environment name="param/BufferedReaderStackSize" 
+                value="4"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <!-- Concurrently Active Image Readers -->
+        <Environment name="param/MaxImageReaders" 
+                value="200"  
+                type="java.lang.String" 
+                override="false"/>
+
+        <!-- DAO Factory -->
+        <Environment name="param/DAOFactoryClass" 
+                value="com.strandgenomics.imaging.iengine.dao.db.DBImageSpaceDAOFactory"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <Environment name="param/ConnectionProviderClass" 
+                value="com.strandgenomics.imaging.iserver.system.ConnectionProviderImpl"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <Environment name="param/StorageLocation" 
+                value="C:\\iManage\\storage\\storage_root"  
+                type="java.lang.String" 
+                override="false"/>
+
+	<Environment name="param/MovieStorageLocation" 
+                value="C:\\iManage\\storage\\movie_storage"  
+                type="java.lang.String" 
+                override="false"/>
+				
+	<Environment name="param/ImageCacheStorageLocation" 
+                value="C:\\iManage\\storage\\image_cache_storage"  
+                type="java.lang.String" 
+                override="false"/>
+				
+	<Environment name="param/TaskLogStorageLocation" 
+                value="C:\\iManage\\storage\\task_log_storage"  
+                type="java.lang.String" 
+                override="false"/>
+                
+    <Environment name="param/ProjectBackupStorageLocation" 
+                value="C:\\iManage\\storage\\backup_storage"  
+                type="java.lang.String" 
+                override="false"/>
+
+	<Environment name="param/ExportStorageLocation" 
+                value="C:\\iManage\\storage\\export_storage"  
+                type="java.lang.String" 
+                override="false"/>
+
+	<Environment name="param/ZoomStorageLocation" 
+                value="C:\\iManage\\storage\\zoom_storage"  
+                type="java.lang.String" 
+                override="false"/>
+
+        <Environment name="param/ZoomCacheSize" 
+                value="100000"  
+                type="java.lang.String" 
+                override="false"/>
+
+        <Environment name="param/ExportCacheSize" 
+                value="100000"  
+                type="java.lang.String" 
+                override="false"/>
+
+        <Environment name="param/MovieCacheSize" 
+                value="100000"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <Environment name="param/MovieServicePort" 
+                value="8888"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <Environment name="param/ProjectBackupServicePort" 
+                value="9997"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <Environment name="param/ZoomServicePort" 
+                value="7777"  
+                type="java.lang.String" 
+                override="false"/>
+
+        <Environment name="param/ExtractionServicePort" 
+                value="9999"  
+                type="java.lang.String" 
+                override="false"/>                
+                
+        <Environment name="param/ExportServicePort" 
+                value="9998"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <Environment name="param/CacheServicePort" 
+                value="9996"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <Environment name="param/CacheServiceHost" 
+                value="localhost"  
+                type="java.lang.String" 
+                override="false"/>		
+				
+        <Environment name="param/solrURL" 
+                value="http://localhost:8080/solr/main"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <Environment name="param/ldapURL" 
+                value="ldap://someurl:someport"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <Environment name="param/ldapCN" 
+                value="CN=ldap-ro-strand, OU=Services, OU=Users, OU=PROD, DC=recherche, DC=curie, DC=fr"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <Environment name="param/ldapCNPassword" 
+                value="password"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <Environment name="param/ldapGroupDN" 
+                value="CN=Users-img-cmms,OU=Infra,OU=Groups,OU=PROD,DC=recherche,DC=curie,DC=fr"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <Environment name="param/ldapBaseDN" 
+                value="OU=Users,OU=PROD,DC=recherche,DC=curie,DC=fr"  
+                type="java.lang.String" 
+                override="false"/>
+                
+        <Environment name="param/LutLocation" 
+                value="${catalina.home}/webapps/iManage/WEB-INF/luts"  
+                type="java.lang.String" 
+                override="false"/>
+				
+		<Environment name="param/LicenseFile" 
+                value="${catalina.home}/webapps/iManage/META-INF/license.info"  
+                type="java.lang.String" 
+                override="false"/>
+				
+		<Environment name="param/LicenseKey" 
+                value="${catalina.home}/webapps/iManage/META-INF/license.key"  
+                type="java.lang.String" 
+                override="false"/>
+			 
+
+        <Resource   name="jdbc/imagedb" 
+                    description="Database for Avadis IMG Server Applications"
+                    auth="Container" 
+                    type="javax.sql.DataSource"  
+                    factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory"
+                    driverClassName="com.mysql.jdbc.Driver"
+                    url="jdbc:mysql://localhost:3306/imagedb?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true"
+                    username="strand"
+                    password="strand123"
+                    maxActive="200"
+                    maxIdle="50"
+					minIdle="10"
+                    maxWait="-1"
+					initialSize="10"
+					validationQuery="SELECT 1"
+					testOnBorrow="true"
+					testWhileIdle="true"
+					timeBetweenEvictionRunsMillis="3600000"
+					minEvictableIdleTimeMillis="1800000"
+					poolPreparedStatements="true"
+					maxOpenPreparedStatements="1000"/>
+                    
+        <Resource   name="jdbc/image_storagedb" 
+                    description="Storage Database for Avadis IMG Server Applications"
+                    auth="Container" 
+                    type="javax.sql.DataSource"  
+                    factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory"
+                    driverClassName="com.mysql.jdbc.Driver"
+                    url="jdbc:mysql://localhost:3306/image_storagedb?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true"
+                    username="strand"
+                    password="strand123"
+                    maxActive="200"
+                    maxIdle="50"
+					minIdle="10"
+                    maxWait="-1"
+					initialSize="10"
+					validationQuery="SELECT 1"
+					testOnBorrow="true"
+					testWhileIdle="true"
+					timeBetweenEvictionRunsMillis="3600000"
+					minEvictableIdleTimeMillis="1800000"
+					poolPreparedStatements="false"
+					maxOpenPreparedStatements="1000"/>
+         
+		<!--
+		 Copyright 2001-2012 by Strand Life Sciences
+		 237, Sir C.V.Raman Avenue
+		 RajMahal Vilas
+		 Bangalore 560080
+		 India
+		 All rights reserved.
+
+		 This software is the confidential and proprietary information
+		 of Strand Life Sciences., ("Confidential Information").  You
+		 shall not disclose such Confidential Information and shall use
+		 it only in accordance with the terms of the license agreement
+		 you entered into with Strand Life Sciences.
+		-->          
+    </Context>

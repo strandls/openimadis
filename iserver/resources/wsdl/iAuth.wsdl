@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="urn:iauth" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="urn:iauth" xmlns:intf="urn:iauth" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+
+   <message name="getAccessTokenRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getAccessTokenResponse">
+
+      <part name="getAccessTokenReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getUserResponse">
+
+      <part name="getUserReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="surrenderAccessTokenRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getExpiryTimeRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getUserRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getExpiryTimeResponse">
+
+      <part name="getExpiryTimeReturn" type="xsd:long"/>
+
+   </message>
+
+   <message name="surrenderAccessTokenResponse">
+
+   </message>
+
+   <portType name="ImageSpaceAuthorization">
+
+      <operation name="getAccessToken" parameterOrder="in0 in1">
+
+         <input message="impl:getAccessTokenRequest" name="getAccessTokenRequest"/>
+
+         <output message="impl:getAccessTokenResponse" name="getAccessTokenResponse"/>
+
+      </operation>
+
+      <operation name="surrenderAccessToken" parameterOrder="in0 in1">
+
+         <input message="impl:surrenderAccessTokenRequest" name="surrenderAccessTokenRequest"/>
+
+         <output message="impl:surrenderAccessTokenResponse" name="surrenderAccessTokenResponse"/>
+
+      </operation>
+
+      <operation name="getUser" parameterOrder="in0">
+
+         <input message="impl:getUserRequest" name="getUserRequest"/>
+
+         <output message="impl:getUserResponse" name="getUserResponse"/>
+
+      </operation>
+
+      <operation name="getExpiryTime" parameterOrder="in0">
+
+         <input message="impl:getExpiryTimeRequest" name="getExpiryTimeRequest"/>
+
+         <output message="impl:getExpiryTimeResponse" name="getExpiryTimeResponse"/>
+
+      </operation>
+
+   </portType>
+
+   <binding name="iAuthSoapBinding" type="impl:ImageSpaceAuthorization">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <operation name="getAccessToken">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getAccessTokenRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iauth" use="encoded"/>
+
+         </input>
+
+         <output name="getAccessTokenResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iauth" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="surrenderAccessToken">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="surrenderAccessTokenRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iauth" use="encoded"/>
+
+         </input>
+
+         <output name="surrenderAccessTokenResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iauth" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getUserRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iauth" use="encoded"/>
+
+         </input>
+
+         <output name="getUserResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iauth" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getExpiryTime">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getExpiryTimeRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iauth" use="encoded"/>
+
+         </input>
+
+         <output name="getExpiryTimeResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iauth" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+   </binding>
+
+   <service name="ImageSpaceAuthorizationService">
+
+      <port binding="impl:iAuthSoapBinding" name="iAuth">
+
+         <wsdlsoap:address location="http://localhost:8080/imanage/services/"/>
+
+      </port>
+
+   </service>
+
+</definitions>

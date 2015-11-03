@@ -1,0 +1,1056 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="urn:icompute" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="urn:icompute" xmlns:intf="urn:icompute" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema targetNamespace="urn:icompute" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="Publisher">
+    <sequence>
+     <element name="host" nillable="true" type="soapenc:string"/>
+     <element name="hostIP" nillable="true" type="soapenc:string"/>
+     <element name="hostPort" type="xsd:int"/>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="port" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfPublisher">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:Publisher[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="Constraints">
+    <sequence/>
+   </complexType>
+   <complexType name="DoubleRangeConstraints">
+    <complexContent>
+     <extension base="impl:Constraints">
+      <sequence>
+       <element name="lowerLimit" type="xsd:double"/>
+       <element name="upperLimit" type="xsd:double"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_soapenc_double">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="soapenc:double[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="DoubleListConstraints">
+    <complexContent>
+     <extension base="impl:Constraints">
+      <sequence>
+       <element name="validValues" nillable="true" type="impl:ArrayOf_soapenc_double"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_xsd_long">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:long[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_soapenc_long">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="soapenc:long[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="LongListConstraints">
+    <complexContent>
+     <extension base="impl:Constraints">
+      <sequence>
+       <element name="validValues" nillable="true" type="impl:ArrayOf_soapenc_long"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="LongRangeConstraints">
+    <complexContent>
+     <extension base="impl:Constraints">
+      <sequence>
+       <element name="lowerLimit" type="xsd:long"/>
+       <element name="upperLimit" type="xsd:long"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="Parameter">
+    <sequence>
+     <element name="constraints" nillable="true" type="impl:Constraints"/>
+     <element name="defaultValue" nillable="true" type="xsd:anyType"/>
+     <element name="description" nillable="true" type="soapenc:string"/>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="type" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfParameter">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:Parameter[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="Application">
+    <sequence>
+     <element name="categoryName" nillable="true" type="soapenc:string"/>
+     <element name="description" nillable="true" type="soapenc:string"/>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="notes" nillable="true" type="soapenc:string"/>
+     <element name="version" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfApplication">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:Application[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="NVPair">
+    <sequence>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="value" nillable="true" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfNVPair">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:NVPair[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <message name="getApplicationParametersResponse">
+
+      <part name="getApplicationParametersReturn" type="impl:ArrayOfParameter"/>
+
+   </message>
+
+   <message name="scheduleApplicationResponse">
+
+      <part name="scheduleApplicationReturn" type="xsd:long"/>
+
+   </message>
+
+   <message name="testMethod2Request">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="scheduleApplicationRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+      <part name="in4" type="impl:ArrayOfNVPair"/>
+
+      <part name="in5" type="impl:ArrayOf_xsd_long"/>
+
+      <part name="in6" type="xsd:int"/>
+
+      <part name="in7" type="xsd:long"/>
+
+   </message>
+
+   <message name="getPublisherRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+   </message>
+
+   <message name="removeTaskRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="getTaskOutputsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="testMethod2Response">
+
+      <part name="testMethod2Return" type="impl:DoubleRangeConstraints"/>
+
+   </message>
+
+   <message name="testMethod1Response">
+
+      <part name="testMethod1Return" type="impl:DoubleListConstraints"/>
+
+   </message>
+
+   <message name="testMethod1Request">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getTaskInputsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="setTaskProgressResponse">
+
+   </message>
+
+   <message name="executeApplicationResponse">
+
+      <part name="executeApplicationReturn" type="xsd:long"/>
+
+   </message>
+
+   <message name="rescheduleTaskResponse">
+
+      <part name="rescheduleTaskReturn" type="xsd:boolean"/>
+
+   </message>
+
+   <message name="getJobStateResponse">
+
+      <part name="getJobStateReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="terminateTaskResponse">
+
+      <part name="terminateTaskReturn" type="xsd:boolean"/>
+
+   </message>
+
+   <message name="getJobStateRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="getTaskProgressRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="getApplicationParametersRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getTaskInputsResponse">
+
+      <part name="getTaskInputsReturn" type="impl:ArrayOf_xsd_long"/>
+
+   </message>
+
+   <message name="resumeTaskResponse">
+
+      <part name="resumeTaskReturn" type="xsd:boolean"/>
+
+   </message>
+
+   <message name="testMethod4Response">
+
+      <part name="testMethod4Return" type="impl:LongRangeConstraints"/>
+
+   </message>
+
+   <message name="listPublishersRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="listApplicationsResponse">
+
+      <part name="listApplicationsReturn" type="impl:ArrayOfApplication"/>
+
+   </message>
+
+   <message name="pauseTaskRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="testMethod3Response">
+
+      <part name="testMethod3Return" type="impl:LongListConstraints"/>
+
+   </message>
+
+   <message name="removeTaskResponse">
+
+      <part name="removeTaskReturn" type="xsd:boolean"/>
+
+   </message>
+
+   <message name="setTaskProgressRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="xsd:int"/>
+
+   </message>
+
+   <message name="getTaskLogUploadURLRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+   </message>
+
+   <message name="pauseTaskResponse">
+
+      <part name="pauseTaskReturn" type="xsd:boolean"/>
+
+   </message>
+
+   <message name="getTaskParametersRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="rescheduleTaskRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="xsd:long"/>
+
+   </message>
+
+   <message name="testMethod3Request">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="terminateTaskRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="getTaskOutputsResponse">
+
+      <part name="getTaskOutputsReturn" type="impl:ArrayOf_xsd_long"/>
+
+   </message>
+
+   <message name="resumeTaskRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="testMethod4Request">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getTaskProgressResponse">
+
+      <part name="getTaskProgressReturn" type="xsd:int"/>
+
+   </message>
+
+   <message name="getTaskLogUploadURLResponse">
+
+      <part name="getTaskLogUploadURLReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="executeApplicationRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+      <part name="in4" type="impl:ArrayOfNVPair"/>
+
+      <part name="in5" type="impl:ArrayOf_xsd_long"/>
+
+      <part name="in6" type="xsd:int"/>
+
+   </message>
+
+   <message name="getPublisherResponse">
+
+      <part name="getPublisherReturn" type="impl:ArrayOfPublisher"/>
+
+   </message>
+
+   <message name="getTaskParametersResponse">
+
+      <part name="getTaskParametersReturn" type="impl:ArrayOfNVPair"/>
+
+   </message>
+
+   <message name="listPublishersResponse">
+
+      <part name="listPublishersReturn" type="impl:ArrayOfPublisher"/>
+
+   </message>
+
+   <message name="listApplicationsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+   </message>
+
+   <portType name="ImageSpaceCompute">
+
+      <operation name="getPublisher" parameterOrder="in0 in1 in2">
+
+         <input message="impl:getPublisherRequest" name="getPublisherRequest"/>
+
+         <output message="impl:getPublisherResponse" name="getPublisherResponse"/>
+
+      </operation>
+
+      <operation name="terminateTask" parameterOrder="in0 in1">
+
+         <input message="impl:terminateTaskRequest" name="terminateTaskRequest"/>
+
+         <output message="impl:terminateTaskResponse" name="terminateTaskResponse"/>
+
+      </operation>
+
+      <operation name="getJobState" parameterOrder="in0 in1">
+
+         <input message="impl:getJobStateRequest" name="getJobStateRequest"/>
+
+         <output message="impl:getJobStateResponse" name="getJobStateResponse"/>
+
+      </operation>
+
+      <operation name="removeTask" parameterOrder="in0 in1">
+
+         <input message="impl:removeTaskRequest" name="removeTaskRequest"/>
+
+         <output message="impl:removeTaskResponse" name="removeTaskResponse"/>
+
+      </operation>
+
+      <operation name="testMethod2" parameterOrder="in0">
+
+         <input message="impl:testMethod2Request" name="testMethod2Request"/>
+
+         <output message="impl:testMethod2Response" name="testMethod2Response"/>
+
+      </operation>
+
+      <operation name="testMethod1" parameterOrder="in0">
+
+         <input message="impl:testMethod1Request" name="testMethod1Request"/>
+
+         <output message="impl:testMethod1Response" name="testMethod1Response"/>
+
+      </operation>
+
+      <operation name="getTaskInputs" parameterOrder="in0 in1">
+
+         <input message="impl:getTaskInputsRequest" name="getTaskInputsRequest"/>
+
+         <output message="impl:getTaskInputsResponse" name="getTaskInputsResponse"/>
+
+      </operation>
+
+      <operation name="pauseTask" parameterOrder="in0 in1">
+
+         <input message="impl:pauseTaskRequest" name="pauseTaskRequest"/>
+
+         <output message="impl:pauseTaskResponse" name="pauseTaskResponse"/>
+
+      </operation>
+
+      <operation name="testMethod3" parameterOrder="in0">
+
+         <input message="impl:testMethod3Request" name="testMethod3Request"/>
+
+         <output message="impl:testMethod3Response" name="testMethod3Response"/>
+
+      </operation>
+
+      <operation name="resumeTask" parameterOrder="in0 in1">
+
+         <input message="impl:resumeTaskRequest" name="resumeTaskRequest"/>
+
+         <output message="impl:resumeTaskResponse" name="resumeTaskResponse"/>
+
+      </operation>
+
+      <operation name="testMethod4" parameterOrder="in0">
+
+         <input message="impl:testMethod4Request" name="testMethod4Request"/>
+
+         <output message="impl:testMethod4Response" name="testMethod4Response"/>
+
+      </operation>
+
+      <operation name="setTaskProgress" parameterOrder="in0 in1 in2">
+
+         <input message="impl:setTaskProgressRequest" name="setTaskProgressRequest"/>
+
+         <output message="impl:setTaskProgressResponse" name="setTaskProgressResponse"/>
+
+      </operation>
+
+      <operation name="getApplicationParameters" parameterOrder="in0 in1 in2">
+
+         <input message="impl:getApplicationParametersRequest" name="getApplicationParametersRequest"/>
+
+         <output message="impl:getApplicationParametersResponse" name="getApplicationParametersResponse"/>
+
+      </operation>
+
+      <operation name="getTaskLogUploadURL" parameterOrder="in0 in1 in2">
+
+         <input message="impl:getTaskLogUploadURLRequest" name="getTaskLogUploadURLRequest"/>
+
+         <output message="impl:getTaskLogUploadURLResponse" name="getTaskLogUploadURLResponse"/>
+
+      </operation>
+
+      <operation name="listApplications" parameterOrder="in0 in1 in2">
+
+         <input message="impl:listApplicationsRequest" name="listApplicationsRequest"/>
+
+         <output message="impl:listApplicationsResponse" name="listApplicationsResponse"/>
+
+      </operation>
+
+      <operation name="executeApplication" parameterOrder="in0 in1 in2 in3 in4 in5 in6">
+
+         <input message="impl:executeApplicationRequest" name="executeApplicationRequest"/>
+
+         <output message="impl:executeApplicationResponse" name="executeApplicationResponse"/>
+
+      </operation>
+
+      <operation name="getTaskOutputs" parameterOrder="in0 in1">
+
+         <input message="impl:getTaskOutputsRequest" name="getTaskOutputsRequest"/>
+
+         <output message="impl:getTaskOutputsResponse" name="getTaskOutputsResponse"/>
+
+      </operation>
+
+      <operation name="listPublishers" parameterOrder="in0">
+
+         <input message="impl:listPublishersRequest" name="listPublishersRequest"/>
+
+         <output message="impl:listPublishersResponse" name="listPublishersResponse"/>
+
+      </operation>
+
+      <operation name="scheduleApplication" parameterOrder="in0 in1 in2 in3 in4 in5 in6 in7">
+
+         <input message="impl:scheduleApplicationRequest" name="scheduleApplicationRequest"/>
+
+         <output message="impl:scheduleApplicationResponse" name="scheduleApplicationResponse"/>
+
+      </operation>
+
+      <operation name="rescheduleTask" parameterOrder="in0 in1 in2">
+
+         <input message="impl:rescheduleTaskRequest" name="rescheduleTaskRequest"/>
+
+         <output message="impl:rescheduleTaskResponse" name="rescheduleTaskResponse"/>
+
+      </operation>
+
+      <operation name="getTaskParameters" parameterOrder="in0 in1">
+
+         <input message="impl:getTaskParametersRequest" name="getTaskParametersRequest"/>
+
+         <output message="impl:getTaskParametersResponse" name="getTaskParametersResponse"/>
+
+      </operation>
+
+      <operation name="getTaskProgress" parameterOrder="in0 in1">
+
+         <input message="impl:getTaskProgressRequest" name="getTaskProgressRequest"/>
+
+         <output message="impl:getTaskProgressResponse" name="getTaskProgressResponse"/>
+
+      </operation>
+
+   </portType>
+
+   <binding name="iComputeSoapBinding" type="impl:ImageSpaceCompute">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <operation name="getPublisher">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getPublisherRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="getPublisherResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="terminateTask">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="terminateTaskRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="terminateTaskResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getJobState">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getJobStateRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="getJobStateResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="removeTask">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="removeTaskRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="removeTaskResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="testMethod2">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="testMethod2Request">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="testMethod2Response">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="testMethod1">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="testMethod1Request">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="testMethod1Response">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getTaskInputs">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getTaskInputsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="getTaskInputsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="pauseTask">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="pauseTaskRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="pauseTaskResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="testMethod3">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="testMethod3Request">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="testMethod3Response">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="resumeTask">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="resumeTaskRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="resumeTaskResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="testMethod4">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="testMethod4Request">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="testMethod4Response">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="setTaskProgress">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="setTaskProgressRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="setTaskProgressResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getApplicationParameters">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getApplicationParametersRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="getApplicationParametersResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getTaskLogUploadURL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getTaskLogUploadURLRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="getTaskLogUploadURLResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="listApplications">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="listApplicationsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="listApplicationsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="executeApplication">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="executeApplicationRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="executeApplicationResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getTaskOutputs">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getTaskOutputsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="getTaskOutputsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="listPublishers">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="listPublishersRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="listPublishersResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="scheduleApplication">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="scheduleApplicationRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="scheduleApplicationResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="rescheduleTask">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="rescheduleTaskRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="rescheduleTaskResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getTaskParameters">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getTaskParametersRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="getTaskParametersResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getTaskProgress">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getTaskProgressRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </input>
+
+         <output name="getTaskProgressResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:icompute" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+   </binding>
+
+   <service name="ImageSpaceComputeService">
+
+      <port binding="impl:iComputeSoapBinding" name="iCompute">
+
+         <wsdlsoap:address location="http://localhost:8080/imanage/services/"/>
+
+      </port>
+
+   </service>
+
+</definitions>

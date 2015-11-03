@@ -1,0 +1,397 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ImageSpaceServiceService WSDL service -->
+
+  <service name="iSpace" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:ispace"/>
+      <parameter name="wsdlServiceElement" value="ImageSpaceServiceService"/>
+      <parameter name="schemaUnqualified" value="urn:ispace"/>
+      <parameter name="wsdlServicePort" value="iSpace"/>
+      <parameter name="className" value="com.strandgenomics.imaging.iserver.services.ws.ispace.ISpaceSoapBindingSkeleton"/>
+      <parameter name="wsdlPortType" value="ImageSpaceService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <parameter name="allowedMethods" value="*"/>
+      <parameter name="scope" value="Request"/>
+
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:RectangularShape"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.RectangularShape"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfVOIndex"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.VOIndex[]"
+        innerType="cmp-ns:VOIndex" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfChannel"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Channel[]"
+        innerType="cmp-ns:Channel" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfComments"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Comments[]"
+        innerType="cmp-ns:Comments" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOf_soapenc_float"
+        type="java:java.lang.Float[]"
+        innerType="cmp-ns:float" xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfShape"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Shape[]"
+        innerType="cmp-ns:Shape" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:MosaicRequest"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.MosaicRequest"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:Shape"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Shape"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfOverlay"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Overlay[]"
+        innerType="cmp-ns:Overlay" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:FingerPrint"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.FingerPrint"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:Record"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Record"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:Overlay"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Overlay"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOf_soapenc_long"
+        type="java:java.lang.Long[]"
+        innerType="cmp-ns:long" xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:MosaicResource"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.MosaicResource"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:Contrast"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Contrast"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:RecordSite"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.RecordSite"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:Image"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Image"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:Font"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Font"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:TextArea"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.TextArea"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfFreehandShape"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.FreehandShape[]"
+        innerType="cmp-ns:FreehandShape" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOf_soapenc_int"
+        type="java:java.lang.Integer[]"
+        innerType="cmp-ns:int" xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:RecordAttachment"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.RecordAttachment"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfTextArea"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.TextArea[]"
+        innerType="cmp-ns:TextArea" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOf_xsd_long"
+        type="java:long[]"
+        innerType="cmp-ns:long" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfRecordSite"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.RecordSite[]"
+        innerType="cmp-ns:RecordSite" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:MosaicParameters"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.MosaicParameters"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfRectangularShape"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.RectangularShape[]"
+        innerType="cmp-ns:RectangularShape" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfAcquisitionProfile"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.AcquisitionProfile[]"
+        innerType="cmp-ns:AcquisitionProfile" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:StraightLine"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.StraightLine"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfRecordAttachment"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.RecordAttachment[]"
+        innerType="cmp-ns:RecordAttachment" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOf_soapenc_string"
+        type="java:java.lang.String[]"
+        innerType="cmp-ns:string" xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:AcquisitionProfile"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.AcquisitionProfile"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:FreehandShape"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.FreehandShape"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:Comments"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Comments"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ImageIndex"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.ImageIndex"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:Project"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Project"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfRecord"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Record[]"
+        innerType="cmp-ns:Record" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOf_xsd_int"
+        type="java:int[]"
+        innerType="cmp-ns:int" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfStraightLine"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.StraightLine[]"
+        innerType="cmp-ns:StraightLine" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:VOIndex"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.VOIndex"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:Property"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Property"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfEllipticalShape"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.EllipticalShape[]"
+        innerType="cmp-ns:EllipticalShape" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfProperty"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Property[]"
+        innerType="cmp-ns:Property" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:ArrayOfHistoryItem"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.HistoryItem[]"
+        innerType="cmp-ns:HistoryItem" xmlns:cmp-ns="urn:ispace"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:Channel"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Channel"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:EllipticalShape"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.EllipticalShape"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:Statistics"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Statistics"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:HistoryItem"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.HistoryItem"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:ispace"
+        qname="ns:Area"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.ispace.Area"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

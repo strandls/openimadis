@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="urn:imanage" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="urn:imanage" xmlns:intf="urn:imanage" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema targetNamespace="urn:imanage" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="User">
+    <sequence>
+     <element name="emailID" nillable="true" type="soapenc:string"/>
+     <element name="fullName" nillable="true" type="soapenc:string"/>
+     <element name="login" nillable="true" type="soapenc:string"/>
+     <element name="rank" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfUser">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:User[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_soapenc_string">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="soapenc:string[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="Task">
+    <sequence>
+     <element name="id" type="xsd:long"/>
+     <element name="name" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <message name="deleteProjectResponse">
+
+      <part name="deleteProjectReturn" type="impl:Task"/>
+
+   </message>
+
+   <message name="archiveProjectResponse">
+
+      <part name="archiveProjectReturn" type="impl:Task"/>
+
+   </message>
+
+   <message name="getJobStatusRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="impl:Task"/>
+
+   </message>
+
+   <message name="restoreProjectResponse">
+
+      <part name="restoreProjectReturn" type="impl:Task"/>
+
+   </message>
+
+   <message name="deleteArchiveRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getProjectMembersResponse">
+
+      <part name="getProjectMembersReturn" type="impl:ArrayOfUser"/>
+
+   </message>
+
+   <message name="allowExternalUserResponse">
+
+      <part name="allowExternalUserReturn" type="xsd:boolean"/>
+
+   </message>
+
+   <message name="allowExternalUserRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+   </message>
+
+   <message name="createNewProjectRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+      <part name="in3" type="xsd:double"/>
+
+   </message>
+
+   <message name="deleteRecordResponse">
+
+   </message>
+
+   <message name="deleteProjectRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="addProjectMembersRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="impl:ArrayOf_soapenc_string"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+   </message>
+
+   <message name="restoreProjectRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="createNewProjectResponse">
+
+      <part name="createNewProjectReturn" type="xsd:boolean"/>
+
+   </message>
+
+   <message name="addProjectMembersResponse">
+
+   </message>
+
+   <message name="createInternalUserResponse">
+
+      <part name="createInternalUserReturn" type="xsd:boolean"/>
+
+   </message>
+
+   <message name="getProjectManagerRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="transferResponse">
+
+   </message>
+
+   <message name="deleteArchiveResponse">
+
+   </message>
+
+   <message name="getJobStatusResponse">
+
+      <part name="getJobStatusReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="transferRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getProjectManagerResponse">
+
+      <part name="getProjectManagerReturn" type="impl:ArrayOfUser"/>
+
+   </message>
+
+   <message name="getProjectMembersRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="renameProjectResponse">
+
+      <part name="renameProjectReturn" type="xsd:boolean"/>
+
+   </message>
+
+   <message name="renameProjectRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+   </message>
+
+   <message name="deleteRecordRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="createInternalUserRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+      <part name="in4" type="soapenc:string"/>
+
+      <part name="in5" type="soapenc:string"/>
+
+   </message>
+
+   <message name="archiveProjectRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <portType name="ImageSpaceManagement">
+
+      <operation name="transfer" parameterOrder="in0 in1 in2">
+
+         <input message="impl:transferRequest" name="transferRequest"/>
+
+         <output message="impl:transferResponse" name="transferResponse"/>
+
+      </operation>
+
+      <operation name="getProjectMembers" parameterOrder="in0 in1">
+
+         <input message="impl:getProjectMembersRequest" name="getProjectMembersRequest"/>
+
+         <output message="impl:getProjectMembersResponse" name="getProjectMembersResponse"/>
+
+      </operation>
+
+      <operation name="getProjectManager" parameterOrder="in0 in1">
+
+         <input message="impl:getProjectManagerRequest" name="getProjectManagerRequest"/>
+
+         <output message="impl:getProjectManagerResponse" name="getProjectManagerResponse"/>
+
+      </operation>
+
+      <operation name="createInternalUser" parameterOrder="in0 in1 in2 in3 in4 in5">
+
+         <input message="impl:createInternalUserRequest" name="createInternalUserRequest"/>
+
+         <output message="impl:createInternalUserResponse" name="createInternalUserResponse"/>
+
+      </operation>
+
+      <operation name="allowExternalUser" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:allowExternalUserRequest" name="allowExternalUserRequest"/>
+
+         <output message="impl:allowExternalUserResponse" name="allowExternalUserResponse"/>
+
+      </operation>
+
+      <operation name="addProjectMembers" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:addProjectMembersRequest" name="addProjectMembersRequest"/>
+
+         <output message="impl:addProjectMembersResponse" name="addProjectMembersResponse"/>
+
+      </operation>
+
+      <operation name="archiveProject" parameterOrder="in0 in1">
+
+         <input message="impl:archiveProjectRequest" name="archiveProjectRequest"/>
+
+         <output message="impl:archiveProjectResponse" name="archiveProjectResponse"/>
+
+      </operation>
+
+      <operation name="createNewProject" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:createNewProjectRequest" name="createNewProjectRequest"/>
+
+         <output message="impl:createNewProjectResponse" name="createNewProjectResponse"/>
+
+      </operation>
+
+      <operation name="restoreProject" parameterOrder="in0 in1">
+
+         <input message="impl:restoreProjectRequest" name="restoreProjectRequest"/>
+
+         <output message="impl:restoreProjectResponse" name="restoreProjectResponse"/>
+
+      </operation>
+
+      <operation name="deleteRecord" parameterOrder="in0 in1">
+
+         <input message="impl:deleteRecordRequest" name="deleteRecordRequest"/>
+
+         <output message="impl:deleteRecordResponse" name="deleteRecordResponse"/>
+
+      </operation>
+
+      <operation name="renameProject" parameterOrder="in0 in1 in2">
+
+         <input message="impl:renameProjectRequest" name="renameProjectRequest"/>
+
+         <output message="impl:renameProjectResponse" name="renameProjectResponse"/>
+
+      </operation>
+
+      <operation name="deleteArchive" parameterOrder="in0 in1">
+
+         <input message="impl:deleteArchiveRequest" name="deleteArchiveRequest"/>
+
+         <output message="impl:deleteArchiveResponse" name="deleteArchiveResponse"/>
+
+      </operation>
+
+      <operation name="getJobStatus" parameterOrder="in0 in1">
+
+         <input message="impl:getJobStatusRequest" name="getJobStatusRequest"/>
+
+         <output message="impl:getJobStatusResponse" name="getJobStatusResponse"/>
+
+      </operation>
+
+      <operation name="deleteProject" parameterOrder="in0 in1">
+
+         <input message="impl:deleteProjectRequest" name="deleteProjectRequest"/>
+
+         <output message="impl:deleteProjectResponse" name="deleteProjectResponse"/>
+
+      </operation>
+
+   </portType>
+
+   <binding name="iManageSoapBinding" type="impl:ImageSpaceManagement">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <operation name="transfer">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="transferRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </input>
+
+         <output name="transferResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getProjectMembers">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getProjectMembersRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </input>
+
+         <output name="getProjectMembersResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getProjectManager">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getProjectManagerRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </input>
+
+         <output name="getProjectManagerResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="createInternalUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="createInternalUserRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </input>
+
+         <output name="createInternalUserResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="allowExternalUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="allowExternalUserRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </input>
+
+         <output name="allowExternalUserResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="addProjectMembers">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="addProjectMembersRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </input>
+
+         <output name="addProjectMembersResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="archiveProject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="archiveProjectRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </input>
+
+         <output name="archiveProjectResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="createNewProject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="createNewProjectRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </input>
+
+         <output name="createNewProjectResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="restoreProject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="restoreProjectRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </input>
+
+         <output name="restoreProjectResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="deleteRecord">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="deleteRecordRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </input>
+
+         <output name="deleteRecordResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="renameProject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="renameProjectRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </input>
+
+         <output name="renameProjectResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="deleteArchive">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="deleteArchiveRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </input>
+
+         <output name="deleteArchiveResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getJobStatus">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getJobStatusRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </input>
+
+         <output name="getJobStatusResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="deleteProject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="deleteProjectRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </input>
+
+         <output name="deleteProjectResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:imanage" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+   </binding>
+
+   <service name="ImageSpaceManagementService">
+
+      <port binding="impl:iManageSoapBinding" name="iManage">
+
+         <wsdlsoap:address location="http://localhost:8080/imanage/services/"/>
+
+      </port>
+
+   </service>
+
+</definitions>

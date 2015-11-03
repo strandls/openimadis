@@ -1,0 +1,86 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ImageSpaceSearchService WSDL service -->
+
+  <service name="iSearch" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:isearch"/>
+      <parameter name="wsdlServiceElement" value="ImageSpaceSearchService"/>
+      <parameter name="schemaUnqualified" value="urn:isearch"/>
+      <parameter name="wsdlServicePort" value="iSearch"/>
+      <parameter name="className" value="com.strandgenomics.imaging.iserver.services.ws.search.ISearchSoapBindingSkeleton"/>
+      <parameter name="wsdlPortType" value="ImageSpaceSearch"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <parameter name="allowedMethods" value="*"/>
+      <parameter name="scope" value="Request"/>
+
+      <arrayMapping
+        xmlns:ns="urn:isearch"
+        qname="ns:ArrayOf_soapenc_string"
+        type="java:java.lang.String[]"
+        innerType="cmp-ns:string" xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:isearch"
+        qname="ns:ArrayOfSearchField"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.search.SearchField[]"
+        innerType="cmp-ns:SearchField" xmlns:cmp-ns="urn:isearch"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:isearch"
+        qname="ns:ArrayOfSearchNode"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.search.SearchNode[]"
+        innerType="cmp-ns:SearchNode" xmlns:cmp-ns="urn:isearch"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:isearch"
+        qname="ns:SearchField"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.search.SearchField"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:isearch"
+        qname="ns:ArrayOf_xsd_long"
+        type="java:long[]"
+        innerType="cmp-ns:long" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:isearch"
+        qname="ns:SearchCondition"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.search.SearchCondition"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:isearch"
+        qname="ns:SearchNode"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.search.SearchNode"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:isearch"
+        qname="ns:ArrayOfSearchCondition"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.search.SearchCondition[]"
+        innerType="cmp-ns:SearchCondition" xmlns:cmp-ns="urn:isearch"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

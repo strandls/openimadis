@@ -1,0 +1,3157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="urn:ispace" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="urn:ispace" xmlns:intf="urn:ispace" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema targetNamespace="urn:ispace" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="Project">
+    <sequence>
+     <element name="creationDate" type="xsd:long"/>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="notes" nillable="true" type="soapenc:string"/>
+     <element name="recordCount" type="xsd:int"/>
+     <element name="spaceUsage" type="xsd:double"/>
+     <element name="storageQuota" type="xsd:double"/>
+    </sequence>
+   </complexType>
+   <complexType name="RecordSite">
+    <sequence>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="seriesNo" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfRecordSite">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:RecordSite[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="VOIndex">
+    <sequence>
+     <element name="frame" type="xsd:int"/>
+     <element name="site" type="xsd:int"/>
+     <element name="slice" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType abstract="true" name="Shape">
+    <sequence>
+     <element name="ID" type="xsd:int"/>
+     <element name="penColor" type="xsd:int"/>
+     <element name="penWidth" type="xsd:float"/>
+     <element name="type" nillable="true" type="soapenc:string"/>
+     <element name="zoomLevel" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="RectangularShape">
+    <complexContent>
+     <extension base="impl:Shape">
+      <sequence>
+       <element name="height" type="xsd:double"/>
+       <element name="rotation" type="xsd:double"/>
+       <element name="width" type="xsd:double"/>
+       <element name="x" type="xsd:double"/>
+       <element name="y" type="xsd:double"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="Font">
+    <sequence>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="size" type="xsd:int"/>
+     <element name="style" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="TextArea">
+    <complexContent>
+     <extension base="impl:RectangularShape">
+      <sequence>
+       <element name="backgroundColor" type="xsd:int"/>
+       <element name="font" nillable="true" type="impl:Font"/>
+       <element name="text" nillable="true" type="soapenc:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOfTextArea">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:TextArea[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_soapenc_string">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="soapenc:string[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="FingerPrint">
+    <sequence>
+     <element name="archiveHash" nillable="true" type="soapenc:string"/>
+     <element name="imageHeight" type="xsd:int"/>
+     <element name="imageWidth" type="xsd:int"/>
+     <element name="noOfChannels" type="xsd:int"/>
+     <element name="noOfFrames" type="xsd:int"/>
+     <element name="noOfSites" type="xsd:int"/>
+     <element name="noOfSlices" type="xsd:int"/>
+     <element name="siteHash" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ImageIndex">
+    <complexContent>
+     <extension base="impl:VOIndex">
+      <sequence>
+       <element name="channel" type="xsd:int"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_soapenc_int">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="soapenc:int[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="Statistics">
+    <sequence>
+     <element name="frequencies" nillable="true" type="impl:ArrayOf_soapenc_int"/>
+     <element name="intensities" nillable="true" type="impl:ArrayOf_soapenc_int"/>
+     <element name="maxFreq" type="xsd:int"/>
+     <element name="maxValue" type="xsd:int"/>
+     <element name="minValue" type="xsd:int"/>
+     <element name="pixelDepth" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="Property">
+    <sequence>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="value" nillable="true" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfProperty">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:Property[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOfVOIndex">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:VOIndex[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="Overlay">
+    <sequence>
+     <element name="height" type="xsd:int"/>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="width" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfOverlay">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:Overlay[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="EllipticalShape">
+    <complexContent>
+     <extension base="impl:Shape">
+      <sequence>
+       <element name="height" type="xsd:double"/>
+       <element name="rotation" type="xsd:double"/>
+       <element name="width" type="xsd:double"/>
+       <element name="x" type="xsd:double"/>
+       <element name="y" type="xsd:double"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOfEllipticalShape">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:EllipticalShape[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="Comments">
+    <sequence>
+     <element name="creationDate" type="xsd:long"/>
+     <element name="notes" nillable="true" type="soapenc:string"/>
+     <element name="userLogin" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfComments">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:Comments[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="Contrast">
+    <sequence>
+     <element name="gamma" type="xsd:double"/>
+     <element name="maxIntensity" type="xsd:int"/>
+     <element name="minIntensity" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_soapenc_float">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="soapenc:float[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="FreehandShape">
+    <complexContent>
+     <extension base="impl:Shape">
+      <sequence>
+       <element name="coordinates" nillable="true" type="impl:ArrayOf_soapenc_float"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOfFreehandShape">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:FreehandShape[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="HistoryItem">
+    <sequence>
+     <element name="appName" nillable="true" type="soapenc:string"/>
+     <element name="appVersion" nillable="true" type="soapenc:string"/>
+     <element name="description" nillable="true" type="soapenc:string"/>
+     <element name="guid" type="xsd:long"/>
+     <element name="modificationTime" type="xsd:long"/>
+     <element name="modifiedBy" nillable="true" type="soapenc:string"/>
+     <element name="type" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfHistoryItem">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:HistoryItem[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_xsd_int">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:int[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="RecordAttachment">
+    <sequence>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="notes" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfRecordAttachment">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:RecordAttachment[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_soapenc_long">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="soapenc:long[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="MosaicRequest">
+    <sequence>
+     <element name="recordids" nillable="true" type="impl:ArrayOf_soapenc_long"/>
+    </sequence>
+   </complexType>
+   <complexType name="MosaicResource">
+    <sequence>
+     <element name="anchor_left" type="xsd:int"/>
+     <element name="anchor_top" type="xsd:int"/>
+     <element name="mosaicImageWidth" type="xsd:int"/>
+     <element name="mosiacImageHeight" type="xsd:int"/>
+     <element name="recordids" nillable="true" type="impl:ArrayOf_soapenc_long"/>
+    </sequence>
+   </complexType>
+   <complexType name="Area">
+    <sequence>
+     <element name="height" type="xsd:int"/>
+     <element name="width" type="xsd:int"/>
+     <element name="x" type="xsd:int"/>
+     <element name="y" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfShape">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:Shape[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="StraightLine">
+    <complexContent>
+     <extension base="impl:Shape">
+      <sequence>
+       <element name="endX" type="xsd:double"/>
+       <element name="endY" type="xsd:double"/>
+       <element name="startX" type="xsd:double"/>
+       <element name="startY" type="xsd:double"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOfStraightLine">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:StraightLine[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="Channel">
+    <sequence>
+     <element name="ZStackedContrast" nillable="true" type="impl:Contrast"/>
+     <element name="contrast" nillable="true" type="impl:Contrast"/>
+     <element name="lutName" nillable="true" type="soapenc:string"/>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="revision" type="xsd:long"/>
+     <element name="wavelength" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfChannel">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:Channel[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_xsd_long">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:long[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="Record">
+    <sequence>
+     <element name="acquiredDate" nillable="true" type="soapenc:long"/>
+     <element name="creationTime" nillable="true" type="soapenc:long"/>
+     <element name="imageType" type="xsd:int"/>
+     <element name="ipAddress" nillable="true" type="soapenc:string"/>
+     <element name="macAddress" nillable="true" type="soapenc:string"/>
+     <element name="pixelDepth" type="xsd:int"/>
+     <element name="pixelSizeAlongXAxis" type="xsd:double"/>
+     <element name="pixelSizeAlongYAxis" type="xsd:double"/>
+     <element name="pixelSizeAlongZAxis" type="xsd:double"/>
+     <element name="signature" nillable="true" type="impl:FingerPrint"/>
+     <element name="sizeOnDisk" type="xsd:long"/>
+     <element name="sourceFileTime" nillable="true" type="soapenc:long"/>
+     <element name="sourceFilename" nillable="true" type="soapenc:string"/>
+     <element name="sourceFolder" nillable="true" type="soapenc:string"/>
+     <element name="sourceFormat" nillable="true" type="soapenc:string"/>
+     <element name="uploadTime" nillable="true" type="soapenc:long"/>
+     <element name="uploadedBy" nillable="true" type="soapenc:string"/>
+     <element name="writable" type="xsd:boolean"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfRecord">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:Record[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="AcquisitionProfile">
+    <sequence>
+     <element name="lengthUnit" nillable="true" type="soapenc:string"/>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="profileName" nillable="true" type="soapenc:string"/>
+     <element name="sourceFormat" nillable="true" type="soapenc:string"/>
+     <element name="timeUnit" nillable="true" type="soapenc:string"/>
+     <element name="xPixelSize" nillable="true" type="soapenc:double"/>
+     <element name="xType" nillable="true" type="soapenc:string"/>
+     <element name="yPixelSize" nillable="true" type="soapenc:double"/>
+     <element name="yType" nillable="true" type="soapenc:string"/>
+     <element name="zPixelSize" nillable="true" type="soapenc:double"/>
+     <element name="zType" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="MosaicParameters">
+    <sequence>
+     <element name="height" type="xsd:int"/>
+     <element name="tileHeight" type="xsd:int"/>
+     <element name="tileWidth" type="xsd:int"/>
+     <element name="width" type="xsd:int"/>
+     <element name="x" type="xsd:int"/>
+     <element name="y" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfAcquisitionProfile">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:AcquisitionProfile[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="Image">
+    <sequence>
+     <element name="elapsedTime" type="xsd:double"/>
+     <element name="exposureTime" type="xsd:double"/>
+     <element name="index" nillable="true" type="impl:ImageIndex"/>
+     <element name="timeStamp" type="xsd:long"/>
+     <element name="x" type="xsd:double"/>
+     <element name="y" type="xsd:double"/>
+     <element name="z" type="xsd:double"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfRectangularShape">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:RectangularShape[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <message name="getRawIntensitiesDownloadURLRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:ImageIndex"/>
+
+   </message>
+
+   <message name="addRecordUserAnnotationResponse">
+
+   </message>
+
+   <message name="getFreeHandShapesResponse">
+
+      <part name="getFreeHandShapesReturn" type="impl:ArrayOfFreehandShape"/>
+
+   </message>
+
+   <message name="getVisualOverlaysRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:VOIndex"/>
+
+   </message>
+
+   <message name="getOverlayImageDownloadURLRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="xsd:int"/>
+
+      <part name="in3" type="xsd:int"/>
+
+      <part name="in4" type="xsd:int"/>
+
+      <part name="in5" type="impl:ArrayOf_xsd_int"/>
+
+      <part name="in6" type="xsd:boolean"/>
+
+      <part name="in7" type="xsd:boolean"/>
+
+      <part name="in8" type="xsd:boolean"/>
+
+      <part name="in9" type="xsd:int"/>
+
+      <part name="in10" type="xsd:int"/>
+
+      <part name="in11" type="xsd:int"/>
+
+      <part name="in12" type="xsd:int"/>
+
+   </message>
+
+   <message name="listAvailableProfilesResponse">
+
+      <part name="listAvailableProfilesReturn" type="impl:ArrayOfAcquisitionProfile"/>
+
+   </message>
+
+   <message name="getChannelOverlaidSliceImagesURLResponse">
+
+      <part name="getChannelOverlaidSliceImagesURLReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="findOverlayLocationRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="xsd:int"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+   </message>
+
+   <message name="findOverlayLocationResponse">
+
+      <part name="findOverlayLocationReturn" type="impl:ArrayOfVOIndex"/>
+
+   </message>
+
+   <message name="addRecordUserAnnotationRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:ArrayOfProperty"/>
+
+   </message>
+
+   <message name="findVisualObjectsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:VOIndex"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+      <part name="in4" type="impl:Area"/>
+
+   </message>
+
+   <message name="getTileImageDownloadURLResponse">
+
+      <part name="getTileImageDownloadURLReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="requestAcquisitionLicenseRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getAvailableVisualOverlaysResponse">
+
+      <part name="getAvailableVisualOverlaysReturn" type="impl:ArrayOf_soapenc_string"/>
+
+   </message>
+
+   <message name="getAttachmentDownloadURLResponse">
+
+      <part name="getAttachmentDownloadURLReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="findProjectForRecordRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="getBookmarkGuidsResponse">
+
+      <part name="getBookmarkGuidsReturn" type="impl:ArrayOf_soapenc_long"/>
+
+   </message>
+
+   <message name="getMicroscopeNameResponse">
+
+      <part name="getMicroscopeNameReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="listGUIDsForArchiveResponse">
+
+      <part name="listGUIDsForArchiveReturn" type="impl:ArrayOf_xsd_long"/>
+
+   </message>
+
+   <message name="findRecordForGUIDsResponse">
+
+      <part name="findRecordForGUIDsReturn" type="impl:ArrayOfRecord"/>
+
+   </message>
+
+   <message name="addVisualObjectsResponse">
+
+   </message>
+
+   <message name="getThumbnailUploadURLRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="getChannelOverlaidSliceImagesURLRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="xsd:int"/>
+
+      <part name="in3" type="xsd:int"/>
+
+      <part name="in4" type="xsd:int"/>
+
+      <part name="in5" type="xsd:boolean"/>
+
+   </message>
+
+   <message name="addUserCommentRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getTextBoxesResponse">
+
+      <part name="getTextBoxesReturn" type="impl:ArrayOfTextArea"/>
+
+   </message>
+
+   <message name="getTextBoxesRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:VOIndex"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getDynamicMetaDataRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="getArchivedProjectsResponse">
+
+      <part name="getArchivedProjectsReturn" type="impl:ArrayOf_soapenc_string"/>
+
+   </message>
+
+   <message name="getOverlayImageDownloadURLRequest2">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="xsd:int"/>
+
+      <part name="in3" type="xsd:int"/>
+
+      <part name="in4" type="xsd:int"/>
+
+      <part name="in5" type="impl:ArrayOf_xsd_int"/>
+
+      <part name="in6" type="xsd:boolean"/>
+
+      <part name="in7" type="xsd:boolean"/>
+
+      <part name="in8" type="xsd:boolean"/>
+
+      <part name="in9" type="xsd:int"/>
+
+      <part name="in10" type="xsd:int"/>
+
+      <part name="in11" type="xsd:int"/>
+
+      <part name="in12" type="xsd:int"/>
+
+      <part name="in13" type="impl:ArrayOf_xsd_int"/>
+
+   </message>
+
+   <message name="getOverlayImageDownloadURLRequest1">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="xsd:int"/>
+
+      <part name="in3" type="xsd:int"/>
+
+      <part name="in4" type="xsd:int"/>
+
+      <part name="in5" type="impl:ArrayOf_xsd_int"/>
+
+      <part name="in6" type="xsd:boolean"/>
+
+      <part name="in7" type="xsd:boolean"/>
+
+      <part name="in8" type="xsd:boolean"/>
+
+      <part name="in9" type="xsd:int"/>
+
+      <part name="in10" type="xsd:int"/>
+
+      <part name="in11" type="xsd:int"/>
+
+      <part name="in12" type="xsd:int"/>
+
+      <part name="in13" type="xsd:int"/>
+
+      <part name="in14" type="xsd:int"/>
+
+   </message>
+
+   <message name="getVisualOverlayResponse">
+
+      <part name="getVisualOverlayReturn" type="impl:Overlay"/>
+
+   </message>
+
+   <message name="listAvailableProfilesRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getEllipticalShapesResponse">
+
+      <part name="getEllipticalShapesReturn" type="impl:ArrayOfEllipticalShape"/>
+
+   </message>
+
+   <message name="getVisualOverlaysResponse">
+
+      <part name="getVisualOverlaysReturn" type="impl:ArrayOfOverlay"/>
+
+   </message>
+
+   <message name="getImageMetaDataResponse">
+
+      <part name="getImageMetaDataReturn" type="impl:ArrayOfProperty"/>
+
+   </message>
+
+   <message name="getArchivedProjectsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getActiveProjectsResponse">
+
+      <part name="getActiveProjectsReturn" type="impl:ArrayOf_soapenc_string"/>
+
+   </message>
+
+   <message name="setChannelColorAndContrastRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="xsd:int"/>
+
+      <part name="in3" type="impl:Contrast"/>
+
+      <part name="in4" type="soapenc:string"/>
+
+   </message>
+
+   <message name="findVisualObjectLocationResponse">
+
+      <part name="findVisualObjectLocationReturn" type="impl:ArrayOfVOIndex"/>
+
+   </message>
+
+   <message name="addVisualObjectsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:ArrayOfShape"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+      <part name="in4" type="impl:ArrayOfVOIndex"/>
+
+   </message>
+
+   <message name="getRectangularShapesRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:VOIndex"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getRecordChannelsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="getRecordSiteRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="getRawIntensitiesDownloadURLResponse">
+
+      <part name="getRawIntensitiesDownloadURLReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="findProjectForRecordResponse">
+
+      <part name="findProjectForRecordReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getTileImageDownloadURLRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="xsd:boolean"/>
+
+      <part name="in3" type="impl:ImageIndex"/>
+
+      <part name="in4" type="xsd:int"/>
+
+      <part name="in5" type="xsd:int"/>
+
+      <part name="in6" type="xsd:int"/>
+
+      <part name="in7" type="xsd:int"/>
+
+   </message>
+
+   <message name="getIntensityDistibutionResponse">
+
+      <part name="getIntensityDistibutionReturn" type="impl:Statistics"/>
+
+   </message>
+
+   <message name="getMosaicElementDownloadUrlResponse">
+
+      <part name="getMosaicElementDownloadUrlReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="surrenderAcquisitionLicenseResponse">
+
+   </message>
+
+   <message name="getRecordUserAnnotationsResponse">
+
+      <part name="getRecordUserAnnotationsReturn" type="impl:ArrayOfProperty"/>
+
+   </message>
+
+   <message name="getPixelDataForRecordRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:ImageIndex"/>
+
+   </message>
+
+   <message name="fetchUserCommentRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="getThumbnailUploadURLResponse">
+
+      <part name="getThumbnailUploadURLReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getThumbnailDownloadURLRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="getOverlayImageDownloadURLResponse">
+
+      <part name="getOverlayImageDownloadURLReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getBookmarkRootResponse">
+
+      <part name="getBookmarkRootReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="findProjectForArchiveRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="listGUIDsForArchiveRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getAvailableVisualOverlaysRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="xsd:int"/>
+
+   </message>
+
+   <message name="getOverlayImageDownloadURLResponse2">
+
+      <part name="getOverlayImageDownloadURLReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="findVisualObjectsResponse">
+
+      <part name="findVisualObjectsReturn" type="impl:ArrayOfShape"/>
+
+   </message>
+
+   <message name="getOverlayImageDownloadURLResponse1">
+
+      <part name="getOverlayImageDownloadURLReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="createRecordAttachmentResponse">
+
+      <part name="createRecordAttachmentReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getFreeHandShapesRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:VOIndex"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+   </message>
+
+   <message name="listArchivesRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="findRecordForGUIDsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="impl:ArrayOf_xsd_long"/>
+
+   </message>
+
+   <message name="getRecordAttachmentsResponse">
+
+      <part name="getRecordAttachmentsReturn" type="impl:ArrayOfRecordAttachment"/>
+
+   </message>
+
+   <message name="getImageMetaDataRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:ImageIndex"/>
+
+   </message>
+
+   <message name="getBookmarkRootRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getRecordHistoryResponse">
+
+      <part name="getRecordHistoryReturn" type="impl:ArrayOfHistoryItem"/>
+
+   </message>
+
+   <message name="findVisualObjectLocationRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="xsd:int"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+      <part name="in4" type="impl:Shape"/>
+
+   </message>
+
+   <message name="setAcquisitionProfileRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:AcquisitionProfile"/>
+
+   </message>
+
+   <message name="getTileIntensitiesDownloadURLRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:ImageIndex"/>
+
+      <part name="in3" type="xsd:int"/>
+
+      <part name="in4" type="xsd:int"/>
+
+      <part name="in5" type="xsd:int"/>
+
+      <part name="in6" type="xsd:int"/>
+
+   </message>
+
+   <message name="addRecordHistoryRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getBookmarkSubFoldersResponse">
+
+      <part name="getBookmarkSubFoldersReturn" type="impl:ArrayOf_soapenc_string"/>
+
+   </message>
+
+   <message name="getPixelDataForRecordResponse">
+
+      <part name="getPixelDataForRecordReturn" type="impl:Image"/>
+
+   </message>
+
+   <message name="setAcquisitionProfileResponse">
+
+   </message>
+
+   <message name="findProjectResponse">
+
+      <part name="findProjectReturn" type="impl:Project"/>
+
+   </message>
+
+   <message name="getTileIntensitiesDownloadURLResponse">
+
+      <part name="getTileIntensitiesDownloadURLReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getAttachmentDownloadURLRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getRecordHistoryRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="getIntensityDistibutionForTileRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:ImageIndex"/>
+
+      <part name="in3" type="xsd:int"/>
+
+      <part name="in4" type="xsd:int"/>
+
+      <part name="in5" type="xsd:int"/>
+
+      <part name="in6" type="xsd:int"/>
+
+   </message>
+
+   <message name="fetchUserCommentResponse">
+
+      <part name="fetchUserCommentReturn" type="impl:ArrayOfComments"/>
+
+   </message>
+
+   <message name="getMicroscopeNameRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getBookmarkSubFoldersRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getThumbnailDownloadURLResponse">
+
+      <part name="getThumbnailDownloadURLReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getEllipticalShapesRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:VOIndex"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+   </message>
+
+   <message name="findGUIDResponse">
+
+      <part name="findGUIDReturn" type="xsd:long"/>
+
+   </message>
+
+   <message name="createBookmarkFolderResponse">
+
+   </message>
+
+   <message name="requestAcquisitionLicenseResponse">
+
+      <part name="requestAcquisitionLicenseReturn" type="xsd:boolean"/>
+
+   </message>
+
+   <message name="getRecordSiteResponse">
+
+      <part name="getRecordSiteReturn" type="impl:ArrayOfRecordSite"/>
+
+   </message>
+
+   <message name="getDynamicMetaDataResponse">
+
+      <part name="getDynamicMetaDataReturn" type="impl:ArrayOfProperty"/>
+
+   </message>
+
+   <message name="findProjectForArchiveResponse">
+
+      <part name="findProjectForArchiveReturn" type="impl:ArrayOf_soapenc_string"/>
+
+   </message>
+
+   <message name="getVisualObjectsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:VOIndex"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+   </message>
+
+   <message name="setChannelColorAndContrastResponse">
+
+   </message>
+
+   <message name="listAvailableFormatsResponse">
+
+      <part name="listAvailableFormatsReturn" type="impl:ArrayOf_soapenc_string"/>
+
+   </message>
+
+   <message name="getMosaicResourceRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="impl:MosaicRequest"/>
+
+   </message>
+
+   <message name="addUserCommentResponse">
+
+   </message>
+
+   <message name="getVisualOverlayRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:VOIndex"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getRecordAttachmentsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="listArchivesResponse">
+
+      <part name="listArchivesReturn" type="impl:ArrayOf_soapenc_string"/>
+
+   </message>
+
+   <message name="getImageDownloadURLResponse">
+
+      <part name="getImageDownloadURLReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="createBookmarkFolderRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getRecordUserAnnotationsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="listAvailableFormatsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getImageDownloadURLRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="xsd:boolean"/>
+
+      <part name="in3" type="impl:ImageIndex"/>
+
+   </message>
+
+   <message name="getLineSegmentsResponse">
+
+      <part name="getLineSegmentsReturn" type="impl:ArrayOfStraightLine"/>
+
+   </message>
+
+   <message name="getMosaicElementDownloadUrlRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="impl:MosaicResource"/>
+
+      <part name="in2" type="impl:MosaicParameters"/>
+
+   </message>
+
+   <message name="getRecordChannelsResponse">
+
+      <part name="getRecordChannelsReturn" type="impl:ArrayOfChannel"/>
+
+   </message>
+
+   <message name="getActiveProjectsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getLineSegmentsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:VOIndex"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getBookmarkGuidsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+   </message>
+
+   <message name="addRecordHistoryResponse">
+
+   </message>
+
+   <message name="getRectangularShapesResponse">
+
+      <part name="getRectangularShapesReturn" type="impl:ArrayOfRectangularShape"/>
+
+   </message>
+
+   <message name="getIntensityDistibutionRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:ImageIndex"/>
+
+   </message>
+
+   <message name="getIntensityDistibutionForTileResponse">
+
+      <part name="getIntensityDistibutionForTileReturn" type="impl:Statistics"/>
+
+   </message>
+
+   <message name="getMosaicResourceResponse">
+
+      <part name="getMosaicResourceReturn" type="impl:MosaicResource"/>
+
+   </message>
+
+   <message name="findProjectRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="addBookmarkResponse">
+
+   </message>
+
+   <message name="createVisualOverlaysResponse">
+
+   </message>
+
+   <message name="surrenderAcquisitionLicenseRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+   </message>
+
+   <message name="addBookmarkRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+      <part name="in3" type="xsd:long"/>
+
+   </message>
+
+   <message name="getVisualObjectsResponse">
+
+      <part name="getVisualObjectsReturn" type="impl:ArrayOfShape"/>
+
+   </message>
+
+   <message name="findGUIDRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="impl:FingerPrint"/>
+
+   </message>
+
+   <message name="createRecordAttachmentRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+   </message>
+
+   <message name="createVisualOverlaysRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="xsd:int"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+   </message>
+
+   <portType name="ImageSpaceService">
+
+      <operation name="findProject" parameterOrder="in0 in1">
+
+         <input message="impl:findProjectRequest" name="findProjectRequest"/>
+
+         <output message="impl:findProjectResponse" name="findProjectResponse"/>
+
+      </operation>
+
+      <operation name="getRecordSite" parameterOrder="in0 in1">
+
+         <input message="impl:getRecordSiteRequest" name="getRecordSiteRequest"/>
+
+         <output message="impl:getRecordSiteResponse" name="getRecordSiteResponse"/>
+
+      </operation>
+
+      <operation name="getTextBoxes" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:getTextBoxesRequest" name="getTextBoxesRequest"/>
+
+         <output message="impl:getTextBoxesResponse" name="getTextBoxesResponse"/>
+
+      </operation>
+
+      <operation name="listArchives" parameterOrder="in0 in1">
+
+         <input message="impl:listArchivesRequest" name="listArchivesRequest"/>
+
+         <output message="impl:listArchivesResponse" name="listArchivesResponse"/>
+
+      </operation>
+
+      <operation name="addBookmark" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:addBookmarkRequest" name="addBookmarkRequest"/>
+
+         <output message="impl:addBookmarkResponse" name="addBookmarkResponse"/>
+
+      </operation>
+
+      <operation name="findGUID" parameterOrder="in0 in1">
+
+         <input message="impl:findGUIDRequest" name="findGUIDRequest"/>
+
+         <output message="impl:findGUIDResponse" name="findGUIDResponse"/>
+
+      </operation>
+
+      <operation name="getIntensityDistibutionForTile" parameterOrder="in0 in1 in2 in3 in4 in5 in6">
+
+         <input message="impl:getIntensityDistibutionForTileRequest" name="getIntensityDistibutionForTileRequest"/>
+
+         <output message="impl:getIntensityDistibutionForTileResponse" name="getIntensityDistibutionForTileResponse"/>
+
+      </operation>
+
+      <operation name="getChannelOverlaidSliceImagesURL" parameterOrder="in0 in1 in2 in3 in4 in5">
+
+         <input message="impl:getChannelOverlaidSliceImagesURLRequest" name="getChannelOverlaidSliceImagesURLRequest"/>
+
+         <output message="impl:getChannelOverlaidSliceImagesURLResponse" name="getChannelOverlaidSliceImagesURLResponse"/>
+
+      </operation>
+
+      <operation name="getImageMetaData" parameterOrder="in0 in1 in2">
+
+         <input message="impl:getImageMetaDataRequest" name="getImageMetaDataRequest"/>
+
+         <output message="impl:getImageMetaDataResponse" name="getImageMetaDataResponse"/>
+
+      </operation>
+
+      <operation name="findOverlayLocation" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:findOverlayLocationRequest" name="findOverlayLocationRequest"/>
+
+         <output message="impl:findOverlayLocationResponse" name="findOverlayLocationResponse"/>
+
+      </operation>
+
+      <operation name="getVisualOverlays" parameterOrder="in0 in1 in2">
+
+         <input message="impl:getVisualOverlaysRequest" name="getVisualOverlaysRequest"/>
+
+         <output message="impl:getVisualOverlaysResponse" name="getVisualOverlaysResponse"/>
+
+      </operation>
+
+      <operation name="getEllipticalShapes" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:getEllipticalShapesRequest" name="getEllipticalShapesRequest"/>
+
+         <output message="impl:getEllipticalShapesResponse" name="getEllipticalShapesResponse"/>
+
+      </operation>
+
+      <operation name="getTileIntensitiesDownloadURL" parameterOrder="in0 in1 in2 in3 in4 in5 in6">
+
+         <input message="impl:getTileIntensitiesDownloadURLRequest" name="getTileIntensitiesDownloadURLRequest"/>
+
+         <output message="impl:getTileIntensitiesDownloadURLResponse" name="getTileIntensitiesDownloadURLResponse"/>
+
+      </operation>
+
+      <operation name="fetchUserComment" parameterOrder="in0 in1">
+
+         <input message="impl:fetchUserCommentRequest" name="fetchUserCommentRequest"/>
+
+         <output message="impl:fetchUserCommentResponse" name="fetchUserCommentResponse"/>
+
+      </operation>
+
+      <operation name="setChannelColorAndContrast" parameterOrder="in0 in1 in2 in3 in4">
+
+         <input message="impl:setChannelColorAndContrastRequest" name="setChannelColorAndContrastRequest"/>
+
+         <output message="impl:setChannelColorAndContrastResponse" name="setChannelColorAndContrastResponse"/>
+
+      </operation>
+
+      <operation name="getFreeHandShapes" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:getFreeHandShapesRequest" name="getFreeHandShapesRequest"/>
+
+         <output message="impl:getFreeHandShapesResponse" name="getFreeHandShapesResponse"/>
+
+      </operation>
+
+      <operation name="findProjectForArchive" parameterOrder="in0 in1">
+
+         <input message="impl:findProjectForArchiveRequest" name="findProjectForArchiveRequest"/>
+
+         <output message="impl:findProjectForArchiveResponse" name="findProjectForArchiveResponse"/>
+
+      </operation>
+
+      <operation name="getBookmarkRoot" parameterOrder="in0 in1">
+
+         <input message="impl:getBookmarkRootRequest" name="getBookmarkRootRequest"/>
+
+         <output message="impl:getBookmarkRootResponse" name="getBookmarkRootResponse"/>
+
+      </operation>
+
+      <operation name="createRecordAttachment" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:createRecordAttachmentRequest" name="createRecordAttachmentRequest"/>
+
+         <output message="impl:createRecordAttachmentResponse" name="createRecordAttachmentResponse"/>
+
+      </operation>
+
+      <operation name="getRawIntensitiesDownloadURL" parameterOrder="in0 in1 in2">
+
+         <input message="impl:getRawIntensitiesDownloadURLRequest" name="getRawIntensitiesDownloadURLRequest"/>
+
+         <output message="impl:getRawIntensitiesDownloadURLResponse" name="getRawIntensitiesDownloadURLResponse"/>
+
+      </operation>
+
+      <operation name="addUserComment" parameterOrder="in0 in1 in2">
+
+         <input message="impl:addUserCommentRequest" name="addUserCommentRequest"/>
+
+         <output message="impl:addUserCommentResponse" name="addUserCommentResponse"/>
+
+      </operation>
+
+      <operation name="getThumbnailDownloadURL" parameterOrder="in0 in1">
+
+         <input message="impl:getThumbnailDownloadURLRequest" name="getThumbnailDownloadURLRequest"/>
+
+         <output message="impl:getThumbnailDownloadURLResponse" name="getThumbnailDownloadURLResponse"/>
+
+      </operation>
+
+      <operation name="getRecordHistory" parameterOrder="in0 in1">
+
+         <input message="impl:getRecordHistoryRequest" name="getRecordHistoryRequest"/>
+
+         <output message="impl:getRecordHistoryResponse" name="getRecordHistoryResponse"/>
+
+      </operation>
+
+      <operation name="getVisualOverlay" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:getVisualOverlayRequest" name="getVisualOverlayRequest"/>
+
+         <output message="impl:getVisualOverlayResponse" name="getVisualOverlayResponse"/>
+
+      </operation>
+
+      <operation name="getThumbnailUploadURL" parameterOrder="in0 in1">
+
+         <input message="impl:getThumbnailUploadURLRequest" name="getThumbnailUploadURLRequest"/>
+
+         <output message="impl:getThumbnailUploadURLResponse" name="getThumbnailUploadURLResponse"/>
+
+      </operation>
+
+      <operation name="getArchivedProjects" parameterOrder="in0">
+
+         <input message="impl:getArchivedProjectsRequest" name="getArchivedProjectsRequest"/>
+
+         <output message="impl:getArchivedProjectsResponse" name="getArchivedProjectsResponse"/>
+
+      </operation>
+
+      <operation name="getImageDownloadURL" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:getImageDownloadURLRequest" name="getImageDownloadURLRequest"/>
+
+         <output message="impl:getImageDownloadURLResponse" name="getImageDownloadURLResponse"/>
+
+      </operation>
+
+      <operation name="getOverlayImageDownloadURL" parameterOrder="in0 in1 in2 in3 in4 in5 in6 in7 in8 in9 in10 in11 in12">
+
+         <input message="impl:getOverlayImageDownloadURLRequest" name="getOverlayImageDownloadURLRequest"/>
+
+         <output message="impl:getOverlayImageDownloadURLResponse" name="getOverlayImageDownloadURLResponse"/>
+
+      </operation>
+
+      <operation name="getOverlayImageDownloadURL" parameterOrder="in0 in1 in2 in3 in4 in5 in6 in7 in8 in9 in10 in11 in12 in13 in14">
+
+         <input message="impl:getOverlayImageDownloadURLRequest1" name="getOverlayImageDownloadURLRequest1"/>
+
+         <output message="impl:getOverlayImageDownloadURLResponse1" name="getOverlayImageDownloadURLResponse1"/>
+
+      </operation>
+
+      <operation name="getOverlayImageDownloadURL" parameterOrder="in0 in1 in2 in3 in4 in5 in6 in7 in8 in9 in10 in11 in12 in13">
+
+         <input message="impl:getOverlayImageDownloadURLRequest2" name="getOverlayImageDownloadURLRequest2"/>
+
+         <output message="impl:getOverlayImageDownloadURLResponse2" name="getOverlayImageDownloadURLResponse2"/>
+
+      </operation>
+
+      <operation name="getDynamicMetaData" parameterOrder="in0 in1">
+
+         <input message="impl:getDynamicMetaDataRequest" name="getDynamicMetaDataRequest"/>
+
+         <output message="impl:getDynamicMetaDataResponse" name="getDynamicMetaDataResponse"/>
+
+      </operation>
+
+      <operation name="findProjectForRecord" parameterOrder="in0 in1">
+
+         <input message="impl:findProjectForRecordRequest" name="findProjectForRecordRequest"/>
+
+         <output message="impl:findProjectForRecordResponse" name="findProjectForRecordResponse"/>
+
+      </operation>
+
+      <operation name="getRecordAttachments" parameterOrder="in0 in1">
+
+         <input message="impl:getRecordAttachmentsRequest" name="getRecordAttachmentsRequest"/>
+
+         <output message="impl:getRecordAttachmentsResponse" name="getRecordAttachmentsResponse"/>
+
+      </operation>
+
+      <operation name="createBookmarkFolder" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:createBookmarkFolderRequest" name="createBookmarkFolderRequest"/>
+
+         <output message="impl:createBookmarkFolderResponse" name="createBookmarkFolderResponse"/>
+
+      </operation>
+
+      <operation name="getIntensityDistibution" parameterOrder="in0 in1 in2">
+
+         <input message="impl:getIntensityDistibutionRequest" name="getIntensityDistibutionRequest"/>
+
+         <output message="impl:getIntensityDistibutionResponse" name="getIntensityDistibutionResponse"/>
+
+      </operation>
+
+      <operation name="addRecordUserAnnotation" parameterOrder="in0 in1 in2">
+
+         <input message="impl:addRecordUserAnnotationRequest" name="addRecordUserAnnotationRequest"/>
+
+         <output message="impl:addRecordUserAnnotationResponse" name="addRecordUserAnnotationResponse"/>
+
+      </operation>
+
+      <operation name="getMosaicResource" parameterOrder="in0 in1">
+
+         <input message="impl:getMosaicResourceRequest" name="getMosaicResourceRequest"/>
+
+         <output message="impl:getMosaicResourceResponse" name="getMosaicResourceResponse"/>
+
+      </operation>
+
+      <operation name="getAttachmentDownloadURL" parameterOrder="in0 in1 in2">
+
+         <input message="impl:getAttachmentDownloadURLRequest" name="getAttachmentDownloadURLRequest"/>
+
+         <output message="impl:getAttachmentDownloadURLResponse" name="getAttachmentDownloadURLResponse"/>
+
+      </operation>
+
+      <operation name="findVisualObjects" parameterOrder="in0 in1 in2 in3 in4">
+
+         <input message="impl:findVisualObjectsRequest" name="findVisualObjectsRequest"/>
+
+         <output message="impl:findVisualObjectsResponse" name="findVisualObjectsResponse"/>
+
+      </operation>
+
+      <operation name="getRecordUserAnnotations" parameterOrder="in0 in1">
+
+         <input message="impl:getRecordUserAnnotationsRequest" name="getRecordUserAnnotationsRequest"/>
+
+         <output message="impl:getRecordUserAnnotationsResponse" name="getRecordUserAnnotationsResponse"/>
+
+      </operation>
+
+      <operation name="surrenderAcquisitionLicense" parameterOrder="in0">
+
+         <input message="impl:surrenderAcquisitionLicenseRequest" name="surrenderAcquisitionLicenseRequest"/>
+
+         <output message="impl:surrenderAcquisitionLicenseResponse" name="surrenderAcquisitionLicenseResponse"/>
+
+      </operation>
+
+      <operation name="getLineSegments" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:getLineSegmentsRequest" name="getLineSegmentsRequest"/>
+
+         <output message="impl:getLineSegmentsResponse" name="getLineSegmentsResponse"/>
+
+      </operation>
+
+      <operation name="getBookmarkGuids" parameterOrder="in0 in1 in2">
+
+         <input message="impl:getBookmarkGuidsRequest" name="getBookmarkGuidsRequest"/>
+
+         <output message="impl:getBookmarkGuidsResponse" name="getBookmarkGuidsResponse"/>
+
+      </operation>
+
+      <operation name="getRecordChannels" parameterOrder="in0 in1">
+
+         <input message="impl:getRecordChannelsRequest" name="getRecordChannelsRequest"/>
+
+         <output message="impl:getRecordChannelsResponse" name="getRecordChannelsResponse"/>
+
+      </operation>
+
+      <operation name="getActiveProjects" parameterOrder="in0">
+
+         <input message="impl:getActiveProjectsRequest" name="getActiveProjectsRequest"/>
+
+         <output message="impl:getActiveProjectsResponse" name="getActiveProjectsResponse"/>
+
+      </operation>
+
+      <operation name="getMicroscopeName" parameterOrder="in0 in1 in2">
+
+         <input message="impl:getMicroscopeNameRequest" name="getMicroscopeNameRequest"/>
+
+         <output message="impl:getMicroscopeNameResponse" name="getMicroscopeNameResponse"/>
+
+      </operation>
+
+      <operation name="requestAcquisitionLicense" parameterOrder="in0 in1 in2">
+
+         <input message="impl:requestAcquisitionLicenseRequest" name="requestAcquisitionLicenseRequest"/>
+
+         <output message="impl:requestAcquisitionLicenseResponse" name="requestAcquisitionLicenseResponse"/>
+
+      </operation>
+
+      <operation name="addVisualObjects" parameterOrder="in0 in1 in2 in3 in4">
+
+         <input message="impl:addVisualObjectsRequest" name="addVisualObjectsRequest"/>
+
+         <output message="impl:addVisualObjectsResponse" name="addVisualObjectsResponse"/>
+
+      </operation>
+
+      <operation name="listAvailableFormats" parameterOrder="in0">
+
+         <input message="impl:listAvailableFormatsRequest" name="listAvailableFormatsRequest"/>
+
+         <output message="impl:listAvailableFormatsResponse" name="listAvailableFormatsResponse"/>
+
+      </operation>
+
+      <operation name="findRecordForGUIDs" parameterOrder="in0 in1">
+
+         <input message="impl:findRecordForGUIDsRequest" name="findRecordForGUIDsRequest"/>
+
+         <output message="impl:findRecordForGUIDsResponse" name="findRecordForGUIDsResponse"/>
+
+      </operation>
+
+      <operation name="setAcquisitionProfile" parameterOrder="in0 in1 in2">
+
+         <input message="impl:setAcquisitionProfileRequest" name="setAcquisitionProfileRequest"/>
+
+         <output message="impl:setAcquisitionProfileResponse" name="setAcquisitionProfileResponse"/>
+
+      </operation>
+
+      <operation name="getBookmarkSubFolders" parameterOrder="in0 in1 in2">
+
+         <input message="impl:getBookmarkSubFoldersRequest" name="getBookmarkSubFoldersRequest"/>
+
+         <output message="impl:getBookmarkSubFoldersResponse" name="getBookmarkSubFoldersResponse"/>
+
+      </operation>
+
+      <operation name="getMosaicElementDownloadUrl" parameterOrder="in0 in1 in2">
+
+         <input message="impl:getMosaicElementDownloadUrlRequest" name="getMosaicElementDownloadUrlRequest"/>
+
+         <output message="impl:getMosaicElementDownloadUrlResponse" name="getMosaicElementDownloadUrlResponse"/>
+
+      </operation>
+
+      <operation name="getAvailableVisualOverlays" parameterOrder="in0 in1 in2">
+
+         <input message="impl:getAvailableVisualOverlaysRequest" name="getAvailableVisualOverlaysRequest"/>
+
+         <output message="impl:getAvailableVisualOverlaysResponse" name="getAvailableVisualOverlaysResponse"/>
+
+      </operation>
+
+      <operation name="findVisualObjectLocation" parameterOrder="in0 in1 in2 in3 in4">
+
+         <input message="impl:findVisualObjectLocationRequest" name="findVisualObjectLocationRequest"/>
+
+         <output message="impl:findVisualObjectLocationResponse" name="findVisualObjectLocationResponse"/>
+
+      </operation>
+
+      <operation name="createVisualOverlays" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:createVisualOverlaysRequest" name="createVisualOverlaysRequest"/>
+
+         <output message="impl:createVisualOverlaysResponse" name="createVisualOverlaysResponse"/>
+
+      </operation>
+
+      <operation name="addRecordHistory" parameterOrder="in0 in1 in2">
+
+         <input message="impl:addRecordHistoryRequest" name="addRecordHistoryRequest"/>
+
+         <output message="impl:addRecordHistoryResponse" name="addRecordHistoryResponse"/>
+
+      </operation>
+
+      <operation name="getVisualObjects" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:getVisualObjectsRequest" name="getVisualObjectsRequest"/>
+
+         <output message="impl:getVisualObjectsResponse" name="getVisualObjectsResponse"/>
+
+      </operation>
+
+      <operation name="getTileImageDownloadURL" parameterOrder="in0 in1 in2 in3 in4 in5 in6 in7">
+
+         <input message="impl:getTileImageDownloadURLRequest" name="getTileImageDownloadURLRequest"/>
+
+         <output message="impl:getTileImageDownloadURLResponse" name="getTileImageDownloadURLResponse"/>
+
+      </operation>
+
+      <operation name="listAvailableProfiles" parameterOrder="in0">
+
+         <input message="impl:listAvailableProfilesRequest" name="listAvailableProfilesRequest"/>
+
+         <output message="impl:listAvailableProfilesResponse" name="listAvailableProfilesResponse"/>
+
+      </operation>
+
+      <operation name="listGUIDsForArchive" parameterOrder="in0 in1">
+
+         <input message="impl:listGUIDsForArchiveRequest" name="listGUIDsForArchiveRequest"/>
+
+         <output message="impl:listGUIDsForArchiveResponse" name="listGUIDsForArchiveResponse"/>
+
+      </operation>
+
+      <operation name="getPixelDataForRecord" parameterOrder="in0 in1 in2">
+
+         <input message="impl:getPixelDataForRecordRequest" name="getPixelDataForRecordRequest"/>
+
+         <output message="impl:getPixelDataForRecordResponse" name="getPixelDataForRecordResponse"/>
+
+      </operation>
+
+      <operation name="getRectangularShapes" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:getRectangularShapesRequest" name="getRectangularShapesRequest"/>
+
+         <output message="impl:getRectangularShapesResponse" name="getRectangularShapesResponse"/>
+
+      </operation>
+
+   </portType>
+
+   <binding name="iSpaceSoapBinding" type="impl:ImageSpaceService">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <operation name="findProject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="findProjectRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="findProjectResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getRecordSite">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getRecordSiteRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getRecordSiteResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getTextBoxes">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getTextBoxesRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getTextBoxesResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="listArchives">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="listArchivesRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="listArchivesResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="addBookmark">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="addBookmarkRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="addBookmarkResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="findGUID">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="findGUIDRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="findGUIDResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getIntensityDistibutionForTile">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getIntensityDistibutionForTileRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getIntensityDistibutionForTileResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getChannelOverlaidSliceImagesURL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getChannelOverlaidSliceImagesURLRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getChannelOverlaidSliceImagesURLResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getImageMetaData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getImageMetaDataRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getImageMetaDataResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="findOverlayLocation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="findOverlayLocationRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="findOverlayLocationResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getVisualOverlays">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getVisualOverlaysRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getVisualOverlaysResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getEllipticalShapes">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getEllipticalShapesRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getEllipticalShapesResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getTileIntensitiesDownloadURL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getTileIntensitiesDownloadURLRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getTileIntensitiesDownloadURLResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="fetchUserComment">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="fetchUserCommentRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="fetchUserCommentResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="setChannelColorAndContrast">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="setChannelColorAndContrastRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="setChannelColorAndContrastResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getFreeHandShapes">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getFreeHandShapesRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getFreeHandShapesResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="findProjectForArchive">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="findProjectForArchiveRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="findProjectForArchiveResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getBookmarkRoot">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getBookmarkRootRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getBookmarkRootResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="createRecordAttachment">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="createRecordAttachmentRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="createRecordAttachmentResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getRawIntensitiesDownloadURL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getRawIntensitiesDownloadURLRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getRawIntensitiesDownloadURLResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="addUserComment">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="addUserCommentRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="addUserCommentResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getThumbnailDownloadURL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getThumbnailDownloadURLRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getThumbnailDownloadURLResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getRecordHistory">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getRecordHistoryRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getRecordHistoryResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getVisualOverlay">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getVisualOverlayRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getVisualOverlayResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getThumbnailUploadURL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getThumbnailUploadURLRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getThumbnailUploadURLResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getArchivedProjects">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getArchivedProjectsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getArchivedProjectsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getImageDownloadURL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getImageDownloadURLRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getImageDownloadURLResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getOverlayImageDownloadURL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getOverlayImageDownloadURLRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getOverlayImageDownloadURLResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getOverlayImageDownloadURL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getOverlayImageDownloadURLRequest1">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getOverlayImageDownloadURLResponse1">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getOverlayImageDownloadURL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getOverlayImageDownloadURLRequest2">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getOverlayImageDownloadURLResponse2">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getDynamicMetaData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getDynamicMetaDataRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getDynamicMetaDataResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="findProjectForRecord">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="findProjectForRecordRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="findProjectForRecordResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getRecordAttachments">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getRecordAttachmentsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getRecordAttachmentsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="createBookmarkFolder">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="createBookmarkFolderRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="createBookmarkFolderResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getIntensityDistibution">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getIntensityDistibutionRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getIntensityDistibutionResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="addRecordUserAnnotation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="addRecordUserAnnotationRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="addRecordUserAnnotationResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getMosaicResource">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getMosaicResourceRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getMosaicResourceResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getAttachmentDownloadURL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getAttachmentDownloadURLRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getAttachmentDownloadURLResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="findVisualObjects">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="findVisualObjectsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="findVisualObjectsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getRecordUserAnnotations">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getRecordUserAnnotationsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getRecordUserAnnotationsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="surrenderAcquisitionLicense">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="surrenderAcquisitionLicenseRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="surrenderAcquisitionLicenseResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getLineSegments">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getLineSegmentsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getLineSegmentsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getBookmarkGuids">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getBookmarkGuidsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getBookmarkGuidsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getRecordChannels">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getRecordChannelsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getRecordChannelsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getActiveProjects">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getActiveProjectsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getActiveProjectsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getMicroscopeName">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getMicroscopeNameRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getMicroscopeNameResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="requestAcquisitionLicense">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="requestAcquisitionLicenseRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="requestAcquisitionLicenseResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="addVisualObjects">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="addVisualObjectsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="addVisualObjectsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="listAvailableFormats">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="listAvailableFormatsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="listAvailableFormatsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="findRecordForGUIDs">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="findRecordForGUIDsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="findRecordForGUIDsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="setAcquisitionProfile">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="setAcquisitionProfileRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="setAcquisitionProfileResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getBookmarkSubFolders">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getBookmarkSubFoldersRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getBookmarkSubFoldersResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getMosaicElementDownloadUrl">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getMosaicElementDownloadUrlRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getMosaicElementDownloadUrlResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getAvailableVisualOverlays">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getAvailableVisualOverlaysRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getAvailableVisualOverlaysResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="findVisualObjectLocation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="findVisualObjectLocationRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="findVisualObjectLocationResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="createVisualOverlays">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="createVisualOverlaysRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="createVisualOverlaysResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="addRecordHistory">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="addRecordHistoryRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="addRecordHistoryResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getVisualObjects">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getVisualObjectsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getVisualObjectsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getTileImageDownloadURL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getTileImageDownloadURLRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getTileImageDownloadURLResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="listAvailableProfiles">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="listAvailableProfilesRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="listAvailableProfilesResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="listGUIDsForArchive">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="listGUIDsForArchiveRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="listGUIDsForArchiveResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getPixelDataForRecord">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getPixelDataForRecordRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getPixelDataForRecordResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getRectangularShapes">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getRectangularShapesRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </input>
+
+         <output name="getRectangularShapesResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:ispace" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+   </binding>
+
+   <service name="ImageSpaceServiceService">
+
+      <port binding="impl:iSpaceSoapBinding" name="iSpace">
+
+         <wsdlsoap:address location="http://localhost:8080/imanage/services/"/>
+
+      </port>
+
+   </service>
+
+</definitions>

@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="urn:iloader" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="urn:iloader" xmlns:intf="urn:iloader" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema targetNamespace="urn:iloader" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="SourceFile">
+    <sequence>
+     <element name="filePath" nillable="true" type="soapenc:string"/>
+     <element name="lastModificationTime" type="xsd:long"/>
+     <element name="length" type="xsd:long"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfSourceFile">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:SourceFile[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="Archive">
+    <sequence>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="rootDirectory" nillable="true" type="soapenc:string"/>
+     <element name="signature" nillable="true" type="soapenc:string"/>
+     <element name="sourceFiles" nillable="true" type="impl:ArrayOfSourceFile"/>
+    </sequence>
+   </complexType>
+   <complexType name="Contrast">
+    <sequence>
+     <element name="gamma" type="xsd:double"/>
+     <element name="maxIntensity" type="xsd:int"/>
+     <element name="minIntensity" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="Channel">
+    <sequence>
+     <element name="ZStackedContrast" nillable="true" type="impl:Contrast"/>
+     <element name="contrast" nillable="true" type="impl:Contrast"/>
+     <element name="lutName" nillable="true" type="soapenc:string"/>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="revision" type="xsd:long"/>
+     <element name="wavelength" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfChannel">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:Channel[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="RecordSite">
+    <sequence>
+     <element name="name" nillable="true" type="soapenc:string"/>
+     <element name="seriesNo" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfRecordSite">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:RecordSite[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="RecordSpecification">
+    <sequence>
+     <element name="customChannels" nillable="true" type="impl:ArrayOfChannel"/>
+     <element name="siteToMerge" nillable="true" type="impl:ArrayOfRecordSite"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfRecordSpecification">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:RecordSpecification[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="CreationRequest">
+    <sequence>
+     <element name="archive" nillable="true" type="impl:Archive"/>
+     <element name="clientMacAddress" nillable="true" type="soapenc:string"/>
+     <element name="validSignatures" nillable="true" type="impl:ArrayOfRecordSpecification"/>
+    </sequence>
+   </complexType>
+   <complexType name="UploadTicket">
+    <sequence>
+     <element name="ID" type="xsd:long"/>
+     <element name="archiveSignature" nillable="true" type="soapenc:string"/>
+     <element name="downloadURL" nillable="true" type="soapenc:string"/>
+     <element name="uploadURL" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="RecordBuilderObject">
+    <sequence>
+     <element name="acquiredTime" nillable="true" type="soapenc:long"/>
+     <element name="channels" nillable="true" type="impl:ArrayOfChannel"/>
+     <element name="creationTime" nillable="true" type="soapenc:long"/>
+     <element name="imageDepth" type="xsd:int"/>
+     <element name="imageHeight" type="xsd:int"/>
+     <element name="imageType" type="xsd:int"/>
+     <element name="imageWidth" type="xsd:int"/>
+     <element name="macAddress" nillable="true" type="soapenc:string"/>
+     <element name="machineIP" nillable="true" type="soapenc:string"/>
+     <element name="noOfFrames" type="xsd:int"/>
+     <element name="noOfSlices" type="xsd:int"/>
+     <element name="parentRecord" nillable="true" type="soapenc:long"/>
+     <element name="projectName" nillable="true" type="soapenc:string"/>
+     <element name="recordLabel" nillable="true" type="soapenc:string"/>
+     <element name="sites" nillable="true" type="impl:ArrayOfRecordSite"/>
+     <element name="sourceFilename" nillable="true" type="soapenc:string"/>
+     <element name="sourceFolder" nillable="true" type="soapenc:string"/>
+     <element name="sourceTime" nillable="true" type="soapenc:long"/>
+     <element name="sourceType" nillable="true" type="soapenc:string"/>
+     <element name="uploadedBy" nillable="true" type="soapenc:string"/>
+     <element name="xPixelSize" type="xsd:double"/>
+     <element name="yPixelSize" type="xsd:double"/>
+     <element name="zPixelSize" type="xsd:double"/>
+    </sequence>
+   </complexType>
+   <complexType name="VOIndex">
+    <sequence>
+     <element name="frame" type="xsd:int"/>
+     <element name="site" type="xsd:int"/>
+     <element name="slice" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ImageIndex">
+    <complexContent>
+     <extension base="impl:VOIndex">
+      <sequence>
+       <element name="channel" type="xsd:int"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="Image">
+    <sequence>
+     <element name="elapsedTime" type="xsd:double"/>
+     <element name="exposureTime" type="xsd:double"/>
+     <element name="index" nillable="true" type="impl:ImageIndex"/>
+     <element name="timeStamp" type="xsd:long"/>
+     <element name="x" type="xsd:double"/>
+     <element name="y" type="xsd:double"/>
+     <element name="z" type="xsd:double"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <message name="commitRecordCreationResponse">
+
+   </message>
+
+   <message name="getRecordDownloadURLResponse">
+
+      <part name="getRecordDownloadURLReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="abortRecordCreationRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="commitRecordCreationRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="getTicketStatusRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="findArchiveResponse">
+
+      <part name="findArchiveReturn" type="impl:Archive"/>
+
+   </message>
+
+   <message name="getRecordDownloadURLRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+   </message>
+
+   <message name="addImageDataResponse">
+
+      <part name="addImageDataReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="abortRecordCreationResponse">
+
+   </message>
+
+   <message name="recordCreationRequestRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="impl:CreationRequest"/>
+
+   </message>
+
+   <message name="directUploadCreationRequestRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+      <part name="in2" type="impl:CreationRequest"/>
+
+   </message>
+
+   <message name="registerRecordBuilderResponse">
+
+      <part name="registerRecordBuilderReturn" type="soapenc:long"/>
+
+   </message>
+
+   <message name="getTicketStatusResponse">
+
+      <part name="getTicketStatusReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="getArchiveDownloadURLRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="addImageDataRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:ImageIndex"/>
+
+      <part name="in3" type="impl:Image"/>
+
+   </message>
+
+   <message name="findArchiveRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="soapenc:string"/>
+
+   </message>
+
+   <message name="recordCreationRequestResponse">
+
+      <part name="recordCreationRequestReturn" type="impl:UploadTicket"/>
+
+   </message>
+
+   <message name="directUploadCreationRequestResponse">
+
+      <part name="directUploadCreationRequestReturn" type="impl:UploadTicket"/>
+
+   </message>
+
+   <message name="registerRecordBuilderRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="impl:RecordBuilderObject"/>
+
+   </message>
+
+   <message name="getArchiveDownloadURLResponse">
+
+      <part name="getArchiveDownloadURLReturn" type="soapenc:string"/>
+
+   </message>
+
+   <portType name="ImageSpaceLoader">
+
+      <operation name="directUploadCreationRequest" parameterOrder="in0 in1 in2">
+
+         <input message="impl:directUploadCreationRequestRequest" name="directUploadCreationRequestRequest"/>
+
+         <output message="impl:directUploadCreationRequestResponse" name="directUploadCreationRequestResponse"/>
+
+      </operation>
+
+      <operation name="recordCreationRequest" parameterOrder="in0 in1 in2">
+
+         <input message="impl:recordCreationRequestRequest" name="recordCreationRequestRequest"/>
+
+         <output message="impl:recordCreationRequestResponse" name="recordCreationRequestResponse"/>
+
+      </operation>
+
+      <operation name="registerRecordBuilder" parameterOrder="in0 in1">
+
+         <input message="impl:registerRecordBuilderRequest" name="registerRecordBuilderRequest"/>
+
+         <output message="impl:registerRecordBuilderResponse" name="registerRecordBuilderResponse"/>
+
+      </operation>
+
+      <operation name="commitRecordCreation" parameterOrder="in0 in1">
+
+         <input message="impl:commitRecordCreationRequest" name="commitRecordCreationRequest"/>
+
+         <output message="impl:commitRecordCreationResponse" name="commitRecordCreationResponse"/>
+
+      </operation>
+
+      <operation name="getTicketStatus" parameterOrder="in0 in1">
+
+         <input message="impl:getTicketStatusRequest" name="getTicketStatusRequest"/>
+
+         <output message="impl:getTicketStatusResponse" name="getTicketStatusResponse"/>
+
+      </operation>
+
+      <operation name="getArchiveDownloadURL" parameterOrder="in0 in1">
+
+         <input message="impl:getArchiveDownloadURLRequest" name="getArchiveDownloadURLRequest"/>
+
+         <output message="impl:getArchiveDownloadURLResponse" name="getArchiveDownloadURLResponse"/>
+
+      </operation>
+
+      <operation name="getRecordDownloadURL" parameterOrder="in0 in1">
+
+         <input message="impl:getRecordDownloadURLRequest" name="getRecordDownloadURLRequest"/>
+
+         <output message="impl:getRecordDownloadURLResponse" name="getRecordDownloadURLResponse"/>
+
+      </operation>
+
+      <operation name="abortRecordCreation" parameterOrder="in0 in1">
+
+         <input message="impl:abortRecordCreationRequest" name="abortRecordCreationRequest"/>
+
+         <output message="impl:abortRecordCreationResponse" name="abortRecordCreationResponse"/>
+
+      </operation>
+
+      <operation name="findArchive" parameterOrder="in0 in1">
+
+         <input message="impl:findArchiveRequest" name="findArchiveRequest"/>
+
+         <output message="impl:findArchiveResponse" name="findArchiveResponse"/>
+
+      </operation>
+
+      <operation name="addImageData" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:addImageDataRequest" name="addImageDataRequest"/>
+
+         <output message="impl:addImageDataResponse" name="addImageDataResponse"/>
+
+      </operation>
+
+   </portType>
+
+   <binding name="iLoaderSoapBinding" type="impl:ImageSpaceLoader">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <operation name="directUploadCreationRequest">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="directUploadCreationRequestRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </input>
+
+         <output name="directUploadCreationRequestResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="recordCreationRequest">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="recordCreationRequestRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </input>
+
+         <output name="recordCreationRequestResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="registerRecordBuilder">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="registerRecordBuilderRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </input>
+
+         <output name="registerRecordBuilderResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="commitRecordCreation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="commitRecordCreationRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </input>
+
+         <output name="commitRecordCreationResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getTicketStatus">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getTicketStatusRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </input>
+
+         <output name="getTicketStatusResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getArchiveDownloadURL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getArchiveDownloadURLRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </input>
+
+         <output name="getArchiveDownloadURLResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getRecordDownloadURL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getRecordDownloadURLRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </input>
+
+         <output name="getRecordDownloadURLResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="abortRecordCreation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="abortRecordCreationRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </input>
+
+         <output name="abortRecordCreationResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="findArchive">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="findArchiveRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </input>
+
+         <output name="findArchiveResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="addImageData">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="addImageDataRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </input>
+
+         <output name="addImageDataResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iloader" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+   </binding>
+
+   <service name="ImageSpaceLoaderService">
+
+      <port binding="impl:iLoaderSoapBinding" name="iLoader">
+
+         <wsdlsoap:address location="http://localhost:8080/imanage/services/"/>
+
+      </port>
+
+   </service>
+
+</definitions>

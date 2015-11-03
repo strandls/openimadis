@@ -1,0 +1,151 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ImageSpaceLoaderService WSDL service -->
+
+  <service name="iLoader" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:iloader"/>
+      <parameter name="wsdlServiceElement" value="ImageSpaceLoaderService"/>
+      <parameter name="schemaUnqualified" value="urn:iloader"/>
+      <parameter name="wsdlServicePort" value="iLoader"/>
+      <parameter name="className" value="com.strandgenomics.imaging.iserver.services.ws.loader.ILoaderSoapBindingSkeleton"/>
+      <parameter name="wsdlPortType" value="ImageSpaceLoader"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <parameter name="allowedMethods" value="*"/>
+      <parameter name="scope" value="Request"/>
+
+      <typeMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:UploadTicket"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.UploadTicket"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:Image"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.Image"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:VOIndex"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.VOIndex"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:ArrayOfRecordSite"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.RecordSite[]"
+        innerType="cmp-ns:RecordSite" xmlns:cmp-ns="urn:iloader"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:ArrayOfChannel"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.Channel[]"
+        innerType="cmp-ns:Channel" xmlns:cmp-ns="urn:iloader"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:ArrayOfSourceFile"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.SourceFile[]"
+        innerType="cmp-ns:SourceFile" xmlns:cmp-ns="urn:iloader"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:Contrast"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.Contrast"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:RecordSite"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.RecordSite"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:SourceFile"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.SourceFile"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:ImageIndex"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.ImageIndex"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:CreationRequest"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.CreationRequest"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:ArrayOfRecordSpecification"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.RecordSpecification[]"
+        innerType="cmp-ns:RecordSpecification" xmlns:cmp-ns="urn:iloader"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:Archive"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.Archive"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:Channel"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.Channel"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:RecordSpecification"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.RecordSpecification"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iloader"
+        qname="ns:RecordBuilderObject"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.loader.RecordBuilderObject"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

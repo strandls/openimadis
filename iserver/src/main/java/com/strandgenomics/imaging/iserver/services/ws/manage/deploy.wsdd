@@ -1,0 +1,57 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ImageSpaceManagementService WSDL service -->
+
+  <service name="iManage" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:imanage"/>
+      <parameter name="wsdlServiceElement" value="ImageSpaceManagementService"/>
+      <parameter name="schemaUnqualified" value="urn:imanage"/>
+      <parameter name="wsdlServicePort" value="iManage"/>
+      <parameter name="className" value="com.strandgenomics.imaging.iserver.services.ws.manage.IManageSoapBindingSkeleton"/>
+      <parameter name="wsdlPortType" value="ImageSpaceManagement"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <parameter name="allowedMethods" value="*"/>
+      <parameter name="scope" value="Request"/>
+
+      <arrayMapping
+        xmlns:ns="urn:imanage"
+        qname="ns:ArrayOf_soapenc_string"
+        type="java:java.lang.String[]"
+        innerType="cmp-ns:string" xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:imanage"
+        qname="ns:ArrayOfUser"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.manage.User[]"
+        innerType="cmp-ns:User" xmlns:cmp-ns="urn:imanage"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:imanage"
+        qname="ns:Task"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.manage.Task"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:imanage"
+        qname="ns:User"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.manage.User"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

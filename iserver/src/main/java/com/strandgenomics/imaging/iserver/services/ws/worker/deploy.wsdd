@@ -1,0 +1,188 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ImageSpaceWorkersService WSDL service -->
+
+  <service name="iWorkers" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:iworkers"/>
+      <parameter name="wsdlServiceElement" value="ImageSpaceWorkersService"/>
+      <parameter name="schemaUnqualified" value="urn:iworkers"/>
+      <parameter name="wsdlServicePort" value="iWorkers"/>
+      <parameter name="className" value="com.strandgenomics.imaging.iserver.services.ws.worker.IWorkersSoapBindingSkeleton"/>
+      <parameter name="wsdlPortType" value="ImageSpaceWorkers"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <parameter name="allowedMethods" value="*"/>
+      <parameter name="scope" value="Request"/>
+
+      <typeMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:LongListConstraints"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.LongListConstraints"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:StringListConstraints"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.StringListConstraints"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:Directive"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.Directive"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:Constraints"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.Constraints"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:ArrayOf_soapenc_double"
+        type="java:java.lang.Double[]"
+        innerType="cmp-ns:double" xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:ArrayOfApplication"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.Application[]"
+        innerType="cmp-ns:Application" xmlns:cmp-ns="urn:iworkers"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:ArrayOfParameter"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.Parameter[]"
+        innerType="cmp-ns:Parameter" xmlns:cmp-ns="urn:iworkers"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:Parameter"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.Parameter"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:ArrayOfWorkStatus"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.WorkStatus[]"
+        innerType="cmp-ns:WorkStatus" xmlns:cmp-ns="urn:iworkers"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:WorkStatus"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.WorkStatus"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:Request"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.Request"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:Work"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.Work"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:NVPair"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.NVPair"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:Application"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.Application"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:ArrayOfNVPair"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.NVPair[]"
+        innerType="cmp-ns:NVPair" xmlns:cmp-ns="urn:iworkers"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:DoubleRangeConstraints"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.DoubleRangeConstraints"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:LongRangeConstraints"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.LongRangeConstraints"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:Response"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.Response"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:ArrayOf_soapenc_string"
+        type="java:java.lang.String[]"
+        innerType="cmp-ns:string" xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:DoubleListConstraints"
+        type="java:com.strandgenomics.imaging.iserver.services.ws.worker.DoubleListConstraints"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:iworkers"
+        qname="ns:ArrayOf_soapenc_long"
+        type="java:java.lang.Long[]"
+        innerType="cmp-ns:long" xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="urn:iupdate" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="urn:iupdate" xmlns:intf="urn:iupdate" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema targetNamespace="urn:iupdate" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_xsd_int">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:int[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="VOIndex">
+    <sequence>
+     <element name="frame" type="xsd:int"/>
+     <element name="site" type="xsd:int"/>
+     <element name="slice" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfVOIndex">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:VOIndex[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <message name="updateRecordUserAnnotationResponse">
+
+   </message>
+
+   <message name="updateAttachmentNotesRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+   </message>
+
+   <message name="deleteVisualObjectsResponse">
+
+   </message>
+
+   <message name="deleteAttachmentRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+   </message>
+
+   <message name="updateRecordUserAnnotationRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+      <part name="in3" type="xsd:anyType"/>
+
+   </message>
+
+   <message name="getAttachmentUploadURLResponse">
+
+      <part name="getAttachmentUploadURLReturn" type="soapenc:string"/>
+
+   </message>
+
+   <message name="deleteTextObjectsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:ArrayOf_xsd_int"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+      <part name="in4" type="impl:ArrayOfVOIndex"/>
+
+   </message>
+
+   <message name="updateAttachmentNotesResponse">
+
+   </message>
+
+   <message name="getAttachmentUploadURLRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="soapenc:string"/>
+
+   </message>
+
+   <message name="deleteVisualOverlaysRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="xsd:int"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+   </message>
+
+   <message name="deleteTextObjectsResponse">
+
+   </message>
+
+   <message name="deleteVisualObjectsRequest">
+
+      <part name="in0" type="soapenc:string"/>
+
+      <part name="in1" type="xsd:long"/>
+
+      <part name="in2" type="impl:ArrayOf_xsd_int"/>
+
+      <part name="in3" type="soapenc:string"/>
+
+      <part name="in4" type="impl:ArrayOfVOIndex"/>
+
+   </message>
+
+   <message name="deleteAttachmentResponse">
+
+   </message>
+
+   <message name="deleteVisualOverlaysResponse">
+
+   </message>
+
+   <portType name="ImageSpaceUpdate">
+
+      <operation name="deleteVisualOverlays" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:deleteVisualOverlaysRequest" name="deleteVisualOverlaysRequest"/>
+
+         <output message="impl:deleteVisualOverlaysResponse" name="deleteVisualOverlaysResponse"/>
+
+      </operation>
+
+      <operation name="getAttachmentUploadURL" parameterOrder="in0 in1 in2">
+
+         <input message="impl:getAttachmentUploadURLRequest" name="getAttachmentUploadURLRequest"/>
+
+         <output message="impl:getAttachmentUploadURLResponse" name="getAttachmentUploadURLResponse"/>
+
+      </operation>
+
+      <operation name="deleteTextObjects" parameterOrder="in0 in1 in2 in3 in4">
+
+         <input message="impl:deleteTextObjectsRequest" name="deleteTextObjectsRequest"/>
+
+         <output message="impl:deleteTextObjectsResponse" name="deleteTextObjectsResponse"/>
+
+      </operation>
+
+      <operation name="deleteAttachment" parameterOrder="in0 in1 in2">
+
+         <input message="impl:deleteAttachmentRequest" name="deleteAttachmentRequest"/>
+
+         <output message="impl:deleteAttachmentResponse" name="deleteAttachmentResponse"/>
+
+      </operation>
+
+      <operation name="updateAttachmentNotes" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:updateAttachmentNotesRequest" name="updateAttachmentNotesRequest"/>
+
+         <output message="impl:updateAttachmentNotesResponse" name="updateAttachmentNotesResponse"/>
+
+      </operation>
+
+      <operation name="updateRecordUserAnnotation" parameterOrder="in0 in1 in2 in3">
+
+         <input message="impl:updateRecordUserAnnotationRequest" name="updateRecordUserAnnotationRequest"/>
+
+         <output message="impl:updateRecordUserAnnotationResponse" name="updateRecordUserAnnotationResponse"/>
+
+      </operation>
+
+      <operation name="deleteVisualObjects" parameterOrder="in0 in1 in2 in3 in4">
+
+         <input message="impl:deleteVisualObjectsRequest" name="deleteVisualObjectsRequest"/>
+
+         <output message="impl:deleteVisualObjectsResponse" name="deleteVisualObjectsResponse"/>
+
+      </operation>
+
+   </portType>
+
+   <binding name="iUpdateSoapBinding" type="impl:ImageSpaceUpdate">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <operation name="deleteVisualOverlays">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="deleteVisualOverlaysRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iupdate" use="encoded"/>
+
+         </input>
+
+         <output name="deleteVisualOverlaysResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iupdate" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="getAttachmentUploadURL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="getAttachmentUploadURLRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iupdate" use="encoded"/>
+
+         </input>
+
+         <output name="getAttachmentUploadURLResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iupdate" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="deleteTextObjects">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="deleteTextObjectsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iupdate" use="encoded"/>
+
+         </input>
+
+         <output name="deleteTextObjectsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iupdate" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="deleteAttachment">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="deleteAttachmentRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iupdate" use="encoded"/>
+
+         </input>
+
+         <output name="deleteAttachmentResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iupdate" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="updateAttachmentNotes">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="updateAttachmentNotesRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iupdate" use="encoded"/>
+
+         </input>
+
+         <output name="updateAttachmentNotesResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iupdate" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="updateRecordUserAnnotation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="updateRecordUserAnnotationRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iupdate" use="encoded"/>
+
+         </input>
+
+         <output name="updateRecordUserAnnotationResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iupdate" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+      <operation name="deleteVisualObjects">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <input name="deleteVisualObjectsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iupdate" use="encoded"/>
+
+         </input>
+
+         <output name="deleteVisualObjectsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:iupdate" use="encoded"/>
+
+         </output>
+
+      </operation>
+
+   </binding>
+
+   <service name="ImageSpaceUpdateService">
+
+      <port binding="impl:iUpdateSoapBinding" name="iUpdate">
+
+         <wsdlsoap:address location="http://localhost:8080/imanage/services/"/>
+
+      </port>
+
+   </service>
+
+</definitions>
