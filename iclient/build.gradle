@@ -1,0 +1,73 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    webservices
+}
+
+dependencies {
+    compile project(':icore')
+    compile 'axis:axis:1.4'
+    webservices 'org.apache.axis:axis:1.4'
+    webservices 'org.apache.axis:axis-jaxrpc:1.4'
+    webservices 'wsdl4j:wsdl4j:1.4'
+    webservices 'commons-logging:commons-logging:1.1.1'
+    webservices 'commons-discovery:commons-discovery:0.5'
+    webservices 'javax.activation:activation:1.1'
+}
+
+task iAuthStubs(type: JavaExec){
+    classpath configurations.webservices
+    main = "org.apache.axis.wsdl.WSDL2Java"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:iauth=com.strandgenomics.imaging.iclient.impl.ws.auth", "http://localhost:8080/imanage/services/iAuth?wsdl"
+}
+
+task iSpaceStubs(type: JavaExec){
+    classpath configurations.webservices
+    main = "org.apache.axis.wsdl.WSDL2Java"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:ispace=com.strandgenomics.imaging.iclient.impl.ws.ispace", "http://localhost:8080/imanage/services/iSpace?wsdl"
+}
+
+task iSearchStubs(type: JavaExec){
+    classpath configurations.webservices
+    main = "org.apache.axis.wsdl.WSDL2Java"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:isearch=com.strandgenomics.imaging.iclient.impl.ws.search", "http://localhost:8080/imanage/services/iSearch?wsdl"
+}
+
+task iLoaderStubs(type: JavaExec){
+    classpath configurations.webservices
+    main = "org.apache.axis.wsdl.WSDL2Java"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:iloader=com.strandgenomics.imaging.iclient.impl.ws.loader", "http://localhost:8080/imanage/services/iLoader?wsdl"
+}
+
+task iUpdateStubs(type: JavaExec){
+    classpath configurations.webservices
+    main = "org.apache.axis.wsdl.WSDL2Java"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:iupdate=com.strandgenomics.imaging.iclient.impl.ws.update", "http://localhost:8080/imanage/services/iUpdate?wsdl"
+}
+
+task iComputeStubs(type: JavaExec){
+    classpath configurations.webservices
+    main = "org.apache.axis.wsdl.WSDL2Java"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:icompute=com.strandgenomics.imaging.iclient.impl.ws.compute", "http://localhost:8080/imanage/services/iCompute?wsdl"
+}
+
+task iManageStubs(type: JavaExec){
+    classpath configurations.webservices
+    main = "org.apache.axis.wsdl.WSDL2Java"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:imanage=com.strandgenomics.imaging.iclient.impl.ws.manage", "http://localhost:8080/imanage/services/iManage?wsdl"
+}
+
+task iWorkersStubs(type: JavaExec){
+    classpath configurations.webservices
+    main = "org.apache.axis.wsdl.WSDL2Java"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:iworkers=com.strandgenomics.imaging.iclient.impl.ws.worker", "http://localhost:8080/imanage/services/iWorkers?wsdl"
+}
+
+task generateAllStubs(dependsOn: [iAuthStubs, iSpaceStubs, iSearchStubs, iLoaderStubs, iUpdateStubs, iComputeStubs, iManageStubs, iWorkersStubs]){
+    println "Generated all stubs."
+}
+
