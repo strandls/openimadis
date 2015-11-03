@@ -1,1 +1,6 @@
 // imaging build script
+apply plugin: 'java'
+
+project.ext.set("tomcatHome", "$System.env.CATALINA_HOME")
+
+
