@@ -1,0 +1,21 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+    maven { url 'http://artifacts.openmicroscopy.org/artifactory/gradle/' }
+    maven { url 'https://repo.gradle.org/gradle/plugins-releases' }
+    maven { url 'http://corp.array.ca/nest-web/mavenrepo/' }
+}
+
+dependencies {
+    compile project(':iclient') 
+    compile 'java3d:j3d-core:1.3.1'
+    compile 'java3d:j3d-core-utils:1.3.1'
+    compile 'org.piccolo2d:piccolo2d-core:1.2.1'
+    compile 'javax.media.jai:com.springsource.javax.media.jai.core:1.1.3'
+    compile 'com.jidesoft:jide-action:3.5.3'
+    compile 'com.jidesoft:jide-oss:3.5.13'
+    compile 'com.jidesoft:jide-common:3.5.3'
+    compile 'net.imagej:ij:1.49k'
+}
+
