@@ -5,4 +5,5 @@ include ':iengine'
 include ':iserver'
 include ':iclient'
 include ':ithreedview'
+include ':iviewer'
 
