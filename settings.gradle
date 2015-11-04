@@ -6,4 +6,5 @@ include ':iserver'
 include ':iclient'
 include ':ithreedview'
 include ':iviewer'
+include ':iacquisition'
 
