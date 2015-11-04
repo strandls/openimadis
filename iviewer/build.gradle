@@ -1,0 +1,19 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+    maven { url 'http://artifacts.openmicroscopy.org/artifactory/gradle/' }
+    maven { url 'https://repo.gradle.org/gradle/plugins-releases' }
+    maven { url 'http://corp.array.ca/nest-web/mavenrepo/' }
+}
+
+dependencies {
+    compile project(':ithreedview')
+    compile 'com.jidesoft:jide-grids:3.5.3'
+}
+
+task createIconsJar(type: Jar) {
+    from 'resources/icons'
+    archiveName "icons.jar"
+}
+

@@ -1,0 +1,99 @@
+/*
+ * ImageEvent.java
+ *
+ * AVADIS Image Management System
+ * GUI
+ *
+ * Copyright 2011-2012 by Strand Life Sciences
+ * 5th Floor, Kirloskar Business Park, 
+ * Bellary Road, Hebbal
+ * Bangalore 560024
+ * Karnataka, India
+ * 
+ * All rights reserved.
+ *
+ * This software is the confidential and proprietary information
+ * of Strand Life Sciences., ("Confidential Information").  You
+ * shall not disclose such Confidential Information and shall use
+ * it only in accordance with the terms of the license agreement
+ * you entered into with Strand Life Sciences.
+ */
+package com.strandgenomics.imaging.iviewer.image;
+
+import com.strandgenomics.imaging.icore.Signature;
+
+import edu.umd.cs.piccolo.PLayer;
+
+public class ImageEvent {
+	
+	/**
+	 * record identifier
+	 */
+	protected Signature recordID;
+	/**
+	 *  The slice number (Z) of the image to overlay with channels
+	 */
+	public final int sliceNo;
+	/**
+	 * The frame number of the image to overlay with channels
+	 */
+	public final int frameNo;
+	/**
+	 *  The site number of the image to overlay with channels
+	 */
+	public final int siteNo; 
+	/**
+	 *  The list of channel numbers (dimensions) that are combined together to create this PixelData overlay  
+	 */
+	public final int[] channelNos;
+	
+	/**
+	 * the image data
+	 */
+	protected PLayer piccoloLayer = null;
+	
+	/**
+	 * Create a ImageEvent for the specified coordinates of the specified record
+	 * @param recordID the record under consideration
+	 * @param frameNo the frame number
+	 * @param sliceNo the slice (Z) number
+	 * @param channels the overlayed(selected) channels
+	 * @param piccoloLayer the image
+	 */
+	public ImageEvent(PLayer piccoloLayer, Signature recordID, int sliceNo, int frameNo, int siteNo, int[] channelNos)
+	{
+		this.recordID = recordID;
+		this.piccoloLayer = piccoloLayer;
+		
+		this.sliceNo = sliceNo;
+		this.frameNo = frameNo;
+		this.siteNo  = siteNo;
+		this.channelNos = channelNos;
+	}
+	
+	public boolean isValid()
+	{
+		return piccoloLayer != null;
+	}
+	
+	public void dispose()
+	{
+		recordID = null;
+		piccoloLayer = null;
+	}
+
+	/**
+	 * @return the recordID
+	 */
+	public Signature getRecordID() {
+		return recordID;
+	}
+
+	/**
+	 * @return the piccoloLayer
+	 */
+	public PLayer getPiccoloLayer()
+	{
+		return piccoloLayer;
+	}
+}
