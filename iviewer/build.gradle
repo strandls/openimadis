@@ -10,6 +10,7 @@ repositories {
 dependencies {
     compile project(':ithreedview')
     compile 'com.jidesoft:jide-grids:3.5.3'
+    compile 'org.piccolo2d:piccolo2d-extras:1.3.1'
 }
 
 task createIconsJar(type: Jar) {
