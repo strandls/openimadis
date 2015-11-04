@@ -1,0 +1,17 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+    maven { url 'http://artifacts.openmicroscopy.org/artifactory/gradle/' }
+    maven { url 'https://repo.gradle.org/gradle/plugins-releases' }
+    maven { url 'http://corp.array.ca/nest-web/mavenrepo/' }
+    maven { url 'http://maven.sk89q.com/repo/'}
+}
+
+dependencies {
+    compile project(':iviewer')
+    compile 'com.jidesoft:jide-dialogs:3.6.10'
+    compile 'de.sciss:jsyntaxpane:1.0.0'
+    compile 'jython:jython:2.1'
+}
+

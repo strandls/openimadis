@@ -1,0 +1,240 @@
+package com.strandgenomics.imaging.iacquisition;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.event.TableModelEvent;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ * Table model showing status of import tasks
+ * 
+ * @author Anup Kulkarni
+ *
+ */
+@SuppressWarnings("serial")
+public class ImportTableModel extends DefaultTableModel{
+	/**
+	 * list of source files to import
+	 */
+	private List<File> sourceFiles;
+
+	/**
+	 * the columns shown in Upload table
+	 */
+	String columnNames[] = { "Source File", "Status" };
+
+	/**
+	 * holds the status of each file import 
+	 */
+	private List<ImportStatus> status;
+
+	/**
+	 * true if some imports are stopped
+	 */
+	private boolean stopEvent = false;
+
+	/**
+	 * true if some imports are scheduled to be reindexed
+	 */
+	private boolean reindexEvent = false;
+	
+	/**
+	 * holds the rows selected for stopping import
+	 */
+	private int[] selected;
+
+	public ImportTableModel()
+	{
+		sourceFiles = new ArrayList<File>();
+		status = new ArrayList<ImportStatus>();
+	}
+
+	/**
+	 * custom implementation of addRow(data) method of table model
+	 * 
+	 * @param experimentsToUpload
+	 *            the experiment to be uploaded
+	 */
+	public void addExperiment(List<File> sourceFileNames)
+	{
+		if (sourceFileNames == null || sourceFileNames.size() == 0)
+			return;
+		
+		for(File f : sourceFileNames)
+			sourceFiles.add( f.getAbsoluteFile() );
+		
+		for (File sourceFileName : sourceFileNames)
+		{
+			status.add(ImportStatus.Queued);
+		}
+		
+		fireTableDataChanged();
+	}
+	
+	/**
+	 * sets status of import
+	 * @param sourceName
+	 * @param status
+	 */
+	public void setStatus(File sourceName, ImportStatus status)
+	{	
+		int index = 0;
+		for(File filename : sourceFiles)
+		{
+			if(sourceName.equals(filename) && this.status.get(index) != ImportStatus.Stopped)
+				break;
+			index++;
+		}
+		
+		if(index >= this.status.size())
+			return;
+		
+		if(this.status.get(index) == ImportStatus.Duplicate )
+			return;
+		
+		if((this.status.get(index) == ImportStatus.Indexed && status == ImportStatus.Failed) || (this.status.get(index) == ImportStatus.Failed && status == ImportStatus.Indexed))
+			status = ImportStatus.Partial;
+		
+		if(this.status.size() >= index)
+			this.status.set(index, status);
+		
+		fireTableDataChanged();
+	}
+	
+	/**
+	 * cancel selected imports
+	 * @param selectedRows
+	 */
+	public void cancelSelected(int[] selectedRows)
+	{
+		if (selectedRows == null || selectedRows.length == 0)
+			return;
+		
+		stopEvent = true;
+		this.selected = selectedRows;
+		
+		for (int selectedRow : selectedRows)
+		{
+			if(status.get(selectedRow) == ImportStatus.Started)
+				status.set(selectedRow, ImportStatus.Stopping);
+			else
+				status.set(selectedRow, ImportStatus.Stopped);
+		}
+		
+		fireTableChanged(new TableModelEvent(this));
+	}
+	
+	public void cancelAll()
+	{
+		ArrayList<Integer> selected = new ArrayList<Integer>();
+		
+		int i = 0;
+		for(ImportStatus st:status)
+		{
+			if(st == ImportStatus.Queued || st == ImportStatus.Started)
+				selected.add(i);
+			i++;
+		}
+		
+		int selectedIndices[] = new int[selected.size()];
+		for(i=0;i<selectedIndices.length;i++)
+		{
+			selectedIndices[i] = selected.get(i);
+		}
+		
+		cancelSelected(selectedIndices);
+	}
+	
+	public void reindexSelected(int[] selectedRows)
+	{
+		if (selectedRows == null || selectedRows.length == 0)
+			return;
+		
+		reindexEvent = true;
+		this.selected = selectedRows;
+		
+		for (int selectedRow : selectedRows)
+		{
+			status.set(selectedRow, ImportStatus.Queued);
+		}
+		
+		fireTableChanged(new TableModelEvent(this));
+	}
+	
+	public List<File> getSelectedImports()
+	{
+		if(selected == null || selected.length == 0)
+			return null;
+		
+		List<File> selectedNames = new ArrayList<File>();
+		for(int index : selected)
+		{
+			File f = sourceFiles.get(index);
+			selectedNames.add(f);
+		}
+		
+		return selectedNames;
+	}
+	
+	public boolean isStopped()
+	{
+		return stopEvent;
+	}
+	
+	public boolean isReindexed()
+	{
+		return reindexEvent;
+	}
+	
+	public void setStopped(boolean value)
+	{
+		stopEvent = value;
+	}
+	
+	public void setReindexed(boolean b)
+	{
+		this.reindexEvent = b;
+	}
+
+	@Override
+	public int getRowCount() {
+		if (sourceFiles == null)
+			return 0;
+		return sourceFiles.size();
+	}
+
+	@Override
+	public int getColumnCount() {
+		return columnNames.length;
+	}
+
+	@Override
+	public String getColumnName(int columnIndex) {
+		return columnNames[columnIndex];
+	}
+
+	@Override
+	public Class<?> getColumnClass(int columnIndex) {
+		return String.class;
+	}
+
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		return false;
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		if (sourceFiles == null)
+			return 0;
+		if (columnIndex == 0){
+			return sourceFiles.get(rowIndex);
+		}
+		if (columnIndex == 1)
+			return status.get(rowIndex);
+		else
+			return null;
+	}
+}
