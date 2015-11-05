@@ -1,0 +1,1 @@
+{"categoryName":"Demo","clientID":"hYRkPg664WzZsIFzHqfd00WKe0tbp3VCWGCFDANF","description":"Draws Circle at the center of image","name":"center","parameters":[{"defaultValue":0,"name":"SiteNo","type":"INTEGER","__hashCodeCalc":false},{"defaultValue":"","name":"OverlayName","type":"STRING","__hashCodeCalc":false}],"version":"1.0","__hashCodeCalc":false}

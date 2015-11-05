@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+    maven { url 'http://artifacts.openmicroscopy.org/artifactory/gradle/' }
+    maven { url 'https://repo.gradle.org/gradle/plugins-releases' }
+    maven { url 'http://corp.array.ca/nest-web/mavenrepo/' }
+    maven { url 'http://xuggle.googlecode.com/svn/trunk/repo/share/java/' }
+    maven { url 'http://forge.it.irf.tu-dortmund.de/nexus/content/repositories/thirdparty/'} // for pbs4java
+}
+
+dependencies {
+    compile project(':iclient')
+    compile 'com.google.code.gson:gson:1.6'
+    compile 'org.apache.commons:commons-exec:1.1'
+    compile 'pbs4java:pbs4java:0.75'
+}
+
