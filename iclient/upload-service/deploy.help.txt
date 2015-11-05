@@ -1,0 +1,76 @@
+Unpack the zip file to a folder <yajsw>.
+Do not remove or copy files from this folder to any another folder. Do not rename any folders within <yajsw>. 
+
+Java Version
+--------------
+Call java -version and make sure that your default java installation is 1.5 or higher
+If this is not the case make sure that java 1.5 or higher is installed and adapt the environment variable java_exe in bat/setenv.bat  or setenv.sh. NOTE: to display system tray java 1.6 is required. For thread dump with locks java 1.6 is required.
+
+
+1. 
+Start the upload-service you would like to wrap. 
+( In case of windows user it is run-upload-daemon.bat, in case of unix users it is run-upload-daemon.sh )
+
+2.
+Check the process id of your upload-service. 
+
+Windows: 
+go to command prompt and type "jps -lv". 
+Search for process id of "java -cp lib\\client-jar.jar;lib\\loci_tools.jar;. com.strandgenomics.imaging.iclient.daemon.UploadDaemonServiceImpl iuploader.properties"
+
+Unix:
+go to command prompt and type "ps -aux | grep java". 
+Search for process id of "java -cp lib\\client-jar.jar;lib\\loci_tools.jar;. com.strandgenomics.imaging.iclient.daemon.UploadDaemonServiceImpl iuploader.properties"
+
+3. 
+Goto yajsw/bat and execute 
+genConfig.bat (genConfig.sh for unix users) <pid> (give pid as argument to genConfig)
+
+NOTE: on posix systems (Linux) this command requires root priviliges to access information on other processes
+This generates the file yajsw/conf/wrapper.conf which is the configuration file for the upload service
+
+4.
+Stop the upload-service (run-upload-daemon.bat/run-upload-daemon.sh from task manager)
+Windows:
+go to command prompt and type "taskkill /PID <pid>"
+
+Unix:
+go to command prompt and type "kill <pid>"
+
+5.
+Execute your wrapped upload-service by calling
+runConsole.bat(runConsole.sh)
+
+6.
+check that your upload-service is running
+
+go to command prompt and type "jps -lv". 
+confirm the process is running "java -cp lib\\client-jar.jar;lib\\loci_tools.jar;. com.strandgenomics.imaging.iclient.daemon.UploadDaemonServiceImpl iuploader.properties" 
+
+Unix:
+go to command prompt and type "ps -aux | grep java". 
+confirm the process is running "java -cp lib\\client-jar.jar;lib\\loci_tools.jar;. com.strandgenomics.imaging.iclient.daemon.UploadDaemonServiceImpl iuploader.properties"
+
+
+7.
+To Install the upload-service as service, call
+
+installService.bat(installService.sh)
+
+8.
+To start the service:
+
+startService.bat(startService.sh)
+
+After this the Upload-Deamon for Acquisition client is running. You can use upload/upload in background menu from acquisition client to start uploading in background.
+
+For More Information:
+----------------------
+
+To stop the service:
+
+    stopService.bat(stopService.sh)
+
+To uninstall the service:
+
+    uninstallService.bat(uninstallService.sh)
