@@ -1,0 +1,14 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+    maven { url 'http://artifacts.openmicroscopy.org/artifactory/gradle/' }
+    maven { url 'https://repo.gradle.org/gradle/plugins-releases' }
+    maven { url 'http://corp.array.ca/nest-web/mavenrepo/' }
+    maven { url 'http://xuggle.googlecode.com/svn/trunk/repo/share/java/' }
+}
+
+dependencies {
+    compile project(':iengine')
+}
+
