@@ -1,1 +1,4 @@
-execute: gradle copyLibs - in iacquisition to copy jars required to run iaquisition client 
+README
+-----------
+
+gradle copyLibs - in iacquisition to copy jars required to run iaquisition client 
