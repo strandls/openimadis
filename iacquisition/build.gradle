@@ -17,3 +17,8 @@ dependencies {
     compile 'jython:jython:2.1'
 }
 
+task copyLibs(dependsOn: build, type: Copy) {
+    from(configurations.runtime) 
+    from "build/libs/"
+    into "tool/lib"
+}
