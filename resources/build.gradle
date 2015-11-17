@@ -1,0 +1,24 @@
+
+task createLibsDir() << {
+    ext.reportsDir = file('build/libs')
+    ext.reportsDir.mkdirs()
+}
+
+task createErrorMessagesJar(dependsOn:createLibsDir, type: Jar) {
+    from 'errormessages'
+    archiveName "build/libs/ierrors.jar"
+}
+
+task createHistoryMessagesJar(dependsOn:createLibsDir, type: Jar) {
+    from 'historymessages'
+    archiveName "build/libs/ihistory.jar"
+}
+
+task createNotificationMessagesJar(dependsOn:createLibsDir, type: Jar) {
+    from 'notificationmessages'
+    archiveName "build/libs/inotification.jar"
+}
+
+task build(dependsOn: [createErrorMessagesJar, createHistoryMessagesJar, createNotificationMessagesJar]){
+    println "Created all messages jars."
+}
