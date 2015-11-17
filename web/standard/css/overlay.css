@@ -1,0 +1,87 @@
+.image_overlay {
+	position:relative;
+	left:0;
+	top:0;
+	width: 800px;
+	height: 600px;
+	overflow: hidden;
+}
+
+.image_overlay #test {
+	position:relative;
+	left:0;
+	top:0;
+	margin: 0 0 0 0;
+	overflow: hidden;
+}
+
+.image_overlay #zoom_in_icon {
+	position:absolute;
+	top: 0px;
+	right: 0px;
+	width: 20px;
+}
+
+.image_overlay #zoom_out_icon {
+	position:absolute;
+	top: 20px;
+	right: 0px;
+	width: 20px;
+}
+
+.image_overlay .editor {
+	position:absolute;
+	top: 0px;
+	left: 0px;
+	background-image:url('../images/panojs/blank.gif');
+	background-repeat:repeat;
+}
+
+.image_overlay #svggroup {
+	position:absolute;
+	top: 0px;
+	left: 0px;
+	background-image:url('../images/panojs/blank.gif');
+	background-repeat:repeat;
+}
+
+.image_view{
+	-moz-user-select: none;
+  -webkit-user-select: none;
+  /* this will work for QtWebKit in future */
+  -webkit-user-drag: none;
+  cursor: crosshair;
+}
+
+#loadingText{
+	background-color: #C0C0C0;
+	color: black;
+	position:absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 3;
+}
+
+.zoomThumbnail{
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	/* this will work for QtWebKit in future */
+	-webkit-user-drag: none;
+	cursor: crosshair;
+}
+
+.zoom_image{
+	position: absolute;
+}
+
+.overlay_image{
+	position: absolute;
+}
+
+.imageViewPanelCanvas{
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	/* this will work for QtWebKit in future */
+	-webkit-user-drag: none;
+	cursor: crosshair;
+}

@@ -1,0 +1,40 @@
+[{
+    type : "int",
+    name : "param1",
+    label : "Param 1",
+    description : "A long description of the parameter 1",
+    min : 10,
+    max : 100,
+    "default" : 20
+}, {
+    type : "decimal",
+    min : 10.1,
+    name : "param2",
+    label : "Param 2",
+    max : 100.2,
+    "default" : 20.3
+}, {
+    type : "string",
+    label : "Param 3",
+    name : "param3",
+    "default" : "hrhgregre grth"
+}, {
+    type : "int",
+    values : [1, 10, 100],
+    name : "param4",
+    label : "Param 4",
+    description : "A long description of the parameter 4",
+    "default" : 10
+}, {
+    type : "string",
+    values : ["a", "b", "c"],
+    label : "Param 5",
+    name : "param5",
+    description : "A long description of the parameter 5",
+    "default" : "b"
+}, {
+    type : "bool",
+    name : "param6",
+    label : "Param 6",
+    "default" : true
+}]

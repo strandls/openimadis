@@ -1,0 +1,6 @@
+
+task deployWebApp(type: Copy) {
+    from "standard"
+    into "$tomcatHome/webapps/imanage/standard"
+}
+

@@ -1,0 +1,147 @@
+.x-panel-over {
+    border-color:#dddddd;
+    background-color:#efefef;
+}
+
+.commentTimeStamp {
+    color  : #999!important;
+    font-size : 11px;
+}
+
+.commentTimeStamp p {
+  text-align : right;
+}
+
+.customColor {
+/*  background : transparent "" 0 0 no-repeat !important;*/
+  background-image : none !important;
+}
+
+select{
+    font-size:11px;
+}
+.image-tip{
+    padding:4px;
+    height:98px;
+    white-space:nowrap;
+}
+.image-tip img {
+    margin-right:10px;
+    border:2px solid #083772;
+}
+.image-tip b{
+    color: #083772;
+    display: block;
+    margin-bottom: 4px;
+}
+.image-tip span{
+    display: block;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+.x-image-view{
+    font: 11px Arial, Helvetica, sans-serif;
+}
+.x-image-view .thumb{
+    padding:3px;
+}
+
+.x-image-view .thumb-wrap{
+    float: left;
+    margin: 0px;
+    margin-right: 0;
+    padding: 4px;
+    border-width : 1px;
+    border-style : solid;
+    border-color : #333;
+}
+.x-image-view .thumb-wrap span{
+    display: block;
+    overflow: hidden;
+    text-align: center;
+    width: 20px; // for ie to ensure that the text is centered
+}
+.x-image-view .x-item-selected .thumb {
+    background: orangered;
+}
+
+.workflowbrowser {
+  background-color : #D3E1F1 !important;
+}
+
+.workflowcategoryicon {
+  display : none;
+}
+
+.workflowicon {
+  display : none;
+}
+
+.workflowcategory {
+  font-size : 11px !important;
+  padding : 3px;
+  font-weight : bold !important;
+  /*background-color : #CBDDF3;*/
+  background-image:-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f9f9f9), color-stop(100%, #e3e4e6));
+  background-image:-moz-linear-gradient(top, #f9f9f9,#e3e4e6);
+  background-image:linear-gradient(top, #f9f9f9,#e3e4e6);
+}
+
+.workflowcategory .x-tree-elbow-minus {
+  background-image: none !important;
+  width : 10px;
+}
+
+.workflowcategory .x-tree-elbow-plus {
+  background-image: none !important;
+  width : 10px;
+}
+
+.workflowcategory .x-tree-elbow-end-minus {
+  background-image: none !important;
+  width : 10px;
+}
+
+.workflowcategory .x-tree-elbow-end-plus {
+  background-image: none !important;
+  width : 10px;
+}
+
+
+.workflowitem {
+  padding : 3px;
+}
+
+.workflowitem .x-tree-elbow-line {
+  width : 0px;
+}
+
+.workflowitem .x-tree-elbow-empty {
+  width : 0px;
+}
+.x-comment-TextArea{
+	border:2px solid #000000 !important;
+
+   
+}
+
+.x-mask, .x-mask.x-mask-gray {
+    background-color: #ccc !important;
+}
+
+/*
+ * empty grid emtpyText syntax being set here
+ */
+.x-grid-empty {
+	font-size: 20px;
+	text-align: center;
+	padding-top: 150px;
+}
+.customprogress {     
+background-color:#009900;
+/*background-image:url(../images/progress.gif);*/
+background-image:url(../js/extjs/resources/images/progress/progress-default-bg.gif);
+border-top-color:#d1e4fd;
+border-bottom-color:#7fa9e4;
+border-right-color:#009900;
+}
