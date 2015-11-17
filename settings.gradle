@@ -9,4 +9,6 @@ include ':iviewer'
 include ':iacquisition'
 include ':iworker'
 include ':icompute'
+include ':resources'
+include ':web'
 
