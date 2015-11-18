@@ -19,6 +19,11 @@ task createNotificationMessagesJar(dependsOn:createLibsDir, type: Jar) {
     archiveName "build/libs/inotification.jar"
 }
 
-task build(dependsOn: [createErrorMessagesJar, createHistoryMessagesJar, createNotificationMessagesJar]){
-    println "Created all messages jars."
+task createLutsJar(dependsOn:createLibsDir, type: Jar) {
+    from 'lutresources'
+    archiveName "build/libs/luts.jar"
+}
+
+task build(dependsOn: [createErrorMessagesJar, createHistoryMessagesJar, createNotificationMessagesJar, createLutsJar]){
+    println "Created all resource jars."
 }
