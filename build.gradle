@@ -1,6 +1,18 @@
 // imaging build script
+
 apply plugin: 'java'
 
 project.ext.set("tomcatHome", "$System.env.CATALINA_HOME")
 
+task startTomcat(type:Exec) {
+    workingDir "$tomcatHome/bin"
+
+    commandLine 'sh', './startup.sh'
+}
+
+task stopTomcat(type:Exec) {
+    workingDir "$tomcatHome/bin"
+
+    commandLine 'sh', './shutdown.sh'
+}
 
