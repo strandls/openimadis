@@ -25,6 +25,7 @@ dependencies {
     compile 'commons-discovery:commons-discovery:0.5'
     compile 'javax.servlet:servlet-api:2.3'
     compile 'org.apache.axis:axis-jaxrpc:1.4'
+    runtime 'mysql:mysql-connector-java:5.1.6'
     webservices 'org.apache.axis:axis:1.4'
     webservices 'org.apache.axis:axis-jaxrpc:1.4'
     webservices 'wsdl4j:wsdl4j:1.4'
@@ -287,3 +288,22 @@ task undeployAllServices(dependsOn: [undeploy_iAuthService, undeploy_iSpaceServi
     println "Undeployed all services."
 }
 
+task updateIAuthSoapBindingSkeleton(type: Exec){
+    commandLine 'bash', '-c', 'sed -i "s:com.strandgenomics.imaging.iserver.services.ws.auth.IAuthSoapBindingImpl:com.strandgenomics.imaging.iserver.services.impl.ImageSpaceAuthorizationImpl:" src/main/java/com/strandgenomics/imaging/iserver/services/ws/auth/IAuthSoapBindingSkeleton.java'
+}
+
+task updateILoaderSoapBindingSkeleton(type: Exec){
+    commandLine 'bash', '-c', 'sed -i "s:com.strandgenomics.imaging.iserver.services.ws.loader.ILoaderSoapBindingImpl:com.strandgenomics.imaging.iserver.services.impl.ImageSpaceLoaderImpl:" src/main/java/com/strandgenomics/imaging/iserver/services/ws/loader/ILoaderSoapBindingSkeleton.java'
+}
+
+task updateIComputeSoapBindingSkeleton(type: Exec){
+    commandLine 'bash', '-c', 'sed -i "s:com.strandgenomics.imaging.iserver.services.ws.compute.IComputeSoapBindingImpl:com.strandgenomics.imaging.iserver.services.impl.ImageSpaceComputeImpl:" src/main/java/com/strandgenomics/imaging/iserver/services/ws/compute/IComputeSoapBindingSkeleton.java'
+}
+
+task updateISpaceSoapBindingSkeleton(type: Exec){
+    commandLine 'bash', '-c', 'sed -i "s:com.strandgenomics.imaging.iserver.services.ws.ispace.ISpaceSoapBindingImpl:com.strandgenomics.imaging.iserver.services.impl.ImageSpaceImpl:" src/main/java/com/strandgenomics/imaging/iserver/services/ws/ispace/ISpaceSoapBindingSkeleton.java'
+}
+
+task updateSkeletons(dependsOn: [updateIAuthSoapBindingSkeleton, updateILoaderSoapBindingSkeleton, updateIComputeSoapBindingSkeleton, updateISpaceSoapBindingSkeleton]){
+    println "Updated all skeletons"
+}
