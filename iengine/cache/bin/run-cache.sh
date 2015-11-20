@@ -1,0 +1,1 @@
+java -Xmx1024m -classpath `cygpath -wp lib/icore.jar:lib/iengine.jar:lib/spymemcached-2.8.4.jar:lib/commons-collections-3.2.1.jar:lib/commons-lang3-3.1.jar` com.strandgenomics.imaging.iengine.cache.CacheDaemon icache.properties
