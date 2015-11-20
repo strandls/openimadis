@@ -14,3 +14,13 @@ dependencies {
     compile project(':iengine')
 }
 
+task copyLibs(type: Copy){
+    from configurations.runtime
+    into 'worker-deploy/lib'
+}
+
+task createWorker(dependsOn: copyLibs, type: Copy){
+    from 'bin'
+    from 'conf'
+    into 'worker-deploy'
+}
