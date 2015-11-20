@@ -1,0 +1,349 @@
+﻿
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta name="author" content="Aritra Saha" />
+		
+		<title>iManage | Tile Viewer</title>
+		
+		<link rel="icon" href="assets/icon.png" type="image/png" />
+		<link rel="stylesheet" type="text/css" href="assets/style.css" />
+		<link rel="stylesheet" type="text/css" href="assets/layout.css" />
+		
+		<!-- jQuery & jQueryUI -->
+		<script type="text/javascript" src="assets/jquery-2.0.3.min.js"></script>
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.min.css">
+		<script type="text/javascript" src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+
+		<!-- Leaflet API & Implementation -->
+		<script type="text/javascript" src="assets/LMaps.js"></script>
+		
+		<script type="text/javascript" src="assets/jquery.tinycolorpicker.js"></script>
+
+		<script>
+		 var delOverlayName = "";
+			function initCanvas(editable)
+			{
+				$('#mapcontainer').append('<div id="container" style="height:0px;width:0px;"></div>');
+				addMapEvent(editable);
+				setDirty(false);
+				if(editable)
+					getOverlays();
+				else
+					displaySelectedOverlays();
+			}
+			
+			function removeCanvas(editable){
+				if(isDirty()){
+					showDirtyDialog();
+				}
+				
+				$('#container').remove();
+				removeMapEvent(editable);
+			}
+			
+			function saveCanvas(){
+				saveOverlays();
+			}
+			
+			function showAddOverlayDialog(){
+				$( "#addOverlayDialog" ).dialog( "open" );
+		  	}
+			
+		  	function showDirtyDialog(){
+		  		$( "#dirtyDialog" ).dialog( "open" );
+		  	}
+		  	
+		  	function showConfirmDeleteDialog(){
+		  		$( "#confirmDeleteDialog" ).dialog( "open" );
+		  	}
+		  	
+		  	function handleCheckBoxChange(){
+		  		//if($("#dialog").dialogExtend("state")=="normal"){
+					removeCanvas(false);
+					initCanvas(false);
+					if($('#dialog').dialog('isOpen'))
+						$('#dialog').dialog('close');
+		  		//}
+		  	}
+		  	
+		  	function handleEditOverlay(overlayName){
+		  		setEditOverlayName(overlayName);
+		  		removeCanvas(true);
+				initCanvas(true);
+				showDialog(); 
+		  	}
+		  	
+		  	function handleSearchOverlay(overlayName){
+		  		if(isDirty()){
+					showDirtyDialog();
+				}else{
+		  			searchOverlay(overlayName);
+		  			if($('#dialog').dialog('isOpen'))
+						$('#dialog').dialog('close');
+				}
+		  	}
+		  	
+		  	function handleDeleteOverlay(overlayName){
+		  		delOverlayName = overlayName;
+		  		showConfirmDeleteDialog();
+		  	}
+		  	
+		  	function handleCreateOverlay(overlayName){
+		  		createOverlay(overlayName);
+		  	}
+		  	
+		  	function addText(){
+		  		
+		  		$( "#textDialog" ).dialog('open');
+		  	}
+		</script>
+		
+	  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	  <script type="text/javascript" src="jquery.dialogextend.min.js"></script>
+	  
+	  <link rel="stylesheet" href="assets/tinycolorpicker.css" type="text/css" media="screen"/>
+	  <script type="text/javascript" src="assets/jquery.tinycolorpicker.js"></script>
+	 
+	  <script>
+	  function validate(){
+		  var overlayName = document.getElementById("ipOverlayName").value;
+			if (overlayName.length == 0)
+			{
+				//alert("Please enter a text");
+				document.getElementById("ipOverlayName").value="";
+				return false;
+	  		}
+			var names = getOverlayNames();
+			var index = names.indexOf(overlayName);
+			if (index > -1) {
+				$( "#messageDialog" ).dialog( "open" );
+				document.getElementById("ipOverlayName").value="";
+				return false;
+			}
+			handleCreateOverlay(document.getElementById('ipOverlayName').value);
+			$("#addOverlayDialog").dialog( "close" );
+			document.getElementById("ipOverlayName").value="";
+			return false;
+	  }
+	  
+	  function showDialog(){
+		  $( "#dialog" ).dialog('open');
+	  } 
+	  $(function() {
+		 $( "#dialog" ).dialog({"title":"ToolBox",position: { my: "right top", at: "right center"}, minWidth : 350}).dialogExtend({
+		    	"closable" : false,
+		    	"minimizable" : true,
+		    	"minimizeLocation" : "right",
+		        "icons" : { "minimize" : "ui-icon-circle-minus" },
+		    });
+		  
+		  $("#dialog").dialog('close');
+		  
+		  $( "#overlays" ).dialog({"title":"Overlays",position: { my: "right top", at: "right top"}, minWidth : 100}).dialogExtend({
+		    	"closable" : false,
+		    	"minimizable" : true,
+		    	"minimizeLocation" : "right",
+		        "icons" : { "minimize" : "ui-icon-circle-minus" },
+		    });
+		    
+		    $("#overlays").dialogExtend("minimize");
+			
+			$( "#saveDialog" ).dialog({ modal: true ,minHeight: 100, minWidth: 100, autoOpen: false}).dialogExtend(
+					{
+						"closable" : false
+			});
+			
+			$( "#deleteDialog" ).dialog({ modal: true ,minHeight: 100, minWidth: 100, autoOpen: false}).dialogExtend(
+					{
+						"closable" : false
+			});
+			
+			$( "#fetchDialog" ).dialog({ modal: true ,minHeight: 100, minWidth: 100, autoOpen: false}).dialogExtend(
+					{
+						"closable" : false
+			});
+			
+			$( "#messageDialog" ).dialog({"title":"Failed", modal: true ,minHeight: 100, minWidth: 100, autoOpen: false, buttons: {
+		        "OK": function() {
+		            $( this ).dialog( "close" );
+		          }
+		        } 
+			}).dialogExtend(
+					{
+						"closable" : false
+			});
+			
+			$( "#searchOverlayDialog" ).dialog({
+				  "title":"Visual Objects",
+			      resizable: false,
+			      minHeight: 100,
+			      minWidth: 100,
+			      maxHeight: 300,
+			      modal: true,
+			      autoOpen: false
+			});
+			
+			$( "#confirmDeleteDialog" ).dialog({
+			      resizable: false,
+			      height:200,
+			      width: 300,
+			      modal: true,
+			      autoOpen: false,
+			      buttons: {
+			        Yes: function() {
+			          $( this ).dialog( "close" );
+			          deleteOverlay(delOverlayName);
+			          if($('#dialog').dialog('isOpen'))
+							$('#dialog').dialog('close');
+			        },
+			        No: function() {
+			          delOverlayName = "";
+			          $( this ).dialog( "close" );
+			        }
+			      }
+			});
+			
+			$( "#dirtyDialog" ).dialog({
+			      resizable: false,
+			      height:200,
+			      width: 300,
+			      modal: true,
+			      autoOpen: false,
+			      buttons: {
+			        Save: function() {
+			          $( this ).dialog( "close" );
+			          saveCanvas();
+			        },
+			        Cancel: function() {
+			          $( this ).dialog( "close" );
+			        }
+			      }
+			});
+			
+			$( "#textDialog" ).dialog({
+			      autoOpen: false,
+			      height: 220,
+			      width: 350,
+			      modal: true,
+			      buttons: {
+			        "Add": function() {
+			        	setText($("#name").val());
+			        	drawText();
+			            $( this ).dialog( "close" );
+			          }
+			        },
+			        Cancel: function() {
+			          $( this ).dialog( "close" );
+			        }
+			 });
+		    
+			$( "#addOverlayDialog" ).dialog({
+			      resizable: false,
+			      width: 300,
+			      modal: true,
+			      autoOpen: false
+			});
+			
+	  	});
+	  
+	  </script>
+	  
+     <script type="text/javascript">
+         $(document).ready(function()
+         {
+             $("#colorPicker1").tinycolorpicker();
+             $("#colorPicker1").bind("change", function()
+             {
+            	 setStrokecolour($('.colorInput').val());
+             });
+         });
+     </script>
+
+	</head>
+
+	<body>
+		
+		<div style="float: none">
+		
+			<div id="mapcontainer" style="float:left;height:100%;width:100%;">
+				<div id="map"></div>
+				
+				<div id="dialog">
+					<div>
+					   <input type="image" src="assets/images/ellipse.png" name="image" onClick="drawEllipse();">&nbsp&nbsp
+					   <input type="image" src="assets/images/rect.png" name="image" onClick="drawRectangle();">&nbsp&nbsp
+					   <input type="image" src="assets/images/line.png" name="image" onClick="drawLine();">&nbsp&nbsp
+					   <input type="image" src="assets/images/polygon.png" name="image" onClick="drawPolygon();">&nbsp&nbsp
+					   <input type="image" src="assets/images/fhpath.png" name="image" onClick="drawFreeHand();">&nbsp&nbsp
+					   <input type="image" src="assets/images/arrow.png" name="image" onClick="drawArrow();">&nbsp&nbsp
+					   <input type="image" src="assets/images/text.png" name="image" onClick="addText();">
+					</div>
+					<div>
+					   <input type="image" src="assets/images/delete.png" name="image" onClick="removeShapes();">&nbsp&nbsp
+					   <input type="image" src="assets/images/undo.png" name="image" onClick="undo();">&nbsp&nbsp
+					   <input type="image" src="assets/images/redo.png" name="image" onClick="redo();">&nbsp&nbsp
+					   <div id="colorPicker1">
+					      <a class="color"><div class="colorInner"></div></a>
+					      <div class="track"></div>
+					      <ul class="dropdown"><li></li></ul>
+					      <input type="hidden" class="colorInput"/>
+					    </div>
+					</div>
+					<div>
+					    <button onClick="saveCanvas();">Save</button>
+					</div>
+				</div>
+				<div id="addOverlayDialog" title="Add Overlay">
+					 <label>Overlay Name:</label><br/>
+					 <input type="text" id="ipOverlayName" style="width: 260px;" name="overlayName"><br/>
+					 <input type="submit" id="ipOverlaySubmit" value="OK" style="float: right;" onclick="validate();"/>
+				</div>
+				<div id="overlays">
+					<input type="image" title="Add Overlay" src="assets/images/va_add.png" onClick="showAddOverlayDialog();">&nbsp&nbsp
+				</div>
+			</div>	
+			
+			<div id="messageDialog">
+				<p>Overlay name exists. Choose a different name</p>
+			</div>
+			
+			<div id="saveDialog">
+				<p>Saving...</p>
+			</div>
+			
+			<div id="searchOverlayDialog">
+			</div>
+			
+			<div id="deleteDialog">
+				<p>Deleting...</p>
+			</div>
+			
+			<div id="fetchDialog">
+				<p>Loading...</p>
+			</div>
+			
+			<div id="confirmDeleteDialog">
+				<p>Are you sure want to delete the overlay?</p>
+			</div>
+			
+			<div id="dirtyDialog">
+				<p>Do you want to save?</p>
+			</div>
+			
+			<div id="textDialog" title="Add Text">
+			  <form>
+				  <fieldset>
+				    <label for="name">Text</label>
+				    <input type="text" name="name" id="name">
+				  </fieldset>
+			  </form>
+			</div>
+				
+		</div>
+		
+	</body>
+</html>
