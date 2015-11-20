@@ -20,3 +20,13 @@ dependencies {
     compile 'org.reflections:reflections:0.9.10'
 }
 
+task copyLibs(type: Copy){
+    from configurations.runtime
+    into 'cache/cache-deploy/lib'
+}
+
+task createCache(dependsOn: copyLibs, type: Copy){
+    from 'cache/bin'
+    from 'cache/conf'
+    into 'cache/cache-deploy'
+}
