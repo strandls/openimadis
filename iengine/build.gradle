@@ -30,3 +30,9 @@ task createCache(dependsOn: copyLibs, type: Copy){
     from 'cache/conf'
     into 'cache/cache-deploy'
 }
+
+task createIEngineDAOJar(type: Jar){
+    from 'resources/config'
+    archiveName 'ienginedao.jar'
+}
+
