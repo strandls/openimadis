@@ -163,9 +163,11 @@ task generateAllSkeletons(dependsOn: [iAuthSkeleton, iSpaceSkeleton, iLoaderSkel
     println "Generated Skeletons."
 }
 
-task deployLibs(dependsOn: build, type: Copy) {
+task deployLibs(dependsOn: [build, ':resources:build', ':iengine:createIEngineDAOJar'], type: Copy) {
     from(configurations.runtime) 
     from "build/libs/"
+    from "../iengine/build/libs/"
+    from "../resources/build/libs/"
     into "$tomcatHome/webapps/imanage/WEB-INF/lib"
 }
 
