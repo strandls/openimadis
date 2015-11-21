@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+        <void method="put"> 
+         <string>INSERT_IMAGE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO movie_images (movieid, counter, path)  
+					VALUES ({MovieID,true}, {Counter,true}, {Path,true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>DELETE_IMAGEPATH_OF_MOVIE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM movie_images  
+					WHERE movieid {MovieID,false,=}
+					AND counter {Counter,true,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+		<void method="put"> 
+         <string>DELETE_IMAGES_OF_MOVIE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM movie_images  
+					WHERE movieid {MovieID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+		<void method="put"> 
+         <string>DELETE_MOVIE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM movie_registry  
+					WHERE movieid {MovieID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_IMAGE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT path FROM movie_images 
+					WHERE movieid {MovieID,false,=}
+					AND counter {Counter,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>REGISTER_MOVIE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO movie_registry (movieid, movieticket)  
+					VALUES ({MovieID,true}, {Movie,true})
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+        
+		<void method="put"> 
+         <string>LOAD_ALL_MOVIES</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT movieid, movieticket 
+					FROM movie_registry
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_MOVIE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT movieid, movieticket 
+					FROM movie_registry
+					WHERE movieid {MovieID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 

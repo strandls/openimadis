@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+        <void method="put"> 
+         <string>REGISTER_PROFILE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO acquisition_profile (profile_name, microscope_name, pixel_size_x, pixel_size_y, pixel_size_z, source_type, elapsed_time_unit, exposure_time_unit, length_unit, x_type, y_type, z_type)  
+					VALUES ({ProfileName, true}, {Name,true}, {XSize,true}, {YSize,true}, {ZSize,true}, {SourceType,true}, {ElapsedTimeUnit,true}, {ExposureTimeUnit,true}, {LengthUnit,true}, {XType, true}, {YType, true}, {ZType, true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+		<void method="put"> 
+         <string>DELETE_PROFILE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM acquisition_profile  
+					WHERE microscope_name {Name,false,=} AND profile_name {ProfileName,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_PROFILE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE acquisition_profile SET pixel_size_x {XSize,true}, pixel_size_y {YSize,true}, pixel_size_z {ZSize,true}, source_type {SourceType,true}, elapsed_time_unit {ElapsedTimeUnit,true}, exposure_time_unit {ExposureTimeUnit,true}, length_unit {LengthUnit,true}, x_type {XType,true}, y_type {YType,true}, z_type {ZType,true}
+					WHERE microscope_name {Name,false,=} AND profile_name {ProfileName,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>LIST_PROFILES</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT profile_name, microscope_name, pixel_size_x, pixel_size_y, pixel_size_z, source_type, elapsed_time_unit, exposure_time_unit, length_unit, x_type, y_type, z_type
+					FROM acquisition_profile
+				</string> 
+            </void> 
+          </object> 
+        </void>
+   </object> 
+  </void> 
+ </object> 
+</java> 

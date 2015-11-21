@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+        <void method="put"> 
+         <string>INSERT_SHORTCUT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO shortcut_registry (shortcut_signature, original_archive_sign) 
+					VALUES ({Signature,true}, {OriginalSignature,true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_SHORTCUT_FOR_ID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT shortcut_signature, original_archive_sign    
+					FROM shortcut_registry 
+					WHERE shortcut_signature {Signature,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>DELETE_SHORTCUT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM shortcut_registry 
+					WHERE shortcut_signature {Signature,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+
+   </object> 
+  </void> 
+ </object> 
+</java> 

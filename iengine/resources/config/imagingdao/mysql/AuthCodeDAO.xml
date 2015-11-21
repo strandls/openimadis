@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+	<object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+		<void property="queryTable"> 
+			<object class="java.util.HashMap"> 
+    
+				<!-- the parametrized condition 
+					  Field {VariableName,setNull,operator} means 
+					  Field is the name of the field
+					  VariableName is the name of the variable, the name with which this fragment is refered to in the java program 
+					  setNull is either true or false, indicates whether Field IS NULL or Field = NULL in case the variable is null
+					  operator is an optional value, is one of =,<,>,<=,>=; the default value is an empty string
+					  -->
+
+        
+				<void method="put">
+					<string>GET_AUTHCODE_BY_ID</string> 
+					<object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+						<void property="pattern">
+							<string>
+					SELECT id, auth_id, user_login, clientid, services, creation, expiry, last_access, valid, filters, delivered
+					FROM authcode_registry
+					WHERE id {id,false,=}
+							</string>
+						</void>
+					</object> 
+				</void> 
+
+				<void method="put">
+					<string>GET_AUTHCODE_BY_INTERNAL_ID</string> 
+					<object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+						<void property="pattern">
+							<string>
+					SELECT id, auth_id, user_login, clientid, services, creation, expiry, last_access, valid, filters, delivered
+					FROM authcode_registry
+					WHERE auth_id {authID, false,=}
+							</string>
+						</void>
+					</object> 
+				</void>
+				
+				<void method="put">
+					<string>EXCHANGE_AUTHCODE</string> 
+					<object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+						<void property="pattern"> 
+							<string>
+                	UPDATE authcode_registry SET id{newid,true,=}, delivered=true
+                	WHERE id {id,false,=} AND delivered=false
+							</string>
+						</void>
+					</object> 
+				</void> 
+
+				<void method="put"> 
+					<string>GET_ALL_TOKENS</string> 
+					<object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+						<void property="pattern"> 
+							<string>
+					SELECT id, auth_id, user_login, clientid, services, creation, expiry, last_access, valid, filters, delivered 
+					FROM authcode_registry
+					WHERE expiry &gt; NOW()
+							</string> 
+						</void> 
+					</object> 
+				</void>
+        
+        		<void method="put"> 
+					<string>GET_ALL_USER_TOKENS</string> 
+					<object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+						<void property="pattern"> 
+							<string>
+					SELECT id, auth_id, user_login, clientid, services, creation, expiry, last_access, valid, filters, delivered 
+					FROM authcode_registry
+					WHERE user_login{User, false, =} AND expiry &gt; NOW()
+							</string> 
+						</void> 
+					</object> 
+				</void>
+				
+				<void method="put"> 
+					<string>ADD_AUTHCODE</string> 
+					<object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+						<void property="pattern"> 
+							<string>
+                	INSERT INTO authcode_registry (
+                	id, user_login, clientid, services, creation, expiry, last_access, filters)
+                	VALUES (
+                	{id, true}, {User, true}, {ClientID, true},
+                	{Services, true}, {Creation, true}, {Expiry, true}, {LastAccess, true}, {Filters, true})
+							</string> 
+						</void> 
+					</object> 
+				</void>
+
+				<void method="put"> 
+					<string>REMOVE_AUTHCODE_BY_AUTHID</string> 
+					<object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+						<void property="pattern"> 
+							<string>
+					DELETE FROM authcode_registry WHERE auth_id{authID,false,=}
+							</string> 
+						</void> 
+					</object> 
+				</void>
+				
+				<void method="put"> 
+					<string>REMOVE_AUTHCODE_BY_ID</string> 
+					<object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+						<void property="pattern"> 
+							<string>
+					DELETE FROM authcode_registry WHERE id{ID,false,=}
+							</string> 
+						</void> 
+					</object> 
+				</void>
+				
+				<void method="put"> 
+					<string>REMOVE_EXPIRED</string> 
+					<object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+						<void property="pattern"> 
+							<string>
+					DELETE FROM authcode_registry where expiry &lt; NOW();
+							</string> 
+						</void> 
+					</object> 
+				</void>
+				
+				<void method="put"> 
+					<string>UPDATE_TOKEN</string> 
+					<object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+						<void property="pattern"> 
+							<string>
+                	UPDATE authcode_registry SET services{Services,true,=}, expiry{Expiry,true,=},
+                	last_access{LastAccess,true,=}, filters{Filters,true,=}
+                	WHERE auth_id {authID,false,=}
+							</string> 
+						</void> 
+					</object> 
+				</void>
+				
+				<void method="put"> 
+					<string>UPDATE_ACCESS_TIME</string> 
+					<object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+						<void property="pattern"> 
+							<string>
+                	UPDATE authcode_registry SET last_access{LastAccess,true,=}
+                	WHERE id {ID,false,=}
+							</string> 
+						</void> 
+					</object> 
+				</void>
+				
+				<void method="put"> 
+					<string>UPDATE_VALIDITY</string> 
+					<object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+						<void property="pattern"> 
+							<string>
+                	UPDATE authcode_registry SET valid = 0 
+                	WHERE id {ID,false,=}
+							</string> 
+						</void> 
+					</object> 
+				</void>
+				
+			</object> 
+		</void> 
+	</object> 
+</java> 

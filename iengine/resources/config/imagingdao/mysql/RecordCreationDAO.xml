@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+     
+     <void method="put"> 
+         <string>INSERT_RECORD_BUILDER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO record_creation_registry 
+					(
+						guid, pixel_data_location, number_of_frames, 
+						number_of_slices, number_of_channels, number_of_sites, image_width,
+						image_height, pixel_depth, dimensions, last_access_time, parentGuid
+					)
+					VALUES 
+					(
+						{GUID,true}, {StorageLocation,true}, {FrameCount, true}, {SliceCount,true}, {ChannelCount,true}, {SiteCount,true},
+						{Width, true}, {Height, true}, {Depth, true}, {Dimensions, true}, {LastAccess, true}, {ParentGUID, true}
+					)
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+      <void method="put"> 
+        <string>GET_RECORD_BUILDER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid, number_of_frames, number_of_slices, number_of_channels, number_of_sites, 
+					image_width, image_height, pixel_depth, pixel_data_location, last_access_time, dimensions, parentGuid
+					FROM record_creation_registry
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+ 
+      <void method="put"> 
+        <string>GET_ALL_RECORD_BUILDERS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid, number_of_frames, number_of_slices, number_of_channels, number_of_sites, 
+					image_width, image_height, pixel_depth, pixel_data_location, last_access_time, dimensions, parentGuid
+					FROM record_creation_registry
+				</string> 
+            </void> 
+          </object> 
+        </void>
+               
+        <void method="put"> 
+         <string>GET_RECEIVED_DIMENSIONS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT dimensions
+					FROM  record_creation_registry
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>DELETE_RECORD_BUILDER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE
+					FROM record_creation_registry
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>UPDATE_RECEIVED_DIMENSIONS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE record_creation_registry
+					SET dimensions {Dimensions, false, =}, last_access_time {LastAccess, false, =}
+                	WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 

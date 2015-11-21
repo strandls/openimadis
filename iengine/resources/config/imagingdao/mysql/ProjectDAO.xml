@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+		<!-- the parametrized condition 
+		  Field {VariableName,setNull,operator} means 
+		  Field is the name of the field
+		  VariableName is the name of the variable, the name with which this fragment is refered to in the java program 
+		  setNull is either true or false, indicates whether Field IS NULL or Field = NULL in case the variable is null
+		  operator is an optional value, is one of =,<,>,<=,>=; the default value is an empty string
+		  -->
+
+        <void method="put"> 
+         <string>INSERT_PROJECT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO project_registry (name, notes, created_by, storage_quota, storage_location) 
+					VALUES ({ProjectName,true}, {Notes,true}, {CreatedBy,true}, {Quota,true}, {Location,true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+		<void method="put"> 
+         <string>GET_ALL_PROJECTS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT project_id, name, notes, creation_date, status, created_by, no_of_records, space_usage, storage_quota, storage_location   
+					FROM project_registry 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_PROJECT_FOR_NAME</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT project_id, name, notes, creation_date, status, created_by, no_of_records, space_usage, storage_quota, storage_location   
+					FROM project_registry 
+					WHERE name {ProjectName,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_PROJECT_FOR_LOCATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT project_id, name, notes, creation_date, status, created_by, no_of_records, space_usage, storage_quota, storage_location   
+					FROM project_registry 
+					WHERE storage_location {Location,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_PROJECT_FOR_ID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT project_id, name, notes, creation_date, status, created_by, no_of_records, space_usage, storage_quota, storage_location  
+					FROM project_registry 
+					WHERE project_id {ProjectID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_PROJECT_FOR_STATUS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT project_id, name, notes, creation_date, status, created_by, no_of_records, space_usage, storage_quota, storage_location  
+					FROM project_registry 
+					[WHERE status {ProjectStatus,false,=}]
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_PROJECT_FOR_USER_AND_STATUS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT p.project_id, p.name, p.notes, p.creation_date, p.status, p.created_by, p.no_of_records, p.space_usage, p.storage_quota, p.storage_location  
+					FROM project_registry p, project_membership m                  
+					WHERE p.project_id=m.project_id 
+                    AND m.user_login {UserID,false,=} 
+                    AND p.status {ProjectStatus,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+
+        <void method="put"> 
+         <string>UPDATE_USER_ROLE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE project_membership SET user_role {UserRole,false,=} 
+					WHERE project_id {ProjectID,false,=} 
+                    AND user_login {UserID,true,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+		 <void method="put"> 
+         <string>UPDATE_PROJECT_DETAILS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE project_registry SET notes {Notes,false,=}, status {Status,false,=}, storage_quota {Quota,false,=}
+					WHERE project_id {ProjectID,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_PROJECT_RECORD</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE project_registry 
+                    SET no_of_records = no_of_records + {RecordCount,false},
+                    space_usage = space_usage + {DiskUsage,false} 
+					WHERE project_id {ProjectID,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_PROJECT_MEMBERS_FOR_ROLE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT user_login FROM project_membership 
+                    WHERE project_id {ProjectID,false,=} 
+                    [AND user_role {UserRole,false,=}] 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_PROJECT_MEMBERSHIPS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT project_id, user_login, user_role
+					FROM project_membership
+					where 1=1
+					[AND project_id {ProjectID,false,=}]
+					[AND user_login {UserLogin,false,=}]
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+		<void method="put"> 
+         <string>GET_PROJECT_FOR_MANAGER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT project_id FROM project_membership 
+                    WHERE user_role {UserRole,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_ROLE_FOR_USER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT user_role FROM project_membership 
+                    WHERE project_id {ProjectID,false,=} 
+                    [AND user_login {UserID,false,=}] 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>ADD_PROJECT_MEMBER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO project_membership (project_id, user_login, user_role) VALUES ({ProjectID,true}, {UserID,true}, {UserRole,true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+		<void method="put"> 
+         <string>GET_ALL_USER_MEMBERSHIPS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT project_id, user_login, user_role
+					FROM project_membership
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+		<void method="put"> 
+         <string>UPDATE_USER_PERMISSION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE project_membership SET user_role {Permission,false,=}
+					WHERE project_id {ProjectID,false,=} AND user_login {User,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+		<void method="put"> 
+         <string>ADD_USER_PERMISSION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO project_membership (project_id, user_login, user_role) 
+					VALUES ({ProjectID,true}, {UserID,true}, {UserRole,true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>REMOVE_PROJECT_MEMBER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                    DELETE FROM project_membership 
+                    WHERE project_id {ProjectID,false,=} 
+                    [AND user_login {UserID,false,=}] 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>DELETE_PROJECT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                    DELETE FROM project_registry WHERE project_id {ProjectID,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+   </object> 
+  </void> 
+ </object> 
+</java> 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+		<!-- the parametrized condition 
+		  Field {VariableName,setNull,operator} means 
+		  Field is the name of the field
+		  VariableName is the name of the variable, the name with which this fragment is refered to in the java program 
+		  setNull is either true or false, indicates whether Field IS NULL or Field = NULL in case the variable is null
+		  operator is an optional value, is one of =,<,>,<=,>=; the default value is an empty string
+		  -->
+
+        
+        <void method="put"> 
+         <string>GET_CLIENTS_BY_TAG</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT clientid  
+					FROM client_tags
+					WHERE tag {Tag,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_TAGS_FOR_CLIENT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT tag  
+					FROM client_tags
+					WHERE clientid {ClientID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+       	<void method="put"> 
+         <string>ADD_TAG_FOR_CLIENT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	INSERT INTO client_tags (
+                	clientid, tag)
+                	VALUES (
+                	{ClientID, true}, {Tag, true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 

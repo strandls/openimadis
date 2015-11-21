@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+     
+        <void method="put"> 
+         <string>INSERT_LOGIN_HISTORY</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO login_history
+					(user_login, client_name, client_version, login_time)
+					VALUES 
+                    ({User,true}, {AppName,true}, {AppVersion,true}, {LoginTime,true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_LOGIN_HISTORY</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT user_login, client_name, client_version, login_time
+					FROM login_history
+					WHERE 1 = 1
+					[AND user_login {User,false,=}]
+					[AND client_name {AppName,false,=}]
+					[AND client_version {AppVersion,false,=}]
+					[AND login_time {FromDate,false,&gt;=}]
+					[AND login_time {ToDate,false,&lt;=}]
+					ORDER BY login_time DESC
+					[LIMIT {Offset, false}, {Limit, false}]
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>COUNT_LOGIN_HISTORY</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	SELECT COUNT(*)
+					FROM login_history
+					WHERE 1 = 1
+					[AND user_login {User,false,=}]
+					[AND client_name {AppName,false,=}]
+					[AND client_version {AppVersion,false,=}]
+					[AND login_time {FromDate,false,&gt;=}]
+					[AND login_time {ToDate,false,&lt;=}]
+				</string> 
+            </void> 
+          </object> 
+        </void>
+   </object> 
+  </void> 
+ </object> 
+</java> 

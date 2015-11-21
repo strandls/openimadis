@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+        <void method="put"> 
+         <string>INSERT_RECORD</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO record_registry (
+                        project_id, uploaded_by,
+                        number_of_slices, number_of_frames, number_of_channels, number_of_sites,
+                        image_width, image_height,
+                        site_hash, archive_signature,
+                        upload_time, source_file_time, creation_time, acquired_time,
+                        pixel_depth, pixel_size_x, pixel_size_y, pixel_size_z,
+                        source_type, image_type,
+                        machine_ip, mac_address,
+                        source_folder, source_filename,
+                        channels,sites,record_marker, acq_profile) 
+					VALUES (
+                        {ProjectID,true}, {UploadedBy,true}, 
+                        {SliceCount,true}, {FrameCount,true}, {ChannelCount,true}, {SiteCount,true}, 
+                        {ImageWidth,true}, {ImageHeight,true}, 
+                        {SiteSignature,true}, {ArchiveSignature,true}, 
+                        {UploadTime,true}, {SourceTime,true}, {CreationTime,true}, {AcquiredTime,true},
+                        {ImageDepth,true}, {PixelSizeX,true}, {PixelSizeY,true}, {PixelSizeZ,true},
+                        {SourceType,true}, {ImageType,true},
+                        {MachineIP,true}, {MacAddress,true}, 
+                        {SourceFolder,true}, {SourceFilename,true},
+                        {Channels,true}, {Sites,true}, {RecordMarker,true}, {AcqProfile, true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>UPDATE_CHANNELS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE record_registry SET channels{Channels,true,=}
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_ACQ_PROFILE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE record_registry SET acq_profile{AcqProfile,true,=}
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_PROJECT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE record_registry SET project_id{ProjectID,true,=}
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_SIGN</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE record_registry SET archive_signature{Archive,true,=}
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_MARKER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE record_registry SET record_marker{Marker,true,=}
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>MARK_DELETED</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM record_registry
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>IS_PRESENT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid from record_registry 
+					WHERE guid {GUID,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_RECORD_MARKER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT record_marker FROM record_registry
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_PROJECT_FOR_GUID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT project_id FROM record_registry 
+                    WHERE guid {GUID,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_CHANNELS_FOR_GUID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT channels FROM record_registry 
+                    WHERE guid {GUID,false,=} 
+                    AND record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_SITES_FOR_GUID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT sites FROM record_registry 
+                    WHERE guid {GUID,false,=} 
+                    AND record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_ARCHIVE_FOR_GUID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT archive_signature FROM record_registry 
+                    WHERE guid {GUID,false,=} 
+                    AND record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_DIMENSION_FOR_GUID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT number_of_frames, number_of_slices, number_of_channels, number_of_sites 
+                    FROM record_registry 
+                    WHERE guid {GUID,false,=}
+                    AND record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_IMAGE_DIMENSION_FOR_GUID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT image_width, image_height 
+                    FROM record_registry 
+                    WHERE guid {GUID,false,=} 
+                    AND record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+		
+        <void method="put"> 
+         <string>GET_IMAGE_DEPTH_FOR_GUID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT pixel_depth  
+                    FROM record_registry 
+                    WHERE guid {GUID,false,=} 
+                    AND record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_PROJECT_N_GUID_FOR_SIGNATURE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT project_id, guid FROM record_registry 
+                    WHERE number_of_slices {SliceCount,false,=} 
+                    AND number_of_frames {FrameCount,false,=} 
+                    AND number_of_channels {ChannelCount,false,=} 
+                    AND number_of_sites {SiteCount,false,=} 
+                    AND image_width {ImageWidth,false,=} 
+                    AND image_height {ImageHeight,false,=} 
+                    AND site_hash {SiteSignature,false,=} 
+                    AND archive_signature {ArchiveSignature,false,=}
+                    AND record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_ALL_PROJECT_N_GUID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT project_id, guid FROM record_registry 
+                    WHERE record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_GUID_FOR_SIGNATURE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid FROM record_registry 
+                    WHERE number_of_slices {SliceCount,false,=} 
+                    AND number_of_frames {FrameCount,false,=} 
+                    AND number_of_channels {ChannelCount,false,=} 
+                    AND number_of_sites {SiteCount,false,=} 
+                    AND image_width {ImageWidth,false,=} 
+                    AND image_height {ImageHeight,false,=} 
+                    AND site_hash {SiteSignature,false,=} 
+                    AND archive_signature {ArchiveSignature,false,=}
+                    AND record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        
+        <void method="put"> 
+         <string>GET_RECORD_FOR_GUID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid, project_id,uploaded_by,
+                    number_of_slices,number_of_frames,number_of_channels,number_of_sites,
+                    image_width,image_height,
+                    site_hash,archive_signature,
+                    upload_time,source_file_time,creation_time,acquired_time,
+                    pixel_depth,pixel_size_x,pixel_size_y,pixel_size_z,
+                    source_type,image_type,
+                    machine_ip,mac_address,
+                    source_folder,source_filename,
+                    channels,sites, acq_profile
+                    FROM record_registry 
+                    WHERE guid {GUID,false,=}  
+                    AND record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        
+		<void method="put"> 
+         <string>GET_RECORDS_FOR_PROJECT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid,project_id,uploaded_by,
+                    number_of_slices,number_of_frames,number_of_channels,number_of_sites,
+                    image_width,image_height,
+                    site_hash,archive_signature,
+                    upload_time,source_file_time,creation_time,acquired_time,
+                    pixel_depth,pixel_size_x,pixel_size_y,pixel_size_z,
+                    source_type,image_type,
+                    machine_ip,mac_address,
+                    source_folder,source_filename,
+                    channels, sites, acq_profile 
+                    FROM record_registry 
+                    WHERE project_id {ProjectID,false,=}
+                    AND record_marker {RecordMarker,false,=}
+                    [LIMIT {Limit, false}]
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+		<void method="put"> 
+         <string>GET_GUIDS_FOR_PROJECT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid FROM record_registry WHERE project_id {ProjectID,false,=}
+					AND record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+		
+		
+		<void method="put"> 
+         <string>GET_PROJECTS_FOR_ARCHIVE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT DISTINCT project_id FROM record_registry 
+					WHERE archive_signature {Archive,false,=}
+					AND record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>	
+		
+		<void method="put"> 
+         <string>GET_GUIDS_FOR_ARCHIVE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid FROM record_registry WHERE archive_signature {Archive,false,=}
+					AND record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>	
+        
+		<void method="put"> 
+         <string>GET_DELETED_GUIDS_FOR_ARCHIVE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid FROM record_registry 
+					WHERE archive_signature {Archive,false,=}
+					AND record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>	
+        
+		<void method="put"> 
+         <string>GET_ALL_GUIDS_FOR_ARCHIVE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid FROM record_registry 
+					WHERE archive_signature {Archive,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>	
+		
+		<void method="put"> 
+         <string>GET_ARCHIVES_FOR_PROJECT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT DISTINCT archive_signature FROM record_registry 
+					WHERE project_id {ProjectID,false,=}
+					AND record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>	
+        
+        
+        <void method="put"> 
+         <string>GET_RECORD_FOR_SIGNATURE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid, project_id,uploaded_by,
+                    number_of_slices,number_of_frames,number_of_channels,number_of_sites,
+                    image_width,image_height,
+                    site_hash,archive_signature,
+                    upload_time,source_file_time,creation_time,acquired_time,
+                    pixel_depth,pixel_size_x,pixel_size_y,pixel_size_z,
+                    source_type,image_type,
+                    machine_ip,mac_address,
+                    source_folder,source_filename,
+                    channels,sites, acq_profile
+                    FROM record_registry 
+                    WHERE number_of_slices {SliceCount,false,=} 
+                    AND number_of_frames {FrameCount,false,=} 
+                    AND number_of_channels {ChannelCount,false,=} 
+                    AND number_of_sites {SiteCount,false,=} 
+                    AND image_width {ImageWidth,false,=} 
+                    AND image_height {ImageHeight,false,=} 
+                    AND site_hash {SiteSignature,false,=} 
+                    AND archive_signature {ArchiveSignature,false,=}
+                    AND record_marker {RecordMarker,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+
+   </object> 
+  </void> 
+ </object> 
+</java>

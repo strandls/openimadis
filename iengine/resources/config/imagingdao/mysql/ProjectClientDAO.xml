@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap">    
+        
+                
+        <void method="put"> 
+         <string>GET_FOLDERS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT project_client_id 
+					FROM %Project%_project_client_registry
+					WHERE is_directory {isDirectory,false,=}
+					AND parentid {ParentID, false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_SUB_FOLDERS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT project_client_id
+					FROM %Project%_project_client_registry
+					WHERE is_directory {isDirectory,false,=}
+					AND parentid {ParentID, false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>CREATE_NEW_FOLDER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	INSERT INTO %Project%_project_client_registry (
+                	clientid_or_folder_name, parentid,is_directory)
+                	VALUES (
+                	{Name, true},{ParentID, true},{isDirectory, true} )
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>REMOVE_FOLDER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	DELETE FROM %Project%_project_client_registry
+                	WHERE project_client_id{folderID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>ADD_CLIENT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	INSERT INTO %Project%_project_client_registry (
+                	clientid_or_folder_name, parentid,is_directory)
+                	VALUES (
+                	{Name, true},{ParentID, true},{isDirectory, true} )
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>REMOVE_CLIENT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	DELETE FROM %Project%_project_client_registry
+                	WHERE clientid_or_folder_name{ClientID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_CLIENTS_IN_FOLDER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT clientid_or_folder_name 
+					FROM %Project%_project_client_registry
+					WHERE is_directory {isDirectory,false,=}
+					AND parentid {folderID, false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+
+		<void method="put"> 
+         <string>GET_FOLDER_NAME</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT clientid_or_folder_name 
+					FROM %Project%_project_client_registry
+					WHERE is_directory {isDirectory,false,=}
+					AND project_client_id {folderID, false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_ALL_CLIENTS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT clientid_or_folder_name 
+					FROM %Project%_project_client_registry
+					WHERE is_directory {isDirectory,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 

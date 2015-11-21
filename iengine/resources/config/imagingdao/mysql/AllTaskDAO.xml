@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap">
+        
+        <void method="put"> 
+         <string>SEARCH_TASK</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					(
+						SELECT id, owner, authcode, priority, app_name, 
+						app_veriosn, schedule_time, state, parameters, input_guids, project_id, is_monitored, auth_identifier
+						FROM active_task_registry
+						WHERE 1=1
+						[AND owner {owner,false,=}]
+						[AND project_id {projectID,false,=}]
+						[AND priority {priority,false,=}] 
+						[AND app_name {appName,false,=}]
+						[AND app_veriosn {appVersion,false,=}]
+						[AND schedule_time {fromTime,false,&gt;=}]
+						[AND schedule_time {toTime,false,&lt;}]
+						[AND state {taskState,false,=}]
+					)
+					UNION
+					(
+						SELECT id, owner, authcode, priority, app_name, 
+						app_veriosn, schedule_time, state, parameters, input_guids, project_id, is_monitored, auth_identifier
+						FROM archived_task_registry
+						WHERE 1=1
+						[AND owner {owner,false,=}]
+						[AND project_id {projectID,false,=}]
+						[AND priority {priority,false,=}] 
+						[AND app_name {appName,false,=}]
+						[AND app_veriosn {appVersion,false,=}]
+						[AND schedule_time {fromTime,false,&gt;=}]
+						[AND schedule_time {toTime,false,&lt;}]
+						[AND state {taskState,false,=}]
+					)
+					ORDER BY schedule_time DESC
+					LIMIT {Offset,true}, {Limit,true}
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+        
+        <void method="put"> 
+         <string>GET_SEARCH_COUNT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	SELECT  
+					(
+						SELECT COUNT(*)
+						FROM active_task_registry
+						WHERE 1=1
+						[AND owner {owner,false,=}]
+						[AND project_id {projectID,false,=}]
+						[AND priority {priority,false,=}] 
+						[AND app_name {appName,false,=}]
+						[AND app_veriosn {appVersion,false,=}]
+						[AND schedule_time {fromTime,false,&gt;=}]
+						[AND schedule_time {toTime,false,&lt;}]
+						[AND state {taskState,false,=}]
+					)
+					+
+					(
+						SELECT COUNT(*)
+						FROM archived_task_registry
+						WHERE 1=1
+						[AND owner {owner,false,=}]
+						[AND project_id {projectID,false,=}]
+						[AND priority {priority,false,=}] 
+						[AND app_name {appName,false,=}]
+						[AND app_veriosn {appVersion,false,=}]
+						[AND schedule_time {fromTime,false,&gt;=}]
+						[AND schedule_time {toTime,false,&lt;}]
+						[AND state {taskState,false,=}]
+					)
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        
+   </object> 
+  </void> 
+ </object> 
+</java>

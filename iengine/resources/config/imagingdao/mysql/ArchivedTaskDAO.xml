@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+        <void method="put"> 
+         <string>INSERT_TASK</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO archived_task_registry (id, owner, authcode, priority, app_name, 
+					app_veriosn, schedule_time, state, parameters, input_guids, project_id, is_monitored, auth_identifier) 
+					VALUES (
+                        {JobID,true}, {Owner,true}, {AuthCode,true}, 
+                        {Priority,true}, {AppName,true}, {AppVersion,true}, {ScheduleTime, true}, 
+                        {State,true}, {Parameters,true}, {InputGuids,true}, {projectID,true}, {isMonitored,true}, {AuthID, true}
+                    )
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_TASK</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT id, owner, authcode, priority, app_name, 
+					app_veriosn, schedule_time, state, parameters, input_guids, project_id, is_monitored, auth_identifier
+					FROM archived_task_registry
+					WHERE id {JobID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+        
+        <void method="put"> 
+         <string>SET_MONITORED</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE archived_task_registry
+					SET is_monitored=true 
+					WHERE id {JobID,false,=} AND owner {User, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>SET_OUTPUTS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE archived_task_registry
+					SET output_guids{Outputs, true, =}
+					WHERE id {JobID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+        
+        <void method="put"> 
+         <string>GET_OUTPUTS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT output_guids FROM archived_task_registry
+					WHERE id {JobID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+        
+		<void method="put"> 
+         <string>GET_ALL_TASKS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT id, owner, authcode, priority, app_name, 
+					app_veriosn, schedule_time, state, parameters, input_guids, project_id, is_monitored, auth_identifier
+					FROM archived_task_registry
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+        
+		<void method="put"> 
+         <string>GET_TASK_FOR_STATE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT id, owner, authcode, priority, app_name, 
+					app_veriosn, schedule_time, state, parameters, input_guids, project_id, is_monitored, auth_identifier
+					FROM archived_task_registry
+					WHERE state {State,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_MONITORED_TASK</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT id, owner, authcode, priority, app_name, 
+					app_veriosn, schedule_time, state, parameters, input_guids, project_id, is_monitored, auth_identifier
+					FROM archived_task_registry
+					WHERE is_monitored=true
+				</string> 
+            </void> 
+          </object> 
+        </void>    
+        
+        <void method="put"> 
+         <string>GET_MONITORED_TASKS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT id, owner, authcode, priority, app_name, 
+					app_veriosn, schedule_time, state, parameters, input_guids, project_id, is_monitored, auth_identifier
+					FROM archived_task_registry
+					WHERE owner {User,false,=}
+					AND is_monitored {Monitored, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>CLEAR_IS_MONITORED</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					
+						UPDATE archived_task_registry
+						SET is_monitored=false 
+						WHERE id {taskId,false,=}
+					
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+        
+   </object> 
+  </void> 
+ </object> 
+</java>

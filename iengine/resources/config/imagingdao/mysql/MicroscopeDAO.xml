@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+        <void method="put"> 
+         <string>REGISTER_MICROSCOPE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO microscope_registry (microscope_name, machine_ip, mac_address, licenses)  
+					VALUES ({Name,true}, {IpAddress,true}, {MacAddress,true}, {Licenses,true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>DELETE_MICROSCOPE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM microscope_registry  
+					WHERE microscope_name {Name,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+		<void method="put"> 
+         <string>GET_MICROSCOPE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT microscope_name, machine_ip, mac_address, licenses FROM microscope_registry 
+					WHERE microscope_name {Name,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+		<void method="put"> 
+         <string>LIST_MICROSCOPES</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT microscope_name, machine_ip, mac_address, licenses FROM microscope_registry
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_MICROSCOPES</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE microscope_registry SET microscope_name {NewName, false, =}, machine_ip {NewIpAddress, false, =}, mac_address {NewMacAddress, false, =}, licenses {NewLicenses, false, =} 
+					WHERE microscope_name {Name,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+   
+        <void method="put"> 
+         <string>GET_VISUAL_OBJECTS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT object_id, pen_color, pen_width, AsText(visual_object), vo_type, zoom_level 
+					FROM %Project%_visual_object_registry 
+					WHERE guid {GUID,false,=}
+                    AND site_number {SiteNo,false,=} 
+                    AND overlay_name {Name,false,=} 
+					AND slice_number {SliceNo,false,=} 
+					AND frame_number {FrameNo,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+
+        <void method="put"> 
+         <string>GET_VISUAL_OBJECTS_FOR_TYPE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT object_id, pen_color, pen_width, AsText(visual_object), vo_type 
+					FROM %Project%_visual_object_registry 
+					WHERE guid {GUID,false,=}
+                    AND site_number {SiteNo,false,=} 
+                    AND overlay_name {Name,false,=} 
+					AND slice_number {SliceNo,false,=} 
+					AND frame_number {FrameNo,false,=} 
+					AND vo_type {Type,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+        
+        <void method="put"> 
+         <string>GET_VISUAL_OBJECT_COORDINATES_FOR_ID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT frame_number,slice_number 
+					FROM %Project%_visual_object_registry 
+					WHERE guid {GUID,false,=}
+                    AND object_id {ObjectID,false,=}
+                    AND overlay_name {Name,false,=}  
+                    AND site_number {SiteNo, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_TEXT_OBJECT_COORDINATES_FOR_ID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT frame_number,slice_number 
+					FROM %Project%_text_box_registry 
+					WHERE guid {GUID,false,=}
+                    AND object_id {ObjectID,false,=}
+                    AND overlay_name {Name,false,=}  
+                    AND site_number {SiteNo, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_VISUAL_OBJECTS_WITHIN_AREA</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT object_id, pen_color, pen_width, AsText(visual_object), vo_type, zoom_level
+					FROM %Project%_visual_object_registry 
+					WHERE guid {GUID,false,=}
+                    AND site_number {SiteNo,false,=} 
+                    AND overlay_name {Name,false,=} 
+					AND slice_number {SliceNo,false,=} 
+					AND frame_number {FrameNo,false,=} 
+					AND MBRIntersects(GeomFromText({SearchArea,false}), visual_object)
+				</string> 
+            </void> 
+          </object> 
+        </void>    
+        
+         <void method="put"> 
+         <string>GET_TEXT_OBJECTS_WITHIN_AREA</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT object_id, pen_color, pen_width, AsText(visual_object), message, font, bg_color, zoom_level
+					FROM %Project%_text_box_registry 
+					WHERE guid {GUID,false,=}
+                    AND site_number {SiteNo,false,=} 
+                    AND overlay_name {Name,false,=} 
+					AND slice_number {SliceNo,false,=} 
+					AND frame_number {FrameNo,false,=} 
+					AND MBRContains(GeomFromText({SearchArea,false}), visual_object)
+				</string> 
+            </void> 
+          </object> 
+        </void>    
+        
+        <void method="put"> 
+         <string>GET_VISUAL_OBJECT_COORDINATES</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT frame_number,slice_number 
+					FROM %Project%_visual_object_registry 
+					WHERE guid {GUID,false,=}
+                    AND overlay_name {Name,false,=}  
+                    AND site_number {SiteNo, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+        
+        <void method="put"> 
+         <string>GET_TEXT_OBJECT_COORDINATES</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT frame_number,slice_number
+					FROM %Project%_text_box_registry 
+					WHERE guid {GUID,false,=}
+                    AND overlay_name {Name,false,=}  
+                    AND site_number {SiteNo, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_TEXT_OBJECTS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT object_id, pen_color, pen_width, AsText(visual_object), message, font, bg_color, zoom_level  
+					FROM %Project%_text_box_registry 
+					WHERE guid {GUID,false,=}
+                    AND site_number {SiteNo,false,=} 
+                    AND overlay_name {Name,false,=} 
+					AND slice_number {SliceNo,false,=} 
+					AND frame_number {FrameNo,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+		
+        <void method="put"> 
+         <string>GET_TEXTBOX_MESSAGES</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT message 
+					FROM %Project%_text_box_registry 
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+        
+        <void method="put"> 
+         <string>DELETE_VISUAL_OBJECTS_FOR_OVERLAY</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM %Project%_visual_object_registry
+					WHERE guid {GUID,false,=}
+                    AND site_number {SiteNo,false,=} 
+                    AND overlay_name {Name,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>DELETE_VISUAL_OBJECT_FOR_ID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM %Project%_visual_object_registry
+					WHERE guid {GUID,false,=}
+                    AND site_number {SiteNo,false,=} 
+                    AND overlay_name {Name,false,=} 
+					AND slice_number {SliceNo,false,=} 
+					AND frame_number {FrameNo,false,=} 
+                    AND object_id {ObjectID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+		
+        <void method="put"> 
+         <string>DELETE_VISUAL_OBJECTS_FOR_DIMENSION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM %Project%_visual_object_registry
+					WHERE guid {GUID,false,=}
+                    AND site_number {SiteNo,false,=} 
+                    AND overlay_name {Name,false,=} 
+					AND slice_number {SliceNo,false,=} 
+					AND frame_number {FrameNo,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>DELETE_TEXT_BOXES_FOR_OVERLAY</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM %Project%_text_box_registry  
+					WHERE guid {GUID,false,=} 
+                    AND site_number {SiteNo,false,=} 
+                    AND overlay_name {Name,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>DELETE_TEXT_BOX_FOR_ID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM %Project%_text_box_registry  
+					WHERE guid {GUID,false,=} 
+                    AND site_number {SiteNo,false,=} 
+                    AND overlay_name {Name,false,=} 
+					AND slice_number {SliceNo,false,=} 
+					AND frame_number {FrameNo,false,=} 
+                    AND object_id {ObjectID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+		
+        <void method="put"> 
+         <string>DELETE_TEXT_BOXES_FOR_DIMENSION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM %Project%_text_box_registry  
+					WHERE guid {GUID,false,=} 
+                    AND site_number {SiteNo,false,=} 
+                    AND overlay_name {Name,false,=} 
+					AND slice_number {SliceNo,false,=} 
+					AND frame_number {FrameNo,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+		
+        
+   
+         <void method="put"> 
+         <string>INSERT_VISUAL_OBJECT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO %Project%_visual_object_registry
+					(guid, slice_number, frame_number, site_number, object_id, pen_color, pen_width, zoom_level, visual_object, vo_type, overlay_name)
+					VALUES 
+                    ({GUID,true},{SliceNo,true},{FrameNo,true},{SiteNo,true},{ObjectID,true},{PenColor, true},{PenWidth, true},{ZoomLevel, true}, GeomFromText({Shape, true}), {Type, true},{Name, true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        
+         <void method="put"> 
+         <string>INSERT_TEXT_BOX</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO %Project%_text_box_registry
+					(guid, slice_number, frame_number, site_number, object_id, pen_color, pen_width, zoom_level, visual_object, message, overlay_name, font, bg_color)
+					VALUES 
+                    ({GUID,true},{SliceNo,true},{FrameNo,true},{SiteNo,true},{ObjectID,true},{PenColor, true},{PenWidth, true},{ZoomLevel, true}, GeomFromText({Shape, true}),{Message, true},{Name, true},{Font,true},{BackgroundColor,true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+         <void method="put"> 
+         <string>UPDATE_VISUAL_OBJECT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE %Project%_visual_object_registry 
+                    SET visual_object = GeomFromText({Shape, true}),
+                    SET pen_color {PenColor,true,=}, 
+                    SET pen_width {PenWidth,true,=} 
+					WHERE guid {GUID,false,=}
+                    AND site_number {SiteNo,false,=} 
+                    AND overlay_name {Name,false,=} 
+					AND slice_number {SliceNo,false,=} 
+					AND frame_number {FrameNo,false,=} 
+                    AND object_id {ObjectID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+         <void method="put"> 
+         <string>UPDATE_TEXT_BOX</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE %Project%_text_box_registry 
+                    SET visual_object = GeomFromText({Shape, true}),
+                    SET pen_color {PenColor,true,=}, 
+                    SET pen_width {PenWidth,true,=}, 
+                    SET message {Message,true,=}, 
+					SET font {Font,true,=},
+					SET bg_color {BackgroundColor,true,=}
+					WHERE guid {GUID,false,=}
+                    AND site_number {SiteNo,false,=} 
+                    AND overlay_name {Name,false,=} 
+					AND slice_number {SliceNo,false,=} 
+					AND frame_number {FrameNo,false,=} 
+                    AND object_id {ObjectID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>DELETE_VISUAL_OBJECTS_BY_GUID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM %Project%_visual_object_registry 
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 

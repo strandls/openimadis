@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+	
+		<void method="put"> 
+         <string>INSERT_TASK_LOG</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO task_log_registry (task_id, task_location, filename) 
+					VALUES (
+                        {JobID,true}, {TaskLocation, true}, {Filename, true}
+                    )
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_TASK_LOG</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT task_location
+					FROM task_log_registry
+					WHERE task_id {JobID, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+	
+   </object> 
+  </void> 
+ </object> 
+</java>

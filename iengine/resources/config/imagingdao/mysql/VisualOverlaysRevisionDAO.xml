@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+   
+        <void method="put"> 
+         <string>INSERT_VISUAL_OVERLAY_REVISION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+	                INSERT INTO %Project%_visual_overlays_revision 
+						(guid, site_number, overlay_name, slice_number, frame_number, revision) 
+						VALUES ({GUID,true}, {Site,true}, {Name, true}, {Slice, true}, {Frame, true}, 0)
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_REVISION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	SELECT revision
+                	FROM %Project%_visual_overlays_revision
+                	WHERE guid {GUID,false,=} 
+					AND site_number {Site,false,=} 
+					AND slice_number {Slice,false,=}
+					AND frame_number {Frame,false,=} 
+					AND overlay_name {Name,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>INCREMENT_REVISION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	UPDATE %Project%_visual_overlays_revision
+                	SET revision = revision +1
+                	WHERE guid {GUID,false,=} 
+					AND site_number {Site,false,=} 
+					AND slice_number {Slice,false,=}
+					AND frame_number {Frame,false,=} 
+					AND overlay_name {Name,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 

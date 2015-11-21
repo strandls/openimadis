@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+        <void method="put"> 
+         <string>INSERT_ARCHIVE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO archive_registry (archive_signature, root_folder_name, archive_folder_name, source_reference) 
+					VALUES ({Signature,true}, {RootFolder,true}, {ArchiveFolder,true}, {SourceFiles,true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_ARCHIVE_FOR_SIGNATURE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT archive_signature, root_folder_name, archive_folder_name, source_reference    
+					FROM archive_registry 
+					WHERE archive_signature {Signature,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>DELETE_ARCHIVE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM archive_registry 
+					WHERE archive_signature {Signature,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>UPDATE_ARCHIVE_ROOT_FOLDER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE archive_registry SET root_folder_name {RootFolder,true,=}
+					WHERE archive_signature {Signature,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>UPDATE_SOURCE_REF</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE archive_registry SET archive_signature {NewSign,true,=}, source_reference {SourceFiles,true,=}
+					WHERE archive_signature {OldSign,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>DELETE_SIGNATURE_MAPPING</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM signature_mapping 
+					WHERE old_archive_signature {OldSign,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+        
+        <void method="put"> 
+         <string>GET_NEW_SIGNATURE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT new_archive_signature FROM signature_mapping 
+					WHERE old_archive_signature {OldSign,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>INSERT_SIGNATURE_MAPPING</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO signature_mapping(old_archive_signature, new_archive_signature)
+					VALUES ({OldSign,true}, {NewSign,true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+
+   </object> 
+  </void> 
+ </object> 
+</java> 

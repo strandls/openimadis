@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+   
+        <void method="put"> 
+         <string>INSERT_SERVICE_STATUS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO worker_status_registry 
+					(worker_id, service_type, service_status_object)
+					VALUES
+					({workerID,true},{serviceType, true},{serviceStatus, true})
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+        
+        <void method="put"> 
+         <string>UPDATE_SERVICE_STATUS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE worker_status_registry
+					SET service_status_object {serviceStatus, true, =},
+					last_modification_time {lastModificationTime, true, =}
+					WHERE worker_id {workerID, true, =}
+					AND service_type {serviceType, true, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+
+        <void method="put"> 
+         <string>GET_SERVICE_STATUS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT worker_id, service_type, service_status_object FROM worker_status_registry
+					WHERE worker_id {workerID, true, =}
+					AND service_type {serviceType, true, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>    
+        
+        <void method="put"> 
+         <string>GET_LAST_MODIFICATION_TIME</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT last_modification_time FROM worker_status_registry
+					WHERE worker_id {workerID, true, =}
+					AND service_type {serviceType, true, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>               
+
+        <void method="put"> 
+         <string>GET_ALL_SERVICE_STATUS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT worker_id, service_type, service_status_object 
+					FROM worker_status_registry
+				</string> 
+            </void> 
+          </object> 
+        </void>   
+        
+        <void method="put"> 
+         <string>GET_TO_BE_RESTARTED_VALUE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT to_be_restarted 
+					FROM worker_status_registry
+					WHERE worker_id {workerID, true, =}
+					AND service_type {serviceType, true, =}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>SET_TO_BE_RESTARTED</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE worker_status_registry
+					SET to_be_restarted {toBeRestarted, true, =}
+					WHERE worker_id {workerID, true, =}
+					AND service_type {serviceType, true, =}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>REMOVE_SERVICE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM worker_status_registry
+					WHERE worker_id {workerID, true, =}
+					AND service_type {serviceType, true, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>                   
+                
+   </object> 
+  </void> 
+ </object> 
+</java> 

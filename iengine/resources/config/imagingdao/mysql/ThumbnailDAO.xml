@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+		<void method="put"> 
+         <string>INSERT_THUMBNAIL</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO thumbnail_registry(guid, thumbnail, revision) 
+					VALUES (
+					{GUID,true}, {Thumbnail,true}, 0
+					)
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_THUMBNAIL</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE thumbnail_registry 
+					SET revision=revision+1,
+					thumbnail{Thumbnail,true,=}
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+		<void method="put"> 
+         <string>GET_THUMBNAIL</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT thumbnail,revision FROM thumbnail_registry
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_REVISION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT revision FROM thumbnail_registry
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        
+   </object> 
+  </void> 
+ </object> 
+</java>

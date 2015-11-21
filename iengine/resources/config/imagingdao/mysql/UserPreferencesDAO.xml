@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+   
+   
+         <void method="put"> 
+         <string>CREATE_DEFAULT_PREFERENCES</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO user_recent_projects(user_login, project_id) VALUES ({User,true}, {ProjectID,true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_CUSTOM_CHANNELS_FOR_ALL_USERS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_record_channel_colors 
+					SET channels {Channels,true,=} 
+					WHERE guid {GUID,false, =}  
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>SET_LEGENDS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO user_legends(user_login, legends)
+					VALUES ({User,true}, {Legends,true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>SET_LEGEND_LOCATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_legends
+					SET location {Location,true,=}
+					WHERE user_login {User, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_LEGEND_LOCATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT location  
+					FROM user_legends 
+					WHERE user_login {User, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_LEGENDS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_legends
+					SET legends {Legends,true,=}
+					WHERE user_login {User, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_LEGENDS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT legends  
+					FROM user_legends 
+					WHERE user_login {User, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_LAST_ACCESS_TIME</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT last_access_time  
+					FROM user_recent_projects 
+					WHERE project_id {ProjectID, false, =} 
+					AND user_login {User, false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>DELETE_USER_PROJECT_ENTRY</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM user_recent_projects
+					WHERE project_id {ProjectID, false, =} 
+					AND user_login {User, false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_BIN_COUNT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT no_of_bins 
+					FROM user_recent_projects 
+					WHERE project_id {ProjectID, false, =} 
+					AND user_login {User, false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_BIN_ORDER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT ascending_bins  
+					FROM user_recent_projects 
+					WHERE project_id {ProjectID, false, =} 
+					AND user_login {User, false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_SPREADSHEET_COLUMNS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT spreadsheet_columns   
+					FROM user_recent_projects 
+					WHERE project_id {ProjectID, false, =} 
+					AND user_login {User, false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_NAVIGATION_COLUMNS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT navigation_columns   
+					FROM user_recent_projects 
+					WHERE project_id {ProjectID, false, =} 
+					AND user_login {User, false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        
+        <void method="put"> 
+         <string>GET_OVERLAY_COLUMNS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT overlay_columns   
+					FROM user_recent_projects 
+					WHERE project_id {ProjectID, false, =} 
+					AND user_login {User, false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_RECENT_PROJECTS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT project_id   
+					FROM user_recent_projects
+					WHERE user_login {User, false, =} 
+                    ORDER BY last_access_time DESC LIMIT {Limit, false} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_SPREADSHEET_COLUMNS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_recent_projects 
+					SET spreadsheet_columns {Columns,true,=} 
+					WHERE project_id {ProjectID, false, =}  
+					AND user_login {User, false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_NAVIGATION_COLUMNS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_recent_projects 
+					SET navigation_columns {Columns,true,=} 
+					WHERE project_id {ProjectID, false, =}  
+					AND user_login {User, false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        
+        <void method="put"> 
+         <string>UPDATE_OVERLAY_COLUMNS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_recent_projects 
+					SET overlay_columns {Columns,true,=} 
+					WHERE project_id {ProjectID, false, =}  
+					AND user_login {User, false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_BIN_COUNT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_recent_projects 
+					SET no_of_bins {BinCount,true,=} 
+					WHERE project_id {ProjectID,false, =}  
+					AND user_login {User,false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_BIN_ORDER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_recent_projects 
+					SET ascending_bins {BinOrder,true,=} 
+					WHERE project_id {ProjectID,false, =}  
+					AND user_login {User,false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_PROJECT_USE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_recent_projects 
+					SET last_access_time {AccessTime,true,=} 
+					WHERE project_id {ProjectID,false, =}  
+					AND user_login {User,false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+		
+        <void method="put"> 
+         <string>GET_CUSTOM_CHANNELS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT channels    
+					FROM user_record_channel_colors 
+					WHERE guid {GUID, false, =} 
+					AND user_login {User, false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+		
+        <void method="put"> 
+         <string>INSERT_CUSTOM_CHANNELS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO user_record_channel_colors (user_login, guid, channels) 
+					VALUES ({User,true}, {GUID,true}, {Channels,true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+		
+        <void method="put"> 
+         <string>UPDATE_CUSTOM_CHANNELS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_record_channel_colors 
+					SET channels {Channels,true,=} 
+					WHERE guid {GUID,false, =}  
+					AND user_login {User,false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 

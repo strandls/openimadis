@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+     
+        <void method="put"> 
+         <string>INSERT_BACKUP_DATA</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO project_backup_registry
+					(project_id, backup_location, sign)
+					VALUES 
+                    ({Project,true}, {Location,true}, {Sign,true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_BACKUP_DATA</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT project_id, backup_location, sign
+					FROM project_backup_registry
+					WHERE project_id {ProjectID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>DELETE_BACKUP_DATA</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM project_backup_registry
+					WHERE project_id {ProjectID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+   </object> 
+  </void> 
+ </object> 
+</java> 

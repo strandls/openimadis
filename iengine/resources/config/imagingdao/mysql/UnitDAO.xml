@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+		<!-- the parametrized condition 
+		  Field {VariableName,setNull,operator} means 
+		  Field is the name of the field
+		  VariableName is the name of the variable, the name with which this fragment is refered to in the java program 
+		  setNull is either true or false, indicates whether Field IS NULL or Field = NULL in case the variable is null
+		  operator is an optional value, is one of =,<,>,<=,>=; the default value is an empty string
+		  -->
+        <void method="put"> 
+         <string>INSERT_UNIT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO unit_registry (unit_name, unit_type, storage_space, contact) 
+					VALUES ({UnitName,true}, {UnitType,true}, {StorageSpace,true}, {Contact,true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_UNIT_FOR_NAME</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT unit_name, unit_type, storage_space, contact   
+					FROM unit_registry 
+					WHERE unit_name {UnitName,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+
+        <void method="put"> 
+         <string>LIST_ALL</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT unit_name, unit_type, storage_space, contact   
+					FROM unit_registry 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>UPDATE_UNIT_DETAILS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE unit_registry SET unit_type {UnitType,false,=}, storage_space {StorageSpace,false,=}, contact {Contact,false,=}
+					WHERE unit_name {UnitName,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>DELETE_UNIT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                    DELETE FROM unit_registry WHERE unit_name {UnitName,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>ASSOCIATE_PROJECT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO unit_association_registry (unit_name, project_id, storage_space) 
+					VALUES ({UnitName,true}, {ProjectID,true}, {StorageSpace,true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>UPDATE_PROJECT_SPACE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE unit_association_registry SET storage_space {StorageSpace,false,=}
+					WHERE 
+					( unit_name {UnitName,false,=} AND project_id {ProjectID,false,=} ) 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>REMOVE_PROJECT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                    DELETE FROM unit_association_registry 
+                    WHERE 
+					( unit_name {UnitName,false,=} AND project_id {ProjectID,false,=} ) 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+
+        <void method="put"> 
+         <string>GET_ASSOCIATION_FOR_PROJECT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT unit_name, project_id, storage_space
+					FROM unit_association_registry
+					WHERE project_id {ProjectID,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_ASSOCIATION_FOR_UNIT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT unit_name, project_id, storage_space
+					FROM unit_association_registry
+					WHERE unit_name {UnitName,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_ASSOCIATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT unit_name, project_id, storage_space
+					FROM unit_association_registry
+					WHERE 
+					( unit_name {UnitName,false,=} AND project_id {ProjectID,false,=})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_ASSOCIATIONS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT unit_name, project_id, storage_space
+					FROM unit_association_registry
+					WHERE 1 = 1
+					[AND unit_name {UnitName,false,=} ]
+					[AND project_id {ProjectID,false,=} ]
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 

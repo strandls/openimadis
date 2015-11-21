@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap">        
+ 
+         <void method="put"> 
+         <string>IS_TILE_READY</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT isReady  
+					FROM tiles_registry 
+					WHERE (guid {guid, false, =} AND zoom_reverse_level {zoomReverse, false, =})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>SET_IS_TILE_READY</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE tiles_registry  
+					SET isReady {isReady, true, =}  
+					WHERE (guid {guid, false, =} AND zoom_reverse_level {zoomReverse, false, =})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+                               
+        <void method="put"> 
+         <string>GET_TILE_PATH</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT storage_path  
+					FROM tiles_registry 
+					WHERE (guid {guid, false, =} AND zoom_reverse_level {zoomReverse, false, =})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>INSERT_TILE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO tiles_registry (guid, zoom_reverse_level, storage_path) 
+					VALUES ({guid,true}, {zoomReverse,true}, {storagePath,true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+     
+        <void method="put"> 
+         <string>DELETE_TILES</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM tiles_registry 
+					WHERE (guid {guid, false, =} AND zoom_reverse_level {zoomReverse, false, =})
+				</string> 
+            </void> 
+          </object> 
+        </void>     
+        
+        <void method="put"> 
+         <string>INSERT_TILE_EXECUTION_STATUS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO tiles_executionStatus (guid, estimated_time, elapsed_time, size) 
+					VALUES ({guid,true}, {estimatedTime,true}, {elapsedTime,true}, {size,true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_TILE_EXECUTION_STATUS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	UPDATE tiles_executionStatus SET estimated_time {estimatedTime,false,=}, elapsed_time {elapsedTime,false,=}, size {size,false,=}  
+					WHERE guid {guid,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_TILE_EXECUTION_STATUS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	SELECT * from tiles_executionStatus
+				</string> 
+            </void> 
+          </object> 
+        </void>              
+   </object> 
+  </void> 
+ </object> 
+</java>

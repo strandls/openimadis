@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+        
+		<void method="put"> 
+         <string>DELETE_TILE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM image_tile_cache  
+					WHERE guid {RecordID,false,=} AND frame {Frame,false,=} AND slice {Slice, false, =} AND channel {Channel, false, =}
+					AND site {Site, false, =} AND start_x {StartX, false, =} AND start_y {StartY, false, =} AND end_x {EndX, false, =} AND end_y {EndY, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>DELETE_ALL_TILES</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM image_tile_cache  
+					WHERE guid {RecordID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>DELETE_ALL_TILES_EXCEPT_FIRST</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM image_tile_cache  
+					WHERE guid {RecordID,false,=} AND NOT ( frame {Frame,false,=} AND slice {Slice, false, =} AND site {Site, false, =} ) 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_TIMESTAMP</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE image_tile_cache set access_time = NOW()  
+					WHERE guid {RecordID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_TILE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid, frame, slice, channel, site, start_x, start_y, end_x, end_y, filename FROM image_tile_cache 
+					WHERE guid {RecordID,false,=} AND frame {Frame,false,=} AND slice {Slice, false, =} AND channel {Channel, false, =}
+					AND site {Site, false, =} AND start_x {StartX, false, &lt;=} AND start_y {StartY, false, &lt;=} AND end_x {EndX, false, &gt;=} AND end_y {EndY, false, &gt;=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_LRU_RECORDS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid, access_time from image_tile_cache
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>ADD_TILE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO image_tile_cache (guid, frame, slice, channel, site, start_x, start_y, end_x, end_y, filename)  
+					VALUES ({RecordID,true}, {Frame,true}, {Slice,true}, {Channel,true}, {Site,true}, {StartX,true}, {StartY,true}, {EndX,true}, {EndY,true}, {Path,true})
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 
