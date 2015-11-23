@@ -1,2 +1,2 @@
 #!/bin/bash
-java -Xmx2g -classpath `cygpath -wp lib/apache-solr-solrj-3.5.0.jar:lib/colt.jar:lib/commons-collections-3.2.1.jar:lib/commons-codec-1.3.jar:lib/commons-compress-1.3.jar:lib/commons-dbcp-1.2.2.jar:lib/commons-httpclient-3.0.1.jar:lib/commons-logging-1.0.4.jar:lib/commons-pool-1.3.jar:lib/concurrent.jar:lib/icore.jar:lib/ienginedao.jar:lib/iengine.jar:lib/ierrors.jar:lib/iworker.jar:lib/loci_tools.jar:lib/mysql-connector-java-5.1.13-bin.jar:lib/luts.jar:lib/ihistory.jar:lib/inotification.jar:lib/xuggle-xuggler-5.4.jar:lib/mail1.4.jar:lib/commons-lang3-3.1.jar` com.strandgenomics.imaging.iworker.services.ExtractionServiceImpl iworker.properties
+java -Xmx2g -classpath 'lib\*' com.strandgenomics.imaging.iworker.services.ExtractionServiceImpl iworker.properties
