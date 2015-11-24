@@ -57,6 +57,7 @@ public class LoginDocomentModel {
 	protected boolean useProxy = false;
 	/** checks whether to use ssl */
 	protected boolean useSSL = false;
+	protected int protocol = 0;
 
 	public LoginDocomentModel() 
 	{
@@ -165,7 +166,7 @@ public class LoginDocomentModel {
 		}
 
 		ConnectionPreferences pref = ConnectionPreferences.getInstance();
-		pref.setServerSettings(getServerAddress(), getServerPort(), getLogin(),getPassword(), useSSL);
+		pref.setServerSettings(getServerAddress(), getServerPort(), getLogin(),getPassword(), protocol, useSSL);
 		pref.save();
 
 		// now set proxy settings in the system properties
@@ -203,7 +204,9 @@ public class LoginDocomentModel {
 	public void setProxyEnabled(boolean status) {
 		useProxy = status;
 	}
-
+	public void setProtocol(int value) {
+		protocol = value;
+	}
 	public boolean useProxy() {
 		return useProxy;
 	}
@@ -227,7 +230,9 @@ public class LoginDocomentModel {
 	public String getPassword() {
 		return getFieldValue(password);
 	}
-
+	public int getProtocol(){
+		return protocol;
+	}
 	public String getProxyServerAddress() {
 		return getFieldValue(proxyHost);
 	}
@@ -319,5 +324,5 @@ public class LoginDocomentModel {
 
 	public Document getProxyPasswordField() {
 		return proxyPassword;
-	}
+	}	
 }

@@ -47,6 +47,8 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.JComboBox;
+
 
 import com.strandgenomics.imaging.iclient.util.ConfigurationException;
 
@@ -62,7 +64,7 @@ import com.strandgenomics.imaging.iclient.util.ConfigurationException;
  * @author arunabha
  */
 public class LoginDialog extends JDialog  {
-	
+    
 	private static final long serialVersionUID = -5927483904894608588L;
 	//TODO from load from configuration
 	public static final Font LABEL_FONT        = new Font ("Arial", Font.PLAIN, 11);
@@ -75,6 +77,7 @@ public class LoginDialog extends JDialog  {
 	
 	protected boolean cancelled;
 	private boolean maskLoginField = false;
+	private JComboBox<String> protocolCheckBox;
 
     /**
      * Dialog to Display/Edit Connection Preferences 
@@ -85,6 +88,7 @@ public class LoginDialog extends JDialog  {
         this.maskLoginField  = maskLoginField;
         // initializes the document model
 		docModel = new LoginDocomentModel();
+		
 		//create the UI
 		setContentPane( createUI() );
 		//get it ready to be visible
@@ -156,9 +160,17 @@ public class LoginDialog extends JDialog  {
 		AbstractAction okAction = new AbstractAction("OK", null)
         {
             public void actionPerformed(ActionEvent e){
+            	String p = null;
+				if(protocolCheckBox!=null)
+					p =  (String) protocolCheckBox.getSelectedItem();
 
+				if(p.equals("HTTP"))
+					docModel.setProtocol(0);
+				else if(p.equals("HTTPS"))
+					docModel.setProtocol(1);
                 boolean validParameters = validateAndSetParameters();
-
+                
+                
                 if(!validParameters)
                 {
                     return;
@@ -244,9 +256,13 @@ public class LoginDialog extends JDialog  {
         hostPortBox.setEnabled(!maskLoginField);
         JTextField loginBox    = new JTextField(docModel.getLoginField(), null, 20);
         loginBox.setEnabled(!maskLoginField);
-
+        
+        String[] choices = { "HTTP","HTTPS"};
+        protocolCheckBox = new JComboBox<String>(choices);
+        protocolCheckBox.setFont(LABEL_FONT);
+        
         JTabbedPane tabPane = new JTabbedPane();
-        tabPane.addTab("Primary", constructPrimaryPanel(hostIPBox,hostPortBox,loginBox,passwordBox));
+        tabPane.addTab("Primary", constructPrimaryPanel(hostIPBox,hostPortBox,loginBox,passwordBox,protocolCheckBox));
         tabPane.addTab("Proxy",   constructProxyPanel(proxyHostBox, proxyPortBox, proxyUserBox, proxyPasswordBox, proxyEnableBox));
 
         tabPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
@@ -262,7 +278,7 @@ public class LoginDialog extends JDialog  {
      * @return the JPanel representing the primary connection panel
      */
     private JPanel constructPrimaryPanel(JTextField hostIPBox, JTextField hostPortBox, 
-    		JTextField loginBox, JPasswordField passwordBox)
+    		JTextField loginBox, JPasswordField passwordBox,JComboBox<String> protocolCheckBox)
     {
         JPanel preferencePanel = new JPanel(new GridLayout(5,2,10,10));
         preferencePanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
@@ -286,6 +302,11 @@ public class LoginDialog extends JDialog  {
         passLabel.setFont(LABEL_FONT);
         preferencePanel.add(passLabel);
         preferencePanel.add(passwordBox);
+        
+        JLabel protocolLabel = new JLabel("Protocol:");
+        protocolLabel.setFont(LABEL_FONT);
+        preferencePanel.add(protocolLabel);
+        preferencePanel.add(protocolCheckBox);
 
         return preferencePanel;
     }
@@ -423,4 +444,5 @@ public class LoginDialog extends JDialog  {
     public boolean isCancelled(){
     	return cancelled;
     }
+
 }

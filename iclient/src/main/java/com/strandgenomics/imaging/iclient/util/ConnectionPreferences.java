@@ -52,13 +52,14 @@ public class ConnectionPreferences implements Serializable {
     
 	private String loginName = null;
 	private transient String password = null;
+	private int protocol = 0;
 
 	private String proxyHost = null;
 	private Integer proxyPort = null;
 
 	private String proxyUser = null;
 	private String proxyPassword = null;
-
+	
 	private boolean useProxy = false;
 	/**
 	 * single instance of the connection information
@@ -134,7 +135,16 @@ public class ConnectionPreferences implements Serializable {
 	{
 		return password = value;
 	}
+	public int getProtocol() 
+	{
+		return protocol;
+	}
 
+	public void setProtocol(int value) 
+	{
+		this.protocol = value;
+	}
+	
 	public String getProxyAddress() 
 	{
 		return proxyHost;
@@ -184,7 +194,7 @@ public class ConnectionPreferences implements Serializable {
 		return buffer.toString();
 	}
 
-	public void setServerSettings(String hostAddress, int port, String userName, String password, boolean useSSL) 
+	public void setServerSettings(String hostAddress, int port, String userName, String password, int protocol, boolean useSSL) 
 	{
 		if (hostAddress == null || userName == null || password == null) 
 		{
@@ -195,7 +205,7 @@ public class ConnectionPreferences implements Serializable {
 		this.loginName = userName;
 		this.password = password;
 		this.useSSL = useSSL;
-
+		this.protocol = protocol;
         if(useSSL)
         {
         	serverPort = port <= 0 ? DEFAULT_HTTPS_PORT : new Integer(port);

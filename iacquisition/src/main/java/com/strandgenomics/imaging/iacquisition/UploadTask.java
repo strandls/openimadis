@@ -75,7 +75,7 @@ public class UploadTask extends SwingWorker implements UploadObserver{
 				state = UploadStatus.NotUploaded;
 			}
 			
-			message = "creating zip with the source files";
+			message = "creating tar with the source files";
 			logger.info("[UploadTask]: execute "+message);
 			updateProgress(1);
 			
@@ -94,7 +94,7 @@ public class UploadTask extends SwingWorker implements UploadObserver{
 			updateProgress(2);
 
 			uploader.fetchTicket();// doesnt return till valid ticket is fetched, but can throw exceptions
-			message = "uploading zip of the source files...";
+			message = "uploading tar of the source files...";
 			if(isCancelled()){
 				message = "cancelled";
 				state = UploadStatus.NotUploaded;
