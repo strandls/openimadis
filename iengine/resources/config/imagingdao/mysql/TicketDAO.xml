@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+        <void method="put"> 
+         <string>INSERT_TICKET</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO ticket_registry (ticket_id, request_time, last_modification_time, job_status) 
+					VALUES ({TicketID,true}, {RequestTime,true}, {RequestTime,true}, {Status,true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+	     <string>INSERT_REQUEST</string> 
+	      <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+	        <void property="pattern"> 
+	            <string>
+					INSERT INTO creation_request_registry (ticket_id, request_hash, request) 
+					VALUES ({TicketID,true}, {RequestHash,true}, {Request,true})
+				</string> 
+	        </void> 
+	      </object> 
+		</void>
+        
+        <void method="put"> 
+         <string>GET_TICKET_FOR_ID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT ticket_id, request_time, last_modification_time, job_status     
+					FROM ticket_registry 
+					WHERE ticket_id {TicketID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_TICKETS_FOR_STATUS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT ticket_id, request_time, last_modification_time, job_status     
+					FROM ticket_registry 
+					WHERE job_status {Status,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+		<void method="put"> 
+         <string>LIST_TICKETS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT ticket_id, request_time, last_modification_time, job_status     
+					FROM ticket_registry 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>UPDATE_TICKET</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE ticket_registry SET job_status {Status,false,=}, last_modification_time {ModificationTime,false,=}  
+					WHERE ticket_id {TicketID,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+		<void method="put"> 
+         <string>UPDATE_TICKET_REQUEST</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE ticket_registry SET request {Request,false,=}  
+					WHERE ticket_id {TicketID,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+	     <string>UPDATE_REQUEST</string> 
+	      <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+	        <void property="pattern"> 
+	            <string>
+					UPDATE creation_request_registry SET request {Request,false,=}  
+					WHERE ticket_id {TicketID,false,=}
+				</string> 
+	        </void> 
+	      </object> 
+		</void>
+		
+		<void method="put"> 
+	     <string>DELETE_REQUEST</string> 
+	      <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+	        <void property="pattern"> 
+	            <string>
+					DELETE FROM creation_request_registry  
+					WHERE ticket_id {TicketID,false,=}
+				</string> 
+	        </void> 
+	      </object> 
+		</void>
+		
+		<void method="put"> 
+	     <string>DELETE_TICKET</string> 
+	      <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+	        <void property="pattern"> 
+	            <string>
+					DELETE FROM ticket_registry  
+					WHERE ticket_id {TicketID,false,=}
+				</string> 
+	        </void> 
+	      </object> 
+		</void>
+        
+		<void method="put"> 
+	     <string>GET_REQUEST_FOR_TICKET</string> 
+	      <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+	        <void property="pattern"> 
+	            <string>
+					SELECT request    
+					FROM creation_request_registry 
+					WHERE ticket_id {TicketID,false,=}
+				</string> 
+	        </void> 
+	      </object> 
+		</void>
+		
+		<void method="put"> 
+	     <string>GET_TICKET_ID</string> 
+	      <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+	        <void property="pattern"> 
+	            <string>
+					SELECT ticket_id     
+					FROM creation_request_registry 
+					WHERE request_hash {RequestHash,false,=}
+				</string> 
+	        </void> 
+	      </object> 
+		</void> 
+		
+		<void method="put"> 
+	     <string>GET_REQUEST_FOR_HASH</string> 
+	      <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+	        <void property="pattern"> 
+	            <string>
+					SELECT request    
+					FROM creation_request_registry 
+					WHERE request_hash {RequestHash,false,=}
+				</string> 
+	        </void> 
+	      </object> 
+		</void> 
+		
+        <void method="put"> 
+         <string>GET_TICKET_REQUEST</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT request FROM ticket_registry
+					WHERE ticket_id {TicketID,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+
+   </object> 
+  </void> 
+ </object> 
+</java> 

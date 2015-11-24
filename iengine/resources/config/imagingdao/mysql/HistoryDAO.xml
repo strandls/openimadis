@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+     
+        <void method="put"> 
+         <string>INSERT_HISTORY_ITEM</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO %Project%_record_history
+					(guid, client_name, client_version, modified_by, access_token, modification_time, modification_type, modification_description, arguments)
+					VALUES 
+                    ({GUID,true}, {ClientName,true}, {ClientVersion,true}, {ModifiedBy,true}, {AccessToken,true}, {ModificationTime,true}, {ModificationType, true}, {Desc, true}, {Args, true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_HISTORY_FOR_RECORD</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT history_id, guid, client_name, client_version, modified_by, access_token, modification_time, modification_type, modification_description, arguments
+					FROM %Project%_record_history
+					WHERE guid {GUID,false,=}
+					ORDER BY modification_time DESC
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>DELETE_RECORD_HISTORY</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE
+					FROM %Project%_record_history
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_HISTORY_FOR_FILTER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT history_id, guid, client_name, client_version, modified_by, access_token, modification_time, modification_type, modification_description, arguments
+					FROM %Project%_record_history
+					WHERE guid {GUID,false,=}
+					[AND modified_by {ModifiedBy,false,=}]
+					[AND modification_type {Type,false,=}]
+					[AND modification_time {FromDate,false,&gt;=}]
+					[AND modification_time {ToDate,false,&lt;=}]
+					ORDER BY modification_time DESC
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_HISTORY_FOR_APPLICATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT history_id, guid, client_name, client_version, modified_by, access_token, modification_time, modification_type, modification_description, arguments
+					FROM %Project%_record_history
+					WHERE name {ClientName,false,=} 
+					AND version {ClientVersion,false,=}
+					ORDER BY modification_time DESC
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_HISTORY_FOR_ACCESS_TOKEN</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT history_id, guid, client_name, client_version, modified_by, access_token, modification_time, modification_type, modification_description, arguments
+					FROM %Project%_record_history
+					WHERE access_token {AccessToken,false,=} 
+					ORDER BY modification_time DESC
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_HISTORY_FOR_USER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT history_id, guid, client_name, client_version, modified_by, access_token, modification_time, modification_type, modification_description, arguments
+					FROM %Project%_record_history
+					WHERE modified_by {ModifiedBy,false,=}
+					ORDER BY modification_time DESC 
+				</string> 
+            </void> 
+          </object> 
+        </void>    
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 

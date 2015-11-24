@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+		<!-- the parametrized condition 
+		  Field {VariableName,setNull,operator} means 
+		  Field is the name of the field
+		  VariableName is the name of the variable, the name with which this fragment is refered to in the java program 
+		  setNull is either true or false, indicates whether Field IS NULL or Field = NULL in case the variable is null
+		  operator is an optional value, is one of =,<,>,<=,>=; the default value is an empty string
+		  -->
+
+        
+        <void method="put"> 
+         <string>GET_USER_FOR_NAME</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT user_login, name, email, password, authentication_type, user_rank, status, last_login, login_count  
+					FROM user_registry 
+					WHERE user_login {LoginName,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_USERS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>SELECT user_login, name, email, password, authentication_type, user_rank, status, last_login, login_count FROM user_registry</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_ACTIVE_USERS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	SELECT user_login, name, email, password, authentication_type, user_rank, status, last_login, login_count 
+                	FROM user_registry
+                	WHERE status {Status,false,=}
+                </string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_USERS_FOR_RANK</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT user_login, name, email, password, authentication_type, user_rank, status, last_login, login_count  
+					FROM user_registry 
+					WHERE user_rank {Rank,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>          
+        
+        <void method="put"> 
+         <string>INSERT_USER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO user_registry (user_login, name, email, password, authentication_type, user_rank) 
+					VALUES ({Login,true}, {FullName,true}, {EmailID,true}, {Password,true}, {AuthenticationType,true}, {Rank,true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+
+		
+        <void method="put"> 
+         <string>DELETE_USER_FOR_ID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>DELETE FROM user_registry WHERE user_login {UserID,false,=}</string> 
+            </void> 
+          </object> 
+        </void> 
+  
+		<!-- update all mutable fields of the user  -->
+        <void method="put"> 
+         <string>UPDATE_USER_FOR_ID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_registry SET 
+					name {FullName,true,=}, 
+					email {EmailID,true,=}, 
+					user_rank {Rank,true,=}, 
+					authentication_type {AuthType,true,=}, 
+					status {Status,true,=}
+					WHERE user_login {UserID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+		
+		<!-- update  the password only -->
+        <void method="put"> 
+         <string>UPDATE_PASSWORD_FOR_USERID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_registry 
+                    SET password {Password,true,=} 
+					WHERE user_login {UserID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+		<!-- update status of the user -->
+        <void method="put"> 
+         <string>UPDATE_STATUS_FOR_USERID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_registry SET 
+					status {Status,true,=} 
+					WHERE user_login {UserID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+		<!-- update login status of the user -->
+        <void method="put"> 
+         <string>REGISTER_LOGIN</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_registry SET 
+					last_login {LastLogin,true,=},   
+                    login_count {LoginCount,true,=} 
+					WHERE user_login {UserID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+		<!-- update login status of the user -->
+        <void method="put"> 
+         <string>REGISTER_LOGOUT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_registry SET 
+                    login_count {LoginCount,true,=} 
+					WHERE user_login {UserID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+
+   </object> 
+  </void> 
+ </object> 
+</java> 

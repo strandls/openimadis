@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+		<!-- the parametrized condition 
+		  Field {VariableName,setNull,operator} means 
+		  Field is the name of the field
+		  VariableName is the name of the variable, the name with which this fragment is refered to in the java program 
+		  setNull is either true or false, indicates whether Field IS NULL or Field = NULL in case the variable is null
+		  operator is an optional value, is one of =,<,>,<=,>=; the default value is an empty string
+		  -->
+
+		<!-- update login status of the user -->
+        <void method="put"> 
+         <string>INSERT_SIGNATURE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO signature_registry (project_id, archive_signature, number_of_slices, number_of_frames, number_of_channels, image_width, image_height, series_no) 
+					VALUES ({ProjectID,true}, {ArchiveSignature,true}, {SliceCount,true}, {FrameCount,true}, {ChannelCount,true}, {ImageWidth,true}, {ImageHeight,true}, {SeriesNo,true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>FIND_SIGNATURE_FOR_ID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid, project_id, archive_signature, number_of_slices, number_of_frames, number_of_channels, image_width, image_height, series_no 
+					FROM signature_registry 
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>FIND_SIGNATURE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid, project_id, archive_signature, number_of_slices, number_of_frames, number_of_channels, image_width, image_height, series_no 
+					FROM signature_registry 
+                    WHERE number_of_slices {SliceCount,false,=} 
+					AND number_of_frames {FrameCount,false,=}  
+                    AND number_of_channels {ChannelCount,false,=} 
+                    AND image_width {ImageWidth,false,=} 
+                    AND image_height {ImageHeight,false,=} 
+                    AND series_no {SeriesNo,false,=} 
+                    AND archive_signature {ArchiveSignature,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+
+   </object> 
+  </void> 
+ </object> 
+</java> 

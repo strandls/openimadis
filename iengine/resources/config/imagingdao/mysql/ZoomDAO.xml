@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+        
+        <void method="put"> 
+         <string>REGISTER_ZOOM_REQUEST</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO zoom_registry (zoomid, last_access, zoom_request)  
+					VALUES ({ZoomID,true}, {LastAccess,true}, {ZoomRequest,true})
+				</string> 
+            </void> 
+          </object> 
+        </void>  
+        
+        <void method="put"> 
+         <string>UPDATE_LAST_ACCESS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE zoom_registry SET  last_access {LastAccess,true,=}
+					WHERE zoomid {ZoomID, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_ZOOM_REQUEST</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT zoomid, last_access, zoom_request  
+					FROM zoom_registry 
+					WHERE zoomid {ZoomID, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+
+        <void method="put"> 
+         <string>LOAD_ALL</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT zoomid, last_access, zoom_request  
+					FROM zoom_registry 
+				</string> 
+            </void> 
+          </object> 
+        </void>          
+                
+        <void method="put"> 
+         <string>GET_TILE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT storage_path  
+					FROM zoom_tiles_registry 
+					WHERE (zoomid {ZoomID, false, =} AND x_tile {XTile,false,=} AND y_tile {YTile,false,=} AND zoom_level {ZoomLevel,false,=})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+
+        <void method="put"> 
+         <string>INSERT_TILE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO zoom_tiles_registry (zoomid, zoom_level, x_tile, y_tile, storage_path) 
+					VALUES ({ZoomID,true}, {ZoomLevel,true}, {XTile,true}, {YTile,true}, {StoragePath,true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+                
+        <void method="put"> 
+         <string>DELETE_ZOOM_REQUEST</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM zoom_registry 
+					WHERE zoomid {ZoomID, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+         
+        <void method="put"> 
+         <string>DELETE_ZOOM_TILES</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM zoom_tiles_registry 
+					WHERE zoomid {ZoomID, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>        
+   </object> 
+  </void> 
+ </object> 
+</java>

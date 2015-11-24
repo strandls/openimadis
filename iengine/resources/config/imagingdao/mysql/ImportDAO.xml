@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+        <void method="put"> 
+         <string>INSERT_IMPORT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO %Project%_import_registry (ticket_id, request_time, job_status, request) 
+					VALUES ({TicketID,true}, {RequestTime,true}, {Status,true}, {Request,true})
+				</string> 
+            </void> 
+          </object> 
+        </void>        
+        
+        <void method="put"> 
+         <string>GET_IMPORTS_FOR_STATUS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT ticket_id, request_time,job_status,request    
+					FROM %Project%_import_registry 
+					WHERE job_status {Status,false,=}
+					ORDER BY last_modification_time
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+       <void method="put"> 
+         <string>UPDATE_IMPORT_STATUS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE %Project%_import_registry SET job_status {Status,false,=},  last_modification_time {ModificationTime,false,=}  
+					WHERE ticket_id {TicketID,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 

@@ -163,9 +163,11 @@ task generateAllSkeletons(dependsOn: [iAuthSkeleton, iSpaceSkeleton, iLoaderSkel
     println "Generated Skeletons."
 }
 
-task deployLibs(dependsOn: build, type: Copy) {
+task deployLibs(dependsOn: [build, ':resources:build', ':iengine:createIEngineDAOJar'], type: Copy) {
     from(configurations.runtime) 
     from "build/libs/"
+    from "../iengine/build/libs/"
+    from "../resources/build/libs/"
     into "$tomcatHome/webapps/imanage/WEB-INF/lib"
 }
 
@@ -304,6 +306,22 @@ task updateISpaceSoapBindingSkeleton(type: Exec){
     commandLine 'bash', '-c', 'sed -i "s:com.strandgenomics.imaging.iserver.services.ws.ispace.ISpaceSoapBindingImpl:com.strandgenomics.imaging.iserver.services.impl.ImageSpaceImpl:" src/main/java/com/strandgenomics/imaging/iserver/services/ws/ispace/ISpaceSoapBindingSkeleton.java'
 }
 
-task updateSkeletons(dependsOn: [updateIAuthSoapBindingSkeleton, updateILoaderSoapBindingSkeleton, updateIComputeSoapBindingSkeleton, updateISpaceSoapBindingSkeleton]){
+task updateIManageSoapBindingSkeleton(type: Exec){
+    commandLine 'bash', '-c', 'sed -i "s:com.strandgenomics.imaging.iserver.services.ws.manage.IManageSoapBindingImpl:com.strandgenomics.imaging.iserver.services.impl.ImageSpaceManagementImpl:" src/main/java/com/strandgenomics/imaging/iserver/services/ws/manage/IManageSoapBindingSkeleton.java'
+}
+
+task updateISearchSoapBindingSkeleton(type: Exec){
+    commandLine 'bash', '-c', 'sed -i "s:com.strandgenomics.imaging.iserver.services.ws.search.ISearchSoapBindingImpl:com.strandgenomics.imaging.iserver.services.impl.ImageSpaceSearchImpl:" src/main/java/com/strandgenomics/imaging/iserver/services/ws/search/ISearchSoapBindingSkeleton.java'
+}
+
+task updateIUpdateSoapBindingSkeleton(type: Exec){
+    commandLine 'bash', '-c', 'sed -i "s:com.strandgenomics.imaging.iserver.services.ws.update.IUpdateSoapBindingImpl:com.strandgenomics.imaging.iserver.services.impl.ImageSpaceUpdateImpl:" src/main/java/com/strandgenomics/imaging/iserver/services/ws/update/IUpdateSoapBindingSkeleton.java'
+}
+
+task updateIWorkersSoapBindingSkeleton(type: Exec){
+    commandLine 'bash', '-c', 'sed -i "s:com.strandgenomics.imaging.iserver.services.ws.worker.IWorkersSoapBindingImpl:com.strandgenomics.imaging.iserver.services.impl.ImageSpaceWorkerManagerImpl:" src/main/java/com/strandgenomics/imaging/iserver/services/ws/worker/IWorkersSoapBindingSkeleton.java'
+}
+
+task updateSkeletons(dependsOn: [updateIAuthSoapBindingSkeleton, updateILoaderSoapBindingSkeleton, updateIComputeSoapBindingSkeleton, updateISpaceSoapBindingSkeleton, updateIManageSoapBindingSkeleton, updateISearchSoapBindingSkeleton, updateIUpdateSoapBindingSkeleton, updateIWorkersSoapBindingSkeleton]){
     println "Updated all skeletons"
 }

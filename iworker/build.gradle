@@ -12,10 +12,14 @@ repositories {
 
 dependencies {
     compile project(':iengine')
+    runtime 'mysql:mysql-connector-java:5.1.6'	
 }
 
-task copyLibs(type: Copy){
+task copyLibs(dependsOn: [build, ':iengine:build', ':resources:build'], type: Copy){
     from configurations.runtime
+    from '../iengine/build/libs'
+    from '../resources/build/libs'
+    from 'build/libs'
     into 'worker-deploy/lib'
 }
 

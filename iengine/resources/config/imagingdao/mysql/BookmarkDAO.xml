@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+
+        <void method="put"> 
+         <string>GET_FOLDER_ID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT bookmark_id 
+					FROM %Project%_bookmarks
+					WHERE is_directory=1 
+					AND folder_name_or_guid {FolderName,false,=} 
+					AND parent_id {ParentID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+		
+        <void method="put"> 
+         <string>GET_SUBFOLDER_NAMES_IN_FOLDER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT folder_name_or_guid  
+					FROM %Project%_bookmarks
+					WHERE is_directory=1
+					AND	parent_id {ParentID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+		
+        <void method="put"> 
+         <string>GET_SUBFOLDER_IDS_IN_FOLDER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT bookmark_id  
+					FROM %Project%_bookmarks
+					WHERE is_directory=1 
+					AND	parent_id {ParentID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+		
+        <void method="put"> 
+         <string>GET_BOOKMARKS_IN_FOLDER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT folder_name_or_guid, name  
+					FROM %Project%_bookmarks
+					WHERE is_directory=0 AND parent_id {ParentID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+		<void method="put"> 
+         <string>GET_BOOKMARK</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT folder_name_or_guid, name  
+					FROM %Project%_bookmarks
+					WHERE is_directory=0 AND parent_id {ParentID,false,=}
+					AND folder_name_or_guid {GUID,false,=} 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+		
+        <void method="put"> 
+         <string>INSERT_BOOKMARK_FOLDER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO %Project%_bookmarks (create_by, parent_id, folder_name_or_guid, is_directory) 
+					VALUES ({UserID,true}, {ParentID,true}, {FolderName,true}, 1)
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+		
+        <void method="put"> 
+         <string>INSERT_BOOKMARK</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO %Project%_bookmarks (create_by, parent_id, folder_name_or_guid, is_directory)  
+					VALUES ({UserID,true}, {ParentID,true}, {GUID,true}, 0) 
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+		
+        <void method="put"> 
+         <string>DELETE_BOOKMARK</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM %Project%_bookmarks
+					WHERE is_directory=0 
+					AND parent_id {ParentID,false,=}
+					AND is_directory=0 
+					AND folder_name_or_guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+
+        <void method="put"> 
+         <string>DELETE_GUID_FROM_BOOKMARK</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM %Project%_bookmarks
+					WHERE is_directory=0 
+					AND folder_name_or_guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+		
+        <void method="put"> 
+         <string>DELETE_BOOKMARK_FOLDER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM %Project%_bookmarks
+					WHERE is_directory=1 
+					AND bookmark_id {ParentID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+
+   </object> 
+  </void> 
+ </object> 
+</java> 

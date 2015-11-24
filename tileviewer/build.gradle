@@ -1,0 +1,32 @@
+apply plugin: 'java'
+
+version = '1.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://artifacts.openmicroscopy.org/artifactory/gradle/'
+        url 'http://xuggle.googlecode.com/svn/trunk/repo/share/java/'
+    }
+}
+
+dependencies {
+    compile 'javax.servlet:servlet-api:2.3'
+    compile project(':iclient')
+    compile 'org.json:json:20150729'
+    compile 'com.google.code.gson:gson:1.6'
+    compile 'org.codehaus.jackson:jackson-core-asl:1.9.4'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.4'
+}
+
+
+task copyLibs(type: Copy){
+    from configurations.runtime
+    into 'tileviewer-deploy/WEB-INF/lib'
+}
+
+task createTileViewer(dependsOn: copyLibs, type: Copy){
+    from 'web'
+    into 'tileviewer-deploy'
+}
+

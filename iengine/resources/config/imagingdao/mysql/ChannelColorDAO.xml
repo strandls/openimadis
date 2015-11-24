@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+   
+         <void method="put"> 
+         <string>INSERT_USER_CHANNEL_COLOR</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO user_record_channel_colors
+					(user_login, guid, channel_colors)
+					VALUES ({User,true}, {RecordID,true}, {Colors, true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_CHANNEL_COLOR_FOR_USER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT user_login, guid, channel_colors
+					FROM user_record_channel_colors
+					WHERE guid {RecordID, false, =} 
+					AND user_login {User, false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>DELETE_CHANNEL_COLOR_FOR_USER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM user_record_channel_colors
+					WHERE guid {RecordID, false, =} 
+					AND user_login {User, false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>UPDATE_USER_CHANNEL_COLOR</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE user_record_channel_colors
+					SET channel_colors {Colors, false, =}
+					WHERE guid {RecordID, false, =} 
+					AND user_login {User, false, =} 
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 

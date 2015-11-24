@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+     
+     <!-- add comment for a record -->
+     <void method="put"> 
+         <string>INSERT_COMMENT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO user_comments_on_records (guid, added_by, comments)
+					VALUES ({GUID,true}, {UserID,true}, {Comment, true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+      <void method="put"> 
+         <string>INSERT_COMMENT_WITH_CREATION_DATE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO user_comments_on_records (guid, added_by, comments, time_added)
+					VALUES ({GUID,true}, {UserID,true}, {Comment, true}, {creationDate, true})
+				</string> 
+            </void> 
+          </object> 
+      </void> 
+      
+      <!-- get comments for a record -->  
+      <void method="put"> 
+        <string>GET_COMMENTS_FOR_RECORD</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT added_by, time_added, comments, comment_id
+					FROM  user_comments_on_records
+					WHERE guid {GUID,false,=} ORDER BY time_added DESC
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+      <!--  get comment by commentid -->
+      <void method="put"> 
+        <string>GET_COMMENT_BY_ID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT added_by, time_added, comments, comment_id
+					FROM  user_comments_on_records
+					WHERE comment_id {commentID,false,=} ORDER BY time_added DESC
+				</string> 
+            </void> 
+          </object> 
+       </void> 
+       
+       
+     <!--  delete comment-->
+      <void method="put"> 
+        <string>DELETE_COMMENT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE 
+					FROM  user_comments_on_records
+					WHERE comment_id {commentID,false,=}
+				</string> 
+            </void> 
+          </object> 
+       </void> 
+       
+      <!--  delete comment-->
+      <void method="put"> 
+        <string>DELETE_COMMENT_BY_GUID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE 
+					FROM  user_comments_on_records
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+      </void> 
+
+   </object> 
+  </void> 
+ </object> 
+</java>

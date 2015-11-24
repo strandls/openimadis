@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+   
+        <void method="put"> 
+         <string>REGISTER_NEW_RECORD</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO %Project%_record_navigation (
+                        guid,uploaded_by,
+                        number_of_slices, number_of_frames, number_of_channels, number_of_sites,
+                        image_width, image_height,
+                        upload_time, source_file_time, creation_time, acquired_time,
+                        pixel_depth, pixel_size_x, pixel_size_y, pixel_size_z,
+                        source_type, image_type,
+                        machine_ip, mac_address,
+                        source_folder, source_filename
+                        ) 
+					VALUES (
+                        {GUID,true},{UserID,true},
+                        {SliceCount,true}, {FrameCount,true}, {ChannelCount,true}, {SiteCount,true}, 
+                        {ImageWidth,true}, {ImageHeight,true}, 
+                        {UploadTime,true}, {SourceTime,true}, {CreationTime,true}, {AcquiredTime,true},
+                        {ImageDepth,true}, {PixelSizeX,true}, {PixelSizeY,true}, {PixelSizeZ,true},
+                        {SourceType,true}, {ImageType,true},
+                        {MachineIP,true}, {MacAddress,true}, 
+                        {SourceFolder,true}, {SourceFilename,true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>INSERT_ANNOTATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	UPDATE %Project%_record_navigation SET %ColumnName% {Value,false,=}
+                	WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+   
+		<void method="put"> 
+         <string>INSERT_STORAGE_LOCATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	UPDATE %Project%_record_navigation SET storage_location {StorageLocation,false,=}
+                	WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>INSERT_MICROSCOPE_NAME</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	UPDATE %Project%_record_navigation SET microscope_name {MicroscopeName,false,=}
+                	WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>REGISTER_TEXT_ANNOTATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					ALTER TABLE %Project%_record_navigation ADD COLUMN %ColumnName% VARCHAR(255)
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+		<void method="put"> 
+         <string>REMOVE_ANNOTATION_COLUMN</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					ALTER TABLE %Project%_record_navigation DROP COLUMN %ColumnName%
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        DELETE_RECORD
+		<void method="put"> 
+         <string>DELETE_RECORD</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM %Project%_record_navigation
+					WHERE guid {Guid,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>REMOVE_ANNOTATION_COLUMN_FROM_INFO</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM %Project%_record_navigation_info
+					WHERE annotation_name {Name,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>REGISTER_INT_ANNOTATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					ALTER TABLE %Project%_record_navigation ADD COLUMN %ColumnName% BIGINT
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>REGISTER_REAL_ANNOTATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					ALTER TABLE %Project%_record_navigation ADD COLUMN %ColumnName% DOUBLE
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>REGISTER_TIME_ANNOTATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					ALTER TABLE %Project%_record_navigation ADD COLUMN %ColumnName% TIMESTAMP NULL
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+    
+        <void method="put"> 
+         <string>INSERT_META_DATA</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO %Project%_record_navigation_info (annotation_name, column_name, value_type) 
+					VALUES ({AnnotationName,true}, {ColumnName,true}, {AnnotationType,true})
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>APPLY_PROFILE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE %Project%_record_navigation SET pixel_size_x {XSize,false,=}, pixel_size_y {YSize,false,=}, pixel_size_z {ZSize,false,=}, source_type {SourceFormat,false,=}
+					WHERE guid {GUID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>GET_META_DATA</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT annotation_name, column_name, value_type FROM %Project%_record_navigation_info
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>DELETE_ALL</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					TRUNCATE %Project%_record_navigation_info
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+
+        <void method="put"> 
+         <string>FIND_MIN_FOR_BIN</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT MIN(%ColumnName%) FROM %Project%_record_navigation 
+                    WHERE %ColumnName% IS NOT NULL 
+                    [AND %ColumnName% {MinValue,false,=}]
+                    [AND %ColumnName% {MaxValue,false,=}]
+                    [AND %ColumnName1% {MinValue1,false,=}]
+                    [AND %ColumnName1% {MaxValue1,false,=}]
+                    [AND %ColumnName2% {MinValue2,false,=}]
+                    [AND %ColumnName2% {MaxValue2,false,=}]
+                    [AND %ColumnName3% {MinValue3,false,=}]
+                    [AND %ColumnName3% {MaxValue3,false,=}]
+                    [AND %ColumnName4% {MinValue4,false,=}]
+                    [AND %ColumnName4% {MaxValue4,false,=}]
+                    [AND %ColumnName5% {MinValue5,false,=}]
+                    [AND %ColumnName5% {MaxValue5,false,=}]
+                    [AND %ColumnName6% {MinValue6,false,=}]
+                    [AND %ColumnName6% {MaxValue6,false,=}]
+                    [AND %ColumnName7% {MinValue7,false,=}]
+                    [AND %ColumnName7% {MaxValue7,false,=}]
+                    [AND %ColumnName8% {MinValue8,false,=}]
+                    [AND %ColumnName8% {MaxValue8,false,=}]
+                    [AND %ColumnName9% {MinValue9,false,=}]
+                    [AND %ColumnName9% {MaxValue9,false,=}]
+                    [AND %ColumnName10% {MinValue10,false,=}]
+                    [AND %ColumnName10% {MaxValue10,false,=}]
+                    [AND %ColumnName11% {MinValue11,false,=}]
+                    [AND %ColumnName11% {MaxValue11,false,=}]
+                    [AND %ColumnName12% {MinValue12,false,=}]
+                    [AND %ColumnName12% {MaxValue12,false,=}]
+                    [AND %ColumnName13% {MinValue13,false,=}]
+                    [AND %ColumnName13% {MaxValue13,false,=}]
+                    [AND %ColumnName14% {MinValue14,false,=}]
+                    [AND %ColumnName14% {MaxValue14,false,=}]
+                    [AND %ColumnName15% {MinValue15,false,=}]
+                    [AND %ColumnName15% {MaxValue15,false,=}]
+                    [AND %ColumnName16% {MinValue16,false,=}]
+                    [AND %ColumnName16% {MaxValue16,false,=}]
+                    [AND %ColumnName17% {MinValue17,false,=}]
+                    [AND %ColumnName17% {MaxValue17,false,=}]
+                    [AND %ColumnName18% {MinValue18,false,=}]
+                    [AND %ColumnName18% {MaxValue18,false,=}]
+                    [AND %ColumnName19% {MinValue19,false,=}]
+                    [AND %ColumnName19% {MaxValue19,false,=}]
+                    [AND %ColumnName20% {MinValue20,false,=}]
+                    [AND %ColumnName20% {MaxValue20,false,=}]
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>FIND_MAX_FOR_BIN</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT MAX(%ColumnName%) FROM %Project%_record_navigation 
+                    WHERE %ColumnName% IS NOT NULL 
+                    [AND %ColumnName% {MinValue,false,=}]
+                    [AND %ColumnName% {MaxValue,false,=}]
+                    [AND %ColumnName1% {MinValue1,false,=}]
+                    [AND %ColumnName1% {MaxValue1,false,=}]
+                    [AND %ColumnName2% {MinValue2,false,=}]
+                    [AND %ColumnName2% {MaxValue2,false,=}]
+                    [AND %ColumnName3% {MinValue3,false,=}]
+                    [AND %ColumnName3% {MaxValue3,false,=}]
+                    [AND %ColumnName4% {MinValue4,false,=}]
+                    [AND %ColumnName4% {MaxValue4,false,=}]
+                    [AND %ColumnName5% {MinValue5,false,=}]
+                    [AND %ColumnName5% {MaxValue5,false,=}]
+                    [AND %ColumnName6% {MinValue6,false,=}]
+                    [AND %ColumnName6% {MaxValue6,false,=}]
+                    [AND %ColumnName7% {MinValue7,false,=}]
+                    [AND %ColumnName7% {MaxValue7,false,=}]
+                    [AND %ColumnName8% {MinValue8,false,=}]
+                    [AND %ColumnName8% {MaxValue8,false,=}]
+                    [AND %ColumnName9% {MinValue9,false,=}]
+                    [AND %ColumnName9% {MaxValue9,false,=}]
+                    [AND %ColumnName10% {MinValue10,false,=}]
+                    [AND %ColumnName10% {MaxValue10,false,=}]
+                    [AND %ColumnName11% {MinValue11,false,=}]
+                    [AND %ColumnName11% {MaxValue11,false,=}]
+                    [AND %ColumnName12% {MinValue12,false,=}]
+                    [AND %ColumnName12% {MaxValue12,false,=}]
+                    [AND %ColumnName13% {MinValue13,false,=}]
+                    [AND %ColumnName13% {MaxValue13,false,=}]
+                    [AND %ColumnName14% {MinValue14,false,=}]
+                    [AND %ColumnName14% {MaxValue14,false,=}]
+                    [AND %ColumnName15% {MinValue15,false,=}]
+                    [AND %ColumnName15% {MaxValue15,false,=}]
+                    [AND %ColumnName16% {MinValue16,false,=}]
+                    [AND %ColumnName16% {MaxValue16,false,=}]
+                    [AND %ColumnName17% {MinValue17,false,=}]
+                    [AND %ColumnName17% {MaxValue17,false,=}]
+                    [AND %ColumnName18% {MinValue18,false,=}]
+                    [AND %ColumnName18% {MaxValue18,false,=}]
+                    [AND %ColumnName19% {MinValue19,false,=}]
+                    [AND %ColumnName19% {MaxValue19,false,=}]
+                    [AND %ColumnName20% {MinValue20,false,=}]
+                    [AND %ColumnName20% {MaxValue20,false,=}]
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+       <void method="put"> 
+         <string>FIND_COUNT_FOR_BIN</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT COUNT(*) FROM %Project%_record_navigation  
+                    WHERE %ColumnName% IS NOT NULL 
+                    [AND %ColumnName% {MinValue,false,=}]
+                    [AND %ColumnName% {MaxValue,false,=}]
+                    [AND %ColumnName1% {MinValue1,false,=}]
+                    [AND %ColumnName1% {MaxValue1,false,=}]
+                    [AND %ColumnName2% {MinValue2,false,=}]
+                    [AND %ColumnName2% {MaxValue2,false,=}]
+                    [AND %ColumnName3% {MinValue3,false,=}]
+                    [AND %ColumnName3% {MaxValue3,false,=}]
+                    [AND %ColumnName4% {MinValue4,false,=}]
+                    [AND %ColumnName4% {MaxValue4,false,=}]
+                    [AND %ColumnName5% {MinValue5,false,=}]
+                    [AND %ColumnName5% {MaxValue5,false,=}]
+                    [AND %ColumnName6% {MinValue6,false,=}]
+                    [AND %ColumnName6% {MaxValue6,false,=}]
+                    [AND %ColumnName7% {MinValue7,false,=}]
+                    [AND %ColumnName7% {MaxValue7,false,=}]
+                    [AND %ColumnName8% {MinValue8,false,=}]
+                    [AND %ColumnName8% {MaxValue8,false,=}]
+                    [AND %ColumnName9% {MinValue9,false,=}]
+                    [AND %ColumnName9% {MaxValue9,false,=}]
+                    [AND %ColumnName10% {MinValue10,false,=}]
+                    [AND %ColumnName10% {MaxValue10,false,=}]
+                    [AND %ColumnName11% {MinValue11,false,=}]
+                    [AND %ColumnName11% {MaxValue11,false,=}]
+                    [AND %ColumnName12% {MinValue12,false,=}]
+                    [AND %ColumnName12% {MaxValue12,false,=}]
+                    [AND %ColumnName13% {MinValue13,false,=}]
+                    [AND %ColumnName13% {MaxValue13,false,=}]
+                    [AND %ColumnName14% {MinValue14,false,=}]
+                    [AND %ColumnName14% {MaxValue14,false,=}]
+                    [AND %ColumnName15% {MinValue15,false,=}]
+                    [AND %ColumnName15% {MaxValue15,false,=}]
+                    [AND %ColumnName16% {MinValue16,false,=}]
+                    [AND %ColumnName16% {MaxValue16,false,=}]
+                    [AND %ColumnName17% {MinValue17,false,=}]
+                    [AND %ColumnName17% {MaxValue17,false,=}]
+                    [AND %ColumnName18% {MinValue18,false,=}]
+                    [AND %ColumnName18% {MaxValue18,false,=}]
+                    [AND %ColumnName19% {MinValue19,false,=}]
+                    [AND %ColumnName19% {MaxValue19,false,=}]
+                    [AND %ColumnName20% {MinValue20,false,=}]
+                    [AND %ColumnName20% {MaxValue20,false,=}]
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>FIND_COUNT_FOR_NULL_BIN</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT COUNT(*) FROM %Project%_record_navigation  
+                    WHERE %ColumnName% IS NULL 
+                    [AND %ColumnName% {MinValue,false,=}]
+                    [AND %ColumnName% {MaxValue,false,=}]
+                    [AND %ColumnName1% {MinValue1,false,=}]
+                    [AND %ColumnName1% {MaxValue1,false,=}]
+                    [AND %ColumnName2% {MinValue2,false,=}]
+                    [AND %ColumnName2% {MaxValue2,false,=}]
+                    [AND %ColumnName3% {MinValue3,false,=}]
+                    [AND %ColumnName3% {MaxValue3,false,=}]
+                    [AND %ColumnName4% {MinValue4,false,=}]
+                    [AND %ColumnName4% {MaxValue4,false,=}]
+                    [AND %ColumnName5% {MinValue5,false,=}]
+                    [AND %ColumnName5% {MaxValue5,false,=}]
+                    [AND %ColumnName6% {MinValue6,false,=}]
+                    [AND %ColumnName6% {MaxValue6,false,=}]
+                    [AND %ColumnName7% {MinValue7,false,=}]
+                    [AND %ColumnName7% {MaxValue7,false,=}]
+                    [AND %ColumnName8% {MinValue8,false,=}]
+                    [AND %ColumnName8% {MaxValue8,false,=}]
+                    [AND %ColumnName9% {MinValue9,false,=}]
+                    [AND %ColumnName9% {MaxValue9,false,=}]
+                    [AND %ColumnName10% {MinValue10,false,=}]
+                    [AND %ColumnName10% {MaxValue10,false,=}]
+                    [AND %ColumnName11% {MinValue11,false,=}]
+                    [AND %ColumnName11% {MaxValue11,false,=}]
+                    [AND %ColumnName12% {MinValue12,false,=}]
+                    [AND %ColumnName12% {MaxValue12,false,=}]
+                    [AND %ColumnName13% {MinValue13,false,=}]
+                    [AND %ColumnName13% {MaxValue13,false,=}]
+                    [AND %ColumnName14% {MinValue14,false,=}]
+                    [AND %ColumnName14% {MaxValue14,false,=}]
+                    [AND %ColumnName15% {MinValue15,false,=}]
+                    [AND %ColumnName15% {MaxValue15,false,=}]
+                    [AND %ColumnName16% {MinValue16,false,=}]
+                    [AND %ColumnName16% {MaxValue16,false,=}]
+                    [AND %ColumnName17% {MinValue17,false,=}]
+                    [AND %ColumnName17% {MaxValue17,false,=}]
+                    [AND %ColumnName18% {MinValue18,false,=}]
+                    [AND %ColumnName18% {MaxValue18,false,=}]
+                    [AND %ColumnName19% {MinValue19,false,=}]
+                    [AND %ColumnName19% {MaxValue19,false,=}]
+                    [AND %ColumnName20% {MinValue20,false,=}]
+                    [AND %ColumnName20% {MaxValue20,false,=}]
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        
+        <void method="put"> 
+         <string>FIND_TEXT_BINS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT %ColumnName%, COUNT(%ColumnName%) FROM %Project%_record_navigation 
+                    WHERE %ColumnName% IS NOT NULL 
+                    [AND %ColumnName% {MinValue,false,=}]
+                    [AND %ColumnName% {MaxValue,false,=}]
+                    [AND %ColumnName1% {MinValue1,false,=}]
+                    [AND %ColumnName1% {MaxValue1,false,=}]
+                    [AND %ColumnName2% {MinValue2,false,=}]
+                    [AND %ColumnName2% {MaxValue2,false,=}]
+                    [AND %ColumnName3% {MinValue3,false,=}]
+                    [AND %ColumnName3% {MaxValue3,false,=}]
+                    [AND %ColumnName4% {MinValue4,false,=}]
+                    [AND %ColumnName4% {MaxValue4,false,=}]
+                    [AND %ColumnName5% {MinValue5,false,=}]
+                    [AND %ColumnName5% {MaxValue5,false,=}]
+                    [AND %ColumnName6% {MinValue6,false,=}]
+                    [AND %ColumnName6% {MaxValue6,false,=}]
+                    [AND %ColumnName7% {MinValue7,false,=}]
+                    [AND %ColumnName7% {MaxValue7,false,=}]
+                    [AND %ColumnName8% {MinValue8,false,=}]
+                    [AND %ColumnName8% {MaxValue8,false,=}]
+                    [AND %ColumnName9% {MinValue9,false,=}]
+                    [AND %ColumnName9% {MaxValue9,false,=}]
+                    [AND %ColumnName10% {MinValue10,false,=}]
+                    [AND %ColumnName10% {MaxValue10,false,=}]
+                    [AND %ColumnName11% {MinValue11,false,=}]
+                    [AND %ColumnName11% {MaxValue11,false,=}]
+                    [AND %ColumnName12% {MinValue12,false,=}]
+                    [AND %ColumnName12% {MaxValue12,false,=}]
+                    [AND %ColumnName13% {MinValue13,false,=}]
+                    [AND %ColumnName13% {MaxValue13,false,=}]
+                    [AND %ColumnName14% {MinValue14,false,=}]
+                    [AND %ColumnName14% {MaxValue14,false,=}]
+                    [AND %ColumnName15% {MinValue15,false,=}]
+                    [AND %ColumnName15% {MaxValue15,false,=}]
+                    [AND %ColumnName16% {MinValue16,false,=}]
+                    [AND %ColumnName16% {MaxValue16,false,=}]
+                    [AND %ColumnName17% {MinValue17,false,=}]
+                    [AND %ColumnName17% {MaxValue17,false,=}]
+                    [AND %ColumnName18% {MinValue18,false,=}]
+                    [AND %ColumnName18% {MaxValue18,false,=}]
+                    [AND %ColumnName19% {MinValue19,false,=}]
+                    [AND %ColumnName19% {MaxValue19,false,=}]
+                    [AND %ColumnName20% {MinValue20,false,=}]
+                    [AND %ColumnName20% {MaxValue20,false,=}]
+                    GROUP BY %ColumnName% ORDER BY %ColumnName% %SortOrder% LIMIT {Offset,true}, {Limit,true}
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+      <void method="put"> 
+         <string>FIND_RECORDS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT guid FROM %Project%_record_navigation 
+                    WHERE 1=1 
+                    [AND %ColumnName1% {MinValue1,false,=}]
+                    [AND %ColumnName1% {MaxValue1,false,=}]
+                    [AND %ColumnName2% {MinValue2,false,=}]
+                    [AND %ColumnName2% {MaxValue2,false,=}]
+                    [AND %ColumnName3% {MinValue3,false,=}]
+                    [AND %ColumnName3% {MaxValue3,false,=}]
+                    [AND %ColumnName4% {MinValue4,false,=}]
+                    [AND %ColumnName4% {MaxValue4,false,=}]
+                    [AND %ColumnName5% {MinValue5,false,=}]
+                    [AND %ColumnName5% {MaxValue5,false,=}]
+                    [AND %ColumnName6% {MinValue6,false,=}]
+                    [AND %ColumnName6% {MaxValue6,false,=}]
+                    [AND %ColumnName7% {MinValue7,false,=}]
+                    [AND %ColumnName7% {MaxValue7,false,=}]
+                    [AND %ColumnName8% {MinValue8,false,=}]
+                    [AND %ColumnName8% {MaxValue8,false,=}]
+                    [AND %ColumnName9% {MinValue9,false,=}]
+                    [AND %ColumnName9% {MaxValue9,false,=}]
+                    [AND %ColumnName10% {MinValue10,false,=}]
+                    [AND %ColumnName10% {MaxValue10,false,=}]
+                    [AND %ColumnName11% {MinValue11,false,=}]
+                    [AND %ColumnName11% {MaxValue11,false,=}]
+                    [AND %ColumnName12% {MinValue12,false,=}]
+                    [AND %ColumnName12% {MaxValue12,false,=}]
+                    [AND %ColumnName13% {MinValue13,false,=}]
+                    [AND %ColumnName13% {MaxValue13,false,=}]
+                    [AND %ColumnName14% {MinValue14,false,=}]
+                    [AND %ColumnName14% {MaxValue14,false,=}]
+                    [AND %ColumnName15% {MinValue15,false,=}]
+                    [AND %ColumnName15% {MaxValue15,false,=}]
+                    [AND %ColumnName16% {MinValue16,false,=}]
+                    [AND %ColumnName16% {MaxValue16,false,=}]
+                    [AND %ColumnName17% {MinValue17,false,=}]
+                    [AND %ColumnName17% {MaxValue17,false,=}]
+                    [AND %ColumnName18% {MinValue18,false,=}]
+                    [AND %ColumnName18% {MaxValue18,false,=}]
+                    [AND %ColumnName19% {MinValue19,false,=}]
+                    [AND %ColumnName19% {MaxValue19,false,=}]
+                    [AND %ColumnName20% {MinValue20,false,=}]
+                    [AND %ColumnName20% {MaxValue20,false,=}]
+                    [Limit {Limit,false}]
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+      <void method="put"> 
+         <string>FIND_RECORDS_FOR_GUID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT 
+                    [%ColumnName1%,]
+                    [%ColumnName2%,]
+                    [%ColumnName3%,]
+                    [%ColumnName4%,]
+                    [%ColumnName5%,]
+                    [%ColumnName6%,]
+                    [%ColumnName7%,]
+                    [%ColumnName8%,]
+                    [%ColumnName9%,]
+                    [%ColumnName10%,]
+                    [%ColumnName11%,]
+                    [%ColumnName12%,]
+                    [%ColumnName13%,]
+                    [%ColumnName14%,]
+                    [%ColumnName15%,]
+                    [%ColumnName16%,]
+                    [%ColumnName17%,]
+                    [%ColumnName18%,]
+                    [%ColumnName19%,]
+                    [%ColumnName20%,]
+                    guid
+                    FROM %Project%_record_navigation 
+                    WHERE guid {GUID,false,=}  
+				</string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap">    
+        
+                
+        <void method="put"> 
+         <string>GET_ALL_USER_CLIENTS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT user_login,name 
+					FROM %Project%_user_client_registry
+					WHERE user_login {User,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_ALL_USER_CLIENTS_FOR_FOLDER</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT user_login,clientid 
+					FROM %Project%_user_client_registry
+					WHERE user_login {User,false,=}
+					AND folderid {folderID,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>ADD_USER_CLIENT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	INSERT INTO %Project%_user_client_registry (
+                	user_login, clientid,folderid)
+                	VALUES (
+                	{User, true},{ClientID, true},{folderID, true} )
+				</string> 
+            </void> 
+          </object> 
+        </void>
+
+		<void method="put"> 
+         <string>REMOVE_USER_CLIENT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                	DELETE FROM %Project%_user_client_registry
+                	WHERE clientid{ClientID,false,=}
+                	AND user_login {User,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 

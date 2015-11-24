@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+    
+       <void method="put"> 
+         <string>INSERT_IMAGEDATA</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO %Project%_image_meta_data (guid, x_coordinate, y_coordinate, z_coordinate, 
+					elapsed_time, exposure_time, time_stamp, slice_number, frame_number, channel_number, site_number)
+					VALUES  
+					({GUID,true}, {X,true}, {Y,true}, {Z,true}, {ElapsedTime,true}, 
+                    {ExposureTime,true}, {Timestamp, true}, {SliceNo,true}, {FrameNo,true}, {ChannelNo,true}, {SiteNo, true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_IMAGEDATA_FOR_RECORD</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT x_coordinate, y_coordinate, z_coordinate, 
+					elapsed_time, exposure_time, time_stamp, slice_number, 
+					frame_number, channel_number, site_number
+					FROM %Project%_image_meta_data 
+					WHERE guid {GUID,false,=}  
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>DELETE_IMAGEDATA_FOR_RECORD</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE
+					FROM %Project%_image_meta_data 
+					WHERE guid {GUID,false,=}  
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_IMAGEDATA_FOR_IMAGE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT x_coordinate, y_coordinate, z_coordinate, 
+					elapsed_time, exposure_time, time_stamp, slice_number, 
+					frame_number, channel_number, site_number 
+					FROM %Project%_image_meta_data 
+					WHERE guid {GUID,false,=}
+					AND   slice_number {SliceNo,false,=}
+					AND   frame_number {FrameNo,false,=}
+					AND   channel_number {ChannelNo,false,=}
+					AND   site_number {SiteNo,false,=}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+   </object> 
+  </void> 
+ </object> 
+</java>

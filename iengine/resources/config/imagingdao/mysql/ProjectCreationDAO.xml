@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+
+        <!-- 
+        project specific table creation sqls 
+        note that the SQL query names atarts with A,B etc to ensure a lexicographic order and hence a specific order in which they should be executed to generate the tables
+        -->
+        
+        <void method="put"> 
+         <string>A_CREATE_DYNAMIC_METADATA_REGISTRY</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_dynamic_metadata_registry
+                (
+                annotation_name VARCHAR(64) NOT NULL,
+                annotation_type ENUM ('Text', 'Real', 'Integer','Time') NOT NULL,  
+                PRIMARY KEY(annotation_name)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>B_CREATE_DYNAMIC_METADATA_TEXT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_dynamic_metadata_text
+                (
+                guid BIGINT NOT NULL REFERENCES record_registry(id) ON DELETE CASCADE, 
+                annotation_name VARCHAR(64) NOT NULL REFERENCES %Project%_dynamic_metadata_registry ON DELETE CASCADE, 
+                annotation_value VARCHAR(255) NOT NULL,
+                UNIQUE(guid, annotation_name)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>C_CREATE_DYNAMIC_METADATA_REAL</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_dynamic_metadata_real
+                (
+                guid BIGINT NOT NULL REFERENCES record_registry(id) ON DELETE CASCADE, 
+                annotation_name VARCHAR(64) NOT NULL REFERENCES %Project%_dynamic_metadata_registry ON DELETE CASCADE, 
+                annotation_value DOUBLE NOT NULL,
+                UNIQUE(guid, annotation_name)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>D_CREATE_DYNAMIC_METADATA_INT</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_dynamic_metadata_int
+                (
+                guid BIGINT NOT NULL REFERENCES record_registry(id) ON DELETE CASCADE, 
+                annotation_name VARCHAR(64) NOT NULL REFERENCES %Project%_dynamic_metadata_registry ON DELETE CASCADE, 
+                annotation_value BIGINT NOT NULL,
+                UNIQUE(guid, annotation_name)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>E_CREATE_DYNAMIC_METADATA_DATETIME</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_dynamic_metadata_time
+                (
+                guid BIGINT NOT NULL REFERENCES record_registry(id) ON DELETE CASCADE, 
+                annotation_name VARCHAR(64) NOT NULL REFERENCES %Project%_dynamic_metadata_registry ON DELETE CASCADE, 
+                annotation_value TIMESTAMP NOT NULL,
+                UNIQUE(guid, annotation_name)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>F_CREATE_VISUAL_ANNOTATIONS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_visual_overlays
+                (
+                guid BIGINT NOT NULL REFERENCES record_registry(guid) ON DELETE CASCADE, 
+                image_width SMALLINT UNSIGNED NOT NULL,
+                image_height SMALLINT UNSIGNED NOT NULL,
+                site_number SMALLINT UNSIGNED NOT NULL,
+                overlay_name VARCHAR(64) NOT NULL,
+                modified_by VARCHAR(64) NOT NULL REFERENCES user_registry (user_login),
+                handCreated tinyint(1) DEFAULT 1,
+                PRIMARY KEY (guid, site_number, overlay_name)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        
+        <void method="put"> 
+         <string>I_CREATE_VISUAL_OBJECTS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_visual_object_registry
+                (
+                guid BIGINT NOT NULL REFERENCES record_registry(guid) ON DELETE CASCADE, 
+                slice_number SMALLINT UNSIGNED NOT NULL,
+                frame_number SMALLINT UNSIGNED NOT NULL,
+                site_number SMALLINT UNSIGNED NOT NULL,
+                object_id INTEGER NOT NULL,
+                pen_color INTEGER NOT NULL DEFAULT -65536,
+                pen_width FLOAT NOT NULL DEFAULT 1,
+                visual_object GEOMETRY NOT NULL,
+                vo_type ENUM ('Line','Ellipse','Rectangle','FreeHand','Circle','Polygon','Arrow') NOT NULL,
+                overlay_name VARCHAR(64) NOT NULL,
+                rotation float NOT NULL DEFAULT 0,
+                zoom_level INTEGER NOT NULL DEFAULT 0,
+                PRIMARY KEY (guid, site_number, overlay_name, object_id, slice_number, frame_number),
+                SPATIAL INDEX(visual_object)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>J_CREATE_VISUAL_TEXT_BOXES</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_text_box_registry
+                (
+                guid BIGINT NOT NULL REFERENCES record_registry(guid) ON DELETE CASCADE, 
+                slice_number SMALLINT UNSIGNED NOT NULL,
+                frame_number SMALLINT UNSIGNED NOT NULL,
+                site_number SMALLINT UNSIGNED NOT NULL,
+                object_id INTEGER NOT NULL,
+                pen_color INTEGER NOT NULL DEFAULT -65536,
+                pen_width FLOAT NOT NULL DEFAULT 1,
+                visual_object GEOMETRY NOT NULL,
+                message VARCHAR(128),
+                overlay_name VARCHAR(64) NOT NULL,
+				font VARCHAR(128),
+				bg_color INTEGER NOT NULL DEFAULT 0,
+				zoom_level INTEGER NOT NULL DEFAULT 0,
+                PRIMARY KEY (guid, site_number, overlay_name, object_id, slice_number, frame_number),
+                SPATIAL INDEX(visual_object)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void>
+        
+        
+        <void method="put"> 
+         <string>K_CREATE_RECORD_IMAGE_METADATA</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_image_meta_data
+                (
+                guid BIGINT NOT NULL REFERENCES record_registry(guid) ON DELETE CASCADE, 
+                x_coordinate DOUBLE NOT NULL default 0.0,
+                y_coordinate DOUBLE NOT NULL default 0.0,
+                z_coordinate DOUBLE NOT NULL default 0.0,
+                elapsed_time DOUBLE,
+                exposure_time DOUBLE,
+                time_stamp TIMESTAMP,
+                slice_number SMALLINT UNSIGNED NOT NULL,
+                frame_number SMALLINT UNSIGNED NOT NULL,
+                channel_number SMALLINT UNSIGNED NOT NULL,
+                site_number SMALLINT UNSIGNED NOT NULL,
+                PRIMARY KEY (guid, slice_number, frame_number, channel_number, site_number)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        
+        <void method="put"> 
+         <string>L_CREATE_USER_ANNOTATION_REGISTRY</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_user_annotation_registry
+                (
+                annotation_name VARCHAR(64) NOT NULL,
+                annotation_type ENUM ('Text', 'Real', 'Integer','Time') NOT NULL,  
+                PRIMARY KEY(annotation_name)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>M_CREATE_USER_TEXT_ANNOTATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_user_annotations_text
+                (
+                guid BIGINT NOT NULL REFERENCES record_registry(id) ON DELETE CASCADE, 
+                annotation_name VARCHAR(64) NOT NULL REFERENCES %Project%_user_annotation_registry ON DELETE CASCADE, 
+                annotation_value VARCHAR(255) NOT NULL,
+                modified_by VARCHAR(64) NOT NULL REFERENCES user_registry (user_login),
+                modification_time TIMESTAMP NOT NULL,
+                UNIQUE(guid, annotation_name)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>N_CREATE_USER_REAL_ANNOTATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_user_annotations_real
+                (
+                guid BIGINT NOT NULL REFERENCES record_registry(id) ON DELETE CASCADE, 
+                annotation_name VARCHAR(64) NOT NULL REFERENCES %Project%_user_annotation_registry ON DELETE CASCADE, 
+                annotation_value DOUBLE NOT NULL,
+                modified_by VARCHAR(64) NOT NULL REFERENCES user_registry (user_login),
+                modification_time TIMESTAMP NOT NULL,
+                UNIQUE(guid, annotation_name)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>O_CREATE_USER_INT_ANNOTATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_user_annotations_int
+                (
+                guid BIGINT NOT NULL REFERENCES record_registry(id) ON DELETE CASCADE, 
+                annotation_name VARCHAR(64) NOT NULL REFERENCES %Project%_user_annotation_registry ON DELETE CASCADE, 
+                annotation_value BIGINT NOT NULL,
+                modified_by VARCHAR(64) NOT NULL REFERENCES user_registry (user_login),
+                modification_time TIMESTAMP NOT NULL,
+                UNIQUE(guid, annotation_name)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>P_CREATE_USER_TIME_ANNOTATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_user_annotations_time
+                (
+                guid BIGINT NOT NULL REFERENCES record_registry(id) ON DELETE CASCADE, 
+                annotation_name VARCHAR(64) NOT NULL REFERENCES %Project%_user_annotation_registry ON DELETE CASCADE, 
+                annotation_value TIMESTAMP NOT NULL,
+                modified_by VARCHAR(64) NOT NULL REFERENCES user_registry (user_login),
+                modification_time TIMESTAMP NOT NULL,
+                UNIQUE(guid, annotation_name)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <!-- navigation tables -->
+        
+        <void method="put"> 
+         <string>Q_CREATE_RECORD_NAVIGATION_META_TABLE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                    CREATE TABLE %Project%_record_navigation_info
+                    (
+                    annotation_name VARCHAR(64) NOT NULL,
+                    column_name VARCHAR(64) NOT NULL,
+                    value_type ENUM ('Text','Real','Integer', 'Time') NOT NULL
+                    ) engine=MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>R_CREATE_RECORD_NAVIGATION_TABLE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                    CREATE TABLE %Project%_record_navigation
+                    (
+                    guid BIGINT NOT NULL,
+                    uploaded_by VARCHAR(64) NOT NULL,
+                    number_of_slices INTEGER NOT NULL,
+                    number_of_frames INTEGER NOT NULL,
+                    number_of_channels INTEGER NOT NULL,
+                    number_of_sites INTEGER NOT NULL,
+                    image_width INTEGER NOT NULL,
+                    image_height INTEGER NOT NULL,
+                    upload_time TIMESTAMP NOT NULL DEFAULT 0,
+                    source_file_time TIMESTAMP NOT NULL DEFAULT 0,
+                    creation_time TIMESTAMP NOT NULL DEFAULT 0,
+                    acquired_time TIMESTAMP NULL,
+                    pixel_depth SMALLINT NOT NULL,
+                    pixel_size_x DOUBLE NOT NULL,
+                    pixel_size_y DOUBLE NOT NULL,
+                    pixel_size_z DOUBLE NOT NULL,
+                    source_type VARCHAR(32) NOT NULL,
+                    image_type ENUM ('GRAYSCALE','RGB') NOT NULL,
+                    machine_ip CHAR(64) NOT NULL, 
+                    mac_address VARCHAR(32) NOT NULL,
+                    source_folder VARCHAR(256) NOT NULL,
+                    source_filename VARCHAR(128) NOT NULL, 
+                    storage_location VARCHAR(1024) DEFAULT NULL,
+                    microscope_name VARCHAR(128) DEFAULT 'default' 
+                    ) engine=MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <!-- history tables -->
+        
+        <void method="put"> 
+         <string>S_CREATE_RECORD_HISTORY_TABLE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                    CREATE TABLE %Project%_record_history
+                    (
+					history_id INTEGER AUTO_INCREMENT,
+					guid BIGINT NOT NULL REFERENCES record_registry (guid),
+					client_name VARCHAR(64) NOT NULL,
+					client_version VARCHAR(20) NOT NULL,
+					modified_by VARCHAR(64) NOT NULL REFERENCES user_registry (user_login),
+					access_token VARCHAR(128) DEFAULT NULL,
+					modification_time TIMESTAMP NOT NULL DEFAULT 0,
+					modification_type ENUM ('RECORD_CREATED', 'RECORD_DELETED', 'ADDED_CHILD_RECORD', 'ADDED_PARENT_RECORD', 'ATTACHMENT_ADDED', 'ATTACHMENT_DELETED', 'USER_ANNOTATION_ADDED', 'USER_ANNOTATION_DELETED', 'USER_ANNOTATION_MODIFIED', 'USER_COMMENT_ADDED', 'USER_COMMENT_DELETED', 'VISUAL_OVERLAY_ADDED', 'VISUAL_OVERLAY_DELETED', 'VISUAL_ANNOTATION_ADDED', 'VISUAL_ANNOTATION_DELETED', 'TASK_EXECUTED', 'TASK_TERMINATED', 'TASK_FAILED', 'TASK_SUCCESSFUL', 'HAS_SHORTCUT', 'SHORTCUT_ADDED', 'RECORD_TRANSFERED', 'CUSTOM_HISTORY', 'PROFILE_APPLIED') NOT NULL,
+					modification_description TEXT DEFAULT NULL,
+					arguments MEDIUMBLOB DEFAULT NULL,
+					INDEX(guid),
+					PRIMARY KEY (history_id)
+                    ) engine=MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>T_CREATE_BOOKMARKS_TABLE</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                    CREATE TABLE %Project%_bookmarks
+                    (
+					bookmark_id BIGINT AUTO_INCREMENT,
+					create_by VARCHAR(64) NOT NULL REFERENCES user_registry(user_login),
+					parent_id BIGINT REFERENCES user_bookmarks(bookmark_id),
+					folder_name_or_guid VARCHAR(64) BINARY NOT NULL,
+					is_directory SMALLINT(1) NOT NULL DEFAULT 0,
+					time_added TIMESTAMP NOT NULL,
+					description VARCHAR(255),
+					name VARCHAR(255),
+					UNIQUE(create_by, parent_id, folder_name_or_GUID),
+					PRIMARY KEY(bookmark_id)
+                    ) engine=MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void> 
+        
+        <void method="put"> 
+         <string>U_CREATE_VISUAL_OEVRLAY_REVISIONS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_visual_overlays_revision
+                (
+                guid BIGINT NOT NULL REFERENCES record_registry(guid) ON DELETE CASCADE,
+                slice_number SMALLINT UNSIGNED NOT NULL,
+                frame_number SMALLINT UNSIGNED NOT NULL,
+                site_number SMALLINT UNSIGNED NOT NULL,
+                overlay_name VARCHAR(64) NOT NULL,
+                revision BIGINT NOT NULL DEFAULT 0,
+                PRIMARY KEY (guid, site_number, overlay_name, slice_number, frame_number)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <!-- User-client table -->
+        
+        <void method="put"> 
+         <string>V_CREATE_PROJECT_CLIENT_REGISTRY</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_project_client_registry
+                (
+                project_client_id BIGINT AUTO_INCREMENT,
+                clientid_or_folder_name VARCHAR(64) NOT NULL,
+                parentid BIGINT,
+                is_directory SMALLINT(1) NOT NULL DEFAULT 0,
+                PRIMARY KEY (project_client_id),     
+                UNIQUE(clientid_or_folder_name,is_directory)
+                ) ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void>
+        
+        
+        <void method="put"> 
+         <string>W_CREATE_IMPORT_REGISTRY</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+                CREATE TABLE %Project%_import_registry
+                (
+				ticket_id BIGINT NOT NULL,
+				request_time TIMESTAMP NOT NULL,
+				request MEDIUMBLOB NOT NULL,
+				job_status ENUM ('WAITING','EXPIRED','UPLOADING','QUEUED','EXECUTING','SUCCESS','FAILURE','DUPLICATE') NOT NULL DEFAULT 'WAITING',
+				last_modification_time timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+				PRIMARY KEY (ticket_id)
+				)ENGINE = MyISAM
+                </string> 
+            </void> 
+          </object> 
+        </void>       
+        
+   </object> 
+  </void> 
+ </object> 
+</java> 

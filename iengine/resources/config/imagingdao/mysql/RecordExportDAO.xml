@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object class="com.strandgenomics.imaging.icore.db.QueryDictionary"> 
+  <void property="queryTable"> 
+   <object class="java.util.HashMap"> 
+
+        <void method="put"> 
+         <string>REGISTER_EXPORT_REQUEST</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					INSERT INTO export_registry (exportid, guids, export_format, submitted_by, validity, name, submitted_on, status, size)  
+					VALUES ({ExportID,true}, {GUIDS,true}, {ExportFormat,true}, {SubmittedBy, true}, {Validity, true}, {Name, true}, {SubmittedOn, true}, {ExportStatus, true}, {Size, true})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+
+        <void method="put"> 
+         <string>GET_EXPORT_LOCATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT export_location FROM export_registry  
+					WHERE ( exportid {ExportID, false, =})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>DELETE_EXPORT_REQUEST</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					DELETE FROM export_registry 
+					WHERE exportid {ExportID, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>SET_EXPORT_LOCATION</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE export_registry 
+					SET export_location {ExportLocation,true,=}
+					WHERE exportid {ExportID, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>LOAD_ALL</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT exportid, guids, export_format, submitted_by, validity, name, export_location, submitted_on, status, size
+					FROM export_registry
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_EXPORT_REQUESTS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT exportid, guids, export_format, submitted_by, validity, name, export_location, submitted_on, status, size
+					FROM export_registry
+					WHERE submitted_by {SubmittedBy, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_EXPORT_REQUEST_FOR_ID</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT exportid, guids, export_format, submitted_by, validity, name, export_location, submitted_on, status, size
+					FROM export_registry
+					WHERE exportid {RequestId, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+          
+        <void method="put"> 
+         <string>SET_EXPORT_STATUS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					UPDATE export_registry 
+					SET status {ExportStatus,true,=}
+					WHERE exportid {ExportID, false, =}
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+        <void method="put"> 
+         <string>GET_EXPORT_STATUS</string> 
+          <object class="com.strandgenomics.imaging.icore.db.QueryFormat"> 
+            <void property="pattern"> 
+                <string>
+					SELECT status FROM export_registry  
+					WHERE ( exportid {ExportID, false, =})
+				</string> 
+            </void> 
+          </object> 
+        </void>
+        
+   </object> 
+  </void> 
+ </object> 
+</java>
