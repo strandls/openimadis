@@ -1,3 +1,3 @@
 README
 -----------
-gradle copyLibs - in iacquisition to copy jars required to run iaquisition client 
+In case of HTTPS connection run loadkeystore.sh first(at first run) then run-acqLinux.sh/runacqWin.sh
