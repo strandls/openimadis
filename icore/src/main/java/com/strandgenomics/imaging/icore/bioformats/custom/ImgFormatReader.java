@@ -310,7 +310,7 @@ public class ImgFormatReader extends FormatReader {
 		return actualReader.get16BitLookupTable();
 	}
 	
-	@Override
+	/*@Override
 	public int[] getChannelDimLengths()
 	{
 		return actualReader.getChannelDimLengths(); //TODO
@@ -320,7 +320,7 @@ public class ImgFormatReader extends FormatReader {
 	public String[] getChannelDimTypes() 
 	{
 		return actualReader.getChannelDimTypes();
-	}
+	}*/
 	
 	@Override
 	public int getThumbSizeX()
@@ -509,11 +509,11 @@ public class ImgFormatReader extends FormatReader {
 		return actualReader.getSeriesMetadata();
 	}
 	
-	@Override
+	/*@Override
 	public CoreMetadata[] getCoreMetadata() 
 	{
 		return actualReader.getCoreMetadata();
-	}
+	} */
 	
 	@Override
 	public void setMetadataStore(MetadataStore store)
@@ -553,7 +553,7 @@ public class ImgFormatReader extends FormatReader {
 		return actualReader.hasCompanionFiles();
 	}
 	
-	@Override
+/*	@Override
 	public void setMetadataCollected(boolean collect) {
 		actualReader.setMetadataCollected(collect);
 	}
@@ -566,5 +566,5 @@ public class ImgFormatReader extends FormatReader {
 	@Override
 	public Hashtable<String, Object> getMetadata() {
 		return actualReader.getMetadata();
-	}	
+	}	*/
 }

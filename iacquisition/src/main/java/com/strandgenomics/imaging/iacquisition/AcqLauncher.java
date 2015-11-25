@@ -103,20 +103,18 @@ public class AcqLauncher {
 			}
 		}
 		catch(SSLException s){
-			//System.out.println("Please refer to README");
-			//s.printStackTrace();
 			logger.error("Error",s);
-			JOptionPane.showMessageDialog(null, "Please refer to README.", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error: "+ s.getMessage() + "\nPlease refer to Readme for connection settings and try again.\n", "Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 			
 		}
 		catch(ConnectException e){
-			JOptionPane.showMessageDialog(null, e.getMessage()+".", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, e.getMessage()+".\nPlease refer to Readme for connection settings and try again.\n", "Error", JOptionPane.ERROR_MESSAGE);
 			logger.error("Error",e);
 			System.exit(0);
 		}
 		catch(IOException e){
-			JOptionPane.showMessageDialog(null, e.getMessage()+".", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, e.getMessage()+"."+"\nPlease refer to Readme for connection settings and try again.\n", "Error", JOptionPane.ERROR_MESSAGE);
 			logger.error("Error",e);
 			System.exit(0);
 		}

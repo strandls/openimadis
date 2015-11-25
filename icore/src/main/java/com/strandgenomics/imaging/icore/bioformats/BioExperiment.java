@@ -39,9 +39,6 @@ import loci.formats.FormatTools;
 import loci.formats.gui.BufferedImageReader;
 import loci.formats.meta.IMetadata;
 import loci.formats.ome.OMEXMLMetadata;
-import ome.xml.model.primitives.PositiveFloat;
-import ome.xml.model.primitives.PositiveInteger;
-
 import org.apache.log4j.Logger;
 
 import com.strandgenomics.imaging.icore.Channel;
@@ -63,6 +60,7 @@ import com.strandgenomics.imaging.icore.image.PixelDepth;
 import com.strandgenomics.imaging.icore.util.Archiver;
 import com.strandgenomics.imaging.icore.util.ColorUtil;
 import com.strandgenomics.imaging.icore.util.Util;
+import ome.units.quantity.Length;
 
 /**
  * Represents a set of related source files generated a bunch of records
@@ -356,7 +354,7 @@ public abstract class BioExperiment implements IExperiment, Disposable, Serializ
 //			Date acquiredDate = extractAcquiredDate( metaData.getImageAcquiredDate(seriesNo) );
 			Date acquiredDate = null;
 			if(metaData.getImageAcquisitionDate(seriesNo)!=null)
-				acquiredDate = metaData.getImageAcquisitionDate(seriesNo).asDate(); 
+				acquiredDate =  metaData.getImageAcquisitionDate(seriesNo).asDateTime(null).toDate(); //.asDate(); 
 			
 			int noOfFrames = formatHandler.getSizeT();
 			int noOfSlices = formatHandler.getSizeZ();
@@ -386,7 +384,7 @@ public abstract class BioExperiment implements IExperiment, Disposable, Serializ
 				if(channelName == null) channelName = "Channel " + channel;
 				
 				Channel ch = new Channel(channelName);
-				PositiveInteger emissionWavelength = null;
+				Length emissionWavelength = null;
 				try
 				{
 					 emissionWavelength = metaData.getChannelEmissionWavelength(seriesNo, channel);
@@ -400,7 +398,7 @@ public abstract class BioExperiment implements IExperiment, Disposable, Serializ
 				{
 					
 					// Get the color from wavelength of the channel
-					Color rgbColorObj = ColorUtil.getColor((long)emissionWavelength.getValue());
+					Color rgbColorObj = ColorUtil.getColor(emissionWavelength.value().longValue());
 				
 					// get the LUT name corresponding to the color identidfied
 					String colorName = ColorUtil.getColorName(rgbColorObj) ;
@@ -419,7 +417,7 @@ public abstract class BioExperiment implements IExperiment, Disposable, Serializ
 															// channel
 						}
 					}
-					ch.setWavelength(emissionWavelength.getValue());
+					ch.setWavelength(emissionWavelength.value().intValue());
 				}
 				
 				channels.add(ch);
@@ -456,13 +454,13 @@ public abstract class BioExperiment implements IExperiment, Disposable, Serializ
 			int imageHeight = formatHandler.getSizeY();
 			PixelDepth pixelDepth = extractPixelDepth(formatHandler.getPixelType());
 	
-			PositiveFloat pixelX = metaData.getPixelsPhysicalSizeX(seriesNo);
-			PositiveFloat pixelY = metaData.getPixelsPhysicalSizeY(seriesNo);
-			PositiveFloat pixelZ = metaData.getPixelsPhysicalSizeZ(seriesNo);
+			Length pixelX = metaData.getPixelsPhysicalSizeX(seriesNo);
+			Length pixelY = metaData.getPixelsPhysicalSizeY(seriesNo);
+			Length pixelZ = metaData.getPixelsPhysicalSizeZ(seriesNo);
 			
-			double pixelSizeX = pixelX == null ? 0 : pixelX.getValue();
-			double pixelSizeY = pixelY == null ? 0 : pixelY.getValue(); 
-			double pixelSizeZ = pixelZ == null ? 0 : pixelZ.getValue(); 
+			double pixelSizeX = pixelX == null ? 0 : pixelX.value().doubleValue();
+			double pixelSizeY = pixelY == null ? 0 : pixelY.value().doubleValue(); 
+			double pixelSizeZ = pixelZ == null ? 0 : pixelZ.value().doubleValue();
 			
 			// Check the image type
 			ImageType imageType = formatHandler.isRGB() ? ImageType.RGB : ImageType.GRAYSCALE;

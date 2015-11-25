@@ -1534,6 +1534,7 @@ public class AcquisitionUI implements IndexerListener, ActionListener, IRecordSe
 	
 	public List<Project> getActiveProjects(){
 		List<Project> activeProjects = null;
+		System.out.println("Getting all the projects...\n");
 		try
 		{
 			activeProjects = ImageSpaceObject.getConnectionManager().getActiveProjects();

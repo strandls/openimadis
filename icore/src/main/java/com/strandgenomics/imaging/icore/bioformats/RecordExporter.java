@@ -16,6 +16,7 @@ import loci.formats.ImageWriter;
 import loci.formats.in.OMEXMLReader;
 import loci.formats.meta.IMetadata;
 import loci.formats.services.OMEXMLService;
+import ome.units.quantity.Length;
 import ome.xml.model.enums.DimensionOrder;
 import ome.xml.model.enums.EnumerationException;
 import ome.xml.model.enums.PixelType;
@@ -195,7 +196,7 @@ public class RecordExporter {
 
 				try
 				{
-					meta.setPixelsPhysicalSizeX(new PositiveFloat(r.getPixelSizeAlongXAxis()), site);
+					meta.setPixelsPhysicalSizeX(new Length(r.getPixelSizeAlongXAxis(),null), site);
 				}
 				catch (Exception e)
 				{
@@ -203,7 +204,7 @@ public class RecordExporter {
 				}
 				try
 				{
-					meta.setPixelsPhysicalSizeY(new PositiveFloat(r.getPixelSizeAlongYAxis()), site);
+					meta.setPixelsPhysicalSizeY(new Length(r.getPixelSizeAlongYAxis(),null), site);
 				}
 				catch (Exception e)
 				{
@@ -211,12 +212,13 @@ public class RecordExporter {
 				}
 				try
 				{
-					meta.setPixelsPhysicalSizeZ(new PositiveFloat(r.getPixelSizeAlongZAxis()), site);
+					meta.setPixelsPhysicalSizeZ(new Length(r.getPixelSizeAlongZAxis(),null), site);
 				}
 				catch (Exception e)
 				{
 					e.printStackTrace();
 				}
+
 
 				meta.setPixelsSizeZ(new PositiveInteger(r.getSliceCount()), site);
 				meta.setPixelsSizeC(new PositiveInteger(r.getChannelCount()), site);

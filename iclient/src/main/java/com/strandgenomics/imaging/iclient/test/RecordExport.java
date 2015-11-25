@@ -16,6 +16,7 @@ import ome.xml.model.enums.EnumerationException;
 import ome.xml.model.enums.PixelType;
 import ome.xml.model.primitives.PositiveFloat;
 import ome.xml.model.primitives.PositiveInteger;
+import ome.units.quantity.Length;
 
 import com.strandgenomics.imaging.iclient.ImageSpace;
 import com.strandgenomics.imaging.iclient.ImageSpaceObject;
@@ -161,21 +162,21 @@ public class RecordExport {
 
 				try {
 					meta.setPixelsPhysicalSizeX(
-							new PositiveFloat(r.getPixelSizeAlongXAxis()), site);
+							new Length(r.getPixelSizeAlongXAxis(),null), site);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					meta.setPixelsPhysicalSizeY(
-							new PositiveFloat(r.getPixelSizeAlongYAxis()), site);
+							new Length(r.getPixelSizeAlongYAxis(),null), site);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					meta.setPixelsPhysicalSizeZ(
-							new PositiveFloat(r.getPixelSizeAlongZAxis()), site);
+							new Length(r.getPixelSizeAlongZAxis(),null), site);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -494,12 +494,12 @@ public class BioRecord implements IRecord, Serializable {
 			}
 			else
 			{
-				Double deltaT = metaData.getPlaneDeltaT(seriesNo, planeIndex);
-				Double exposureT = metaData.getPlaneExposureTime(seriesNo, planeIndex);
+				Double deltaT = metaData.getPlaneDeltaT(seriesNo, planeIndex).value().doubleValue();
+				Double exposureT = metaData.getPlaneExposureTime(seriesNo, planeIndex).value().doubleValue();
 				
-				x = metaData.getPlanePositionX(seriesNo, planeIndex);
-				y = metaData.getPlanePositionY(seriesNo, planeIndex);
-				z = metaData.getPlanePositionZ(seriesNo, planeIndex);
+				x = metaData.getPlanePositionX(seriesNo, planeIndex).value().doubleValue();
+				y = metaData.getPlanePositionY(seriesNo, planeIndex).value().doubleValue();
+				z = metaData.getPlanePositionZ(seriesNo, planeIndex).value().doubleValue();
 
 				deltaTime = deltaT == null ? 0 : deltaT.doubleValue();
 				exposureTime = exposureT == null ? 0 : exposureT.doubleValue();

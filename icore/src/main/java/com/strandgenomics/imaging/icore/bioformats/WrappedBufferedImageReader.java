@@ -213,26 +213,26 @@ public class WrappedBufferedImageReader extends BufferedImageReader {
 	/**
 	 * @return
 	 * @see loci.formats.ReaderWrapper#getChannelDimLengths()
-	 */
+	 
 	public int[] getChannelDimLengths() {
 		return actualReader.getChannelDimLengths();
-	}
+	}*/
 
 	/**
 	 * @return
 	 * @see loci.formats.ReaderWrapper#getChannelDimTypes()
-	 */
+	 
 	public String[] getChannelDimTypes() {
 		return actualReader.getChannelDimTypes();
-	}
+	}*/
 
 	/**
 	 * @return
 	 * @see loci.formats.ReaderWrapper#getCoreMetadata()
-	 */
+	 
 	public CoreMetadata[] getCoreMetadata() {
 		return actualReader.getCoreMetadata();
-	}
+	}*/
 
 	/**
 	 * @return
@@ -305,10 +305,10 @@ public class WrappedBufferedImageReader extends BufferedImageReader {
 	 * @return
 	 * @deprecated
 	 * @see loci.formats.ReaderWrapper#getMetadata()
-	 */
+	 
 	public Hashtable<String, Object> getMetadata() {
 		return actualReader.getMetadata();
-	}
+	}*/
 
 	/**
 	 * @return
@@ -628,10 +628,10 @@ public class WrappedBufferedImageReader extends BufferedImageReader {
 	 * @return
 	 * @deprecated
 	 * @see loci.formats.ReaderWrapper#isMetadataCollected()
-	 */
+	 
 	public boolean isMetadataCollected() {
 		return actualReader.isMetadataCollected();
-	}
+	}*/
 
 	/**
 	 * @return
@@ -884,10 +884,10 @@ public class WrappedBufferedImageReader extends BufferedImageReader {
 	 * @param collect
 	 * @deprecated
 	 * @see loci.formats.ReaderWrapper#setMetadataCollected(boolean)
-	 */
+	 
 	public void setMetadataCollected(boolean collect) {
 		actualReader.setMetadataCollected(collect);
-	}
+	}*/
 
 	/**
 	 * @param filter

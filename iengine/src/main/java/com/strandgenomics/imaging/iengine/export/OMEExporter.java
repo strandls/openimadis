@@ -12,6 +12,8 @@ import loci.formats.FormatTools;
 import loci.formats.ImageWriter;
 import loci.formats.meta.IMetadata;
 import loci.formats.services.OMEXMLService;
+import ome.units.quantity.Length;
+import ome.units.quantity.Time;
 import ome.xml.model.enums.DimensionOrder;
 import ome.xml.model.enums.EnumerationException;
 import ome.xml.model.enums.PixelType;
@@ -202,7 +204,7 @@ public class OMEExporter {
 
 				try
 				{
-					meta.setPixelsPhysicalSizeX(new PositiveFloat(record.getXPixelSize()), site);
+					meta.setPixelsPhysicalSizeX(new Length(record.getXPixelSize(), null), site);
 				}
 				catch (Exception e)
 				{
@@ -210,7 +212,7 @@ public class OMEExporter {
 				}
 				try
 				{
-					meta.setPixelsPhysicalSizeY(new PositiveFloat(record.getYPixelSize()), site);
+					meta.setPixelsPhysicalSizeY(new Length(record.getYPixelSize(), null), site);
 				}
 				catch (Exception e)
 				{
@@ -218,7 +220,7 @@ public class OMEExporter {
 				}
 				try
 				{
-					meta.setPixelsPhysicalSizeZ(new PositiveFloat(record.getZPixelSize()), site);
+					meta.setPixelsPhysicalSizeZ(new Length(record.getZPixelSize(), null), site);
 				}
 				catch (Exception e)
 				{
@@ -244,7 +246,7 @@ public class OMEExporter {
 					try
 					{
 						if(wavelength>0)
-							meta.setChannelEmissionWavelength(new PositiveInteger(wavelength), 0, channel);
+							meta.setChannelEmissionWavelength(new Length(wavelength, null), 0, channel);
 					}
 					catch (Exception e)
 					{
@@ -285,8 +287,8 @@ public class OMEExporter {
 				{
 					ImagePixelData imageMetadata = SysManagerFactory.getImageManager().getImageMetaData(actorLogin, record.guid, new Dimension(t, z, c, site));
 					
-					meta.setPlaneDeltaT(imageMetadata.getElapsed_time(), 0, count);
-					meta.setPlaneExposureTime(imageMetadata.getExposureTime(), 0, count);
+					meta.setPlaneDeltaT(new Time(imageMetadata.getElapsed_time(),null), 0, count);
+					meta.setPlaneExposureTime(new Time(imageMetadata.getExposureTime(), null), 0, count);
 					meta.setPlaneTheC(new NonNegativeInteger(c), 0, count);
 					meta.setPlaneTheZ(new NonNegativeInteger(z), 0, count);
 					meta.setPlaneTheT(new NonNegativeInteger(t), 0, count);

@@ -57,8 +57,6 @@ import org.apache.axis.AxisProperties;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 
-import thredds.util.net.EasySSLProtocolSocketFactory;
-
 import com.strandgenomics.imaging.iclient.AcquisitionProfile;
 import com.strandgenomics.imaging.iclient.Application;
 import com.strandgenomics.imaging.iclient.AuthenticationException;
@@ -145,6 +143,8 @@ import com.strandgenomics.imaging.icore.vo.LineSegment;
 import com.strandgenomics.imaging.icore.vo.Rectangle;
 import com.strandgenomics.imaging.icore.vo.TextBox;
 import com.strandgenomics.imaging.icore.vo.VisualObject;
+
+import ucar.nc2.util.net.EasySSLProtocolSocketFactory;
 
 /**
  * A concrete implementation of an Enterprise wide available ImageSpace system
