@@ -95,7 +95,7 @@
                 override="false"/>
 
         <Environment name="param/LogRoot" 
-                value="C:\\iManage\\storage\\log_storage"  
+                value="<LOG_STORAGE_PATH>"
                 type="java.lang.String" 
                 override="false"/>
         <!-- Log info -->
@@ -163,37 +163,37 @@
                 override="false"/>
                 
         <Environment name="param/StorageLocation" 
-                value="C:\\iManage\\storage\\storage_root"  
+                value="<STORAGE_ROOT_PATH>"
                 type="java.lang.String" 
                 override="false"/>
 
 	<Environment name="param/MovieStorageLocation" 
-                value="C:\\iManage\\storage\\movie_storage"  
+                value="<MOVIE_STORAGE_PATH>"
                 type="java.lang.String" 
                 override="false"/>
 				
 	<Environment name="param/ImageCacheStorageLocation" 
-                value="C:\\iManage\\storage\\image_cache_storage"  
+                value="<IMAGE_CACHE_STORAGE_PATH>"
                 type="java.lang.String" 
                 override="false"/>
 				
 	<Environment name="param/TaskLogStorageLocation" 
-                value="C:\\iManage\\storage\\task_log_storage"  
+                value="<TASK_LOG_STORAGE_PATH>"
                 type="java.lang.String" 
                 override="false"/>
                 
     <Environment name="param/ProjectBackupStorageLocation" 
-                value="C:\\iManage\\storage\\backup_storage"  
+                value="<BACKUP_STORAGE_PATH>"
                 type="java.lang.String" 
                 override="false"/>
 
 	<Environment name="param/ExportStorageLocation" 
-                value="C:\\iManage\\storage\\export_storage"  
+                value="<EXPORT_STORAGE_PATH>"
                 type="java.lang.String" 
                 override="false"/>
 
 	<Environment name="param/ZoomStorageLocation" 
-                value="C:\\iManage\\storage\\zoom_storage"  
+                value="<ZOOM_STORAGE_PATH>"
                 type="java.lang.String" 
                 override="false"/>
 
