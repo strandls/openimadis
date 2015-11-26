@@ -1,6 +1,10 @@
 
 task deployWebApp(type: Copy) {
     from "standard"
-    into "$tomcatHome/webapps/imanage/standard"
+    into "$tomcatHome/webapps/iManage/standard"
 }
 
+task deploySolr(type: Copy) {
+    from "solr"
+    into "$tomcatHome/webapps/solr"
+}
