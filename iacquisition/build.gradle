@@ -13,12 +13,15 @@ repositories {
 dependencies {
     compile project(':iviewer')
     compile 'com.jidesoft:jide-dialogs:3.6.10'
+    compile 'com.jidesoft:jide-plaf-jdk7:3.6.10'
     compile 'de.sciss:jsyntaxpane:1.0.0'
     compile 'jython:jython:2.1'
 }
 
-task copyLibs(dependsOn: build, type: Copy) {
+task copyLibs(dependsOn: [build, ':resources:build'], type: Copy) {
     from(configurations.runtime) 
     from "build/libs/"
+    from "../resources/build/libs/"
     into "tool/lib"
 }
+
