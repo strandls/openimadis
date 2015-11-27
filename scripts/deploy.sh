@@ -79,10 +79,14 @@ echo "Deploying solr webapp to Tomcat ..."
 cp -r WebApps/solr $tomcatHome/webapps
 echo "Deployed solr webapp to Tomcat."
 
+echo "Creating $solr_data directory: $solr_data"
+mkdir -p $solr_data
+
 #Copy solr_data from ServerApps $solr_data
 echo "Deploying solr_data to $solr_data ..."
-cp -r solr_data/* $solr_data
+cp -r ServerApps/solr_data/* $solr_data
 echo "Deployed solr_data to $solr_data."
+
 
 #Update solr/home path in <TOMCAT>/solr/WEB-INF/web.xml with $solr_data path
 echo "Updating solr_data path in " $tomcatHome/webapps/solr/WEB-INF/web.xml
