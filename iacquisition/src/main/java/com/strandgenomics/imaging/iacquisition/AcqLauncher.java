@@ -12,12 +12,16 @@ import javax.net.ssl.SSLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.RollingFileAppender;
+import org.apache.commons.httpclient.HostConfiguration;
+import org.apache.commons.httpclient.UsernamePasswordCredentials;
+import org.apache.commons.httpclient.auth.AuthScope;
 
 import com.strandgenomics.imaging.iclient.dialogs.LoginDialog;
 import com.strandgenomics.imaging.iclient.util.ConnectionPreferences;
@@ -67,7 +71,14 @@ public class AcqLauncher {
 			System.setProperty("javax.net.ssl.trustStore",keystore );
 			System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
 		}
-		
+		if(preferences.toUseProxy()){
+			HostConfiguration config = client.getHostConfiguration();
+	        config.setProxy(preferences.getProxyAddress(), preferences.getProxyPort());
+	 
+	        Credentials credentials = new UsernamePasswordCredentials(preferences.getProxyUser(), preferences.getProxyPassword());
+	        AuthScope authScope = new AuthScope(AuthScope.ANY_HOST,AuthScope.ANY_PORT);
+	        client.getState().setProxyCredentials(authScope, credentials);
+		}
 		PostMethod method = new PostMethod(protocol + "://" + server +":" + port + "/iManage/auth/login");
 		method.addParameter("loginUsername", username);
 		method.addParameter("loginPassword", password);
