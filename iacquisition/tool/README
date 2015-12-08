@@ -1,3 +1,9 @@
 README
 -----------
-In case of HTTPS connection run loadkeystore.sh first(at first run) then run-acqLinux.sh/runacqWin.sh
+In case of HTTPS connection:
+
+On Windows:
+run loadkeystore.bat  then run-acq.bat
+
+On Linux:
+run loadkeystore.sh  then run-acq.sh
