@@ -18,3 +18,18 @@ dependencies {
     compile 'pbs4java:pbs4java:0.75'
 }
 
+task copyComputeLibs(type: Copy){
+    from configurations.runtime
+    into 'compute-deploy/libs/'
+}
+
+task copyComputeApps(type: Copy){
+    from 'apps'
+    into 'compute-deploy/apps/'
+}
+
+task createComputeDeployBundle(dependsOn: [copyComputeLibs, copyComputeApps], type: Copy){
+   from 'bin'
+   from 'conf'
+   into 'compute-deploy'
+}
