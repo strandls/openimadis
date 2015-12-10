@@ -11,6 +11,5 @@ include ':iworker'
 include ':icompute'
 include ':resources'
 include ':web'
-include ':clientbundle'
 include ':tileviewer'
 
