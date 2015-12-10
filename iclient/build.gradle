@@ -4,6 +4,9 @@ version = '1.0'
 
 repositories {
     mavenCentral()
+    maven {
+        url 'http://artifacts.openmicroscopy.org/artifactory/gradle/'
+    }
 }
 
 configurations {
@@ -71,5 +74,21 @@ task iWorkersStubs(type: JavaExec){
 
 task generateAllStubs(dependsOn: [iAuthStubs, iSpaceStubs, iSearchStubs, iLoaderStubs, iUpdateStubs, iComputeStubs, iManageStubs, iWorkersStubs]){
     println "Generated all stubs."
+}
+
+task createClientAPIJar(type: Jar){
+    from configurations.webservices.collect { it.isDirectory() ? it : zipTree(it) }
+    from configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
+    archiveName 'client-api.jar'
+}
+
+task generateClientApiDocs(type: Javadoc) {
+  source = files("src/main/java")
+  destinationDir = file('api/docs')
+}
+
+task createClientAPIBundle(dependsOn: [createClientAPIJar], type: Copy){
+    from 'build/libs/client-api.jar'
+    into 'api'
 }
 
