@@ -21,7 +21,7 @@ dependencies {
 task copyComputeLibs(dependsOn: build, type: Copy){
     from configurations.runtime
     from 'build/libs/'
-    into 'compute-deploy/libs/'
+    into 'compute-deploy/lib/'
 }
 
 task copyComputeApps(type: Copy){
