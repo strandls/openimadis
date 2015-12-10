@@ -18,8 +18,9 @@ dependencies {
     compile 'pbs4java:pbs4java:0.75'
 }
 
-task copyComputeLibs(type: Copy){
+task copyComputeLibs(dependsOn: build, type: Copy){
     from configurations.runtime
+    from 'build/libs/'
     into 'compute-deploy/libs/'
 }
 
