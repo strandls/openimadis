@@ -1,0 +1,99 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Avadis iManage Acquisition Client</title>
+		<link rel="icon" href="standard/images/icon.png" type="image/png" />
+	</head>
+	<body>
+		<h1>Avadis iManage Acquisition Client</h1>
+		<h4>Release Date: November 24, 2015</h4>
+		<h4>Release Version: 1.26</h4>
+
+		<h2><i>Set-Up</i></h2>
+
+		<h3 class="module-header"><i>Download</i></h3>
+		<div class="module">
+			<i>iManage Acquistion Client</i> can be downloaded from <a href="acquisition.zip"> here</a> <br />
+		</div>
+
+		<h3 class="module-header"><i>Install</i></h3>
+		<div class="module">
+			<ul>
+				<li> Extract <i>iManage Acquistion Client</i>
+				<li> Run the script runAcq.sh or runAcq.bat
+				<li> If you are connecting to a server on https, use additional instructions in README to install the server certificate.
+			</ul>
+		</div>
+		
+		
+		
+		<h2><i>Features</i></h2>
+		
+		<h3 class="feature-header"><i>iManage Access Control</i></h3>
+		<div class="feature">
+			<ul>
+				<li><i> Avadis iManage </i> uses <i>oAuth</i> based authentication to provide secure access to the data.</li>
+				<li>Users can login to the system using login-password created and stored in <i>iManage</i> system.</li>
+				<li>Alternately, <i>iManage</i> allows integration with LDAP directories to support enterprise wide central login-passwords.</li>
+				<li>A "group of users" are organised in "Projects".</li>
+				<li>Each user can belong to multiple project and each project can have multiple users.</li>
+				<li>Each user has a specific access permission, namely READ, WRITE, UPLOAD, DELETE in each project.</li>
+				<li>All users within the same "Project" can share and view all the records in the "Project".</li>
+				<li>In addition, users can <b>Share</b> or <b>Transfer</b> records to other projects.</li>
+			</ul>
+		</div>
+		
+		<h3 class="feature-header"><i> iManage Data Model</i></h3>
+		<div class="feature">
+			<ul>
+				<li><i>Avadis iManage</i> uploads data in original format (no coversion) to the storage location specified in the configuration.</li>
+				<li>This data can be seamlessly browsed and accessed via the file-system browsers.</li>
+				<li>Data is organised in "Projects".</li>
+				<li>Each project has a specific "Storage Quota".</li>
+				<li>Certain meta-data fields like "No. of Channels", "No. of Slices", "No. of Frames" etc. are extracted from the source image files and populated in a database for accessing and visualising image data-sets as 5D image records.</li>
+				<li>Some image level meta-data is also extracted and populated in database.</li>
+				<li>These meta data fields are available for all records in iManage.</li>
+				<li>In addition users can add name-value pairs, file attachments, comments and visual objects to the records.</li>
+				<li>This user added data is also shared with all the users in the <b>Project</b>.</li>
+			</ul>
+		</div>
+	
+		<h3 class="feature-header"><i>iManage Data Import</i></h3>
+		<div class="feature">
+			<ul>
+				<li><i>iManage Acquisition Client</i> can be used to import and inspect records locally before uploading to the server.</li>
+				<li>First of all user needs to select the <b>Project</b> to which he intends to upload the record.</li>
+				<li>Using the <i>Import -&gt; Import File(s)</i> menu, user can specify the directory to import.</li>
+				<li>All image files in the specified directory are considered for import.</li>
+				<li>Image files are imported using <a href="http://loci.wisc.edu/software/bio-formats" target="_blank">Loci Bio-formats</a>.</li>
+				<li>Following <a href="http://loci.wisc.edu/bio-formats/formats" target="_blank">formats</a> are supported.</li>
+				<li>A record is created for each series in the source file.</li>
+				<li>If dimensions match, users can merge multiple records created from same source files.</li>
+				<li><i>Import -&gt; Import Using Filename(s)</i> menu can be used to create records with meta-data embedded in the filenames.</li>
+			</ul>
+			<ul>
+				<li>Status of import is shown in a console window.</li>
+				<li>Imported records are shown in summary table and thumbnails.</li>
+				<li>User can browse records and add attachments, comments, text and visual annotations of imported records.</li>
+				<li>User can also update channel colour and contrast settings.</li>
+				<li>Duplicate records(records already uploaded on server) appear as read-only records.</li>
+			</ul>
+		</div>
+		
+		<h3 class="feature-header"><i>iManage Data Upload</i></h3>
+		<div class="feature">
+			<ul>
+				<li>Records imported in <i>iManage Acquisition Client</i> can be uploaded to the <i>iManage Server</i>.</li>
+				<li>User can select the records to be uploaded.</li>
+				<li>If the <b>Project</b> has available quota files in original format are uploaded to the storage.</li>
+				<li>Meta-data containing annotations, comments, contrast settings, channel colour etc. are uploaded to the server.</li>
+				<li>All members of the project can view the uploaded records using <i>iManage Web Client</i>.</li>
+			</ul>
+			<ul>
+				<li>Status of each upload can be monitored via the <i>iManage Acquisition Client</i>.</li>
+				<li>Users can install <i>iManage Upload Service</i> to upload records in background even after they quit the <i>iManage Acquisition Client</i>.</li>
+			</ul>
+		</div>
+	</body>
+</html>

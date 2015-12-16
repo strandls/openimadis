@@ -61,9 +61,9 @@ Ext.define('Manage.view.Headers', {
 			{ 
 				xtype : 'button',
 				hidden : !showAcqLink,
-				text : 'Launch Acquisition',
+				text : 'Downloads',
 				handler : function() {
-						window.location.href='../project/launchAcqClient';
+						window.open('downloads.html');
 				}
 			}, ' ', ' ', ' ', ' ', //space for logical separation
 			{
