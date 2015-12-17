@@ -1,0 +1,169 @@
+.on3d {
+	background-image: url( ../images/icons/3D-OFF.png ) !important;
+}
+
+.off3d {
+	background-image: url( ../images/icons/3D-ON.png ) !important;
+}
+
+.allchannel-off {
+	background-image: url( ../images/icons/multichanneloff.png ) !important;
+}
+
+.allchannel-on {
+	background-image: url( ../images/icons/multichannelon.png ) !important;
+}
+
+.rulers-off {
+	background-image: url( ../images/icons/ruler-off.png ) !important;
+}
+
+.rulers-on {
+	background-image: url( ../images/icons/ruler.png ) !important;
+}
+
+.imagecontrols {
+	background-image: url( ../images/icons/Channel_Site_control.png )
+		!important;
+}
+
+.imagemetadata {
+	background-image: url( ../images/icons/image-metadata.png ) !important;
+}
+
+.recordmetadata {
+	background-image: url( ../images/icons/recordmetadata.png ) !important;
+}
+
+.attachments {
+	background-image: url( ../images/icons/attachment.gif) !important;
+}
+
+.comments {
+	background-image: url( ../images/icons/comments.png ) !important;
+}
+
+.history {
+	background-image: url( ../images/icons/History.gif ) !important;
+}
+
+.userannotations {
+	background-image: url( ../images/icons/userannotations.png ) !important;
+}
+
+.navigator {
+	background-image: url( ../images/icons/Navigator.png ) !important;
+}
+
+.task {
+	background-image: url( ../images/icons/task.png ) !important;
+}
+
+.filter {
+	background-image: url( ../images/icons/Filter.png ) !important;
+}
+
+.zoom {
+	background-image: url( ../images/icons/zoom_out.png ) !important;
+}
+
+.resetzoom {
+	background-image: url( ../images/icons/zoom_reset.png ) !important;
+}
+
+.colorimage-off {
+	background-image: url( ../images/icons/colorimage.png ) !important;
+}
+
+.colorimage-on {
+	background-image: url( ../images/icons/B-W_pallet.png ) !important;
+}
+
+.fullscreen {
+	background-image: url( ../images/icons/fullscreen.png ) !important;
+}
+
+.zproject-off {
+	background-image: url( ../images/icons/Zprojectionoff.png ) !important;
+}
+
+.zproject-on {
+	background-image: url( ../images/icons/Zprojectionon.png ) !important;
+}
+
+.allsites {
+	background-image: url( ../images/icons/multisiteoff.png ) !important;
+}
+
+.leftarrow {
+	background-image: url( ../images/icons/leftarrow.png ) !important;
+}
+
+.rightarrow {
+	background-image: url( ../images/icons/rightarrow.png ) !important;
+}
+
+.bookmark-off {
+	background-image: url( ../images/icons/bookmark_icon.gif ) !important;
+}
+
+.bookmark-on {
+	background-image: url( ../images/icons/bookmark_icon.gif ) !important;
+}
+
+.bookmark {
+	background-image: url( ../images/icons/bookmark_icon.gif ) !important;
+}
+
+.search {
+	background-image: url( ../images/icons/search.png ) !important;
+}
+
+.back {
+	background-image: url( ../images/icons/Back16.gif ) !important;
+}
+
+.forward {
+	background-image: url( ../images/icons/Forward16.gif ) !important;
+}
+
+.thumbnail {
+	background-image: url( ../images/icons/addimage.png) !important;
+	background-size: 16px 16px;
+}
+
+.fullres-off {
+	background-image: url( ../images/icons/maximize.png) !important;
+}
+
+.fullres-on {
+	background-image: url( ../images/icons/maximize.png) !important;
+}
+
+.panzoom-off {
+	background-image: url( ../images/icons/pan_zoom.png) !important;
+}
+
+.panzoom-on {
+	background-image: url( ../images/icons/pan_zoom.png) !important;
+}
+
+.imageDownload {
+	background-image: url(../images/icons/snapshot.png) !important;
+}
+
+.download {
+	background-image: url(../images/icons/download.png) !important;
+}
+
+.movie {
+	background-image: url(../images/icons/movie.gif) !important;
+}
+
+.playMovie {
+	background-image: url(../images/icons/play.gif) !important;
+}
+
+.pauseMovie {
+	background-image: url(../images/icons/pause.png) !important;
+}
