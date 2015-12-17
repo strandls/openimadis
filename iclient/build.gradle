@@ -76,9 +76,17 @@ task generateAllStubs(dependsOn: [iAuthStubs, iSpaceStubs, iSearchStubs, iLoader
     println "Generated all stubs."
 }
 
-task createClientAPIJar(type: Jar){
-    from configurations.webservices.collect { it.isDirectory() ? it : zipTree(it) }
-    from configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
+
+task copyClientAPIJar(dependsOn: [build, ':resources:build'], type: Copy){
+    from 'build/libs/'
+    from configurations.webservices
+    from configurations.runtime
+    from '../resources/build/libs/'
+    into 'build/api/libs'
+}
+
+task createClientAPIJar(dependsOn: copyClientAPIJar, type: Jar){
+    from file('build/api/libs/').listFiles().findAll {it.name.endsWith('.jar')}.collect { zipTree(it) }
     archiveName 'client-api.jar'
 }
 
@@ -87,8 +95,28 @@ task generateClientApiDocs(type: Javadoc) {
   destinationDir = file('api/docs')
 }
 
-task createClientAPIBundle(dependsOn: [createClientAPIJar], type: Copy){
+task copyUploadServiceLibs(type: Copy){
     from 'build/libs/client-api.jar'
-    into 'api'
+    into 'build/tmp/UploadService/lib'
 }
 
+task createUploadService(dependsOn: [copyClientAPIJar, copyUploadServiceLibs], type:Copy){
+    from 'upload-service/deploy.help.txt'
+    from 'upload-service/run-upload-daemon.sh'
+    from 'upload-service/iuploader.properties'
+    from 'upload-service/run-upload-daemon.bat'
+    from 'upload-service/yajsw-stable-11.02.zip'
+    into 'build/tmp/UploadService'
+}
+
+task createUploadServiceZip(dependsOn: createUploadService, type: Zip){
+    from 'build/tmp/UploadService'
+    into 'UploadService'
+    archiveName 'UploadService.zip'
+}
+
+task createUploadServiceBundle(dependsOn: createUploadServiceZip, type: Copy){
+    from 'build/distributions/UploadService.zip'
+    from 'upload-service/instructions.html'
+    into 'build/uploadservice'
+}
