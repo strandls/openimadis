@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  <head>
+    <title>
+     iManage Compute Publishers  
+    </title>
+  </head>
+  <body>
+    
+
+<h1 id="AnalysisCompute">Publishers (Compute)</h1>
+<h2 id="PublishingAnalysisApplications">Publishing Analysis Applications</h2>
+<ul><li>A set of analysis applications are published by a Publisher(compute workstation). 
+</li><li>Facility Administrator can add new publisher from the workflow link of the web client by giving it appropriate name and description. Publisher name has to be unique.
+</li><li>As a result of successful addition of new publisher, publisher will get a "publisher code" which has to be mentioned in publisher.properties file and will be used on server side for authentication of legitimate publisher.
+</li><li>Typically, publisher will run in following directory structure:
+<ul><li>Publisher_Root_Directory/
+<ul><li>publisher.properties
+</li><li>run-compute.sh
+</li><li>icompute.properties
+</li><li>lib/
+</li><li>apps/
+</li></ul></li></ul></li></ul><ol><li>publisher.properties file contains the publisher name and publisher code.
+<pre class="wiki">publisher.name=Publisher 1
+publisher.code=PUBLISHER_KZqs7QGcm92iUAyXAorZePkM55uCNd
+</pre></li></ol><ol start="2"><li>icompute.properties will contain different properties used by publisher.
+<pre class="wiki"># directory where binaries, source, libraries and properties for Compute Alorithms is specified
+icompute.applications.root.dir=apps
+# url for iManage compute web services
+iworkers.webservice.url=http://localhost:8080/iManage/services/iWorkers
+# interval in milis to ping iManage server
+icompute.ping.interval=15000
+icompute.threadpool.size=4
+#extension for application launcher files
+#has to be changed to .bat in case of windows machine 
+icompute.applauncher.extension=.sh
+
+#properties for task manager
+iengine.compute.task.manager=com.strandgenomics.imaging.icompute.ComputeTaskManager
+iengine.external.task.manager=com.strandgenomics.imaging.icompute.torque.TorqueTaskManager
+iengine.compute.task.type=EXTERNAL
+
+# properties for logging
+iengine.log.dir=logs
+iengine.log.size=1000000
+iengine.log.interval=1
+iengine.log.level=INFO
+iengine.log.scope=com.strandgenomics.imaging
+iengine.log.filename=avadis_worker_log.txt
+</pre></li></ol><ol start="3"><li>run-compute.sh is a script which runs on publisher machine.
+</li></ol><ol start="4"><li>lib/ This directory contains the libraries required by publisher to co-ordinate with iManage server.
+</li></ol><ol start="5"><li>apps/ is the root under which publisher publishes the Compute Algorithm it supports. Name/path of this directory is specified in icompute.properties file.
+</li></ol><h2 id="WritingnewComputeApplication">Writing new Compute Application</h2>
+<ul><li>A new Compute Algorithm can be written using the APIs and authentication mechanism described <a class="wiki" href="/trac/curie/wiki/meetings/Authentication">here</a>.
+</li><li>Compute Algorithm will be client of iManage system and will have a unique client id. This client id can be obtained by registering the client using Manage Client button in workflow panel on right side of web client. 
+</li><li>The "Compute" algorithm can be placed at a particular location(icompute.applications.root.dir) in the compute workstation along with a specifications file. The directory structure for application is described in next section.
+</li><li>The newly added "Compute" algorithm becomes available as a workflow link in the web client.
+</li></ul><h2 id="DirectoryStructureforApplicationSpecification">Directory Structure for Application Specification</h2>
+<ul><li>Publisher will have a root under which, all the application supported by the publisher are listed. 
+</li><li>Every application will be specified in the directory by the application name(client-name) under the applications root directory. Under the individual application directory, there will be a .sh file which will be executed using the arguments specified in .gson file. Both of these files will have same name as that of the application. There may be other supporting files/directories eg. lib.
+</li><li>Typical directory structure for the application root is as follows:
+<ul><li>Applications_Root_Directory/
+<ul><li>AppName1/
+<ul><li>AppName1.sh
+</li><li>AppName1.gson
+</li><li>lib/
+</li><li>misc files/directory, if required
+</li></ul></li></ul></li></ul></li><li>Example, consider an application(registered as "Center" on iManage server) which draws a circle at center of specified image of specified record. The directory structure will be:
+<ul><li>apps/
+<ul><li>Center/
+<ul><li>Center.sh
+</li><li>Center.gson
+</li><li>lib/
+</li><li>FindCenterTest.class
+</li><li>FindCenterTest.java
+</li></ul></li></ul></li></ul></li><li>lib/ directory will contain the supporting jar files required by the compute application eg. ImageJ.jar, client-jar.jar etc.
+</li><li>Center.gson will look like:
+<pre class="wiki">{
+	"categoryName":"Demo",
+	"clientID":"hYRkPg664WzZsIFzHqfd00WKe0tbp3VCWGCFDANF",
+	"description":"Draws Circle at the center of image",
+	"name":"Center",
+	"parameters":[
+			{"defaultValue":0,"name":"SiteNo","type":"INTEGER"},
+			{"defaultValue":"","name":"OverlayName","type":"STRING"}
+		     ],
+	"version":"1.0"
+}
+</pre></li></ul><ol><li>categoryName is the category under which this application will appear in web client workflow link.
+</li><li>clientID this is client id generated while registering the application as client.
+</li><li>description is the description of the application. The same description will be displayed by the web client.
+</li><li>name is the name of the application. The same will be displayed by the web client.
+</li><li>version is the version of the application.  The same will be displayed by the web client.
+</li><li>parameters are the parameters required by the application. Parameters will have defaultValue of parameter, name of the parameter and the data type of the parameter.
+</li></ol><ul><li>Center.sh will look like(assuming java is in $PATH):
+<pre class="wiki">java -DInputFile=$InputFile -cp lib/client-jar.jar:lib/ij.jar:. FindCenterTest
+</pre></li></ul><ul><li>Center.bat will look like(assuming java is in $PATH):
+<pre class="wiki">java -DInputFile=%InputFile% -cp lib\\client-jar.jar;lib\\ij.jar;. FindCenterTest
+</pre></li></ul><p>
+On compute-workstation, all the inputs are received in an input file. The name of the input file can be accessed as environment variable $InputFile. Typically, name of the input file will be &lt;task_id&gt;.in 
+</p>
+<p>
+The structure of the input file will be &lt;param_name&gt;=&lt;param_value_1&gt;,&lt;param_value_2&gt;,...&lt;param_value_n&gt;
+</p>
+<p>
+Since the typical compute code will be written once and executed many times, unlike other iManage clients, the compute clients will receive one time authentication code from server at time of execution, which will be received as property AuthCode in the input file. Input file will also contain property TaskHandle which is the server side reference to the task and can be used for sending task progress to the server. 
+</p>
+<p>
+The example task input file is:
+</p>
+<pre class="wiki">SiteNo=0
+RecordIds=28
+AuthCode=ydT6faDC2O4g7HQaJW8qQavzkheneVuXuZ5RDDi6
+TaskHandle=8349537612086336
+OverlayName=pqr
+</pre><p>
+The example directory structure at compute workstation can be found here: <a class="ext-link" href="https://nandi.strandls.com/trac/curie/attachment/wiki/Analysis/compute.tar.gz"><span class="icon"> </span>https://nandi.strandls.com/trac/curie/attachment/wiki/Analysis/compute.tar.gz</a>
+</p>
+<h2 id="InvokeWorkflow">Invoke Workflow</h2>
+<ul><li>A compute algorithm can be invoked on selected records by clicking on a workflow link.
+</li><li>It pops up a dialog box to specify view specific parameters and scheduling information.
+</li></ul><h2 id="TaskMonitoringandInspection">Task Monitoring and Inspection</h2>
+<ul><li>Scheduled instance of application is called task.
+</li><li>Task will be in one of the following states.
+<ul><li>SCHEDULED: before its scheduled time.
+</li><li>WAITING: waiting for free resources to execute (after scheduled time is reached).
+</li><li>DELETED: task deleted before allocated for execution.
+</li><li>ALLOCATED: allocated for execution
+</li><li>EXECUTING: under execution
+</li><li>SUCCESS : task completed with success
+</li><li>ERROR : task completed with error
+</li><li>TERMINATING: request sent for task termination
+</li><li>TERMINATED: task is terminated
+</li></ul></li></ul><ul><li>Web client shows task docklet below navigator for task monitoring and inspection. This docklet has 2 tabs viz. My tasks, Task Inspector.
+</li></ul><p>
+ 
+</p>
+<h4 id="MyTasks">My Tasks</h4>
+<ul><li>When user submits a task for execution; user can select whether this task should be monitored (default=true).
+</li><li>If this option is selected then corresponding task is shown under in My tasks.
+</li><li>Tasks under My Tasks are remembered for a particular user even after logout. 
+</li><li>Tasks can be cleared from My Tasks using clear button available for each task.
+</li></ul><h4 id="TaskInspector">Task Inspector</h4>
+<ul><li>Task Inspector is intended to monitor tasks which are submitted by other user.
+</li><li>No task is added by default to the inspector. User needs to search for a task of his interest and explicitly add it to task inspector.
+</li><li>User can add any task belonging to any of his/her project.
+</li><li>Tasks can be cleared from Task Inspector using clear button available for each task.
+</li><li>All tasks from Task Inspector are cleared on logout.
+</li></ul><h4 id="CommonfeaturesforMyTasksTaskInspector">Common features for My Tasks / Task Inspector</h4>
+<ul><li>State of the tasks under 'My Tasks' tab are updated at every 15 seconds.
+</li><li>User can explicitly refresh the the list to check the latest states of the task
+</li><li>Selecting a task will show its input records in the spreadsheet, thumbnail view. User can view history of corresponding records to know the changes done to the record.
+</li><li>User can check the input parameters used for invocation of this task
+</li><li>'Terminate task' button is available if user is owner of the task or Manager / Facility Manager / Administrator for that project.
+</li></ul><p>
+ 
+</p>
+<h2 id="ExternalTaskManagerTorque">External Task Manager (Torque)</h2>
+<p>
+The analysis task can be managed by compute publisher internally or can be delegated to external task handler eg. PBS/Torque. To specify, whether the task is managed by internal task handler or external handler the icompute.properties contains the properties related to task manager. 
+</p>
+<pre class="wiki">#properties for task manager
+iengine.compute.task.type=EXTERNAL
+iengine.compute.task.manager=com.strandgenomics.imaging.icompute.ComputeTaskManager
+iengine.external.task.manager=com.strandgenomics.imaging.icompute.torque.TorqueTaskManager
+</pre><p>
+The "iengine.compute.task.type" is the property which specifies whether the task is managed by internal or external task manager. For, task to be managed by Torque/PBS it will be set to EXTERNAL. Other two properties specifies the class which is used as manager of the analysis task. The class specified by "iengine.compute.task.manager" property will be used for internal task manager whereas the class specified by "iengine.external.task.manager" will be used for external task manager, in this case Torque/PBS.
+</p>
+<p>
+Apart from these properties the structure of the executable file will change so as to contain the properties to be supplied to PBS. 
+</p>
+<h3 id="SettingPBSPropertiesinTaskExecutableFile">Setting PBS Properties in Task Executable File</h3>
+<p>
+The properties required by PBS system for execution of task on PBS/Torque are specified just like any other PBS script. In the executable file, the properties starting with #PBS are interpreted by PBS.
+</p>
+<pre class="wiki">#PBS -q cmms-dev
+#PBS -N center
+#PBS -o /data/cmms/torque_test/test.log
+#PBS -e /data/cmms/torque_test/test.err
+#PBS -l nodes=1:ppn=4
+#PBS -l mem=1gb
+#PBS -l walltime=00:00:10
+</pre><p>
+Apart from these changes, all the other things remain same for analysis job running internally or on Torque/PBS. For analysis algorithm developer, the implementation of algorithm is not affected by the way it is run as compute job. Also for end user, the invocation, the user interaction and the task management functionality like monitoring the jobs, viewing the job parameters, terminating the job etc remains exactly the same.
+</p>
+<p>
+The example directory structure at compute workstation running torque/pbs jobs can be found here: <a class="ext-link" href="https://nandi.strandls.com/trac/curie/attachment/wiki/Analysis/torque_compute.tar.gz"><span class="icon"> </span>https://nandi.strandls.com/trac/curie/attachment/wiki/Analysis/torque_compute.tar.gz</a>
+</p>
+<h2 id="ChangesrequiredforrunningpublisheronWindowsplatform">Changes required for running publisher on Windows platform</h2>
+<p>
+Following changes have to be made in order to run publisher on windows machine. 
+</p>
+<ol><li>In icompute.properties
+<pre class="wiki">icompute.applauncher.extension=.bat
+</pre></li></ol><ol start="2"><li>In application &lt;application_name&gt;.sh file change all '/' to '\\', ':' to ';'
+</li></ol><ol start="3"><li>In application &lt;application_name&gt;.sh file change $&lt;VARIABLE_NAME&gt; to %&lt;VARIABLE_NAME&gt;% eg. $InputFile to %InputFile%
+</li></ol><ol start="4"><li>In application directory change &lt;application_name&gt;.sh to &lt;application_name&gt;.bat eg. center.sh to center.bat
+</li></ol><h2 id="Howtostopapublisher">How to stop a publisher?</h2>
+<ol><li>Find the PID of your publisher : 
+<pre class="wiki">jps -l | grep ComputeDaemon
+</pre></li></ol><ol start="2"><li>If several publisher are running on the same machine, you can check the directory where each process corresponding to the list of PIDs was invoked:
+<pre class="wiki">pwdx PID 
+</pre></li></ol><ol start="3"><li>kill it
+<pre class="wiki">kill -9 PID
+</pre></li></ol></div>
+        
+        
+  </body>
+</html>
