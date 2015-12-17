@@ -1,0 +1,38 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+		<title>iManage Login</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<link rel="icon" href="css/images/icon.png" type="image/png" />
+		<link rel="stylesheet" href="css/jquery.mobile-1.0.css" />
+		<script type="text/javascript" src="js/jquery-1.6.4.min.js"></script>
+		<script type="text/javascript" src="js/jquery.mobile-1.0.js"></script>
+	</head>
+	<body>
+		<div data-role="page">
+			<div data-role="header">
+				<h1>Login</h1>
+			</div><!-- /header -->
+			<div data-role="content">
+				<form action="../auth/login" method="post" class="ui-body ui-body-a ui-corner-all" data-ajax="false">
+					<fieldset>
+						<div data-role="fieldcontain">
+							<label for="loginUsername">Username:</label>
+							<input type="text" name="loginUsername" id="loginUsername" value="" />
+						</div>
+						<div data-role="fieldcontain">
+							<label for="loginPassword">Password:</label>
+							<input type="password" name="loginPassword" id="loginPassword" value="" />
+						</div>
+						<input type="hidden" name="client" value="mobile" />
+						<button type="submit" data-theme="b" name="submit" value="submit-value">Submit</button>
+					</fieldset>
+				</form>
+			</div><!-- /content -->
+			<div data-role="footer">
+				<h4>&copy; Strand LS</h4>
+			</div><!-- /footer -->
+		</div><!-- /page -->
+	</body>
+</html>
