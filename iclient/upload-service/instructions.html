@@ -1,0 +1,106 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Avadis iManage Upload Servcie</title>
+		<link rel="icon" href="standard/images/icon.png" type="image/png" />
+	</head>
+	<body>
+		<h1>iManage Upload Service</h1>
+		<h4>Release Date: December 15, 2015</h4>
+
+
+		<h3 class="module-header"><i>Description</i></h3>
+	
+		<div class="module">
+			Background upload service for acquisition client is a process which runs as native operating system service and can be used for uploading the records. Once the process is registered as native service: user can acquire records using Acquisition Client, schedule the records to upload in background and can safely quit Acquisition Client and log out from the operating system session. The uploads will continue even after logging out from OS session. <br>
+
+Following is the steps for installing the upload process as operating system service		
+		</div>
+
+		<h3 class="module-header"><i>Install</i></h3>
+		<ol>
+			<li>
+			Download and unzip attached file upload-daemon.zip.
+			<br>
+Check Java Version <br>
+Call java -version and make sure that your default java installation is 1.5 or higher If this is not the case make sure that java 1.5 or higher is installed. NOTE: to display system tray java 1.6 is required. For thread dump with locks java 1.6 is required. <br> <br></li>
+<li>
+Edit bat/setenv.sh or bin/setenv.sh and adapt the environment variable java_exe to point to java executable installed.<br>
+Start the upload-service you would like to wrap.<br>
+( In case of windows user it is run-upload-daemon.bat, in case of unix users it is run-upload-daemon.sh )
+<br> <br></li>
+	<li>
+Check the process id of your upload-service.<br>
+Windows: go to command prompt and type "jps -lv". Search for process id of "java -cp lib client-jar.jar;lib loci_tools.jar;. com.strandgenomics.imaging.iclient.daemon.UploadDaemonServiceImpl? iuploader.properties" <br>
+<br></li>
+<li>
+Unix: go to command prompt and type "ps -aux | grep java". Search for process id of "java -cp lib
+client-jar.jar;lib
+loci_tools.jar;. com.strandgenomics.imaging.iclient.daemon.UploadDaemonServiceImpl? iuploader.properties"
+<br> <br></li>
+<li>
+Goto yajsw/bat and execute
+genConfig.bat (genConfig.sh for unix users) <pid> (give pid as argument to genConfig)
+
+NOTE: on posix systems (Linux) this command requires root priviliges to access information on other processes This generates the file yajsw/conf/wrapper.conf which is the configuration file for the upload service
+
+
+<br> <br></li>
+<li>
+Stop the upload-service (run-upload-daemon.bat/run-upload-daemon.sh from task manager)
+Windows: go to command prompt and type "taskkill /PID <pid> /F"
+
+Unix: go to command prompt and type "kill <pid>"
+
+<br> <br></li>
+<li>
+
+Execute your wrapped upload-service by calling
+runConsole.bat(runConsole.sh)
+
+<br> <br></li>
+<li>
+Check that your upload-service is running
+Windows: go to command prompt and type "jps -lv". confirm the process is running "java -cp lib
+client-jar.jar;lib
+loci_tools.jar;"
+
+Unix: go to command prompt and type "ps -aux | grep java". confirm the process is running "java -cp lib
+client-jar.jar;lib
+loci_tools.jar;"
+
+<br> <br></li>
+<li>
+
+Terminate the wrapped service process.
+<br> <br></li>
+<li>
+To Install the upload-service as service, call installService.bat(installDaemon.sh). (Administrator rights needed)  <br>
+To start the service:  <br>
+startService.bat(startDaemon.sh) (Administrator rights needed)  <br>
+
+It will say "com.strandgenomics.imaging.iclient.daemon.UploadDaemonServiceImpl? service started". Also,it will appear in Task Manager > Services tab. <br>
+
+After this the Upload-Deamon for Acquisition client is running. You can use upload/upload in background menu from acquisition client to start uploading in background.
+
+<br> <br></li>
+<li> 
+
+For More Information:  <br>
+
+To stop the service:  <br>
+stopService.bat(stopService.sh)  <br>
+
+To uninstall the service:  <br>
+uninstallService.bat(uninstallService.sh) 
+
+<br><br>
+</li>
+
+		</ol>
+
+		
+	
+	</body>
+</html>
