@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 @SuppressWarnings("serial")
@@ -40,7 +40,7 @@ public class LogPanel extends JPanel{
 		appender = new LogPanelTextAreaAppender();
 		appender.setTextArea(textArea);
 		logger.addAppender(appender);
-		
+		logger.setLevel(Level.INFO);
 
 
 		int w = 400;
@@ -63,4 +63,5 @@ public class LogPanel extends JPanel{
 	}
 	
 }
+
 

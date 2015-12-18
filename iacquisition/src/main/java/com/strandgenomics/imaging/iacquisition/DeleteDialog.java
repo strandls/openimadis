@@ -61,7 +61,7 @@ public class DeleteDialog extends JDialog {
 		JButton okBtn = new JButton("Delete");
 		okBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int opt = JOptionPane.showConfirmDialog(parent, "Do you want to delete all the checked experiments? ");
+				int opt = JOptionPane.showConfirmDialog(parent, "Do you want to delete all the checked records? ");
 				if(opt == JOptionPane.YES_OPTION){
 					startDelete();
 					dispose();
@@ -188,3 +188,4 @@ public class DeleteDialog extends JDialog {
 		return toDelete;
 	}
 }
+

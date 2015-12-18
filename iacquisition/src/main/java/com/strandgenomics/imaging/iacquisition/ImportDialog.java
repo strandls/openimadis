@@ -38,13 +38,13 @@ public class ImportDialog extends JDialog implements ActionListener {
 	 */
 	private int ret;
 
-	public ImportDialog(JFrame parent, String title, String currentDirectory, FileSystemView fsv, ImportDialogType type)
+	public ImportDialog(JFrame parent, String title, String currentDirectory, FileSystemView fsv, final ImportDialogType type)
 	{
 		super(parent, title, true);
 
 		final JDialog dialog = this;
 
-		final JFileChooser fileChooser = new JFileChooser(currentDirectory, fsv)
+		final JFileChooser fileChooser = new JFileChooser()
 		{
 			private static final long serialVersionUID = -2033644054067976810L;
 
@@ -52,28 +52,46 @@ public class ImportDialog extends JDialog implements ActionListener {
 			public void approveSelection()
 			{
 				ret = JFileChooser.APPROVE_OPTION;
-				if (getSelectedFiles().length == 1 && getSelectedFile().isDirectory())
+				boolean selection = true;
+				if (type.equals(ImportDialogType.DIRECT_UPLOAD_IMPORT_DIALOG))
 				{
-					int returnVal = JOptionPane.showConfirmDialog(null, "Do you want to import the selected directory?", "Browse or Import", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-					if (returnVal == JOptionPane.YES_OPTION)
-					{
-						selectedFiles = getSelectedFiles();
-
-						super.approveSelection();
-						dialog.dispose();
+					
+					if(this.getSelectedFile().exists()){
+						if(getSelectedFile().isDirectory()){
+							int returnVal = JOptionPane.showConfirmDialog(null, "Do you want to import the selected directory?", "Browse or Import", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+							if (returnVal == JOptionPane.YES_OPTION)
+							{
+								File[] temp = new File[1];
+								temp[0] = this.getSelectedFile();
+								selectedFiles = temp;
+								
+								super.approveSelection();
+								
+								dialog.dispose();
+							}
+							else
+								super.setCurrentDirectory(this.getSelectedFile());
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "Please select a directory", "Error", JOptionPane.ERROR_MESSAGE);
+							selection = false;
+						}
+						
 					}
 					else
-						super.setCurrentDirectory(getSelectedFile());
+						JOptionPane.showMessageDialog(null, "Specified Directory does not exist", "Error", JOptionPane.ERROR_MESSAGE);
 				}
-				else if (getSelectedFiles().length == 1 && !getSelectedFile().exists())
+				else if (this.getSelectedFiles().length == 1 && !this.getSelectedFile().exists())
 					JOptionPane.showMessageDialog(null, "Specified Directory/File does not exist", "Error", JOptionPane.ERROR_MESSAGE);
 				else
 				{
-					selectedFiles = getSelectedFiles();
+					System.out.println("Enter files");
+					selectedFiles = this.getSelectedFiles();
 					super.approveSelection();
 				}
 				System.setProperty("imanage.user.dir", getCurrentDirectory().getAbsolutePath());
-				dialog.dispose();
+				if(selection)
+					dialog.dispose();
 			}
 
 			@Override
@@ -87,11 +105,12 @@ public class ImportDialog extends JDialog implements ActionListener {
 		};
 		
 		
-		fileChooser.setFileSelectionMode(type.getFilechooserOption());
-		fileChooser.setMultiSelectionEnabled(true);
-
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		if(type.equals(ImportDialogType.NORMAL_IMPORT_DIALOG))
+			fileChooser.setMultiSelectionEnabled(true);
+		
 		getContentPane().add(fileChooser);
-
+		
 		JPanel checkBoxPane = new JPanel();
 		final JCheckBox button = new JCheckBox(type.getCheckboxString());
 		button.addActionListener(new ActionListener()

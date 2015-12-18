@@ -462,6 +462,7 @@ public class ImageViewerApplet extends JPanel {
 
 	public void setUserNotes(String notes) {
 		imageViewerState.setUserNotes(notes);
+		commentsPanel.updatePanel();
 	}
 	
 	public String getUserNotes(){

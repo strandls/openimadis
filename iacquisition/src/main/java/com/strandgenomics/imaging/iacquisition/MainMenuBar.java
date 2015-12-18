@@ -44,7 +44,7 @@ public class MainMenuBar extends CommandMenuBar {
 		rootDir.setActionCommand("index");
 		rootDir.addActionListener(listener);
 		
-		JMenuItem directImport = new JMenuItem("Direct Import");
+		JMenuItem directImport = new JMenuItem("Direct Upload");
 		directImport.setActionCommand("directImport");
 		directImport.addActionListener(listener);
 		
@@ -74,7 +74,6 @@ public class MainMenuBar extends CommandMenuBar {
 
 		JideMenu indexMenu = new JideMenu("Import");
 		indexMenu.add(rootDir);
-		indexMenu.add(directImport);
 		indexMenu.add(genericImport);
 		indexMenu.add(new JSeparator());
 	    indexMenu.add(stopIndex);
@@ -104,6 +103,7 @@ public class MainMenuBar extends CommandMenuBar {
 
 		JideMenu uploadMenu = new JideMenu("Upload");
 		uploadMenu.add(upload);
+		uploadMenu.add(directImport);
 		uploadMenu.add(uploadDaemon);
 		uploadMenu.add(uploadSettings);
 
@@ -304,3 +304,4 @@ public class MainMenuBar extends CommandMenuBar {
 
 
 }
+

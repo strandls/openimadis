@@ -774,7 +774,10 @@ public class VAController implements PropertyChangeListener, MouseListener {
 		
 		List<String> overlayNames = (List<String>) imageState
 				.getOverlaysNames();
-		if (!(value instanceof String) || value == null
+		if(value == null){
+			return "";
+		}
+		if (!(value instanceof String)
 				|| ((String) value).trim().equals("")
 				|| ((String) value).isEmpty()
 				|| ((String) value).equals("EnterNew")
@@ -784,6 +787,7 @@ public class VAController implements PropertyChangeListener, MouseListener {
 					JOptionPane.ERROR_MESSAGE);
 			return "";
 		}
+		
 		return value;
 	}
 

@@ -189,8 +189,7 @@ public class Context implements IRecordSelectionListener, IValidator {
 
 	public List<Project> getActiveProjects()
 	{
-		if (activeProjects != null)
-			return activeProjects;
+		
 
 		try
 		{
@@ -646,3 +645,4 @@ public class Context implements IRecordSelectionListener, IValidator {
 		}
 	}
 }
+
