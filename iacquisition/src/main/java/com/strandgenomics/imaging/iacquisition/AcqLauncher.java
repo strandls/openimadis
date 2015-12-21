@@ -66,10 +66,9 @@ public class AcqLauncher {
 				protocol = "http";
 			else
 				protocol = "https";
-			
-
+			String keystore = "jssecacerts";
 			if(protocol.equals("https")){
-				String keystore = "/home/ravikiran/git-repos/imaging/iacquisition/tool/jssecacerts";
+				
 				System.setProperty("javax.net.ssl.trustStore",keystore );
 				System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
 			}
@@ -89,7 +88,6 @@ public class AcqLauncher {
 			PostMethod method = new PostMethod(protocol + "://" + server +":" + port + "/iManage/auth/login");
 			method.addParameter("loginUsername", username);
 			method.addParameter("loginPassword", password);
-
 			
 			
 			
