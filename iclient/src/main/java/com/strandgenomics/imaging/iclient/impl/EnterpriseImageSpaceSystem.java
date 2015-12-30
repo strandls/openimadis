@@ -217,15 +217,15 @@ public class EnterpriseImageSpaceSystem extends ImageSpaceSystem {
 				{
 					System.out.println("its a https protocol");
 					// install required certificate
-//					String path = LoadCert.loadCert(host, port);
-//					System.setProperty("javax.net.ssl.trustStore", path);
+					String path = LoadCert.loadCert(host, port);
+					System.setProperty("javax.net.ssl.trustStore", path);
 //					LoadCert.installFakeTrustManager();
-//					AxisProperties.setProperty("axis.socketSecureFactory",
-//							 "org.apache.axis.components.net.SunFakeTrustSocketFactory");
-					Protocol.unregisterProtocol("https");
-					EasySSLProtocolSocketFactory easySSLProtocolSocketFactory = new EasySSLProtocolSocketFactory();
-				     Protocol.registerProtocol("https", new Protocol("https",
-				                  (ProtocolSocketFactory) easySSLProtocolSocketFactory, 443));
+					AxisProperties.setProperty("axis.socketSecureFactory",
+							 "org.apache.axis.components.net.SunFakeTrustSocketFactory");
+					//Protocol.unregisterProtocol("https");
+					//EasySSLProtocolSocketFactory easySSLProtocolSocketFactory = new EasySSLProtocolSocketFactory();
+				        //Protocol.registerProtocol("https", new Protocol("https",
+				        //           (ProtocolSocketFactory) easySSLProtocolSocketFactory, 443));
 				}
 				
 				String baseURL = getBaseURL();
