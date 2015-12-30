@@ -1,14 +1,6 @@
 README
 -----------
-In case of HTTPS connection run loadkeystore.sh first(at first run) then run-acq.sh/run-acq.bat.
 
-Command : (loadKeystore.bat for Windows)
-./loadKeystore.sh [url]
+On windows, execute run-acq.bat
 
-With proxy settings:
-
-./loadKeystore.sh [url] [proxyHostAddress:proxyPort] [username] [password]
-
-If authenticaltion is not needed:
-
-./loadKeystore.sh [url] [proxyHostAddress:proxyPort]
+On linux, execute run-acq.sh
