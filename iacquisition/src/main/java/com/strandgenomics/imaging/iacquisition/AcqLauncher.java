@@ -12,6 +12,7 @@ import javax.net.ssl.SSLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.apache.axis.AxisProperties;
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -24,6 +25,7 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 
 import com.strandgenomics.imaging.iclient.dialogs.LoginDialog;
+import com.strandgenomics.imaging.iclient.util.LoadCert;
 import com.strandgenomics.imaging.iclient.util.ConnectionPreferences;
 import com.strandgenomics.imaging.icore.Constants;
 
@@ -66,11 +68,21 @@ public class AcqLauncher {
 				protocol = "http";
 			else
 				protocol = "https";
-			String keystore = "jssecacerts";
+			//String keystore = "jssecacerts";
 			if(protocol.equals("https")){
-				
-				System.setProperty("javax.net.ssl.trustStore",keystore );
-				System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
+				try{	
+					// install required certificate
+					String path = LoadCert.loadCert(server, port);
+					System.setProperty("javax.net.ssl.trustStore", path);
+//					LoadCert.installFakeTrustManager();
+					AxisProperties.setProperty("axis.socketSecureFactory",
+							 "org.apache.axis.components.net.SunFakeTrustSocketFactory");	
+				}catch(Exception e){
+				    e.printStackTrace();
+				    break;
+				}
+				//System.setProperty("javax.net.ssl.trustStore",keystore );
+				//System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
 			}
 			if(preferences.toUseProxy()){
 				HostConfiguration config = client.getHostConfiguration();
