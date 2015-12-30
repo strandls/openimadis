@@ -13,15 +13,20 @@ repositories {
 dependencies {
     compile 'javax.servlet:servlet-api:2.3'
     compile project(':iclient')
-    compile 'org.json:json:20150729'
+    compile 'org.json:json:20151123'
     compile 'com.google.code.gson:gson:1.6'
     compile 'org.codehaus.jackson:jackson-core-asl:1.9.4'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.4'
+    runtime 'javax.activation:activation:1.1'
+    runtime 'javax.mail:mail:1.4'
+    runtime 'org.xerial:sqlite-jdbc:3.7.2'
 }
 
 
-task copyLibs(type: Copy){
+task copyLibs(dependsOn: ':iclient:createClientAPIJar', type: Copy){
     from configurations.runtime
+    from '../iclient/build/libs/client-api.jar'
+    from 'build/libs/'
     into 'tileviewer-deploy/WEB-INF/lib'
 }
 
