@@ -3,6 +3,8 @@ package com.strandgenomics.imaging.iacquisition;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.strandgenomics.imaging.iclient.local.RawExperiment;
 import com.strandgenomics.imaging.iclient.local.UploadStatus;
 
@@ -97,6 +99,9 @@ public class UploaderService extends Thread {
 			if (tasks.contains(upload.getExperimentName()) && upload.canCancel()) 
 			{
 				upload.cancelTask();
+			}
+			else{
+				JOptionPane.showMessageDialog(null, "Cannot be cancelled now.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		

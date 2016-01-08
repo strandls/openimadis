@@ -4,6 +4,11 @@ package com.strandgenomics.imaging.iacquisition;
 import java.io.File;
 import java.io.IOException;
 import java.net.ConnectException;
+import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,9 +30,11 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 
 import com.strandgenomics.imaging.iclient.dialogs.LoginDialog;
+import com.strandgenomics.imaging.iclient.util.InstallCert;
 import com.strandgenomics.imaging.iclient.util.LoadCert;
 import com.strandgenomics.imaging.iclient.util.ConnectionPreferences;
 import com.strandgenomics.imaging.icore.Constants;
+import com.strandgenomics.imaging.icore.util.HttpUtil;
 
 /**
  * For testing AcquisitionUI
@@ -55,35 +62,29 @@ public class AcqLauncher {
 			
 			
 			
-			
 			String username = preferences.getLoginName();
 			String password = preferences.getPassword();
 			String server = preferences.getHostAddress();
 			Integer port = preferences.getHostPort();
 			Integer protocol_flag = preferences.getProtocol();
 			String protocol = new String();
-			String proxyusername = preferences.getProxyUser();
-			String proxypassword = preferences.getProxyPassword();
+			String proxyHost = null;
+			String proxyusername = null;
+			String proxypassword = null;
+			int proxyPort = 0;
+			if(preferences.toUseProxy()){
+				proxyHost = preferences.getProxyAddress();
+				proxyPort = preferences.getProxyPort();
+				proxyusername = preferences.getProxyUser();
+				proxypassword = preferences.getProxyPassword();
+			}
+			
+			
 			if(protocol_flag == 0)
 				protocol = "http";
 			else
 				protocol = "https";
-			//String keystore = "jssecacerts";
-			if(protocol.equals("https")){
-				try{	
-					// install required certificate
-					String path = LoadCert.loadCert(server, port);
-					System.setProperty("javax.net.ssl.trustStore", path);
-//					LoadCert.installFakeTrustManager();
-					AxisProperties.setProperty("axis.socketSecureFactory",
-							 "org.apache.axis.components.net.SunFakeTrustSocketFactory");	
-				}catch(Exception e){
-				    e.printStackTrace();
-				    break;
-				}
-				//System.setProperty("javax.net.ssl.trustStore",keystore );
-				//System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
-			}
+			
 			if(preferences.toUseProxy()){
 				HostConfiguration config = client.getHostConfiguration();
 		        config.setProxy(preferences.getProxyAddress(), preferences.getProxyPort());
@@ -91,12 +92,17 @@ public class AcqLauncher {
 		        	Credentials credentials = new UsernamePasswordCredentials(proxyusername, proxypassword);
 			        AuthScope authScope = new AuthScope(AuthScope.ANY_HOST,AuthScope.ANY_PORT);
 			        client.getState().setProxyCredentials(authScope, credentials);
+			        client.getParams().setAuthenticationPreemptive(true);
 		        }
 		        
 			}
+			if(protocol.equals("https")){
+				System.setProperty("javax.net.ssl.trustStore","jssecacerts" );
+				System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
+				
+			}
 			
 			
-		    
 			PostMethod method = new PostMethod(protocol + "://" + server +":" + port + "/iManage/auth/login");
 			method.addParameter("loginUsername", username);
 			method.addParameter("loginPassword", password);
@@ -108,13 +114,13 @@ public class AcqLauncher {
 			postMethod.addParameter("clientID", "onW7Eczizs3VdSCPIVkVG9Um5FEIiibKse5YodqI");
 			postMethod.addParameter("services", "[\"AUTHENTICATION\", \"ISPACE\", \"SEARCH\", \"LOADER\", \"UPDATE\", \"MANAGEMENT\", \"COMPUTE\"]");
 			postMethod.addParameter("expiryTime", ""+((new Date()).getTime()+(24*3600*1000)));
-			
+			System.out.println("Connecting to server...");
+
 			try{
 				client.executeMethod(method);
 				String loginResponse = method.getResponseBodyAsString();
 				if(loginResponse.equals("success")){
 					client.executeMethod(postMethod);
-					System.out.println("Success");
 				}
 				
 				else{
@@ -127,6 +133,7 @@ public class AcqLauncher {
 				auth = parseString(auth);
 				String a[] = {auth, server, Integer.toString(port), "1.23", protocol};
 				if(success.equals("true")){
+					System.out.println("Auth code generated");
 					login = true;
 					AcquisitionUI.main(a);
 				}
@@ -138,6 +145,7 @@ public class AcqLauncher {
 			}
 			catch(SSLException s){
 				logger.error("Error",s);
+				//s.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Error: "+ s.getMessage() + "\nPlease refer to Readme for connection settings and try again.\n", "Error", JOptionPane.ERROR_MESSAGE);
 				continue;
 				//System.exit(0);
@@ -150,6 +158,10 @@ public class AcqLauncher {
 				//System.exit(0);
 			}
 			catch(IOException e){
+				if(port==443 && protocol.equalsIgnoreCase("http")){
+					JOptionPane.showMessageDialog(null, "\nIncorrect Protocol.Please change it to HTTPS.\n", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				else
 				JOptionPane.showMessageDialog(null, e.getMessage()+"."+"\nPlease refer to Readme for connection settings and try again.\n", "Error", JOptionPane.ERROR_MESSAGE);
 				logger.error("Error",e);
 				continue;

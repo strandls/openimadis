@@ -107,6 +107,7 @@ import com.strandgenomics.imaging.iclient.impl.ws.update.ImageSpaceUpdate;
 import com.strandgenomics.imaging.iclient.impl.ws.update.ImageSpaceUpdateServiceLocator;
 import com.strandgenomics.imaging.iclient.local.DirectUploadExperiment;
 import com.strandgenomics.imaging.iclient.local.RawExperiment;
+import com.strandgenomics.imaging.iclient.util.InstallCert;
 import com.strandgenomics.imaging.iclient.util.LoadCert;
 import com.strandgenomics.imaging.icore.Channel;
 import com.strandgenomics.imaging.icore.Constants;
@@ -215,13 +216,14 @@ public class EnterpriseImageSpaceSystem extends ImageSpaceSystem {
 				
 				if(protocol.equals("https"))
 				{
-					System.out.println("its a https protocol");
 					// install required certificate
-					String path = LoadCert.loadCert(host, port);
-					System.setProperty("javax.net.ssl.trustStore", path);
-//					LoadCert.installFakeTrustManager();
-					AxisProperties.setProperty("axis.socketSecureFactory",
-							 "org.apache.axis.components.net.SunFakeTrustSocketFactory");
+					
+			        
+			        //String path = InstallCert.certPath(host, port, proxyHost, proxyPort, proxyUser, proxyPassword);
+			        System.setProperty("javax.net.ssl.trustStore","jssecacerts" );
+			        //LoadCert.installFakeTrustManager();
+					//AxisProperties.setProperty("axis.socketSecureFactory",
+							 //"org.apache.axis.components.net.SunFakeTrustSocketFactory");
 					//Protocol.unregisterProtocol("https");
 					//EasySSLProtocolSocketFactory easySSLProtocolSocketFactory = new EasySSLProtocolSocketFactory();
 				        //Protocol.registerProtocol("https", new Protocol("https",

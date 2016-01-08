@@ -164,10 +164,15 @@ public class LoginDialog extends JDialog  {
 				if(protocolCheckBox!=null)
 					p =  (String) protocolCheckBox.getSelectedItem();
 
-				if(p.equals("HTTP"))
+				if(p.equals("HTTP")){
 					docModel.setProtocol(0);
-				else if(p.equals("HTTPS"))
+					docModel.useSSL = false;
+				}
+				else if(p.equals("HTTPS")){
 					docModel.setProtocol(1);
+					docModel.useSSL = true;
+				}
+					
                 boolean validParameters = validateAndSetParameters();
                 
                 

@@ -63,7 +63,7 @@ public class UploadDialog extends JDialog {
 
 	public UploadDialog(final JFrame parent, List<IExperiment> experimentsToUpload, Project selectedProject) {
 		super(parent);
-		setTitle("Upload");
+		setTitle("Upload - Project : " + selectedProject.getName());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		
@@ -83,7 +83,7 @@ public class UploadDialog extends JDialog {
 		
 		
 		add(Box.createRigidArea(new Dimension(5,5)));
-		add(createProjectChooserPanel());
+		//add(projectName);
 		add(Box.createRigidArea(new Dimension(5,5)));
 		add(chooserTablePanel);
 		add(Box.createRigidArea(new Dimension(5,5)));
@@ -322,7 +322,7 @@ public class UploadDialog extends JDialog {
 		double sizeInGB = (double)size/(double)(1024*1024*1024);
 		if(project.getDiskQuota()< project.getSpaceUsage() + sizeInGB)
 		{
-			JOptionPane.showMessageDialog(AcquisitionUI.getFrame(), "Selected records will exceed storage quota assigned for selected project\nSelected records size = "+sizeInGB+" GB \nQuota assigned to selected project = "+project.getDiskQuota()+" GB", "Can't upload", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(AcquisitionUI.getFrame(), "Selected records will exceed remaining storage quota assigned for selected project\nSelected records size = "+sizeInGB+" GB \nQuota assigned to selected project = "+project.getDiskQuota()+" GB" + "\nRemaining storage quota = "+ (project.getDiskQuota() -project.getSpaceUsage()) + " GB", "Can't upload", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		return true;

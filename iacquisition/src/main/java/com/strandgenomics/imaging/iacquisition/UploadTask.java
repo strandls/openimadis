@@ -74,7 +74,7 @@ public class UploadTask extends SwingWorker implements UploadObserver{
 				message = "Record is not available on server";
 				state = UploadStatus.NotUploaded;
 			}
-			
+			System.out.println("Uploading record");
 			message = "creating tar with the source files";
 			logger.info("[UploadTask]: execute "+message);
 			updateProgress(1);

@@ -106,6 +106,7 @@ public class HttpUtil {
 		return true;
 	}
 	
+	
 	/**
 	 * utility method for uploading using http client
 	 * 
@@ -147,7 +148,6 @@ public class HttpUtil {
 	
 	private HttpClient getHttpClient() {
 		HttpClient httpClient = new HttpClient();
-		
 		if (isHttpProxySet()) {
 			HostConfiguration httpConfig = httpClient.getHostConfiguration();
 			httpConfig.setProxy(getProxyHost(), getProxyPort());
@@ -187,7 +187,7 @@ public class HttpUtil {
 			// computer being connected to. this can be troublesome as servers
 			// often have multiple domain names that refer to them
 			state.setProxyCredentials(AuthScope.ANY, proxyCred);
-			params.setAuthenticationPreemptive(true);
+			//params.setAuthenticationPreemptive(true);
 		}
 		return httpClient;
 	}

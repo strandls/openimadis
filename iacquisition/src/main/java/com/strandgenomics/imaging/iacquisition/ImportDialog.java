@@ -85,7 +85,6 @@ public class ImportDialog extends JDialog implements ActionListener {
 					JOptionPane.showMessageDialog(null, "Specified Directory/File does not exist", "Error", JOptionPane.ERROR_MESSAGE);
 				else
 				{
-					System.out.println("Enter files");
 					selectedFiles = this.getSelectedFiles();
 					super.approveSelection();
 				}

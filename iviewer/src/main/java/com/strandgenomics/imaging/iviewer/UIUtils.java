@@ -81,7 +81,7 @@ public class UIUtils {
 		ImageIcon icon = null;
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		try {
-			System.out.println("icon path="+(ICONS_PATH + iconPath));
+			//System.out.println("icon path="+(ICONS_PATH + iconPath));
 			icon = new ImageIcon(ImageIO.read(loader
 					.getResourceAsStream(ICONS_PATH + iconPath)));
 			Image img = ((ImageIcon) icon).getImage().getScaledInstance(16, 16,

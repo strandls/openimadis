@@ -190,7 +190,7 @@ public class Context implements IRecordSelectionListener, IValidator {
 	public List<Project> getActiveProjects()
 	{
 		
-
+		System.out.println("Getting all the projects...\n");
 		try
 		{
 			activeProjects = ImageSpaceObject.getConnectionManager().getActiveProjects();
@@ -593,6 +593,9 @@ public class Context implements IRecordSelectionListener, IValidator {
 				{
 					Registry registry = LocateRegistry.getRegistry("localhost", Context.getInstance().getUploaderPort());
 					serviceStub = (UploadDaemonService) registry.lookup(UploadDaemonService.class.getCanonicalName());
+				}
+				catch(java.rmi.ConnectException je){
+					System.out.println("Background Upload Service not running.");
 				}
 				catch (Exception e)
 				{

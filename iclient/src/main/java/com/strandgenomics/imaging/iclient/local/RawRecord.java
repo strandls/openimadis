@@ -217,10 +217,8 @@ public class RawRecord extends BioRecord {
 	{
 		try
 		{
-			System.out.println("guid pre  : "+ guid);
 			guid = -1;
 			ImageSpaceObject.getImageSpace().addUserComment(getGUID(), comments);
-			System.out.println("guid post  : "+ guid);
 		}
 		catch(Exception ex)
 		{

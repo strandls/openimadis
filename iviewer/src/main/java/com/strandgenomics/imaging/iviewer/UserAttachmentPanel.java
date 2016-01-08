@@ -130,7 +130,7 @@ public class UserAttachmentPanel extends JPanel{
 			});
 //			openButton.setSelected(uploaded);
 
-			JideButton saveButton = UIUtils.createCommandBarButton("save.png", "Click to Open Attachment : " + displayName);
+			JideButton saveButton = UIUtils.createCommandBarButton("save.png", "Click to Save Attachment : " + displayName);
 			saveButton.setActionCommand(absname);
 			saveButton.setBorder(BorderFactory
 					.createBevelBorder(BevelBorder.RAISED));

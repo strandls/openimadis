@@ -226,7 +226,7 @@ public class ConnectionPreferences implements Serializable {
 	public void setProxySettings(String proxyHost, Integer proxyPort,
 			String proxyUser, String proxyPassword, boolean useProxy) {
 
-		System.out.println("setting proxy properties");
+		//System.out.println("setting proxy properties");
 		// clear system properties
 		clearSystemProxyProperties();
 		// set appropriate member variables
@@ -236,7 +236,7 @@ public class ConnectionPreferences implements Serializable {
 		// if proxy is to be used, set appropriate system properties
 		if (useProxy && proxyPort != null && proxyHost != null) 
 		{
-			System.out.println("setting system proxy properties");
+			System.out.println("setting  proxy properties");
 			setProxySystemProperties();
 		}
 		else
@@ -284,8 +284,8 @@ public class ConnectionPreferences implements Serializable {
             }
             else 
             {
-                System.clearProperty("http.proxyUser");
-                System.clearProperty("http.proxyPassword");
+                System.clearProperty("https.proxyUser");
+                System.clearProperty("https.proxyPassword");
             }
         }
         else

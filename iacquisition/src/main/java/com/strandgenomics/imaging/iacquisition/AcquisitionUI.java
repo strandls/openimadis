@@ -148,6 +148,8 @@ public class AcquisitionUI implements IndexerListener, ActionListener, IRecordSe
 	private ImportTableModel importerModel;
 
 	private DirectUploadTableModel directUploadTableModel;
+	
+	private List<Project> activeProjects;
 
 //	private String acqVersion = "1.20";
 //	private boolean maskLoginField = false;
@@ -633,11 +635,11 @@ public class AcquisitionUI implements IndexerListener, ActionListener, IRecordSe
 			runGenericImporter();
 		} 
 		else if(command.equals("stopIndexing")){
-			if(indexingInProgress) {
+			if(!indexingService.isImportQueueEmpty()) {
 				importerModel.cancelAll();
 			}
 			else
-			JOptionPane.showMessageDialog(frame, "Import is already complete.", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "Nothing to import or import is already complete.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		else if(command.equals("delete")){
 			if(context.getRecordCount()==0){
@@ -1521,7 +1523,7 @@ public class AcquisitionUI implements IndexerListener, ActionListener, IRecordSe
 	
 	public Project selectProject(){
 
-		List <Project> activeProjects = this.getActiveProjects();
+		activeProjects = context.getActiveProjects();
 		if(activeProjects == null){
 			JOptionPane.showMessageDialog(frame, "You do not have access to a project on the server.", "No Project(s) Available", JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
@@ -1533,8 +1535,10 @@ public class AcquisitionUI implements IndexerListener, ActionListener, IRecordSe
 	}
 	
 	public List<Project> getActiveProjects(){
-		List<Project> activeProjects = null;
+		if (activeProjects != null)
+			return activeProjects;
 		System.out.println("Getting all the projects...\n");
+		
 		try
 		{
 			activeProjects = ImageSpaceObject.getConnectionManager().getActiveProjects();
