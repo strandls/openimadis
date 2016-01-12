@@ -21,6 +21,7 @@ import com.strandgenomics.imaging.icore.Site;
 import com.strandgenomics.imaging.icore.VODimension;
 import com.strandgenomics.imaging.ithreedview.Launcher;
 import com.strandgenomics.imaging.iviewer.ImageViewerState.VAState;
+import com.strandgenomics.imaging.iviewer.dataobjects.AbstractAnnotationModel;
 import com.strandgenomics.imaging.iviewer.image.ImageEvent;
 import com.strandgenomics.imaging.iviewer.image.ImageEventListener;
 import com.strandgenomics.imaging.iviewer.va.VAObject;
@@ -160,7 +161,6 @@ public class ImageViewerApplet extends JPanel {
 		commentsPanel.updatePanel();
 		attachmentPanel.updatePanel();
 		toolbarPanel.updatePanel();
-
 		setFitWidth();
 	}
 
@@ -173,6 +173,9 @@ public class ImageViewerApplet extends JPanel {
 //		}
 	}
 
+	public void downloadMovie(String fileName,String filePath,int option,double fps,String notes, boolean frame){
+		imageViewerState.VideoThread(this,fileName,filePath,option,fps,notes,frame);
+	}
 	public void setChannelScale(int channelScale) 
 	{
 		imageViewerState.setChannelScale(channelScale);
@@ -478,6 +481,8 @@ public class ImageViewerApplet extends JPanel {
 		imageViewerState.deleteUserAttachment(absoluteName);
 		attachmentPanel.updatePanel();
 	}
+
+	
 
 	public Map<String, File> getAttachments() {
 		return imageViewerState.getAttachments();

@@ -1,5 +1,7 @@
 package com.strandgenomics.imaging.iviewer;
 
+import java.awt.Desktop;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +13,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.EventListenerList;
@@ -20,6 +25,7 @@ import com.strandgenomics.imaging.iclient.local.RawRecord;
 import com.strandgenomics.imaging.icore.Dimension;
 import com.strandgenomics.imaging.icore.IAttachment;
 import com.strandgenomics.imaging.icore.IChannel;
+import com.strandgenomics.imaging.icore.IPixelDataOverlay;
 import com.strandgenomics.imaging.icore.IRecord;
 import com.strandgenomics.imaging.icore.IVisualOverlay;
 import com.strandgenomics.imaging.icore.Site;
@@ -34,6 +40,10 @@ import com.strandgenomics.imaging.iviewer.image.ImagingService;
 import com.strandgenomics.imaging.iviewer.va.VAObject;
 import com.strandgenomics.imaging.iviewer.va.VAObject.TYPE;
 import com.strandgenomics.imaging.iviewer.va.VOConverter;
+import com.sun.org.apache.bcel.internal.generic.DMUL;
+import com.xuggle.mediatool.IMediaWriter;
+import com.xuggle.mediatool.ToolFactory;
+import com.xuggle.xuggler.ICodec;
 
 import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.PNode;
@@ -390,6 +400,7 @@ public class ImageViewerState implements ImageConsumer {
 	}
 
 	protected EventListenerList listenerList = new EventListenerList();
+	private int siteNumber;
 
 	public void addImageEventListener(ImageEventListener listener) {
 		listenerList.add(ImageEventListener.class, listener);
@@ -639,7 +650,178 @@ public class ImageViewerState implements ImageConsumer {
 
 		updateImage();
 	}
+	public void VideoThread(final ImageViewerApplet imageViewerApplet, final String fileName,final String filePath,final int option,final double fps,final String notes, final boolean frame) {
+		 Runnable r = new Runnable() {
+	         public void run() {
+	             createVideo(imageViewerApplet,fileName,filePath,option,fps,notes,frame);
+	         }
+	     };
 
+	     new Thread(r).start();
+	}
+	public synchronized void createVideo(ImageViewerApplet imageViewerApplet, String fileName,String filePath,int option,double fps,String notes, boolean isFrame) {
+
+		IRecord record = records.get(0);
+		List<VideoFrame> l = new ArrayList<VideoFrame>();
+		int n = isFrame ? record.getFrameCount() : record.getSliceCount();
+		BufferedImage bimage = null;
+		int frameNumber = frame,sliceNumber = slice;
+		if(isFrame){
+			frameNumber = 0;
+		}
+		else{
+			sliceNumber = 0;
+		}
+		for(int i =0;i < n; i++){
+			try
+			{
+				//IPixelDataOverlay overlay = record.getOverlayedPixelData(sliceNo, frameNo, siteNo, channelNos);
+				
+				Set<Integer> channels = getSelectedChannelDimensions();
+				int j = 0;
+				int[] channelNos = new int[channels.size()];
+				boolean useChannelColor =  channelScale == ChannelScale.COLOR;
+				for(Integer channelNo : channels)
+				{
+					channelNos[j++] = channelNo;
+				}
+				
+				if(isFrame){
+					frameNumber = i;
+				}
+				else{
+					sliceNumber = i;
+				}
+				IPixelDataOverlay overlay = record.getOverlayedPixelData(sliceNumber, frameNumber, site, channelNos);
+				double elapsedtime = record.getPixelData(new Dimension(frameNumber, sliceNumber, channelNos[0], site)).getElapsedTime();
+				System.out.println("elapsed time: "+  elapsedtime);
+				boolean mosaic = channelState != ImageViewerState.ChannelState.OVERLAY;
+				boolean zStack = sliceState == ImageViewerState.SliceState.Z_STACK;
+
+				bimage = overlay.getImage(zStack, mosaic, useChannelColor, null);
+				VideoFrame vf = new VideoFrame(bimage, elapsedtime);
+				l.add(vf);
+				//File outputfile = new File("/home/ravikiran/b/imageTest"+ i + ".jpg");
+				//ImageIO.write(bimage, "jpg", outputfile);
+			} 
+			catch(Exception e) 
+			{
+				e.printStackTrace(); //TODO
+				return;
+			}
+			
+		}
+		File videoFile = null;
+		Iterator<VideoFrame> it = l.iterator();
+		try {
+			if(option == 1)
+				videoFile = createMovie(it, record.getImageWidth(), record.getImageHeight(), fps,filePath, fileName);
+			else if(option == 2)
+				videoFile = createMovie(it, record.getImageWidth(), record.getImageHeight(), filePath, fileName);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Movie Creation Done in -------------------- ns");
+		try {
+			Desktop.getDesktop().open(videoFile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		imageViewerApplet.addUserAttachment(videoFile, notes);
+	}
+	public static File createMovie(Iterator<VideoFrame> inputFrames, int imageWidth, int imageHeight, String outputDirectory, String outputFilename) throws IOException
+	{
+		File outputFile = new File(outputDirectory, outputFilename); 
+		IMediaWriter writer = ToolFactory.makeWriter(outputFile.getAbsolutePath());
+		
+		int ret = writer.addVideoStream(0, 0, ICodec.ID.CODEC_ID_MPEG4, imageWidth, imageHeight);
+		if(ret < 0)// failed to create
+			return null;
+		
+		long startTime = System.nanoTime();
+		
+		int index = 0;
+		while(inputFrames.hasNext())
+		{
+			System.out.println("Fetching "+index+"ith image");
+			VideoFrame frame = inputFrames.next();
+			
+			BufferedImage image = frame.getImage();
+			image = convertToType(image, BufferedImage.TYPE_3BYTE_BGR);
+			
+			// from frame rate compute the timestamp of the current frame inside movie
+//			 double timeStamp =  frame.getElapsedTime();
+//			 long temp = (long) (timeStamp*1000*1000);
+			long temp = (long) frame.getElapsedTime();
+			// encode the image to stream #0
+			writer.encodeVideo(0, image, temp, TimeUnit.SECONDS);
+			
+			index++;
+			
+		}
+
+		// tell the writer to close and write the trailer if needed
+		writer.close();
+		
+		System.out.println("Movie Creation Done in "+(System.nanoTime()-startTime)+" ns");
+
+		return outputFile;
+	}
+	public  static File createMovie(Iterator<VideoFrame> inputImages, int imageWidth, int imageHeight, double frameRate, String outputDirectory, String outputFilename) throws IOException
+	{
+		File outputFile = new File(outputDirectory, outputFilename); 
+		IMediaWriter writer = ToolFactory.makeWriter(outputFile.getAbsolutePath());
+		
+		int ret = writer.addVideoStream(0, 0, ICodec.ID.CODEC_ID_MPEG4, imageWidth, imageHeight);
+		if(ret < 0)// failed to create
+			return null;
+		
+		long startTime = System.nanoTime();
+		
+		int index = 0;
+		while(inputImages.hasNext())
+		{
+			System.out.println("Fetching "+index+"ith image");
+			BufferedImage image = inputImages.next().getImage();
+			
+			image = convertToType(image, BufferedImage.TYPE_3BYTE_BGR);
+			double temp = 1000/frameRate;
+			// from frame rate compute the timestamp of the current frame inside movie
+			long timeStamp = (long) (index * temp);
+
+			// encode the image to stream #0
+			writer.encodeVideo(0, image, timeStamp, TimeUnit.MILLISECONDS);
+			
+			index++;
+		}
+
+		// tell the writer to close and write the trailer if needed
+		writer.close();
+		
+		System.out.println("Movie Creation Done in "+(System.nanoTime()-startTime)+" ns");
+		
+		return outputFile;
+	}
+	private static BufferedImage convertToType(BufferedImage sourceImage, int targetType)
+	{
+		BufferedImage image;
+		// if the source image is already the target type, return the source
+		// image
+		if (sourceImage.getType() == targetType)
+		{
+			image = sourceImage;
+		}
+		// otherwise create a new image of the target type and draw the new
+		// image
+		else
+		{
+			image = new BufferedImage(sourceImage.getWidth(), sourceImage.getHeight(), targetType);
+			image.getGraphics().drawImage(sourceImage, 0, 0, null);
+		}
+		return image;
+	}
 	public List<String> getRecordIds() {
 		return this.recordIds;
 	}
@@ -892,10 +1074,19 @@ public class ImageViewerState implements ImageConsumer {
 		attachmentFileByName.remove(absoluteName);
 		attachmentNotesByName.remove(absoluteName);
 	}
+	
+	public Map<String, Object> getAnnotationList(){
+		IRecord record = records.get(0);
+		if(record==null)
+			return null;
+		return ((RawRecord)record).getUserAnnotations();
+	}
 
 	public Map<String, File> getAttachments() {
 		return attachmentFileByName;
 	}
+	
+	
 
 	public Map<String, String> getAttachmentNotes() {
 		return attachmentNotesByName;

@@ -461,7 +461,7 @@ public class ContrastSlidersPanel {
 	
 	public JDialog createContrastDialog() {
 		contrastDialog = new JDialog();
-		contrastDialog.setTitle("Contrast control");
+		contrastDialog.setTitle("Contrast Control");
 		contrastDialog.setLocation(300, 30);
 
 		contrastDialog.add(this.getComponent());
@@ -624,7 +624,14 @@ public class ContrastSlidersPanel {
 		try {
 			command.doInBackground();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("updateContrasts\n");
+			//e.printStackTrace();
+			if(contrastDialog.isVisible()){
+				System.out.println("visible");
+				contrastDialog.setVisible(false);
+			}
+			JOptionPane.showMessageDialog(null, "Image too large to be processed.", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 		command.done();
 	}
@@ -658,7 +665,14 @@ public class ContrastSlidersPanel {
 				return null;
 			}
 			
-			his = pixels.getIntensityDistibution(sliceState);
+			try{
+				his = pixels.getIntensityDistibution(sliceState);
+			}
+			catch(Exception e){
+				System.out.println("his getIntensity dist");
+				//e.printStackTrace();
+				throw e;
+			}
 			maxContrast = his.getMax();
 			minContrast = his.getMin();
 			

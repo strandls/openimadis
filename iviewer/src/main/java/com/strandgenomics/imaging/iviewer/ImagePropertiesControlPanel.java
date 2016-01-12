@@ -4,8 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import org.apache.commons.io.FilenameUtils;
 
 import com.jidesoft.swing.JideButton;
 import com.jidesoft.swing.JideSplitButton;
@@ -27,7 +31,7 @@ public class ImagePropertiesControlPanel extends JMenuBar
 	private JideToggleButton movieState;
 	
 	private JideSplitButton movieButton;
-
+	private JideSplitButton downloadButton; 
 	private ImageViewerApplet imageViewerApplet;
 	private JideButton view3d;
 
@@ -54,6 +58,7 @@ public class ImagePropertiesControlPanel extends JMenuBar
 				imageViewerPanel.toggleFitWidth();
 			}
 		});
+		
 
 		zoomTrueSize.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -213,10 +218,76 @@ public class ImagePropertiesControlPanel extends JMenuBar
 		movieButton.add(sliceMenu);
 		movieButton.add(frameMenu);
 		
+		
+		downloadButton = new JideSplitButton(UIUtils.getIcon("movie.png"));
+		downloadButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {}
+		});
+		
+		downloadButton.setSize(22, 22);
+		JMenuItem sliceDMenu = new JMenuItem("Slice(Z)");
+		sliceDMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("hello slice");
+				JFrame frame = new JFrame();
+		        MovieDialog mypanel = new MovieDialog(frame);
+		        JDialog jd = new JDialog(frame,"",true);
+		        jd.setTitle("Create Video");
+		        jd.add(mypanel);
+		        jd.pack();
+		        jd.setLocationRelativeTo(frame);
+		        jd.setVisible(true);
+		        if(!mypanel.getValidation())
+		        	return;
+		        String fileName = mypanel.getFileName();
+		        String fileExtension = FilenameUtils.getExtension(fileName);
+		        if(fileExtension.length()==0){
+		        	fileName += ".mp4";
+		        }
+		        String filePath = mypanel.getDirectory();
+		        int option = mypanel.getOption();
+		        double fps = 0;
+				if(option == 1)
+		        	fps = mypanel.getFPS();
+				String notes = mypanel.getNotes();
+		        imageViewerApplet.downloadMovie(fileName,filePath,option,fps,notes,false);
+		        //imageViewerApplet.addUserAttachment(selectedFile, notes);
+			}
+		});
+		JMenuItem frameDMenu = new JMenuItem("Frame(T)");
+		frameDMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame frame = new JFrame();
+		        MovieDialog mypanel = new MovieDialog(frame);
+		        JDialog jd = new JDialog(frame,"",true);
+		        jd.setTitle("Create Video");
+		        jd.add(mypanel);
+		        jd.pack();
+		        jd.setLocationRelativeTo(frame);
+		        jd.setVisible(true);
+		        if(!mypanel.getValidation())
+		        	return;
+		        String fileName = mypanel.getFileName();
+		        String fileExtension = FilenameUtils.getExtension(fileName);
+		        if(fileExtension.length()==0){
+		        	fileName += ".mp4";
+		        }
+		        String filePath = mypanel.getDirectory();
+		        int option = mypanel.getOption();
+		        double fps = 0;
+				if(option == 1)
+		        	fps = mypanel.getFPS();
+				String notes = mypanel.getNotes();
+		        imageViewerApplet.downloadMovie(fileName,filePath,option,fps,notes,true);
+			}
+		});
+		downloadButton.add(sliceDMenu);
+		downloadButton.add(frameDMenu);
 		view3d = UIUtils.createCommandBarButton("3D-ON.png", "Render 3D");
 
 		// add(zoom);
 		add(fitWidth);
+		
 		add(zoomTrueSize);
 		add(sliceState);
 		add(channelScale);
@@ -224,7 +295,7 @@ public class ImagePropertiesControlPanel extends JMenuBar
 //		add(movieState);
 		add(movieButton);
 //		add(view3d);
-
+		add(downloadButton);
 		addListeners();
 	}
 
@@ -233,6 +304,7 @@ public class ImagePropertiesControlPanel extends JMenuBar
 		if(records==null || records.size()<=0 || records.get(0)==null)
 		{
 			fitWidth.setEnabled(false);
+			downloadButton.setEnabled(false);
 			zoomTrueSize.setEnabled(false);
 			sliceState.setEnabled(false);
 			channelScale.setEnabled(false);
@@ -245,6 +317,7 @@ public class ImagePropertiesControlPanel extends JMenuBar
 		else
 		{
 			fitWidth.setEnabled(true);
+			downloadButton.setEnabled(true);
 			zoomTrueSize.setEnabled(true);
 			sliceState.setEnabled(true);
 			channelScale.setEnabled(true);
