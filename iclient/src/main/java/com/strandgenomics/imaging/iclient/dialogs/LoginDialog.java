@@ -27,6 +27,8 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -48,7 +50,8 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.JComboBox;
-
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import com.strandgenomics.imaging.iclient.util.ConfigurationException;
 
@@ -259,12 +262,47 @@ public class LoginDialog extends JDialog  {
 
         JTextField hostPortBox = new JTextField(docModel.getServerPortField(), null, 20);
         hostPortBox.setEnabled(!maskLoginField);
+        final JTextField portListener = hostPortBox;
+        portListener.getDocument().addDocumentListener(new DocumentListener() {
+        	  public void changedUpdate(DocumentEvent e) {
+        	    setProtocol();
+        	  }
+        	  public void removeUpdate(DocumentEvent e) {
+        		setProtocol();
+        	  }
+        	  public void insertUpdate(DocumentEvent e) {
+        		setProtocol();
+        	  }
+
+        	  public void setProtocol() {
+        	     if (portListener.getText().length()>0){
+        	    	 String port = portListener.getText();
+                     //System.out.println(port);
+                     if(port.equals("443")){
+                   	  protocolCheckBox.setSelectedIndex(1);
+                     }
+                     else if(port.equals("8080")|| port.equals("80")){
+                   	  protocolCheckBox.setSelectedIndex(0);
+                     }
+        	     }
+        	  }
+        	});
         JTextField loginBox    = new JTextField(docModel.getLoginField(), null, 20);
         loginBox.setEnabled(!maskLoginField);
         
         String[] choices = { "HTTP","HTTPS"};
         protocolCheckBox = new JComboBox<String>(choices);
         protocolCheckBox.setFont(LABEL_FONT);
+        if(hostPortBox.getText()!=null){
+        	String port = hostPortBox.getText();
+        	System.out.println("port" + port);
+        	if(port.equals("443")){
+        		protocolCheckBox.setSelectedIndex(1);
+        	}
+        	else if(port.equals("8080")|| port.equals("80")){
+          	  protocolCheckBox.setSelectedIndex(0);
+            }
+        }
         
         JTabbedPane tabPane = new JTabbedPane();
         tabPane.addTab("Primary", constructPrimaryPanel(hostIPBox,hostPortBox,loginBox,passwordBox,protocolCheckBox));

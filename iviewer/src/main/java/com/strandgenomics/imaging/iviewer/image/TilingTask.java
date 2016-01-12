@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import com.strandgenomics.imaging.icore.IPixelDataOverlay;
 import com.strandgenomics.imaging.icore.IRecord;
 import com.strandgenomics.imaging.iviewer.ImageViewerState;
@@ -49,7 +50,7 @@ public class TilingTask extends ImagingTask{
 			bimage = overlay.getImage(zStack, mosaic, useChannelColor, new Rectangle(0, 0, TILE_WIDTH, TILE_HEIGHT));
 			
 			System.out.println("[TilingTask] image read in "+(System.currentTimeMillis()-stime));
-			
+			Logger.getRootLogger().info("[TilingTask] Image is being viewed in low resolution.");
 			System.out.println("successfully created image with mosaic="+mosaic +", zStack="+zStack +", useChannelColor="+useChannelColor);
 		} 
 		catch(Exception e) 
