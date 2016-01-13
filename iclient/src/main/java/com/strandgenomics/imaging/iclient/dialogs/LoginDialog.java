@@ -264,29 +264,28 @@ public class LoginDialog extends JDialog  {
         hostPortBox.setEnabled(!maskLoginField);
         final JTextField portListener = hostPortBox;
         portListener.getDocument().addDocumentListener(new DocumentListener() {
-        	  public void changedUpdate(DocumentEvent e) {
-        	    setProtocol();
-        	  }
-        	  public void removeUpdate(DocumentEvent e) {
+        	public void changedUpdate(DocumentEvent e) {
         		setProtocol();
-        	  }
-        	  public void insertUpdate(DocumentEvent e) {
+        	}
+        	public void removeUpdate(DocumentEvent e) {
         		setProtocol();
-        	  }
+        	}
+        	public void insertUpdate(DocumentEvent e) {
+        		setProtocol();
+        	}
 
-        	  public void setProtocol() {
-        	     if (portListener.getText().length()>0){
-        	    	 String port = portListener.getText();
-                     //System.out.println(port);
-                     if(port.equals("443")){
-                   	  protocolCheckBox.setSelectedIndex(1);
-                     }
-                     else if(port.equals("8080")|| port.equals("80")){
-                   	  protocolCheckBox.setSelectedIndex(0);
-                     }
-        	     }
-        	  }
-        	});
+        	public void setProtocol() {
+        		if (portListener.getText().length()>0){
+        			String port = portListener.getText();
+        			if(port.equals("443")){
+        				protocolCheckBox.setSelectedIndex(1);
+        			}
+        			else if(port.equals("8080")|| port.equals("80")){
+        				protocolCheckBox.setSelectedIndex(0);
+        			}
+        		}
+        	}
+        });
         JTextField loginBox    = new JTextField(docModel.getLoginField(), null, 20);
         loginBox.setEnabled(!maskLoginField);
         
@@ -295,7 +294,6 @@ public class LoginDialog extends JDialog  {
         protocolCheckBox.setFont(LABEL_FONT);
         if(hostPortBox.getText()!=null){
         	String port = hostPortBox.getText();
-        	System.out.println("port" + port);
         	if(port.equals("443")){
         		protocolCheckBox.setSelectedIndex(1);
         	}
