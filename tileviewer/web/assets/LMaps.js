@@ -98,13 +98,15 @@ var LMap = {
 		// Create the layer holder
 		initLayer: function (recordid) {
 			var data = Util.getData(recordid);
+			var maxZoom = Math.floor(Math.log(Math.max(data.imageWidth, data.imageHeight))/Math.log(2)-8);
+			var minZoom = (maxZoom - 5 > 0)? (maxZoom -5) : 0;
 			var layer = new L.tileLayer(LMap.tileUrl(data), {
 					attribution: LMap.attr,
 					continuousWorld: true,
 					detectRetina: true,
 					zoomReverse: true,
-					minZoom: 0,
-					maxZoom:  Math.floor(Math.log(Math.max(data.imageWidth, data.imageHeight))/Math.log(2)-8)
+					minZoom: minZoom,
+					maxZoom:  maxZoom
 				});
 	
 			var holder = this;
