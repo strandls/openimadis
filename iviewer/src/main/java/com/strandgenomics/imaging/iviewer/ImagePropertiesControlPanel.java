@@ -1,9 +1,11 @@
 package com.strandgenomics.imaging.iviewer;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -11,6 +13,7 @@ import javax.swing.JMenuItem;
 
 import org.apache.commons.io.FilenameUtils;
 
+import com.jidesoft.plaf.basic.ThemePainter;
 import com.jidesoft.swing.JideButton;
 import com.jidesoft.swing.JideSplitButton;
 import com.jidesoft.swing.JideToggleButton;
@@ -29,6 +32,7 @@ public class ImagePropertiesControlPanel extends JMenuBar
 	private JideToggleButton channelState;
 	private JideToggleButton sliceState;
 	private JideToggleButton movieState;
+	private int movieSelection;
 	
 	private JideSplitButton movieButton;
 	private JideSplitButton downloadButton; 
@@ -174,7 +178,10 @@ public class ImagePropertiesControlPanel extends JMenuBar
 				else
 				{
 					if(imageViewerApplet.getMaxFrame()>1)
-						imageViewerApplet.playMovieOnFrame(movieState);
+						if(movieSelection==1)
+							imageViewerApplet.playMovieOnFrame(movieState);
+						else
+							imageViewerApplet.playMovieOnSlice(movieState);
 					else
 						return;
 				}
@@ -183,12 +190,17 @@ public class ImagePropertiesControlPanel extends JMenuBar
 		});
 		
 		movieButton.setSize(22, 22);
-		JMenuItem sliceMenu = new JMenuItem("Slice (Z)");
+		movieButton.setToolTipText("Play movie");
+		final JMenuItem frameMenu = new JMenuItem("Frame (T)");
+		final JMenuItem sliceMenu = new JMenuItem("Slice (Z)");
 		sliceMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(imageViewerApplet.getMaxSlice()<=1)
 					return;
-				
+				sliceMenu.setIcon(UIUtils.getIcon("bullet.png"));
+				frameMenu.setIcon(null);
+				movieSelection = 0;
+				//sliceMenu.setBorder(BorderFactory.createLineBorder(Color.BLACK, 20));
 				String iconName = imageViewerApplet.getMovieState() == ImageViewerState.MovieState.PLAYING ? "PlayNormal.png"
 						: "StopNormal.png";
 				movieButton.setIcon(UIUtils.getIcon(iconName));
@@ -199,12 +211,14 @@ public class ImagePropertiesControlPanel extends JMenuBar
 				imageViewerApplet.playMovieOnSlice(movieState);
 			}
 		});
-		JMenuItem frameMenu = new JMenuItem("Frame (T)");
+		
 		frameMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(imageViewerApplet.getMaxFrame()<=1)
 					return;
-				
+				movieSelection = 1;
+				frameMenu.setIcon(UIUtils.getIcon("bullet.png"));
+				sliceMenu.setIcon(null);
 				String iconName = imageViewerApplet.getMovieState() == ImageViewerState.MovieState.PLAYING ? "PlayNormal.png"
 						: "StopNormal.png";
 				movieButton.setIcon(UIUtils.getIcon(iconName));
@@ -220,6 +234,7 @@ public class ImagePropertiesControlPanel extends JMenuBar
 		
 		
 		downloadButton = new JideSplitButton(UIUtils.getIcon("movie.png"));
+		downloadButton.setToolTipText("Create movie");
 		downloadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {}
 		});

@@ -57,26 +57,19 @@ public class ImportDialog extends JDialog implements ActionListener {
 				{
 					
 					if(this.getSelectedFile().exists()){
-						if(getSelectedFile().isDirectory()){
-							int returnVal = JOptionPane.showConfirmDialog(null, "Do you want to import the selected directory?", "Browse or Import", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-							if (returnVal == JOptionPane.YES_OPTION)
-							{
-								File[] temp = new File[1];
-								temp[0] = this.getSelectedFile();
-								selectedFiles = temp;
-								
-								super.approveSelection();
-								
-								dialog.dispose();
-							}
-							else
-								super.setCurrentDirectory(this.getSelectedFile());
+						int returnVal = JOptionPane.showConfirmDialog(null, "Do you want to import the selected file/directory ?", "Browse or Import", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+						if (returnVal == JOptionPane.YES_OPTION)
+						{
+							File[] temp = new File[1];
+							temp[0] = this.getSelectedFile();
+							selectedFiles = temp;
+
+							super.approveSelection();
+
+							dialog.dispose();
 						}
-						else{
-							JOptionPane.showMessageDialog(null, "Please select a directory", "Error", JOptionPane.ERROR_MESSAGE);
-							selection = false;
-						}
-						
+						else
+							super.setCurrentDirectory(this.getSelectedFile());
 					}
 					else
 						JOptionPane.showMessageDialog(null, "Specified Directory does not exist", "Error", JOptionPane.ERROR_MESSAGE);

@@ -48,7 +48,7 @@ public class ThumbnailTable extends JTable implements IRecordSelectionListener{
         setCellSelectionEnabled(true);
         
         getSelectionModel().addListSelectionListener(new MyListSelectionListener());
-        
+        getColumnModel().getSelectionModel() .addListSelectionListener(new MyListSelectionListener());
         setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 //        setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
