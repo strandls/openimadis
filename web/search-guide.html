@@ -1,0 +1,190 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>iManage - Search Query Syntax</title>
+		<link rel="icon" href="standard/images/icon.png" type="image/png" />
+		<style>
+			thead: {font-weight:bold; text-align:center;}
+		</style>
+	</head>
+	<body>
+		<h1>iManage - Search Query Syntax</h1>
+		<div class="section">
+			<h2>Keyword Matching</h2>
+			<div class="sub-section">
+				<h3>Search for word "foo" in the "title" field.</h3>
+				<span>title:foo</span>
+			</div>
+		</div>
+		<div class="section">
+			<h2>Phrase Matching</h2>
+			<div class="sub-section">
+				<h3>Search for phrase "foo bar" in the "title" field.</h3>
+				<span>title:"foo bar"</span>
+			</div>
+		</div>
+		<div class="section">
+			<h2>Boolean Operations</h2>
+			<div class="sub-section">
+				<h3>Search for phrase "foo bar" in the title field AND the phrase "quick fox" in the body field.</h3>
+				<span>title:"foo bar" AND body:"quick fox"</span>
+			</div>
+			<div class="sub-section">
+				<h3>Search for either the phrase "foo bar" in the title field AND the phrase "quick fox" in the body field, or the word "fox" in the title field.</h3>
+				<span>(title:"foo bar" AND body:"quick fox") OR title:fox</span>
+			</div>
+			<div class="sub-section">
+				<h3>Search for word "foo" and not "bar" in the title field.</h3>
+				<span>title:foo -title:bar</span>
+			</div>
+		</div>
+		<div class="section">
+			<h2>Range Queries</h2>
+			<div class="sub-section">
+				<h3>Search for any value that is between 128 and 512 in the title field.</h3>
+				<span>title:[128 TO 512]</span>
+			</div>
+			<div class="sub-section">
+				<h3>Search for any value that is less than 512 in the title field.</h3>
+				<span>title:[* TO 512]</span>
+			</div>
+			<div class="sub-section">
+				<h3>Search for any value that is greater than 512 in the title field.</h3>
+				<span>title:[512 TO *]</span>
+			</div>
+		</div>
+		<div class="section">
+			<h2>Wildcard matching</h2>
+			<div class="sub-section">
+				<h3>Search for any word that starts with "foo" in the title field.</h3>
+				<span>title:foo*</span>
+			</div>
+			<div class="sub-section">
+				<h3>Search for any word that starts with "foo" and ends with bar in the title field.</h3>
+				<span>title:foo*bar</span>
+			</div>
+		</div>
+		<div class="section">
+			<h2>Field Names</h2>
+			<div class="sub-section">
+				<table border=1>
+					<thead>
+						<tr>
+							<td>Field</td>
+							<td>Type</td>
+							<td>Description</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>guid</td>
+							<td>long</td>
+							<td>Unique Record Identifier</td>
+						</tr>
+						<tr>
+							<td>uploadedBy</td>
+							<td>word</td>
+							<td>Login of user who have uploaded the record</td>
+						</tr>
+						<tr>
+							<td>numberOfSlices</td>
+							<td>int</td>
+							<td>number of slices</td>
+						</tr>
+						<tr>
+							<td>numberOfFrames</td>
+							<td>int</td>
+							<td>number of frames</td>
+						</tr>
+						<tr>
+							<td>numberOfChannels</td>
+							<td>int</td>
+							<td>number of channels</td>
+						</tr>
+						<tr>
+							<td>numberOfSites</td>
+							<td>int</td>
+							<td>number of sites</td>
+						</tr>
+						<tr>
+							<td>imageWidth</td>
+							<td>int</td>
+							<td>image width</td>
+						</tr>
+						<tr>
+							<td>imageHeight</td>
+							<td>int</td>
+							<td>image height</td>
+						</tr>
+						<tr>
+							<td>uploadTime</td>
+							<td>date</td>
+							<td>time when record is uploaded</td>
+						</tr>
+						<tr>
+							<td>imageDepth</td>
+							<td>int</td>
+							<td>image depth</td>
+						</tr>
+						<tr>
+							<td>xPixelSize</td>
+							<td>double</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>yPixelSize</td>
+							<td>double</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>zPixelSize</td>
+							<td>double</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>sourceFilename</td>
+							<td>word</td>
+							<td>source file name</td>
+						</tr>
+						<tr>
+							<td>channelName</td>
+							<td>word</td>
+							<td>name of the channel</td>
+						</tr>
+						<tr>
+							<td>siteName</td>
+							<td>word</td>
+							<td>name of site</td>
+						</tr>
+						<tr>
+							<td>overlay</td>
+							<td>word</td>
+							<td>name of overlay</td>
+						</tr>
+						<tr>
+							<td>comment</td>
+							<td>word</td>
+							<td>comment on record</td>
+						</tr>
+						<tr>
+							<td>textbox</td>
+							<td>word</td>
+							<td>text box added as visual annotation</td>
+						</tr>
+						<tr>
+							<td>attachmentName</td>
+							<td>word</td>
+							<td>name of attachment</td>
+						</tr>
+						<tr>
+							<td>attachmentNotes</td>
+							<td>word</td>
+							<td>attachment notes</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
