@@ -24,10 +24,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
@@ -55,9 +53,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JFrame;
 
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.strandgenomics.imaging.icore.AnnotationType;
 import com.strandgenomics.imaging.icore.Channel;
@@ -1614,14 +1610,13 @@ public class ProjectServlet extends ApplicationServlet {
      * @throws ServletException
      * @throws IOException
      */
-    @SuppressWarnings("rawtypes")
+    
     public void addMovieAttachments(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
         String userName = getCurrentUser(req);
         logger.logp(Level.INFO, "ProjectServlet", "addMovieAttachment", "extracted Notes " + "" + "by " + userName);
         String loginUser = Constants.ADMIN_USER; 
     	
-    	// get record id
         long requestId = Long.parseLong(getRequiredParam("requestId", req));
         long recordID = Long.parseLong(getRequiredParam("recordid", req));
         String notes = req.getParameter("notes");

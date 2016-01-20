@@ -134,7 +134,7 @@ Ext.define('Manage.controller.Downloads', {
 									name : record.data.name
 								},
 								success : function (result, request) {
-									Ext.Msg.alert('', 'Movie attached successfully.');
+									Ext.Msg.alert('', 'Movie attached to the record successfully.');
 									console.log(result);
 									simple.removeAll(true);
 								},
