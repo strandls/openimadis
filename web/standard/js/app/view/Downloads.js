@@ -129,6 +129,26 @@ Ext.define('Manage.view.Downloads', {
 
 				};
 			}
+		}, {
+			dataIndex : 'name',
+			xtype : 'componentcolumn',
+			flex : 1,
+			renderer : function(value, metaData, record, rowIndex, colIndex, store, view) {
+				return {
+					xtype : 'panel',
+					border : false,
+					items : [{
+						xtype : 'button',
+						tooltip : 'Click to attach this to the record',
+						icon : 'images/icons/attachment.gif',
+						width : 25,
+						handler : function() {
+							view.up('downloads').fireEvent('attachmovie', record);
+						} 
+					}]
+
+				};
+			}
 		}  
 		],
 

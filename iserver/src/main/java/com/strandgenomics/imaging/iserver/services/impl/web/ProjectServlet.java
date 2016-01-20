@@ -24,11 +24,14 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.nio.file.Files;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -52,7 +55,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JFrame;
 
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.strandgenomics.imaging.icore.AnnotationType;
 import com.strandgenomics.imaging.icore.Channel;
@@ -1599,6 +1604,42 @@ public class ProjectServlet extends ApplicationServlet {
 			logger.logp(Level.WARNING, "ProjectServlet", "addRecordAttachment", "You dont have permission to add attachment ", e);
 			writeFailure(resp, "You dont have permission to add attachment");
 		}	
+    }
+    
+    /**
+     * Add movie as an attachment to a record
+     * 
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    @SuppressWarnings("rawtypes")
+    public void addMovieAttachments(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
+            IOException {
+        String userName = getCurrentUser(req);
+        logger.logp(Level.INFO, "ProjectServlet", "addMovieAttachment", "extracted Notes " + "" + "by " + userName);
+        String loginUser = Constants.ADMIN_USER; 
+    	
+    	// get record id
+        long requestId = Long.parseLong(getRequiredParam("requestId", req));
+        long recordID = Long.parseLong(getRequiredParam("recordid", req));
+        String notes = req.getParameter("notes");
+        File videoFile = SysManagerFactory.getMovieManager().getVideo(loginUser, requestId);
+
+    	File temp = new File(videoFile.getParent(), "Movie_recordID_"+ recordID);
+    	Files.copy(videoFile.toPath(), temp.toPath());
+
+        try{
+
+        	SysManagerFactory.getAttachmentManager().addAttachmentForRecord(getWebApplication(), null, recordID, temp, notes, userName);
+        	writeJSON(resp, successResponse, "text/html");
+
+        }catch (ImagingEngineException e)
+        {
+        	logger.logp(Level.WARNING, "ProjectServlet", "addRecordAttachment", "You dont have permission to add attachment ", e);
+        	writeFailure(resp, "You dont have permission to add attachment");
+        }	
     }
     
     /**
