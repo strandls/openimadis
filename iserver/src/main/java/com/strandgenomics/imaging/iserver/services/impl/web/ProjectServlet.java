@@ -1625,11 +1625,13 @@ public class ProjectServlet extends ApplicationServlet {
         long requestId = Long.parseLong(getRequiredParam("requestId", req));
         long recordID = Long.parseLong(getRequiredParam("recordid", req));
         String notes = req.getParameter("notes");
+        String name = req.getParameter("name");
         File videoFile = SysManagerFactory.getMovieManager().getVideo(loginUser, requestId);
 
-    	File temp = new File(videoFile.getParent(), "Movie_recordID_"+ recordID);
+    	File temp = new File(videoFile.getParent(), name+ ".mp4");
+    	temp.deleteOnExit();
     	Files.copy(videoFile.toPath(), temp.toPath());
-
+    	
         try{
 
         	SysManagerFactory.getAttachmentManager().addAttachmentForRecord(getWebApplication(), null, recordID, temp, notes, userName);

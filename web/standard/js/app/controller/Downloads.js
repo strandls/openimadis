@@ -130,7 +130,8 @@ Ext.define('Manage.controller.Downloads', {
 								params : {
 									requestId : record.data.id,
 									notes : notes,
-									recordid : record.data.input_guids[0]
+									recordid : record.data.input_guids[0],
+									name : record.data.name
 								},
 								success : function (result, request) {
 									Ext.Msg.alert('', 'Movie attached successfully.');
