@@ -516,14 +516,11 @@ public class BioRecord implements IRecord, Serializable {
 				y = metaData.getPlanePositionY(seriesNo, planeIndex).value().doubleValue();
 				z = metaData.getPlanePositionZ(seriesNo, planeIndex).value().doubleValue();
 
-				
-				
 			}
 		}
 		catch(Exception e)
 		{
 			Logger.getRootLogger().error("Cannot read meta-data: ",e);
-			e.printStackTrace();
 		}
 		catch(AbstractMethodError what)
 		{
