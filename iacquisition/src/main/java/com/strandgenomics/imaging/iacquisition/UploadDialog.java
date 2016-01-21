@@ -322,7 +322,7 @@ public class UploadDialog extends JDialog {
 		double sizeInGB = (double)size/(double)(1024*1024*1024);
 		if(project.getDiskQuota()< project.getSpaceUsage() + sizeInGB)
 		{
-			JOptionPane.showMessageDialog(AcquisitionUI.getFrame(), "Selected records will exceed remaining storage quota assigned for selected project\nSelected records size = "+sizeInGB+" GB \nQuota assigned to selected project = "+project.getDiskQuota()+" GB" + "\nRemaining storage quota = "+ (project.getDiskQuota() -project.getSpaceUsage()) + " GB", "Can't upload", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(AcquisitionUI.getFrame(), "Selected records will exceed remaining storage quota assigned for selected project\nSelected records size = " + String.format( "%.2f", sizeInGB)+" GB \nQuota assigned to selected project = "+project.getDiskQuota()+" GB" + "\nRemaining storage quota = "+ String.format("%.2f",(project.getDiskQuota() -project.getSpaceUsage())) + " GB", "Can't upload", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		return true;
