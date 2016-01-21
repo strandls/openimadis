@@ -36,6 +36,9 @@ import java.util.Set;
 import loci.formats.ChannelSeparator;
 import loci.formats.gui.BufferedImageReader;
 import loci.formats.meta.IMetadata;
+import ome.units.UNITS;
+import ome.units.quantity.Length;
+import ome.units.quantity.Time;
 
 import org.apache.log4j.Logger;
 
@@ -494,20 +497,33 @@ public class BioRecord implements IRecord, Serializable {
 			}
 			else
 			{
-				Double deltaT = metaData.getPlaneDeltaT(seriesNo, planeIndex).value().doubleValue();
-				Double exposureT = metaData.getPlaneExposureTime(seriesNo, planeIndex).value().doubleValue();
+				try{
+					Double deltaT = metaData.getPlaneDeltaT(seriesNo, planeIndex).value(UNITS.MICROS).doubleValue();
+					deltaTime = deltaT == null ? 0 : deltaT.doubleValue();
+					Double exposureT = metaData.getPlaneExposureTime(seriesNo, planeIndex).value(UNITS.MICROS).doubleValue();
+					exposureTime = exposureT == null ? 0 : exposureT.doubleValue();
+				}
+				catch(Exception e)
+				{
+					Logger.getRootLogger().error("Cannot read meta-data: ",e);
+				}
+				catch(AbstractMethodError what)
+				{
+					Logger.getRootLogger().error("Cannot read meta-data: ",what);
+				}
 				
 				x = metaData.getPlanePositionX(seriesNo, planeIndex).value().doubleValue();
 				y = metaData.getPlanePositionY(seriesNo, planeIndex).value().doubleValue();
 				z = metaData.getPlanePositionZ(seriesNo, planeIndex).value().doubleValue();
 
-				deltaTime = deltaT == null ? 0 : deltaT.doubleValue();
-				exposureTime = exposureT == null ? 0 : exposureT.doubleValue();
+				
+				
 			}
 		}
 		catch(Exception e)
 		{
 			Logger.getRootLogger().error("Cannot read meta-data: ",e);
+			e.printStackTrace();
 		}
 		catch(AbstractMethodError what)
 		{
