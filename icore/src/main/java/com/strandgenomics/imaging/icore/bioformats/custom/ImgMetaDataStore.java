@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import loci.formats.meta.IMetadata;
+import ome.units.UNITS;
 import ome.units.quantity.ElectricPotential;
 import ome.units.quantity.Frequency;
 import ome.units.quantity.Length;
@@ -124,19 +125,19 @@ public class ImgMetaDataStore implements IMetadata {
 	@Override
 	public Length getPixelsPhysicalSizeX(int seriesNo) 
 	{
-		return actualData.pixelSizeAlongXAxis <= 0 ? null : new Length(actualData.pixelSizeAlongXAxis, null);
+		return actualData.pixelSizeAlongXAxis <= 0 ? null : new Length(actualData.pixelSizeAlongXAxis, UNITS.MICROM);
 	}
 
 	@Override
 	public Length getPixelsPhysicalSizeY(int seriesNo) 
 	{
-		return actualData.pixelSizeAlongYAxis <= 0 ? null : new Length(actualData.pixelSizeAlongYAxis, null);
+		return actualData.pixelSizeAlongYAxis <= 0 ? null : new Length(actualData.pixelSizeAlongYAxis, UNITS.MICROM);
 	}
 
 	@Override
 	public Length getPixelsPhysicalSizeZ(int seriesNo) 
 	{
-		return actualData.pixelSizeAlongZAxis <= 0 ? null : new Length(actualData.pixelSizeAlongZAxis, null);
+		return actualData.pixelSizeAlongZAxis <= 0 ? null : new Length(actualData.pixelSizeAlongZAxis, UNITS.MICROM);
 	}
 
 	@Override
