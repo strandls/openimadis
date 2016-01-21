@@ -1,5 +1,5 @@
 
-task deployWebApp << {
+task deployWebApp(dependsOn: ':iacquisition:copyLibs') << {
     copy {
         from "standard"
         into "$tomcatHome/webapps/iManage/standard"
@@ -8,6 +8,11 @@ task deployWebApp << {
     copy {
         from "advanced"
         into "$tomcatHome/webapps/iManage/advanced"
+    }
+
+    copy {
+        from "acquisition"
+        into "$tomcatHome/webapps/iManage/acquisition"
     }
 
     copy {
