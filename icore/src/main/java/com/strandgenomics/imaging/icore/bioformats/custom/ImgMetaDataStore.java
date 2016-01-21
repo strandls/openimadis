@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import loci.formats.meta.IMetadata;
+import ome.units.UNITS;
 import ome.units.quantity.ElectricPotential;
 import ome.units.quantity.Frequency;
 import ome.units.quantity.Length;
@@ -94,7 +95,7 @@ public class ImgMetaDataStore implements IMetadata {
 	public Length getChannelEmissionWavelength(int series, int channel)
 	{
 		int wavelength = actualData.getChannels().get(channel).getWavelength();
-		return wavelength <= 0 ? null : new Length(wavelength, null);
+		return wavelength <= 0 ? null : new Length(wavelength, UNITS.NM);
 	}
 
 	@Override
@@ -124,19 +125,19 @@ public class ImgMetaDataStore implements IMetadata {
 	@Override
 	public Length getPixelsPhysicalSizeX(int seriesNo) 
 	{
-		return actualData.pixelSizeAlongXAxis <= 0 ? null : new Length(actualData.pixelSizeAlongXAxis, null);
+		return actualData.pixelSizeAlongXAxis <= 0 ? null : new Length(actualData.pixelSizeAlongXAxis, UNITS.MICROM);
 	}
 
 	@Override
 	public Length getPixelsPhysicalSizeY(int seriesNo) 
 	{
-		return actualData.pixelSizeAlongYAxis <= 0 ? null : new Length(actualData.pixelSizeAlongYAxis, null);
+		return actualData.pixelSizeAlongYAxis <= 0 ? null : new Length(actualData.pixelSizeAlongYAxis, UNITS.MICROM);
 	}
 
 	@Override
 	public Length getPixelsPhysicalSizeZ(int seriesNo) 
 	{
-		return actualData.pixelSizeAlongZAxis <= 0 ? null : new Length(actualData.pixelSizeAlongZAxis, null);
+		return actualData.pixelSizeAlongZAxis <= 0 ? null : new Length(actualData.pixelSizeAlongZAxis, UNITS.MICROM);
 	}
 
 	@Override
@@ -149,35 +150,35 @@ public class ImgMetaDataStore implements IMetadata {
 	public Time getPlaneDeltaT(int seriesNo, int planeIndex) 
 	{
 		Dimension d = actualData.getDimension(seriesNo, planeIndex);
-		return new Time(actualData.getImageMetaData(d).deltaTime, null);
+		return new Time(actualData.getImageMetaData(d).deltaTime, UNITS.MICROS);
 	}
 
 	@Override
 	public Time getPlaneExposureTime(int seriesNo, int planeIndex)
 	{
 		Dimension d = actualData.getDimension(seriesNo, planeIndex);
-		return new Time( actualData.getImageMetaData(d).exposureTime, null );
+		return new Time( actualData.getImageMetaData(d).exposureTime, UNITS.MICROS );
 	}
 
 	@Override
 	public Length getPlanePositionX(int seriesNo, int planeIndex)
 	{
 		Dimension d = actualData.getDimension(seriesNo, planeIndex);
-		return new Length( actualData.getImageMetaData(d).positionX , null);
+		return new Length( actualData.getImageMetaData(d).positionX , UNITS.MICROM);
 	}
 
 	@Override
 	public Length getPlanePositionY(int seriesNo, int planeIndex)
 	{
 		Dimension d = actualData.getDimension(seriesNo, planeIndex);
-		return new Length( actualData.getImageMetaData(d).positionY, null );
+		return new Length( actualData.getImageMetaData(d).positionY, UNITS.MICROM );
 	}
 
 	@Override
 	public Length getPlanePositionZ(int seriesNo, int planeIndex) 
 	{
 		Dimension d = actualData.getDimension(seriesNo, planeIndex);
-		return new Length( actualData.getImageMetaData(d).positionZ, null );
+		return new Length( actualData.getImageMetaData(d).positionZ,UNITS.MICROM );
 	}
 
 	@Override
