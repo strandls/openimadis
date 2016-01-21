@@ -33,6 +33,7 @@ import loci.formats.FormatTools;
 import loci.formats.MetadataTools;
 import loci.formats.gui.BufferedImageReader;
 import loci.formats.meta.IMetadata;
+import ome.units.UNITS;
 import ome.units.quantity.Length;
 import ome.xml.model.primitives.PositiveFloat;
 
@@ -231,15 +232,15 @@ public class ImportFilter implements Serializable {
 			Length pixelY = metaData.getPixelsPhysicalSizeY(seriesNo);
 			Length pixelZ = metaData.getPixelsPhysicalSizeZ(seriesNo);
 			
-			double sizeX = pixelX == null ? 0.0 : pixelX.value().doubleValue();
-			double sizeY = pixelY == null ? 0.0 : pixelY.value().doubleValue(); 
-			double sizeZ = pixelZ == null ? 0.0 : pixelZ.value().doubleValue(); 
+			double sizeX = pixelX == null ? 0.0 : pixelX.value(UNITS.MICROM).doubleValue();
+			double sizeY = pixelY == null ? 0.0 : pixelY.value(UNITS.MICROM).doubleValue(); 
+			double sizeZ = pixelZ == null ? 0.0 : pixelZ.value(UNITS.MICROM).doubleValue(); 
 			
 			
 			Double deltaT = null;
 			try
 			{
-				deltaT    = metaData.getPlaneDeltaT(seriesNo, planeIndex).value().doubleValue();
+				deltaT    = metaData.getPlaneDeltaT(seriesNo, planeIndex).value(UNITS.MICROS).doubleValue();
 			}
 			catch (Exception e) 
 			{ }
@@ -247,7 +248,7 @@ public class ImportFilter implements Serializable {
 			Double exposureT = null;
 			try
 			{
-				exposureT = metaData.getPlaneExposureTime(seriesNo, planeIndex).value().doubleValue();
+				exposureT = metaData.getPlaneExposureTime(seriesNo, planeIndex).value(UNITS.MICROS).doubleValue();
 			}
 			catch (Exception e) 
 			{ }
@@ -255,7 +256,7 @@ public class ImportFilter implements Serializable {
 			Double positionX = null;
 			try
 			{
-				positionX = metaData.getPlanePositionX(seriesNo, planeIndex).value().doubleValue();
+				positionX = metaData.getPlanePositionX(seriesNo, planeIndex).value(UNITS.MICROM).doubleValue();
 			}
 			catch (Exception e) 
 			{ }
@@ -263,7 +264,7 @@ public class ImportFilter implements Serializable {
 			Double positionY = null;
 			try
 			{
-				positionY = metaData.getPlanePositionY(seriesNo, planeIndex).value().doubleValue();
+				positionY = metaData.getPlanePositionY(seriesNo, planeIndex).value(UNITS.MICROM).doubleValue();
 			}
 			catch (Exception e) 
 			{ }
@@ -271,7 +272,7 @@ public class ImportFilter implements Serializable {
 			Double positionZ = null;
 			try
 			{
-				positionZ = metaData.getPlanePositionZ(seriesNo, planeIndex).value().doubleValue();
+				positionZ = metaData.getPlanePositionZ(seriesNo, planeIndex).value(UNITS.MICROM).doubleValue();
 			}
 			catch (Exception e) 
 			{ }
