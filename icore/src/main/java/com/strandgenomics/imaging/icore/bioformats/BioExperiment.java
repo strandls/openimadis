@@ -60,6 +60,8 @@ import com.strandgenomics.imaging.icore.image.PixelDepth;
 import com.strandgenomics.imaging.icore.util.Archiver;
 import com.strandgenomics.imaging.icore.util.ColorUtil;
 import com.strandgenomics.imaging.icore.util.Util;
+
+import ome.units.UNITS;
 import ome.units.quantity.Length;
 
 /**
@@ -398,7 +400,7 @@ public abstract class BioExperiment implements IExperiment, Disposable, Serializ
 				{
 					
 					// Get the color from wavelength of the channel
-					Color rgbColorObj = ColorUtil.getColor(emissionWavelength.value().longValue());
+					Color rgbColorObj = ColorUtil.getColor(emissionWavelength.value(UNITS.NM).longValue());
 				
 					// get the LUT name corresponding to the color identidfied
 					String colorName = ColorUtil.getColorName(rgbColorObj) ;
@@ -417,7 +419,7 @@ public abstract class BioExperiment implements IExperiment, Disposable, Serializ
 															// channel
 						}
 					}
-					ch.setWavelength(emissionWavelength.value().intValue());
+					ch.setWavelength(emissionWavelength.value(UNITS.NM).intValue());
 				}
 				
 				channels.add(ch);
@@ -458,9 +460,9 @@ public abstract class BioExperiment implements IExperiment, Disposable, Serializ
 			Length pixelY = metaData.getPixelsPhysicalSizeY(seriesNo);
 			Length pixelZ = metaData.getPixelsPhysicalSizeZ(seriesNo);
 			
-			double pixelSizeX = pixelX == null ? 0 : pixelX.value().doubleValue();
-			double pixelSizeY = pixelY == null ? 0 : pixelY.value().doubleValue(); 
-			double pixelSizeZ = pixelZ == null ? 0 : pixelZ.value().doubleValue();
+			double pixelSizeX = pixelX == null ? 0 : pixelX.value(UNITS.MICROM).doubleValue();
+			double pixelSizeY = pixelY == null ? 0 : pixelY.value(UNITS.MICROM).doubleValue(); 
+			double pixelSizeZ = pixelZ == null ? 0 : pixelZ.value(UNITS.MICROM).doubleValue();
 			
 			// Check the image type
 			ImageType imageType = formatHandler.isRGB() ? ImageType.RGB : ImageType.GRAYSCALE;

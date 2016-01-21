@@ -310,15 +310,17 @@ public class ImgFormatReader extends FormatReader {
 		return actualReader.get16BitLookupTable();
 	}
 	
-	/*@Override
+/*	@Override
 	public int[] getChannelDimLengths()
 	{
-		return actualReader.getChannelDimLengths(); //TODO
+		return null;
+		//return actualReader.getChannelDimLengths(); //TODO
 	}
 	
 	@Override
 	public String[] getChannelDimTypes() 
 	{
+		return null;
 		return actualReader.getChannelDimTypes();
 	}*/
 	
@@ -553,18 +555,20 @@ public class ImgFormatReader extends FormatReader {
 		return actualReader.hasCompanionFiles();
 	}
 	
-/*	@Override
+	/*@Override
 	public void setMetadataCollected(boolean collect) {
-		actualReader.setMetadataCollected(collect);
+	//	actualReader.setMetadataCollected(collect);
 	}
 	
 	@Override
 	public boolean isMetadataCollected() {
-		return actualReader.isMetadataCollected();
+		return null;
+		//return actualReader.isMetadataCollected();
 	}
 	
 	@Override
 	public Hashtable<String, Object> getMetadata() {
-		return actualReader.getMetadata();
+		return null;
+		///return actualReader.getMetadata();
 	}	*/
 }

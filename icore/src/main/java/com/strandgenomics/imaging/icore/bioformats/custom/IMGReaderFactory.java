@@ -44,6 +44,7 @@ public class IMGReaderFactory extends ImageReaderFactory {
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			Logger.getRootLogger().error("Cannot create Format Handler ..",e);
 		}
 		
