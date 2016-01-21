@@ -1,7 +1,27 @@
 
-task deployWebApp(type: Copy) {
-    from "standard"
-    into "$tomcatHome/webapps/iManage/standard"
+task deployWebApp << {
+    copy {
+        from "standard"
+        into "$tomcatHome/webapps/iManage/standard"
+    }
+
+    copy {
+        from "advanced"
+        into "$tomcatHome/webapps/iManage/advanced"
+    }
+
+    copy {
+        from "m"
+        into "$tomcatHome/webapps/iManage/m"
+    }
+
+    copy {
+        from "error.html"
+        from "help.html"
+        from "search-guide.html"
+        from "index.html"
+        into "$tomcatHome/webapps/iManage/"
+    }
 }
 
 task deploySolr(type: Copy) {
