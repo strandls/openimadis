@@ -16,3 +16,39 @@ task stopTomcat(type:Exec) {
     commandLine 'sh', './shutdown.sh'
 }
 
+task createServerBundle (dependsOn: [':tileviewer:createTileViewer', ':iengine:createCache'])<< {
+    copy {
+       from "$tomcatHome/webapps/iManage"
+       into "build/distributions/ServerBundle/WebApps/iManage"
+    }
+
+    copy {
+       from "web/solr"
+       into "build/distributions/ServerBundle/WebApps/solr"
+    }
+
+    copy {
+       from "tileviewer/build/distributions/tileviewer-deploy/tileviewer"
+       into "build/distributions/ServerBundle/WebApps/tileviewer"
+    }
+ 
+    copy {
+       from "iengine/cache/cache-deploy"
+       into "build/distributions/ServerBundle/ServerApps/cache-deploy"
+    }
+
+    copy {
+       from "iworker/build/distributions/worker-deploy"
+       into "build/distributions/ServerBundle/ServerApps/worker-deploy"
+    }
+
+    copy {
+       from "resources/db"
+       into "build/distributions/ServerBundle/ServerApps/db"
+    }
+
+    copy {
+       from "resources/solr_data"
+       into "build/distributions/ServerBundle/ServerApps/solr_data"
+    }
+}
