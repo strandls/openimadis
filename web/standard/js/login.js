@@ -136,4 +136,13 @@ Ext.onReady(function() {
 	if (document.URL.split("?")[1] == "unauthorized") {
 		Ext.Msg.alert('Login', 'Kindly login first before accessing the resource.');
 	}
+
+	Ext.Ajax.request({
+            method: 'GET',
+            url: 'message.txt',
+            success: function (response) {
+		var bd = Ext.getBody();
+		bd.createChild({tag: 'div', html: response.responseText, style: 'font-weight: bold; background-color:#fff; position:fixed; top:0; width: 100%; padding: 5px; background-color: #f9edbe; border: 1px solid #f0c36d; z-index:999999;'});
+            }
+        });
 });
