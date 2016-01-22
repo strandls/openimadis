@@ -134,12 +134,12 @@ Ext.define('Manage.controller.Downloads', {
 									name : record.data.name
 								},
 								success : function (result, request) {
-									Ext.Msg.alert('', 'Movie attached to the record successfully.');
+									Ext.Msg.alert('', 'Movie attached successfully.');
 									console.log(result);
 									simple.removeAll(true);
 								},
 								failure : function (result, request) {
-									Ext.Msg.alert('Error', 'Failed to attach the movie. Error status code: ' + result.status + ' ' + result.statusText);
+									Ext.Msg.alert('Error', 'Failed to attach the movie. ' + result.responseText.split(',')[0].split(':')[1].replace(/['"]+/g, '') + '. Error status code: ' + result.status + ' ' + result.statusText);
 									console.log(result);
 									simple.removeAll(true);
 								}

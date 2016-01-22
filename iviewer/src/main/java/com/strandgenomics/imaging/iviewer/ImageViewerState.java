@@ -650,16 +650,16 @@ public class ImageViewerState implements ImageConsumer {
 
 		updateImage();
 	}
-	public void VideoThread(final ImageViewerApplet imageViewerApplet, final String fileName,final String filePath,final int option,final double fps,final String notes, final boolean frame) {
+	public void VideoThread(final ImageViewerApplet imageViewerApplet, final String file,final int option,final double fps,final String notes, final boolean frame) {
 		 Runnable r = new Runnable() {
 	         public void run() {
-	             createVideo(imageViewerApplet,fileName,filePath,option,fps,notes,frame);
+	             createVideo(imageViewerApplet,file,option,fps,notes,frame);
 	         }
 	     };
 
 	     new Thread(r).start();
 	}
-	public synchronized void createVideo(ImageViewerApplet imageViewerApplet, String fileName,String filePath,int option,double fps,String notes, boolean isFrame) {
+	public synchronized void createVideo(ImageViewerApplet imageViewerApplet, String file,int option,double fps,String notes, boolean isFrame) {
 
 		IRecord record = records.get(0);
 		List<VideoFrame> l = new ArrayList<VideoFrame>();
@@ -715,9 +715,9 @@ public class ImageViewerState implements ImageConsumer {
 		Iterator<VideoFrame> it = l.iterator();
 		try {
 			if(option == 1)
-				videoFile = createMovie(it, record.getImageWidth(), record.getImageHeight(), fps,filePath, fileName);
+				videoFile = createMovie(it, record.getImageWidth(), record.getImageHeight(), fps,file);
 			else if(option == 2)
-				videoFile = createMovie(it, record.getImageWidth(), record.getImageHeight(), filePath, fileName);
+				videoFile = createMovie(it, record.getImageWidth(), record.getImageHeight(), file);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -731,9 +731,9 @@ public class ImageViewerState implements ImageConsumer {
 		}
 		imageViewerApplet.addUserAttachment(videoFile, notes);
 	}
-	public static File createMovie(Iterator<VideoFrame> inputFrames, int imageWidth, int imageHeight, String outputDirectory, String outputFilename) throws IOException
+	public static File createMovie(Iterator<VideoFrame> inputFrames, int imageWidth, int imageHeight, String file) throws IOException
 	{
-		File outputFile = new File(outputDirectory, outputFilename); 
+		File outputFile = new File(file); 
 		IMediaWriter writer = ToolFactory.makeWriter(outputFile.getAbsolutePath());
 		
 		int ret = writer.addVideoStream(0, 0, ICodec.ID.CODEC_ID_MPEG4, imageWidth, imageHeight);
@@ -769,11 +769,10 @@ public class ImageViewerState implements ImageConsumer {
 
 		return outputFile;
 	}
-	public  static File createMovie(Iterator<VideoFrame> inputImages, int imageWidth, int imageHeight, double frameRate, String outputDirectory, String outputFilename) throws IOException
+	public  static File createMovie(Iterator<VideoFrame> inputImages, int imageWidth, int imageHeight, double frameRate, String file) throws IOException
 	{
-		File outputFile = new File(outputDirectory, outputFilename); 
+		File outputFile = new File(file); 
 		IMediaWriter writer = ToolFactory.makeWriter(outputFile.getAbsolutePath());
-		
 		int ret = writer.addVideoStream(0, 0, ICodec.ID.CODEC_ID_MPEG4, imageWidth, imageHeight);
 		if(ret < 0)// failed to create
 			return null;
@@ -790,7 +789,8 @@ public class ImageViewerState implements ImageConsumer {
 			double temp = 1000/frameRate;
 			// from frame rate compute the timestamp of the current frame inside movie
 			long timeStamp = (long) (index * temp);
-
+			File outputfile = new File("/home/ravikiran/b/imageTesting"+ index + ".jpg");
+			ImageIO.write(image, "jpg", outputfile);
 			// encode the image to stream #0
 			writer.encodeVideo(0, image, timeStamp, TimeUnit.MILLISECONDS);
 			
