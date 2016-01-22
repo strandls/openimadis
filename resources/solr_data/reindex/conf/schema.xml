@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<schema name="example" version="1.4">
+
+<types>
+
+    <!-- types that are not analyzed, but indexed/stored verbatim. -->
+	<fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
+	<fieldtype name="binary"  class="solr.BinaryField"/>
+	<fieldType name="int"     class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+	<fieldType name="float"   class="solr.TrieFloatField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+	<fieldType name="long"    class="solr.TrieLongField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+	<fieldType name="double"  class="solr.TrieDoubleField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+	<fieldType name="date"    class="solr.TrieDateField" omitNorms="true" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="string"  class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+
+    <fieldType name="word" class="solr.TextField" sortMissingLast="true" omitNorms="true">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+	</fieldType>
+	
+    <!-- A general text field that has reasonable, generic
+         cross-language defaults: it tokenizes with StandardTokenizer,
+	 removes stop words from case-insensitive "stopwords.txt"
+	 (empty by default), and down cases.  At query time only, it
+	 also applies synonyms. -->
+    <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+      <analyzer type="index">
+          <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+			<filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="1000" side="front" />
+			<filter class="solr.LowerCaseFilterFactory"/>
+			<filter class="solr.TrimFilterFactory" />
+			<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+		<filter class="solr.TrimFilterFactory" />
+      </analyzer>
+    </fieldType>
+</types>
+
+<fields>
+
+<field name="guid" type="long" indexed="true" stored="true" required="true"/> 
+<field name="projectID" type="int" indexed="true" stored="true" required="true"/>
+
+<field name="uploadedBy" type="word" indexed="true" stored="true" required="false"/>
+
+<field name="numberOfSlices" type="int" indexed="true" stored="true" required="false"/>
+<field name="numberOfFrames" type="int" indexed="true" stored="true" required="false"/>
+<field name="numberOfChannels" type="int" indexed="true" stored="true" required="false"/>
+<field name="numberOfSites" type="int" indexed="true" stored="true" required="false"/>
+
+<field name="imageWidth" type="int" indexed="true" stored="true" required="false"/>
+<field name="imageHeight" type="int" indexed="true" stored="true" required="false"/>
+
+<field name="uploadTime" type="date" indexed="true" stored="true" required="false"/>
+<field name="sourceTime" type="date" indexed="true" stored="true" required="false"/>
+<field name="creationTime" type="date" indexed="true" stored="true" required="false"/>
+<field name="acquiredTime" type="date" indexed="true" stored="true" required="false"/>
+
+<field name="imageDepth" type="int" indexed="true" stored="true" required="false"/>
+
+<field name="xPixelSize" type="double" indexed="true" stored="true" required="false"/>
+<field name="yPixelSize" type="double" indexed="true" stored="true" required="false"/>
+<field name="zPixelSize" type="double" indexed="true" stored="true" required="false"/>
+
+<field name="sourceType" type="word" indexed="true" stored="true" required="false"/>
+<field name="imageType" type="word" indexed="true" stored="true" required="false"/>
+<field name="machineIP" type="string" indexed="true" stored="true" required="false"/>
+<field name="macAddress" type="string" indexed="true" stored="true" required="false"/>
+<field name="sourceFolder" type="word" indexed="true" stored="true" required="false"/>
+<field name="sourceFilename" type="word" indexed="true" stored="true" required="false"/>
+
+<field name="channelName" type="word" indexed="true" stored="true" required="false" multiValued="true"/>
+<field name="siteName" type="word" indexed="true" stored="true" required="false" multiValued="true"/>
+<field name="overlay" type="word" indexed="true" stored="true" required="false" multiValued="true"/>
+<field name="comment" type="word" indexed="true" stored="true" required="false" multiValued="true"/>
+<field name="history" type="word" indexed="true" stored="true" required="false" multiValued="true"/>
+<field name="textbox" type="word" indexed="true" stored="true" required="false" multiValued="true"/>
+<field name="attachmentName" type="word" indexed="true" stored="true" required="false" multiValued="true"/>
+<field name="attachmentNotes" type="word" indexed="true" stored="true" required="false" multiValued="true"/>
+	
+<field name="all_text_fields" type="text_general" indexed="true" stored="false" required="false" multiValued="true"/>
+<field name="all_int_fields"  type="int" indexed="true" stored="false" required="false" multiValued="true"/>
+<field name="all_real_fields" type="double" indexed="true" stored="false" required="false" multiValued="true"/>
+<field name="all_date_fields" type="date" indexed="true" stored="false" required="false" multiValued="true"/>
+
+<dynamicField name="int_*"   type="int"    indexed="true"  stored="true" required="false" multiValued="false"/>
+<dynamicField name="real_*"  type="double" indexed="true"  stored="true" required="false" multiValued="false"/>
+<dynamicField name="text_*"  type="word"   indexed="true"  stored="true" required="false" multiValued="false"/>
+<dynamicField name="time_*"  type="date"   indexed="true"  stored="true" required="false" multiValued="false"/>
+
+
+</fields>
+
+ <!-- Field to use to determine and enforce document uniqueness. 
+      Unless this field is marked with required="false", it will be a required field
+   -->
+<uniqueKey>guid</uniqueKey>
+ <!-- field for the QueryParser to use when an explicit fieldname is absent -->
+<defaultSearchField>all_text_fields</defaultSearchField>
+ <!-- SolrQueryParser configuration: defaultOperator="AND|OR" -->
+ <solrQueryParser defaultOperator="AND"/>
+
+<copyField source="uploadedBy" dest="all_text_fields"/>
+<copyField source="sourceType" dest="all_text_fields"/>
+<copyField source="imageType" dest="all_text_fields"/>
+<copyField source="sourceFolder" dest="all_text_fields"/>
+<copyField source="sourceFilename" dest="all_text_fields"/>
+
+<copyField source="channelName" dest="all_text_fields"/>
+<copyField source="siteName" dest="all_text_fields"/>
+<copyField source="overlay" dest="all_text_fields"/>
+<copyField source="comment" dest="all_text_fields"/>
+<copyField source="history" dest="all_text_fields"/>
+<copyField source="textbox" dest="all_text_fields"/>
+<copyField source="attachmentName" dest="all_text_fields"/>
+<copyField source="attachmentNotes" dest="all_text_fields"/>
+
+<copyField source="text_*" dest="all_text_fields"/>
+<copyField source="int_*"  dest="all_int_fields"/>
+<copyField source="real_*" dest="all_real_fields"/>
+<copyField source="time_*" dest="all_date_fields"/>
+
+<copyField source="numberOfSlices"   dest="all_int_fields"/>
+<copyField source="numberOfFrames"   dest="all_int_fields"/>
+<copyField source="numberOfChannels" dest="all_int_fields"/>
+<copyField source="numberOfSites"    dest="all_int_fields"/>
+
+<copyField source="imageWidth"  dest="all_int_fields"/>
+<copyField source="imageHeight" dest="all_int_fields"/>
+<copyField source="imageDepth"  dest="all_int_fields"/>
+
+<copyField source="uploadTime"   dest="all_date_fields"/>
+<copyField source="sourceTime"   dest="all_date_fields"/>
+<copyField source="creationTime" dest="all_date_fields"/>
+<copyField source="acquiredTime" dest="all_date_fields"/>
+
+<copyField source="xPixelSize" dest="all_real_fields"/>
+<copyField source="yPixelSize" dest="all_real_fields"/>
+<copyField source="zPixelSize" dest="all_real_fields"/>
+
+</schema>

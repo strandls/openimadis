@@ -24,6 +24,10 @@ task copyLibs(dependsOn: [build, ':resources:build', ':iviewer:createIconsJar'],
     from "build/libs/"
     from "../resources/build/libs/"
     from "../iviewer/build/libs/"
-    into "tool/lib"
+    into "tool/acquisition/lib"
 }
 
+task createAcquisitionZip(dependsOn: copyLibs, type: Zip){
+    from "tool"
+    archiveName "acquisition.zip"
+}

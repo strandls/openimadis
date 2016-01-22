@@ -27,49 +27,49 @@ dependencies {
 task iAuthStubs(type: JavaExec){
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.WSDL2Java"
-    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:iauth=com.strandgenomics.imaging.iclient.impl.ws.auth", "http://localhost:8080/imanage/services/iAuth?wsdl"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:iauth=com.strandgenomics.imaging.iclient.impl.ws.auth", "http://localhost:8080/iManage/services/iAuth?wsdl"
 }
 
 task iSpaceStubs(type: JavaExec){
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.WSDL2Java"
-    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:ispace=com.strandgenomics.imaging.iclient.impl.ws.ispace", "http://localhost:8080/imanage/services/iSpace?wsdl"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:ispace=com.strandgenomics.imaging.iclient.impl.ws.ispace", "http://localhost:8080/iManage/services/iSpace?wsdl"
 }
 
 task iSearchStubs(type: JavaExec){
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.WSDL2Java"
-    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:isearch=com.strandgenomics.imaging.iclient.impl.ws.search", "http://localhost:8080/imanage/services/iSearch?wsdl"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:isearch=com.strandgenomics.imaging.iclient.impl.ws.search", "http://localhost:8080/iManage/services/iSearch?wsdl"
 }
 
 task iLoaderStubs(type: JavaExec){
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.WSDL2Java"
-    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:iloader=com.strandgenomics.imaging.iclient.impl.ws.loader", "http://localhost:8080/imanage/services/iLoader?wsdl"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:iloader=com.strandgenomics.imaging.iclient.impl.ws.loader", "http://localhost:8080/iManage/services/iLoader?wsdl"
 }
 
 task iUpdateStubs(type: JavaExec){
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.WSDL2Java"
-    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:iupdate=com.strandgenomics.imaging.iclient.impl.ws.update", "http://localhost:8080/imanage/services/iUpdate?wsdl"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:iupdate=com.strandgenomics.imaging.iclient.impl.ws.update", "http://localhost:8080/iManage/services/iUpdate?wsdl"
 }
 
 task iComputeStubs(type: JavaExec){
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.WSDL2Java"
-    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:icompute=com.strandgenomics.imaging.iclient.impl.ws.compute", "http://localhost:8080/imanage/services/iCompute?wsdl"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:icompute=com.strandgenomics.imaging.iclient.impl.ws.compute", "http://localhost:8080/iManage/services/iCompute?wsdl"
 }
 
 task iManageStubs(type: JavaExec){
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.WSDL2Java"
-    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:imanage=com.strandgenomics.imaging.iclient.impl.ws.manage", "http://localhost:8080/imanage/services/iManage?wsdl"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:imanage=com.strandgenomics.imaging.iclient.impl.ws.manage", "http://localhost:8080/iManage/services/iManage?wsdl"
 }
 
 task iWorkersStubs(type: JavaExec){
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.WSDL2Java"
-    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:iworkers=com.strandgenomics.imaging.iclient.impl.ws.worker", "http://localhost:8080/imanage/services/iWorkers?wsdl"
+    args "-v", "-o", "src/main/java", "-d", "Request", "--NStoPkg", "urn:iworkers=com.strandgenomics.imaging.iclient.impl.ws.worker", "http://localhost:8080/iManage/services/iWorkers?wsdl"
 }
 
 task generateAllStubs(dependsOn: [iAuthStubs, iSpaceStubs, iSearchStubs, iLoaderStubs, iUpdateStubs, iComputeStubs, iManageStubs, iWorkersStubs]){

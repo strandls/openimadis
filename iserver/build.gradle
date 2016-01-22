@@ -53,56 +53,56 @@ task init << {
 task iAuthWSDL(dependsOn: init, type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.Java2WSDL"
-    args "-o", "iAuth.wsdl", "-l", "http://localhost:8080/imanage/services/", "-s", "iAuth", "-n", "urn:iauth", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.auth=urn:iauth", "com.strandgenomics.imaging.iserver.services.def.auth.ImageSpaceAuthorization"
+    args "-o", "iAuth.wsdl", "-l", "http://localhost:8080/iManage/services/", "-s", "iAuth", "-n", "urn:iauth", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.auth=urn:iauth", "com.strandgenomics.imaging.iserver.services.def.auth.ImageSpaceAuthorization"
     workingDir "resources/wsdl"
 }
 
 task iSpaceWSDL(type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.Java2WSDL"
-    args "-o", "iSpace.wsdl", "-l", "http://localhost:8080/imanage/services/", "-s", "iSpace", "-n", "urn:ispace", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.ispace=urn:ispace", "com.strandgenomics.imaging.iserver.services.def.ispace.ImageSpaceService"
+    args "-o", "iSpace.wsdl", "-l", "http://localhost:8080/iManage/services/", "-s", "iSpace", "-n", "urn:ispace", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.ispace=urn:ispace", "com.strandgenomics.imaging.iserver.services.def.ispace.ImageSpaceService"
     workingDir "resources/wsdl"
 }
 
 task iLoaderWSDL(type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.Java2WSDL"
-    args "-o", "iLoader.wsdl", "-l", "http://localhost:8080/imanage/services/", "-s", "iLoader", "-n", "urn:iloader", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.loader=urn:iloader", "com.strandgenomics.imaging.iserver.services.def.loader.ImageSpaceLoader"
+    args "-o", "iLoader.wsdl", "-l", "http://localhost:8080/iManage/services/", "-s", "iLoader", "-n", "urn:iloader", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.loader=urn:iloader", "com.strandgenomics.imaging.iserver.services.def.loader.ImageSpaceLoader"
     workingDir "resources/wsdl"
 }
 
 task iSearchWSDL(type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.Java2WSDL"
-    args "-o", "iSearch.wsdl", "-l", "http://localhost:8080/imanage/services/", "-s", "iSearch", "-n", "urn:isearch", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.search=urn:isearch", "com.strandgenomics.imaging.iserver.services.def.search.ImageSpaceSearch"
+    args "-o", "iSearch.wsdl", "-l", "http://localhost:8080/iManage/services/", "-s", "iSearch", "-n", "urn:isearch", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.search=urn:isearch", "com.strandgenomics.imaging.iserver.services.def.search.ImageSpaceSearch"
     workingDir "resources/wsdl"
 }
 
 task iUpdateWSDL(type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.Java2WSDL"
-    args "-o", "iUpdate.wsdl", "-l", "http://localhost:8080/imanage/services/", "-s", "iUpdate", "-n", "urn:iupdate", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.update=urn:iupdate", "com.strandgenomics.imaging.iserver.services.def.update.ImageSpaceUpdate"
+    args "-o", "iUpdate.wsdl", "-l", "http://localhost:8080/iManage/services/", "-s", "iUpdate", "-n", "urn:iupdate", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.update=urn:iupdate", "com.strandgenomics.imaging.iserver.services.def.update.ImageSpaceUpdate"
     workingDir "resources/wsdl"
 }
 
 task iComputeWSDL(type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.Java2WSDL"
-    args "-o", "iCompute.wsdl", "-l", "http://localhost:8080/imanage/services/", "-s", "iCompute", "-n", "urn:icompute", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.compute=urn:icompute", "com.strandgenomics.imaging.iserver.services.def.compute.ImageSpaceCompute"
+    args "-o", "iCompute.wsdl", "-l", "http://localhost:8080/iManage/services/", "-s", "iCompute", "-n", "urn:icompute", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.compute=urn:icompute", "com.strandgenomics.imaging.iserver.services.def.compute.ImageSpaceCompute"
     workingDir "resources/wsdl"
 }
 
 task iManageWSDL(type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.Java2WSDL"
-    args "-o", "iManage.wsdl", "-l", "http://localhost:8080/imanage/services/", "-s", "iManage", "-n", "urn:imanage", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.manage=urn:imanage", "com.strandgenomics.imaging.iserver.services.def.manage.ImageSpaceManagement"
+    args "-o", "iManage.wsdl", "-l", "http://localhost:8080/iManage/services/", "-s", "iManage", "-n", "urn:imanage", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.manage=urn:imanage", "com.strandgenomics.imaging.iserver.services.def.manage.ImageSpaceManagement"
     workingDir "resources/wsdl"
 }
 
 task iWorkersWSDL(type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.wsdl.Java2WSDL"
-    args "-o", "iWorkers.wsdl", "-l", "http://localhost:8080/imanage/services/", "-s", "iWorkers", "-n", "urn:iworkers", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.worker=urn:iworkers", "com.strandgenomics.imaging.iserver.services.def.worker.ImageSpaceWorkers"
+    args "-o", "iWorkers.wsdl", "-l", "http://localhost:8080/iManage/services/", "-s", "iWorkers", "-n", "urn:iworkers", "-y", "RPC", "-a", "-u", "ENCODED", "--PkgtoNS", "com.strandgenomics.imaging.iserver.services.def.worker=urn:iworkers", "com.strandgenomics.imaging.iserver.services.def.worker.ImageSpaceWorkers"
     workingDir "resources/wsdl"
 }
 
@@ -168,18 +168,18 @@ task deployLibs(dependsOn: [build, ':resources:build', ':iengine:createIEngineDA
     from "build/libs/"
     from "../iengine/build/libs/"
     from "../resources/build/libs/"
-    into "$tomcatHome/webapps/imanage/WEB-INF/lib"
+    into "$tomcatHome/webapps/iManage/WEB-INF/lib"
 }
 
 task deployContextXML(type: Copy) {
     from "resources/iServer.xml"
-    into "$tomcatHome/webapps/imanage/META-INF/"
+    into "$tomcatHome/webapps/iManage/META-INF/"
     rename 'iServer.xml', 'context.xml'
 }
 
 task deployWebXML(type: Copy) {
     from "resources/web.xml"
-    into "$tomcatHome/webapps/imanage/WEB-INF/"
+    into "$tomcatHome/webapps/iManage/WEB-INF/"
 }
 
 task deployContext(dependsOn: [deployContextXML, deployWebXML]) << {
@@ -189,97 +189,97 @@ task deployContext(dependsOn: [deployContextXML, deployWebXML]) << {
 task deploy_iAuthService(dependsOn: iAuthSkeleton, type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/auth/deploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/auth/deploy.wsdd"
 }
 
 task undeploy_iAuthService(type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/auth/undeploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/auth/undeploy.wsdd"
 }
 
 task deploy_iSpaceService(dependsOn: iSpaceSkeleton, type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/ispace/deploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/ispace/deploy.wsdd"
 }
 
 task undeploy_iSpaceService(type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/ispace/undeploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/ispace/undeploy.wsdd"
 }
 
 task deploy_iSearchService(dependsOn: iSearchSkeleton, type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/search/deploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/search/deploy.wsdd"
 }
 
 task undeploy_iSearchService(type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/search/undeploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/search/undeploy.wsdd"
 }
 
 task deploy_iLoaderService(dependsOn: iLoaderSkeleton, type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/loader/deploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/loader/deploy.wsdd"
 }
 
 task undeploy_iLoaderService(type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/loader/undeploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/loader/undeploy.wsdd"
 }
 
 task deploy_iUpdateService(dependsOn: iUpdateSkeleton, type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/update/deploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/update/deploy.wsdd"
 }
 
 task undeploy_iUpdateService(type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/update/undeploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/update/undeploy.wsdd"
 }
 
 task deploy_iComputeService(dependsOn: iComputeSkeleton, type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/compute/deploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/compute/deploy.wsdd"
 }
 
 task undeploy_iComputeService(type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/compute/undeploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/compute/undeploy.wsdd"
 }
 
 task deploy_iManageService(dependsOn: iManageSkeleton, type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/manage/deploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/manage/deploy.wsdd"
 }
 
 task undeploy_iManageService(type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/manage/undeploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/manage/undeploy.wsdd"
 }
 
 task deploy_iWorkersService(dependsOn: iWorkersSkeleton, type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/worker/deploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/worker/deploy.wsdd"
 }
 
 task undeploy_iWorkersService(type: JavaExec) {
     classpath configurations.webservices
     main = "org.apache.axis.client.AdminClient"
-    args "-l", "http://localhost:8080/imanage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/worker/undeploy.wsdd"
+    args "-l", "http://localhost:8080/iManage/servlet/AxisServlet", "src/main/java/com/strandgenomics/imaging/iserver/services/ws/worker/undeploy.wsdd"
 }
 
 task deployAllServices(dependsOn: [deploy_iAuthService, deploy_iSpaceService, deploy_iSearchService, deploy_iLoaderService, deploy_iUpdateService, deploy_iComputeService, deploy_iManageService, deploy_iWorkersService]) << {
