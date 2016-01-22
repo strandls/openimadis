@@ -173,8 +173,8 @@ public class ImageViewerApplet extends JPanel {
 //		}
 	}
 
-	public void downloadMovie(String fileName,String filePath,int option,double fps,String notes, boolean frame){
-		imageViewerState.VideoThread(this,fileName,filePath,option,fps,notes,frame);
+	public void downloadMovie(String file,int option,double fps,String notes, boolean frame){
+		imageViewerState.VideoThread(this,file,option,fps,notes,frame);
 	}
 	public void setChannelScale(int channelScale) 
 	{

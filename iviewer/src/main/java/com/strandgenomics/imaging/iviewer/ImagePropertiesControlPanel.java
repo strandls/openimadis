@@ -243,7 +243,6 @@ public class ImagePropertiesControlPanel extends JMenuBar
 		JMenuItem sliceDMenu = new JMenuItem("Slice(Z)");
 		sliceDMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("hello slice");
 				JFrame frame = new JFrame();
 		        MovieDialog mypanel = new MovieDialog(frame);
 		        JDialog jd = new JDialog(frame,"",true);
@@ -254,19 +253,17 @@ public class ImagePropertiesControlPanel extends JMenuBar
 		        jd.setVisible(true);
 		        if(!mypanel.getValidation())
 		        	return;
-		        String fileName = mypanel.getFileName();
-		        String fileExtension = FilenameUtils.getExtension(fileName);
+		        String file = mypanel.getFile();
+		        String fileExtension = FilenameUtils.getExtension(file);
 		        if(fileExtension.length()==0){
-		        	fileName += ".mp4";
+		        	file += ".mp4";
 		        }
-		        String filePath = mypanel.getDirectory();
 		        int option = mypanel.getOption();
 		        double fps = 0;
 				if(option == 1)
 		        	fps = mypanel.getFPS();
 				String notes = mypanel.getNotes();
-		        imageViewerApplet.downloadMovie(fileName,filePath,option,fps,notes,false);
-		        //imageViewerApplet.addUserAttachment(selectedFile, notes);
+		        imageViewerApplet.downloadMovie(file,option,fps,notes,false);
 			}
 		});
 		JMenuItem frameDMenu = new JMenuItem("Frame(T)");
@@ -282,18 +279,17 @@ public class ImagePropertiesControlPanel extends JMenuBar
 		        jd.setVisible(true);
 		        if(!mypanel.getValidation())
 		        	return;
-		        String fileName = mypanel.getFileName();
-		        String fileExtension = FilenameUtils.getExtension(fileName);
+		        String file = mypanel.getFile();
+		        String fileExtension = FilenameUtils.getExtension(file);
 		        if(fileExtension.length()==0){
-		        	fileName += ".mp4";
+		        	file += ".mp4";
 		        }
-		        String filePath = mypanel.getDirectory();
 		        int option = mypanel.getOption();
 		        double fps = 0;
 				if(option == 1)
 		        	fps = mypanel.getFPS();
 				String notes = mypanel.getNotes();
-		        imageViewerApplet.downloadMovie(fileName,filePath,option,fps,notes,true);
+		        imageViewerApplet.downloadMovie(file,option,fps,notes,true);
 			}
 		});
 		downloadButton.add(sliceDMenu);

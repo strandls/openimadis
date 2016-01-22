@@ -30,14 +30,12 @@ public class MovieDialog extends JPanel {
 
 	private JFrame parent;
 	
-    private JLabel lFileDirectory;
-    private JTextField tfFileDirectory;
+    private JLabel lFile;
+    private JTextField tfFile;
     private JButton fcButton;
-    private String directory;
+    private String file;	
 
-    private JLabel lFileName;
-    private JTextField tfFileName;
-    private String fileName;
+    
 
     private JLabel lFPS;
     private JTextField tfFPS;
@@ -60,20 +58,20 @@ public class MovieDialog extends JPanel {
 
             // Row 1 - Filename
                     // Col 1
-            this.lFileDirectory = new JLabel("Directory:");
+            this.lFile = new JLabel("File :");
             gbc.gridx = 0;
             gbc.gridy = 0;
             gbc.insets = new Insets(5, 0, 0, 10);
             gbc.anchor = GridBagConstraints.LINE_END;
-            this.add(this.lFileDirectory, gbc);
+            this.add(this.lFile, gbc);
 
                     // Col 2
-            this.tfFileDirectory = new JTextField(20);
-            this.tfFileDirectory.setEditable(false);
+            this.tfFile = new JTextField(20);
+            this.tfFile.setEditable(false);
             gbc.gridx = 1;
             gbc.gridy = 0;
             gbc.anchor = GridBagConstraints.LINE_START;
-            this.add(this.tfFileDirectory, gbc);
+            this.add(this.tfFile, gbc);
 
             
             
@@ -87,11 +85,10 @@ public class MovieDialog extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new JFileChooser();
-                    fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                     int returnVal = fc.showOpenDialog(null);
 
                     if (returnVal == JFileChooser.APPROVE_OPTION) {
-                        MovieDialog.this.tfFileDirectory.setText(fc.getSelectedFile().getAbsolutePath());
+                        MovieDialog.this.tfFile.setText(fc.getSelectedFile().getAbsolutePath());
                 }
 
             } }) ;
@@ -99,18 +96,18 @@ public class MovieDialog extends JPanel {
 
             
 
-            this.lFileName = new JLabel("File Name:");
-            gbc.gridx = 0;
-            gbc.gridy = 2;
-            gbc.anchor = GridBagConstraints.LINE_END;
-            gbc.insets = new Insets(15, 0, 0, 10);
-            this.add(this.lFileName, gbc);
+//            this.lFileName = new JLabel("File Name:");
+//            gbc.gridx = 0;
+//            gbc.gridy = 2;
+//            gbc.anchor = GridBagConstraints.LINE_END;
+//            gbc.insets = new Insets(15, 0, 0, 10);
+//            this.add(this.lFileName, gbc);
 
-            this.tfFileName = new JTextField(15);
-            gbc.gridx = 1;
-            gbc.gridy = 2;
-            gbc.anchor = GridBagConstraints.LINE_START;
-            this.add(this.tfFileName, gbc);
+//            this.tfFileName = new JTextField(15);
+//            gbc.gridx = 1;
+//            gbc.gridy = 2;
+//            gbc.anchor = GridBagConstraints.LINE_START;
+//            this.add(this.tfFileName, gbc);
 
             this.lOption = new JLabel("FPS Option:");
             gbc.gridx = 0;
@@ -126,6 +123,7 @@ public class MovieDialog extends JPanel {
             //JRadioButton thin4 = new JRadioButton("Thin4");
             bg1.add(butn1);
             bg1.add(butn2);
+            bg1.setSelected(butn1.getModel(), true);
             butn1.addActionListener(new ActionListener() {
 
                 @Override
@@ -159,7 +157,7 @@ public class MovieDialog extends JPanel {
             this.add(lFPS, gbc);
 
                     // Col 2
-            this.tfFPS = new JTextField(15);
+            this.tfFPS = new JTextField("10",15);
             gbc.gridx = 1;
             gbc.gridy = 4;
             gbc.anchor = GridBagConstraints.LINE_START;
@@ -194,15 +192,14 @@ public class MovieDialog extends JPanel {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                	directory = tfFileDirectory.getText();
-                	fileName = tfFileName.getText();
+                	file = tfFile.getText();
+                	//fileName = tfFileName.getText();
                 	fps = tfFPS.getText();
                 	notes = tfNotes.getText();
                 	System.out.println("fps: " + fps );
-                	System.out.println("fileName: " + fileName );
-                	System.out.println("directory: " + directory );
+                	System.out.println("directory: " + file );
                 	option = getSelectedButtonText(bg1);
-                	if(option!= null && option.length() > 0 && fileName.length() > 0 && directory.length() > 0   ){
+                	if(option!= null && option.length() > 0  && file.length() > 0   ){
                 		if(getOption() == 1 && fps.length() == 0)
                 			valid = false;
                 		else
@@ -253,24 +250,16 @@ public class MovieDialog extends JPanel {
     }
     // GETTERS AND SETTERS
 
-    public String getDirectory() {
-        return directory;
+    public String getFile() {
+        return file;
     }
 
 
 
-    public void setDirectory(String dir) {
-        this.directory = dir;
-    }
-    public String getFileName() {
-        return this.fileName;
-    }
+    
+    
 
 
-
-    public void setFileName(String fileName) {
-        this.directory = fileName;
-    }
     public float getFPS() {
         return Float.valueOf(fps);
     }
