@@ -1,5 +1,5 @@
 
-task deployWebApp(dependsOn: ':iacquisition:copyLibs') << {
+task deployWebApp(dependsOn: ':iacquisition:createAcquisitionZip') << {
     copy {
         from "standard"
         into "$tomcatHome/webapps/iManage/standard"
@@ -12,6 +12,7 @@ task deployWebApp(dependsOn: ':iacquisition:copyLibs') << {
 
     copy {
         from "acquisition"
+        from "../iacquisition/build/distributions/acquisition.zip"
         into "$tomcatHome/webapps/iManage/acquisition"
     }
 
