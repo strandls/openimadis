@@ -141,6 +141,7 @@ Ext.define('Manage.view.Downloads', {
 						xtype : 'button',
 						tooltip : 'Click to attach this to the record',
 						icon : 'images/icons/attachment.gif',
+						disabled : (record.data.status != "successful"),
 						width : 25,
 						handler : function() {
 							view.up('downloads').fireEvent('attachmovie', record);

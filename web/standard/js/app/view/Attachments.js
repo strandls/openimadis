@@ -28,6 +28,13 @@ Ext.define('Manage.view.Attachments', {
 				layout.setActiveItem(1);
 				
 			}
+		}, {
+			iconCls: "refresh",
+			tooltip : 'Refresh Attachment List',
+			handler : function() {
+			var userStore = Ext.StoreMgr.get('UserAttachments');
+								userStore.reload();
+			}
 		} ]
 	}],
 	
