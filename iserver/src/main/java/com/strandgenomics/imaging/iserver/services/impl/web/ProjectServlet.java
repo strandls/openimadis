@@ -1595,11 +1595,13 @@ public class ProjectServlet extends ApplicationServlet {
 			SysManagerFactory.getAttachmentManager().addAttachmentForRecord(getWebApplication(), null, recordID, file, notes, userName);
 	        writeJSON(resp, successResponse, "text/html");
 	        
-        }catch (ImagingEngineException e)
+        }
+        catch (ImagingEngineException e)
 		{
 			logger.logp(Level.WARNING, "ProjectServlet", "addRecordAttachment", "You dont have permission to add attachment ", e);
 			writeFailure(resp, "You dont have permission to add attachment");
-		}	
+		}
+        
     }
     
     /**
@@ -1631,8 +1633,13 @@ public class ProjectServlet extends ApplicationServlet {
 
         	SysManagerFactory.getAttachmentManager().addAttachmentForRecord(getWebApplication(), null, recordID, temp, notes, userName);
         	writeJSON(resp, successResponse, "text/html");
-
-        }catch (ImagingEngineException e)
+        	temp.delete();
+        }catch( DataAccessException e){
+        	logger.logp(Level.WARNING, "ProjectServlet", "addRecordAttachment", "File already exixts ", e);
+        	temp.delete();
+			writeFailure(resp, "This file is already attached to the record");
+		}
+        catch (ImagingEngineException e)
         {
         	logger.logp(Level.WARNING, "ProjectServlet", "addRecordAttachment", "You dont have permission to add attachment ", e);
         	writeFailure(resp, "You dont have permission to add attachment");
