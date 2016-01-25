@@ -20,6 +20,8 @@
 package com.strandgenomics.imaging.iclient.dialogs;
 
 import java.net.InetAddress;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -57,7 +59,7 @@ public class LoginDocomentModel {
 	protected boolean useProxy = false;
 	/** checks whether to use ssl */
 	protected boolean useSSL = false;
-	protected int protocol = 0;
+	//protected int protocol = 0;
 
 	public LoginDocomentModel() 
 	{
@@ -166,7 +168,7 @@ public class LoginDocomentModel {
 		}
 
 		ConnectionPreferences pref = ConnectionPreferences.getInstance();
-		pref.setServerSettings(getServerAddress(), getServerPort(), getLogin(),getPassword(), protocol, useSSL);
+		pref.setServerSettings(getServerAddress(), getServerPort(), getLogin(),getPassword(), useSSL);
 		pref.save();
 
 		// now set proxy settings in the system properties
@@ -204,9 +206,7 @@ public class LoginDocomentModel {
 	public void setProxyEnabled(boolean status) {
 		useProxy = status;
 	}
-	public void setProtocol(int value) {
-		protocol = value;
-	}
+	
 	public boolean useProxy() {
 		return useProxy;
 	}
@@ -230,9 +230,7 @@ public class LoginDocomentModel {
 	public String getPassword() {
 		return getFieldValue(password);
 	}
-	public int getProtocol(){
-		return protocol;
-	}
+	
 	public String getProxyServerAddress() {
 		return getFieldValue(proxyHost);
 	}
@@ -251,6 +249,20 @@ public class LoginDocomentModel {
 
 	private String validateIPAddress(String str)
 	{
+		URI uri = null;
+		String url = trim(str);
+		try {
+			uri = new URI(url);
+			String domain = uri.getHost();
+			if(domain!=null){
+				str = domain.startsWith("www.") ? domain.substring(4) : domain;
+				
+			}
+			
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
 		String hostAddress = null;
 		try {
 			String host = trim(str);

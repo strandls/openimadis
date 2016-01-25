@@ -4,6 +4,8 @@ package com.strandgenomics.imaging.iacquisition;
 import java.io.File;
 import java.io.IOException;
 import java.net.ConnectException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -64,10 +66,30 @@ public class AcqLauncher {
 			
 			String username = preferences.getLoginName();
 			String password = preferences.getPassword();
-			String server = preferences.getHostAddress();
-			Integer port = preferences.getHostPort();
-			Integer protocol_flag = preferences.getProtocol();
+			String url = preferences.getHostAddress();
+			String server = null;
 			String protocol = new String();
+			//String server = preferences.getHostAddress();
+			URI uri = null;
+			try {
+				uri = new URI(url);
+				String domain = uri.getHost();
+				if(domain!=null){
+					server = domain.startsWith("www.") ? domain.substring(4) : domain;
+					if(url.startsWith("https")){
+						protocol = "https";
+					} 
+					else if(url.startsWith("http")){
+						protocol = "http";
+					}
+				}
+				
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			}
+			Integer port = preferences.getHostPort();
+			
 			String proxyHost = null;
 			String proxyusername = null;
 			String proxypassword = null;
@@ -80,10 +102,10 @@ public class AcqLauncher {
 			}
 			
 			
-			if(protocol_flag == 0)
+			/*if(protocol_flag == 0)
 				protocol = "http";
 			else
-				protocol = "https";
+				protocol = "https";*/
 			
 			if(preferences.toUseProxy()){
 				HostConfiguration config = client.getHostConfiguration();

@@ -32,6 +32,9 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -80,7 +83,7 @@ public class LoginDialog extends JDialog  {
 	
 	protected boolean cancelled;
 	private boolean maskLoginField = false;
-	private JComboBox<String> protocolCheckBox;
+	//private JComboBox<String> protocolCheckBox;
 
     /**
      * Dialog to Display/Edit Connection Preferences 
@@ -164,7 +167,7 @@ public class LoginDialog extends JDialog  {
         {
             public void actionPerformed(ActionEvent e){
             	String p = null;
-				if(protocolCheckBox!=null)
+				/*if(protocolCheckBox!=null)
 					p =  (String) protocolCheckBox.getSelectedItem();
 
 				if(p.equals("HTTP")){
@@ -174,7 +177,7 @@ public class LoginDialog extends JDialog  {
 				else if(p.equals("HTTPS")){
 					docModel.setProtocol(1);
 					docModel.useSSL = true;
-				}
+				}*/
 					
                 boolean validParameters = validateAndSetParameters();
                 
@@ -259,11 +262,12 @@ public class LoginDialog extends JDialog  {
         	passwordBox.setText("");
         JTextField hostIPBox   = new JTextField(docModel.getServerAddressField(), null, 20);
         hostIPBox.setEnabled(!maskLoginField);
-
+        
         JTextField hostPortBox = new JTextField(docModel.getServerPortField(), null, 20);
         hostPortBox.setEnabled(!maskLoginField);
+        
         final JTextField portListener = hostPortBox;
-        portListener.getDocument().addDocumentListener(new DocumentListener() {
+        /*portListener.getDocument().addDocumentListener(new DocumentListener() {
         	public void changedUpdate(DocumentEvent e) {
         		setProtocol();
         	}
@@ -285,12 +289,55 @@ public class LoginDialog extends JDialog  {
         			}
         		}
         	}
+        });*/
+        final JTextField hostListener = hostIPBox;
+        hostListener.getDocument().addDocumentListener(new DocumentListener() {
+        	public void changedUpdate(DocumentEvent e) {
+        		setFields();
+        	}
+        	public void removeUpdate(DocumentEvent e) {
+        		setFields();
+        	}
+        	public void insertUpdate(DocumentEvent e) {
+        		setFields();
+        	}
+
+        	public void setFields() {
+        		String url = hostListener.getText();
+        		URI uri = null;
+				try {
+					uri = new URI(url);
+					String domain = uri.getHost();
+					int port = uri.getPort();
+					if(domain!=null){
+						String host = domain.startsWith("www.") ? domain.substring(4) : domain;
+						if(url.startsWith("https")){
+							portListener.setText("443");
+							//protocolCheckBox.setSelectedIndex(1);
+						} 
+						else if(url.startsWith("http")){
+							portListener.setText("80");
+							//protocolCheckBox.setSelectedIndex(0);
+						}
+					}
+					if(port > 0) {
+						portListener.setText(String.valueOf(port));
+					}
+				} catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				}
+        	    
+        		
+        	}
+        	
         });
+        
         JTextField loginBox    = new JTextField(docModel.getLoginField(), null, 20);
         loginBox.setEnabled(!maskLoginField);
         
         String[] choices = { "HTTP","HTTPS"};
-        protocolCheckBox = new JComboBox<String>(choices);
+        /*protocolCheckBox = new JComboBox<String>(choices);
         protocolCheckBox.setFont(LABEL_FONT);
         if(hostPortBox.getText()!=null){
         	String port = hostPortBox.getText();
@@ -300,10 +347,12 @@ public class LoginDialog extends JDialog  {
         	else if(port.equals("8080")|| port.equals("80")){
           	  protocolCheckBox.setSelectedIndex(0);
             }
-        }
+        }*/
         
+        
+        //URLBox.setEnabled(!maskLoginField);
         JTabbedPane tabPane = new JTabbedPane();
-        tabPane.addTab("Primary", constructPrimaryPanel(hostIPBox,hostPortBox,loginBox,passwordBox,protocolCheckBox));
+        tabPane.addTab("Primary", constructPrimaryPanel(hostIPBox,hostPortBox,loginBox,passwordBox));
         tabPane.addTab("Proxy",   constructProxyPanel(proxyHostBox, proxyPortBox, proxyUserBox, proxyPasswordBox, proxyEnableBox));
 
         tabPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
@@ -319,12 +368,13 @@ public class LoginDialog extends JDialog  {
      * @return the JPanel representing the primary connection panel
      */
     private JPanel constructPrimaryPanel(JTextField hostIPBox, JTextField hostPortBox, 
-    		JTextField loginBox, JPasswordField passwordBox,JComboBox<String> protocolCheckBox)
+    		JTextField loginBox, JPasswordField passwordBox)
     {
-        JPanel preferencePanel = new JPanel(new GridLayout(5,2,10,10));
+        JPanel preferencePanel = new JPanel(new GridLayout(4,2,10,10));
         preferencePanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
-        JLabel ipLabel = new JLabel("Server IP:");
+        
+        JLabel ipLabel = new JLabel("Server URL:");
         ipLabel.setFont(LABEL_FONT);
         preferencePanel.add(ipLabel);
         preferencePanel.add(hostIPBox);
@@ -344,10 +394,10 @@ public class LoginDialog extends JDialog  {
         preferencePanel.add(passLabel);
         preferencePanel.add(passwordBox);
         
-        JLabel protocolLabel = new JLabel("Protocol:");
+        /*JLabel protocolLabel = new JLabel("Protocol:");
         protocolLabel.setFont(LABEL_FONT);
         preferencePanel.add(protocolLabel);
-        preferencePanel.add(protocolCheckBox);
+        preferencePanel.add(protocolCheckBox);*/
 
         return preferencePanel;
     }
