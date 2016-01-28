@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    compile files('../../../rep/pkg/external/bioformats/4.4.10.1/lib/loci_tools.jar')
+    compile files('../../../bioformats/5.1.5/loci_tools.jar')
     //compile 'ome:loci_tools:5.1.5'
     compile 'colt:colt:1.2.0'
     compile 'org.apache.commons:commons-compress:1.3'
