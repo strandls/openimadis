@@ -95,8 +95,9 @@ task generateClientApiDocs(type: Javadoc) {
   destinationDir = file('api/docs')
 }
 
-task copyUploadServiceLibs(type: Copy){
+task copyUploadServiceLibs(dependsOn: createClientAPIJar, type: Copy){
     from 'build/libs/client-api.jar'
+    from '../../../bioformats/5.1.5/loci_tools.jar'
     into 'build/tmp/UploadService/lib'
 }
 
