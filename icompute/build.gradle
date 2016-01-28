@@ -21,16 +21,22 @@ dependencies {
 task copyComputeLibs(dependsOn: build, type: Copy){
     from configurations.runtime
     from 'build/libs/'
-    into 'compute-deploy/lib/'
+    into 'build/compute/compute-deploy/lib/'
 }
 
 task copyComputeApps(type: Copy){
     from 'apps'
-    into 'compute-deploy/apps/'
+    into 'build/compute/compute-deploy/apps/'
 }
 
 task createComputeDeployBundle(dependsOn: [copyComputeLibs, copyComputeApps], type: Copy){
    from 'bin'
    from 'conf'
-   into 'compute-deploy'
+   into 'build/compute/compute-deploy'
 }
+
+task createComputeBundleZip(dependsOn: createComputeDeployBundle, type: Zip){
+   from 'build/compute'
+   archiveName 'compute.zip'
+}
+
