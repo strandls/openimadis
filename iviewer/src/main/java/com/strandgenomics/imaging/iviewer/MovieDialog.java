@@ -24,6 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class MovieDialog extends JPanel {
@@ -85,6 +86,7 @@ public class MovieDialog extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new JFileChooser();
+                    fc.setFileFilter(new FileNameExtensionFilter("Video file", "mp4"));
                     int returnVal = fc.showOpenDialog(null);
 
                     if (returnVal == JFileChooser.APPROVE_OPTION) {

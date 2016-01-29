@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -729,7 +730,10 @@ public class ImageViewerState implements ImageConsumer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		imageViewerApplet.addUserAttachment(videoFile, notes);
+		int ret = JOptionPane.showConfirmDialog(null, "Do you want to attach this movie to the record?", "Success", JOptionPane.YES_NO_OPTION);
+		if (ret == JOptionPane.YES_OPTION) {
+			imageViewerApplet.addUserAttachment(videoFile, notes);
+		}
 	}
 	public static File createMovie(Iterator<VideoFrame> inputFrames, int imageWidth, int imageHeight, String file) throws IOException
 	{
@@ -1070,7 +1074,7 @@ public class ImageViewerState implements ImageConsumer {
 			JOptionPane.showMessageDialog(null, "Cant Modify Read-only Record", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		
+		record.removeAttachment(absoluteName);
 		attachmentFileByName.remove(absoluteName);
 		attachmentNotesByName.remove(absoluteName);
 	}
