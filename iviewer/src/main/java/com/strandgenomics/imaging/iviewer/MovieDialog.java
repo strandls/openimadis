@@ -86,7 +86,7 @@ public class MovieDialog extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new JFileChooser();
-                    fc.setFileFilter(new FileNameExtensionFilter("Video file", "mp4"));
+                    fc.setFileFilter(new FileNameExtensionFilter(".mp4", "mp4"));
                     int returnVal = fc.showOpenDialog(null);
 
                     if (returnVal == JFileChooser.APPROVE_OPTION) {
