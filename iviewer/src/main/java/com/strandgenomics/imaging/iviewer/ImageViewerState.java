@@ -702,8 +702,6 @@ public class ImageViewerState implements ImageConsumer {
 				bimage = overlay.getImage(zStack, mosaic, useChannelColor, null);
 				VideoFrame vf = new VideoFrame(bimage, elapsedtime);
 				l.add(vf);
-				//File outputfile = new File("/home/ravikiran/b/imageTest"+ i + ".jpg");
-				//ImageIO.write(bimage, "jpg", outputfile);
 			} 
 			catch(Exception e) 
 			{
@@ -793,8 +791,6 @@ public class ImageViewerState implements ImageConsumer {
 			double temp = 1000/frameRate;
 			// from frame rate compute the timestamp of the current frame inside movie
 			long timeStamp = (long) (index * temp);
-			File outputfile = new File("/home/ravikiran/b/imageTesting"+ index + ".jpg");
-			ImageIO.write(image, "jpg", outputfile);
 			// encode the image to stream #0
 			writer.encodeVideo(0, image, timeStamp, TimeUnit.MILLISECONDS);
 			
