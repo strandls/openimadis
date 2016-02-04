@@ -1,0 +1,164 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    package com.strandgenomics.imaging.icore;<a name="line.1"></a>
+<FONT color="green">002</FONT>    <a name="line.2"></a>
+<FONT color="green">003</FONT>    import java.awt.image.BufferedImage;<a name="line.3"></a>
+<FONT color="green">004</FONT>    import java.io.ByteArrayInputStream;<a name="line.4"></a>
+<FONT color="green">005</FONT>    import java.io.ByteArrayOutputStream;<a name="line.5"></a>
+<FONT color="green">006</FONT>    import java.io.IOException;<a name="line.6"></a>
+<FONT color="green">007</FONT>    import java.io.InputStream;<a name="line.7"></a>
+<FONT color="green">008</FONT>    <a name="line.8"></a>
+<FONT color="green">009</FONT>    import javax.imageio.ImageIO;<a name="line.9"></a>
+<FONT color="green">010</FONT>    <a name="line.10"></a>
+<FONT color="green">011</FONT>    import com.strandgenomics.imaging.icore.util.Util;<a name="line.11"></a>
+<FONT color="green">012</FONT>    <a name="line.12"></a>
+<FONT color="green">013</FONT>    /**<a name="line.13"></a>
+<FONT color="green">014</FONT>     * Thumbnail powered by byte array<a name="line.14"></a>
+<FONT color="green">015</FONT>     * <a name="line.15"></a>
+<FONT color="green">016</FONT>     * @author Anup Kulkarni<a name="line.16"></a>
+<FONT color="green">017</FONT>     */<a name="line.17"></a>
+<FONT color="green">018</FONT>    public class Thumbnail implements Storable{<a name="line.18"></a>
+<FONT color="green">019</FONT>            <a name="line.19"></a>
+<FONT color="green">020</FONT>            /**<a name="line.20"></a>
+<FONT color="green">021</FONT>             * <a name="line.21"></a>
+<FONT color="green">022</FONT>             */<a name="line.22"></a>
+<FONT color="green">023</FONT>            private static final long serialVersionUID = -1500092420533949236L;<a name="line.23"></a>
+<FONT color="green">024</FONT>            /**<a name="line.24"></a>
+<FONT color="green">025</FONT>             * thumbnail data<a name="line.25"></a>
+<FONT color="green">026</FONT>             */<a name="line.26"></a>
+<FONT color="green">027</FONT>            private byte[] data;<a name="line.27"></a>
+<FONT color="green">028</FONT>            long revision;<a name="line.28"></a>
+<FONT color="green">029</FONT>            <a name="line.29"></a>
+<FONT color="green">030</FONT>            public Thumbnail(BufferedImage thumbnail, long revision)<a name="line.30"></a>
+<FONT color="green">031</FONT>            {<a name="line.31"></a>
+<FONT color="green">032</FONT>                    ByteArrayOutputStream os = new ByteArrayOutputStream();<a name="line.32"></a>
+<FONT color="green">033</FONT>                    try{<a name="line.33"></a>
+<FONT color="green">034</FONT>                            <a name="line.34"></a>
+<FONT color="green">035</FONT>                            ImageIO.write(thumbnail, "jpg", os);<a name="line.35"></a>
+<FONT color="green">036</FONT>                            this.data = os.toByteArray();<a name="line.36"></a>
+<FONT color="green">037</FONT>                            this.revision=revision;<a name="line.37"></a>
+<FONT color="green">038</FONT>                    }<a name="line.38"></a>
+<FONT color="green">039</FONT>                    catch (IOException e) {<a name="line.39"></a>
+<FONT color="green">040</FONT>                            try{<a name="line.40"></a>
+<FONT color="green">041</FONT>                                    os.close();<a name="line.41"></a>
+<FONT color="green">042</FONT>                            }<a name="line.42"></a>
+<FONT color="green">043</FONT>                            catch (Exception e2) {<a name="line.43"></a>
+<FONT color="green">044</FONT>                                    e2.printStackTrace();<a name="line.44"></a>
+<FONT color="green">045</FONT>                            }<a name="line.45"></a>
+<FONT color="green">046</FONT>                    }<a name="line.46"></a>
+<FONT color="green">047</FONT>                    <a name="line.47"></a>
+<FONT color="green">048</FONT>            }<a name="line.48"></a>
+<FONT color="green">049</FONT>            <a name="line.49"></a>
+<FONT color="green">050</FONT>            public Thumbnail(byte[] thumbnail)<a name="line.50"></a>
+<FONT color="green">051</FONT>            {<a name="line.51"></a>
+<FONT color="green">052</FONT>                    this.data = thumbnail;<a name="line.52"></a>
+<FONT color="green">053</FONT>            }<a name="line.53"></a>
+<FONT color="green">054</FONT>            <a name="line.54"></a>
+<FONT color="green">055</FONT>            public Thumbnail(InputStream jpegStream, long revision) throws IOException<a name="line.55"></a>
+<FONT color="green">056</FONT>            {<a name="line.56"></a>
+<FONT color="green">057</FONT>                    ByteArrayOutputStream sink = new ByteArrayOutputStream();<a name="line.57"></a>
+<FONT color="green">058</FONT>                    Util.transferData(jpegStream, sink);<a name="line.58"></a>
+<FONT color="green">059</FONT>                    <a name="line.59"></a>
+<FONT color="green">060</FONT>                    this.data = sink.toByteArray();<a name="line.60"></a>
+<FONT color="green">061</FONT>                    this.revision=revision;<a name="line.61"></a>
+<FONT color="green">062</FONT>            }<a name="line.62"></a>
+<FONT color="green">063</FONT>            <a name="line.63"></a>
+<FONT color="green">064</FONT>            /**<a name="line.64"></a>
+<FONT color="green">065</FONT>             * <a name="line.65"></a>
+<FONT color="green">066</FONT>             * @return input stream for thumbnail<a name="line.66"></a>
+<FONT color="green">067</FONT>             */<a name="line.67"></a>
+<FONT color="green">068</FONT>            public InputStream getInputStream()<a name="line.68"></a>
+<FONT color="green">069</FONT>            {<a name="line.69"></a>
+<FONT color="green">070</FONT>                    InputStream is = new ByteArrayInputStream(data);<a name="line.70"></a>
+<FONT color="green">071</FONT>                    return is;<a name="line.71"></a>
+<FONT color="green">072</FONT>            }<a name="line.72"></a>
+<FONT color="green">073</FONT>            <a name="line.73"></a>
+<FONT color="green">074</FONT>            /**<a name="line.74"></a>
+<FONT color="green">075</FONT>             * <a name="line.75"></a>
+<FONT color="green">076</FONT>             * @return bufferedimage from thumbnail object<a name="line.76"></a>
+<FONT color="green">077</FONT>             * @throws IOException<a name="line.77"></a>
+<FONT color="green">078</FONT>             */<a name="line.78"></a>
+<FONT color="green">079</FONT>            public BufferedImage getBufferedImage() throws IOException<a name="line.79"></a>
+<FONT color="green">080</FONT>            {<a name="line.80"></a>
+<FONT color="green">081</FONT>                    BufferedImage thumbnail = ImageIO.read(getInputStream());<a name="line.81"></a>
+<FONT color="green">082</FONT>                    return thumbnail;<a name="line.82"></a>
+<FONT color="green">083</FONT>            }<a name="line.83"></a>
+<FONT color="green">084</FONT>            <a name="line.84"></a>
+<FONT color="green">085</FONT>            /**<a name="line.85"></a>
+<FONT color="green">086</FONT>             * <a name="line.86"></a>
+<FONT color="green">087</FONT>             * @return revision for thumbnail<a name="line.87"></a>
+<FONT color="green">088</FONT>             */<a name="line.88"></a>
+<FONT color="green">089</FONT>            public long getRevision() {<a name="line.89"></a>
+<FONT color="green">090</FONT>                    return revision;<a name="line.90"></a>
+<FONT color="green">091</FONT>            }<a name="line.91"></a>
+<FONT color="green">092</FONT>    <a name="line.92"></a>
+<FONT color="green">093</FONT>            @Override<a name="line.93"></a>
+<FONT color="green">094</FONT>            public void dispose() {<a name="line.94"></a>
+<FONT color="green">095</FONT>                    // TODO Auto-generated method stub<a name="line.95"></a>
+<FONT color="green">096</FONT>                    <a name="line.96"></a>
+<FONT color="green">097</FONT>            }<a name="line.97"></a>
+<FONT color="green">098</FONT>    }<a name="line.98"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

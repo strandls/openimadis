@@ -1,0 +1,234 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    /*<a name="line.1"></a>
+<FONT color="green">002</FONT>     * ImageSpaceWorkflow.java<a name="line.2"></a>
+<FONT color="green">003</FONT>     *<a name="line.3"></a>
+<FONT color="green">004</FONT>     * AVADIS Image Management System<a name="line.4"></a>
+<FONT color="green">005</FONT>     *<a name="line.5"></a>
+<FONT color="green">006</FONT>     * Copyright 2011-2012 by Strand Life Sciences<a name="line.6"></a>
+<FONT color="green">007</FONT>     * 5th Floor, Kirloskar Business Park, <a name="line.7"></a>
+<FONT color="green">008</FONT>     * Bellary Road, Hebbal<a name="line.8"></a>
+<FONT color="green">009</FONT>     * Bangalore 560024<a name="line.9"></a>
+<FONT color="green">010</FONT>     * Karnataka, India<a name="line.10"></a>
+<FONT color="green">011</FONT>     * <a name="line.11"></a>
+<FONT color="green">012</FONT>     * All rights reserved.<a name="line.12"></a>
+<FONT color="green">013</FONT>     *<a name="line.13"></a>
+<FONT color="green">014</FONT>     * This software is the confidential and proprietary information<a name="line.14"></a>
+<FONT color="green">015</FONT>     * of Strand Life Sciences., ("Confidential Information").  You<a name="line.15"></a>
+<FONT color="green">016</FONT>     * shall not disclose such Confidential Information and shall use<a name="line.16"></a>
+<FONT color="green">017</FONT>     * it only in accordance with the terms of the license agreement<a name="line.17"></a>
+<FONT color="green">018</FONT>     * you entered into with Strand Life Sciences.<a name="line.18"></a>
+<FONT color="green">019</FONT>     */<a name="line.19"></a>
+<FONT color="green">020</FONT>    package com.strandgenomics.imaging.iclient;<a name="line.20"></a>
+<FONT color="green">021</FONT>    <a name="line.21"></a>
+<FONT color="green">022</FONT>    import java.io.File;<a name="line.22"></a>
+<FONT color="green">023</FONT>    import java.util.List;<a name="line.23"></a>
+<FONT color="green">024</FONT>    import java.util.Map;<a name="line.24"></a>
+<FONT color="green">025</FONT>    import java.util.Set;<a name="line.25"></a>
+<FONT color="green">026</FONT>    <a name="line.26"></a>
+<FONT color="green">027</FONT>    import com.strandgenomics.imaging.icore.app.Parameter;<a name="line.27"></a>
+<FONT color="green">028</FONT>    import com.strandgenomics.imaging.icore.app.Priority;<a name="line.28"></a>
+<FONT color="green">029</FONT>    import com.strandgenomics.imaging.icore.app.State;<a name="line.29"></a>
+<FONT color="green">030</FONT>    <a name="line.30"></a>
+<FONT color="green">031</FONT>    /**<a name="line.31"></a>
+<FONT color="green">032</FONT>     * Service to enable workflow - executing of task/pipeline by the server<a name="line.32"></a>
+<FONT color="green">033</FONT>     * @author arunabha<a name="line.33"></a>
+<FONT color="green">034</FONT>     *<a name="line.34"></a>
+<FONT color="green">035</FONT>     */<a name="line.35"></a>
+<FONT color="green">036</FONT>    public interface ImageSpaceWorkflow {<a name="line.36"></a>
+<FONT color="green">037</FONT>    <a name="line.37"></a>
+<FONT color="green">038</FONT>            /**<a name="line.38"></a>
+<FONT color="green">039</FONT>             * Returns the publisher of the specified application<a name="line.39"></a>
+<FONT color="green">040</FONT>             * @param application the application <a name="line.40"></a>
+<FONT color="green">041</FONT>             * @return the publisher for the specified application<a name="line.41"></a>
+<FONT color="green">042</FONT>             */<a name="line.42"></a>
+<FONT color="green">043</FONT>            public Publisher getPublisher(Application application);<a name="line.43"></a>
+<FONT color="green">044</FONT>    <a name="line.44"></a>
+<FONT color="green">045</FONT>            /**<a name="line.45"></a>
+<FONT color="green">046</FONT>             * Executes the specified registered-application with the specified parameters (if any) <a name="line.46"></a>
+<FONT color="green">047</FONT>             * on the specified list of records as input<a name="line.47"></a>
+<FONT color="green">048</FONT>             * @param application the application pre-registered with the server (through plugins to compute-server)<a name="line.48"></a>
+<FONT color="green">049</FONT>             * @param parameters the parameters to run the application<a name="line.49"></a>
+<FONT color="green">050</FONT>             * @param guids the input records<a name="line.50"></a>
+<FONT color="green">051</FONT>             * @param priority priority of the task (running application) under consideration <a name="line.51"></a>
+<FONT color="green">052</FONT>             * @return an handle to the remotely executing task<a name="line.52"></a>
+<FONT color="green">053</FONT>             */<a name="line.53"></a>
+<FONT color="green">054</FONT>            public Job executeApplication(Application application, Map&lt;String, Object&gt; parameters, Priority priority, String projectName, long ... guids);<a name="line.54"></a>
+<FONT color="green">055</FONT>    <a name="line.55"></a>
+<FONT color="green">056</FONT>            /**<a name="line.56"></a>
+<FONT color="green">057</FONT>             * Schedules the specified registered-application for execution with the specified parameters (if any) <a name="line.57"></a>
+<FONT color="green">058</FONT>             * on the specified list of records as input<a name="line.58"></a>
+<FONT color="green">059</FONT>             * @param application the application pre-registered with the server (through plugins to compute-server)<a name="line.59"></a>
+<FONT color="green">060</FONT>             * @param parameters the parameters to run the application<a name="line.60"></a>
+<FONT color="green">061</FONT>             * @param records the input records<a name="line.61"></a>
+<FONT color="green">062</FONT>             * @param priority priority of the task (running application) under consideration <a name="line.62"></a>
+<FONT color="green">063</FONT>             * @param scheduleTime time in milliseconds <a name="line.63"></a>
+<FONT color="green">064</FONT>             * @return an handle to the remotely executing task<a name="line.64"></a>
+<FONT color="green">065</FONT>             */<a name="line.65"></a>
+<FONT color="green">066</FONT>            public Job scheduleApplication(Application application, Map&lt;String, Object&gt; parameters, Priority priority, String projectName, long scheduleTime, long ... guids);<a name="line.66"></a>
+<FONT color="green">067</FONT>    <a name="line.67"></a>
+<FONT color="green">068</FONT>            /**<a name="line.68"></a>
+<FONT color="green">069</FONT>             * Returns the list of available application with the given category and from the specified publisher <a name="line.69"></a>
+<FONT color="green">070</FONT>             * @param publisher publisher (null will mean a listing across all publisher)<a name="line.70"></a>
+<FONT color="green">071</FONT>             * @param categoryName name of the category  (null will mean a listing across all categories)<a name="line.71"></a>
+<FONT color="green">072</FONT>             * @return list of available applications<a name="line.72"></a>
+<FONT color="green">073</FONT>             */<a name="line.73"></a>
+<FONT color="green">074</FONT>            public List&lt;Application&gt; listApplications(Publisher publisher, String categoryName);<a name="line.74"></a>
+<FONT color="green">075</FONT>    <a name="line.75"></a>
+<FONT color="green">076</FONT>            /**<a name="line.76"></a>
+<FONT color="green">077</FONT>             * Returns the required application specific parameters for the specified application <a name="line.77"></a>
+<FONT color="green">078</FONT>             * @param application application under consideration<a name="line.78"></a>
+<FONT color="green">079</FONT>             * @return a list of relevant parameters or null, if nothing there<a name="line.79"></a>
+<FONT color="green">080</FONT>             */<a name="line.80"></a>
+<FONT color="green">081</FONT>            public Set&lt;Parameter&gt; getParameters(Application application) ;<a name="line.81"></a>
+<FONT color="green">082</FONT>    <a name="line.82"></a>
+<FONT color="green">083</FONT>            /**<a name="line.83"></a>
+<FONT color="green">084</FONT>             * Returns the state of the task submitted for execution<a name="line.84"></a>
+<FONT color="green">085</FONT>             * @param job handle to the remotely executing task<a name="line.85"></a>
+<FONT color="green">086</FONT>             * @return the status code. one of SCHEDULED,WAITING,PAUSED,ALLOCATED,EXECUTING,DELETING, DELETED,ERROR,SUCCESS,TERMINATED<a name="line.86"></a>
+<FONT color="green">087</FONT>             */<a name="line.87"></a>
+<FONT color="green">088</FONT>            public State getJobState(Job job) ;<a name="line.88"></a>
+<FONT color="green">089</FONT>    <a name="line.89"></a>
+<FONT color="green">090</FONT>            /**<a name="line.90"></a>
+<FONT color="green">091</FONT>             * Reschedule the specified job  which is still to be allocated (to a worker for execution)<a name="line.91"></a>
+<FONT color="green">092</FONT>             * @param job handle to the remotely executing task<a name="line.92"></a>
+<FONT color="green">093</FONT>             * @param rescheduleTime the new wait time interval<a name="line.93"></a>
+<FONT color="green">094</FONT>             * @return true if successful, false otherwise<a name="line.94"></a>
+<FONT color="green">095</FONT>             */<a name="line.95"></a>
+<FONT color="green">096</FONT>            public boolean rescheduleTask(Job job, long rescheduleTime);<a name="line.96"></a>
+<FONT color="green">097</FONT>    <a name="line.97"></a>
+<FONT color="green">098</FONT>            /**<a name="line.98"></a>
+<FONT color="green">099</FONT>             * Pauses the specified job  which is still to be allocated (to a worker for execution)<a name="line.99"></a>
+<FONT color="green">100</FONT>             * @param job handle to the remotely executing task<a name="line.100"></a>
+<FONT color="green">101</FONT>             * @return true if successful, false otherwise<a name="line.101"></a>
+<FONT color="green">102</FONT>             */<a name="line.102"></a>
+<FONT color="green">103</FONT>            public boolean pauseTask(Job job);<a name="line.103"></a>
+<FONT color="green">104</FONT>    <a name="line.104"></a>
+<FONT color="green">105</FONT>            /**<a name="line.105"></a>
+<FONT color="green">106</FONT>             * Resumes the specified job  which is in a paused state<a name="line.106"></a>
+<FONT color="green">107</FONT>             * @param job handle to the remotely executing task<a name="line.107"></a>
+<FONT color="green">108</FONT>             * @return true if successful, false otherwise<a name="line.108"></a>
+<FONT color="green">109</FONT>             */<a name="line.109"></a>
+<FONT color="green">110</FONT>            public boolean resumeTask(Job job);<a name="line.110"></a>
+<FONT color="green">111</FONT>            <a name="line.111"></a>
+<FONT color="green">112</FONT>            /**<a name="line.112"></a>
+<FONT color="green">113</FONT>             * Removes the specified job  which is still to be allocated (to a worker for execution)<a name="line.113"></a>
+<FONT color="green">114</FONT>             * @param job handle to the remotely executing task<a name="line.114"></a>
+<FONT color="green">115</FONT>             * @return true if successful, false otherwise<a name="line.115"></a>
+<FONT color="green">116</FONT>             */<a name="line.116"></a>
+<FONT color="green">117</FONT>            public boolean removeTask(Job job);<a name="line.117"></a>
+<FONT color="green">118</FONT>    <a name="line.118"></a>
+<FONT color="green">119</FONT>            /**<a name="line.119"></a>
+<FONT color="green">120</FONT>             * Terminate or kill the specified job which is being executed (by an worker)<a name="line.120"></a>
+<FONT color="green">121</FONT>             * @param job handle to the remotely executing task<a name="line.121"></a>
+<FONT color="green">122</FONT>             * @return true if successful, false otherwise<a name="line.122"></a>
+<FONT color="green">123</FONT>             */<a name="line.123"></a>
+<FONT color="green">124</FONT>            public boolean terminateTask(Job job);<a name="line.124"></a>
+<FONT color="green">125</FONT>    <a name="line.125"></a>
+<FONT color="green">126</FONT>            /**<a name="line.126"></a>
+<FONT color="green">127</FONT>             * Returns the progress measure (0-100) associated the specified running task<a name="line.127"></a>
+<FONT color="green">128</FONT>             * @param job handle to the remotely executing task<a name="line.128"></a>
+<FONT color="green">129</FONT>             * @return the progress (0-100)<a name="line.129"></a>
+<FONT color="green">130</FONT>             */<a name="line.130"></a>
+<FONT color="green">131</FONT>            public int getTaskProgress(Job job);<a name="line.131"></a>
+<FONT color="green">132</FONT>            <a name="line.132"></a>
+<FONT color="green">133</FONT>            /**<a name="line.133"></a>
+<FONT color="green">134</FONT>             * sets the progress measure (0-100) associated the specified running task<a name="line.134"></a>
+<FONT color="green">135</FONT>             * @param jobID handle to the remotely executing task<a name="line.135"></a>
+<FONT color="green">136</FONT>             * @param progress the progress (0-100)<a name="line.136"></a>
+<FONT color="green">137</FONT>             */<a name="line.137"></a>
+<FONT color="green">138</FONT>            public void setTaskProgress(long jobID, int progress);<a name="line.138"></a>
+<FONT color="green">139</FONT>    <a name="line.139"></a>
+<FONT color="green">140</FONT>            /**<a name="line.140"></a>
+<FONT color="green">141</FONT>             * Returns the List of parameters used while executing the specified Job<a name="line.141"></a>
+<FONT color="green">142</FONT>             * @param job handle to the remotely executing task<a name="line.142"></a>
+<FONT color="green">143</FONT>             * @return the list of parameters used when the task was submitted<a name="line.143"></a>
+<FONT color="green">144</FONT>             */<a name="line.144"></a>
+<FONT color="green">145</FONT>            public Map&lt;String, Object&gt; getTaskParameters(Job job);<a name="line.145"></a>
+<FONT color="green">146</FONT>    <a name="line.146"></a>
+<FONT color="green">147</FONT>            /**<a name="line.147"></a>
+<FONT color="green">148</FONT>             * Returns the list of Record GUIDs which are used as inputs for the specified task<a name="line.148"></a>
+<FONT color="green">149</FONT>             * @param job handle to the remotely executing task<a name="line.149"></a>
+<FONT color="green">150</FONT>             * @return list of input Records (their GUID)<a name="line.150"></a>
+<FONT color="green">151</FONT>             */<a name="line.151"></a>
+<FONT color="green">152</FONT>            public long[] getTaskInputs(Job job);<a name="line.152"></a>
+<FONT color="green">153</FONT>            <a name="line.153"></a>
+<FONT color="green">154</FONT>            /**<a name="line.154"></a>
+<FONT color="green">155</FONT>             * Returns the list of Record GUIDs which are potentially created by this Job<a name="line.155"></a>
+<FONT color="green">156</FONT>             * Note that is call is valid only after the said job is ended successfully<a name="line.156"></a>
+<FONT color="green">157</FONT>             * @param job handle to the remotely executing task<a name="line.157"></a>
+<FONT color="green">158</FONT>             * @return list of Records (their GUID) that are create or null if there are none<a name="line.158"></a>
+<FONT color="green">159</FONT>             */<a name="line.159"></a>
+<FONT color="green">160</FONT>            public long[] getTaskOutputs(String accessToken, long jobID);<a name="line.160"></a>
+<FONT color="green">161</FONT>            <a name="line.161"></a>
+<FONT color="green">162</FONT>            /**<a name="line.162"></a>
+<FONT color="green">163</FONT>             * upload the task log file for the specified job<a name="line.163"></a>
+<FONT color="green">164</FONT>             * @param jobID specified job id<a name="line.164"></a>
+<FONT color="green">165</FONT>             * @param logFile log file to be attached with the log<a name="line.165"></a>
+<FONT color="green">166</FONT>             */<a name="line.166"></a>
+<FONT color="green">167</FONT>            public void uploadTaskLog(long jobID, File logFile);<a name="line.167"></a>
+<FONT color="green">168</FONT>    }<a name="line.168"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>
