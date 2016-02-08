@@ -10,4 +10,4 @@ cat loci/formats/readers.txt readers.txt > new_readers.txt
 cp new_readers.txt loci/formats/readers.txt
 jar uf "$1" loci/formats/readers.txt
 
-echo "$1 is now updated with formnat readers for iManage."
+echo "$1 is now updated with format readers for iManage."
