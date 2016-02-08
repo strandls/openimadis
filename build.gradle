@@ -16,10 +16,16 @@ task stopTomcat(type:Exec) {
     commandLine 'sh', './shutdown.sh'
 }
 
+
 task createServerBundle (dependsOn: [':tileviewer:createTileViewer', ':iengine:createCache'])<< {
     copy {
        from "$tomcatHome/webapps/iManage"
        into "build/distributions/ServerBundle/WebApps/iManage"
+    }
+
+    copy {
+       from "iclient/build/uploadservice"
+       into "build/distributions/ServerBundle/WebApps/iManage/downloads"
     }
 
     copy {
