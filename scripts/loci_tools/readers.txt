@@ -1,0 +1,4 @@
+
+#Format readers for Avadis IMG
+com.strandgenomics.imaging.icore.bioformats.custom.ImgFormatReader #.img files
+com.strandgenomics.imaging.icore.bioformats.custom.ByteArrayFormatReader #.rawimg files

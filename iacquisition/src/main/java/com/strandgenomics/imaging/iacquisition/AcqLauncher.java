@@ -153,7 +153,7 @@ public class AcqLauncher {
 				String auth = postMethod.getResponseBodyAsString();	
 				String success = auth.split(":")[2].split("}")[0];
 				auth = parseString(auth);
-				String a[] = {auth, server, Integer.toString(port), "1.28", protocol};
+				String a[] = {auth, server, Integer.toString(port), "1.29", protocol};
 				if(success.equals("true")){
 					System.out.println("Auth code generated");
 					login = true;

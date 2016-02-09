@@ -1,0 +1,151 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    /*<a name="line.1"></a>
+<FONT color="green">002</FONT>     * Circle.java<a name="line.2"></a>
+<FONT color="green">003</FONT>     *<a name="line.3"></a>
+<FONT color="green">004</FONT>     * AVADIS Image Management System<a name="line.4"></a>
+<FONT color="green">005</FONT>     *<a name="line.5"></a>
+<FONT color="green">006</FONT>     * Copyright 2011-2012 by Strand Life Sciences<a name="line.6"></a>
+<FONT color="green">007</FONT>     * 5th Floor, Kirloskar Business Park, <a name="line.7"></a>
+<FONT color="green">008</FONT>     * Bellary Road, Hebbal<a name="line.8"></a>
+<FONT color="green">009</FONT>     * Bangalore 560024<a name="line.9"></a>
+<FONT color="green">010</FONT>     * Karnataka, India<a name="line.10"></a>
+<FONT color="green">011</FONT>     * <a name="line.11"></a>
+<FONT color="green">012</FONT>     * All rights reserved.<a name="line.12"></a>
+<FONT color="green">013</FONT>     *<a name="line.13"></a>
+<FONT color="green">014</FONT>     * This software is the confidential and proprietary information<a name="line.14"></a>
+<FONT color="green">015</FONT>     * of Strand Life Sciences., ("Confidential Information").  You<a name="line.15"></a>
+<FONT color="green">016</FONT>     * shall not disclose such Confidential Information and shall use<a name="line.16"></a>
+<FONT color="green">017</FONT>     * it only in accordance with the terms of the license agreement<a name="line.17"></a>
+<FONT color="green">018</FONT>     * you entered into with Strand Life Sciences.<a name="line.18"></a>
+<FONT color="green">019</FONT>     */<a name="line.19"></a>
+<FONT color="green">020</FONT>    package com.strandgenomics.imaging.icore.vo;<a name="line.20"></a>
+<FONT color="green">021</FONT>    <a name="line.21"></a>
+<FONT color="green">022</FONT>    import java.awt.geom.Rectangle2D;<a name="line.22"></a>
+<FONT color="green">023</FONT>    <a name="line.23"></a>
+<FONT color="green">024</FONT>    /**<a name="line.24"></a>
+<FONT color="green">025</FONT>     * The &lt;code&gt;Circle&lt;/code&gt; class describes an circle that is defined by a framing rectangle.<a name="line.25"></a>
+<FONT color="green">026</FONT>     * @author navneet<a name="line.26"></a>
+<FONT color="green">027</FONT>     */<a name="line.27"></a>
+<FONT color="green">028</FONT>    public class Circle extends VisualObject {<a name="line.28"></a>
+<FONT color="green">029</FONT>    <a name="line.29"></a>
+<FONT color="green">030</FONT>            private static final long serialVersionUID = 5399819711012539649L;<a name="line.30"></a>
+<FONT color="green">031</FONT>            /**<a name="line.31"></a>
+<FONT color="green">032</FONT>             * the bounding rectangle<a name="line.32"></a>
+<FONT color="green">033</FONT>             */<a name="line.33"></a>
+<FONT color="green">034</FONT>            protected Rectangle2D.Double boundingRect = new Rectangle2D.Double();<a name="line.34"></a>
+<FONT color="green">035</FONT>        <a name="line.35"></a>
+<FONT color="green">036</FONT>        /**<a name="line.36"></a>
+<FONT color="green">037</FONT>         * Creates an Circle instance from the specified coordinates.<a name="line.37"></a>
+<FONT color="green">038</FONT>         *<a name="line.38"></a>
+<FONT color="green">039</FONT>         * @param x the X coordinate of the upper-left corner of the framing rectangle<a name="line.39"></a>
+<FONT color="green">040</FONT>         * @param y the Y coordinate of the upper-left corner of the framing rectangle<a name="line.40"></a>
+<FONT color="green">041</FONT>         * @param w the width of the framing rectangle<a name="line.41"></a>
+<FONT color="green">042</FONT>         * @param h the height of the framing rectangle<a name="line.42"></a>
+<FONT color="green">043</FONT>         */<a name="line.43"></a>
+<FONT color="green">044</FONT>        public Circle(double x, double y, double width, double height) <a name="line.44"></a>
+<FONT color="green">045</FONT>        {<a name="line.45"></a>
+<FONT color="green">046</FONT>            super(VisualObjectType.CIRCLE);<a name="line.46"></a>
+<FONT color="green">047</FONT>            setFrame(x, y, width, height);<a name="line.47"></a>
+<FONT color="green">048</FONT>        }<a name="line.48"></a>
+<FONT color="green">049</FONT>        <a name="line.49"></a>
+<FONT color="green">050</FONT>        /**<a name="line.50"></a>
+<FONT color="green">051</FONT>         * Creates an Circle instance from the specified coordinates.<a name="line.51"></a>
+<FONT color="green">052</FONT>         *<a name="line.52"></a>
+<FONT color="green">053</FONT>         * @param x the X coordinate of the upper-left corner of the framing rectangle<a name="line.53"></a>
+<FONT color="green">054</FONT>         * @param y the Y coordinate of the upper-left corner of the framing rectangle<a name="line.54"></a>
+<FONT color="green">055</FONT>         * @param w the width of the framing rectangle<a name="line.55"></a>
+<FONT color="green">056</FONT>         * @param h the height of the framing rectangle<a name="line.56"></a>
+<FONT color="green">057</FONT>         */<a name="line.57"></a>
+<FONT color="green">058</FONT>        public Circle(int ID, double x, double y, double width, double height) <a name="line.58"></a>
+<FONT color="green">059</FONT>        {<a name="line.59"></a>
+<FONT color="green">060</FONT>            super(VisualObjectType.CIRCLE, ID);<a name="line.60"></a>
+<FONT color="green">061</FONT>            setFrame(x, y, width, height);<a name="line.61"></a>
+<FONT color="green">062</FONT>        }<a name="line.62"></a>
+<FONT color="green">063</FONT>        <a name="line.63"></a>
+<FONT color="green">064</FONT>        /**<a name="line.64"></a>
+<FONT color="green">065</FONT>         * updates this Circle with the specified coordinates.<a name="line.65"></a>
+<FONT color="green">066</FONT>         *<a name="line.66"></a>
+<FONT color="green">067</FONT>         * @param x the X coordinate of the upper-left corner of the framing rectangle<a name="line.67"></a>
+<FONT color="green">068</FONT>         * @param y the Y coordinate of the upper-left corner of the framing rectangle<a name="line.68"></a>
+<FONT color="green">069</FONT>         * @param w the width of the framing rectangle<a name="line.69"></a>
+<FONT color="green">070</FONT>         * @param h the height of the framing rectangle<a name="line.70"></a>
+<FONT color="green">071</FONT>         */<a name="line.71"></a>
+<FONT color="green">072</FONT>        public void setFrame(double x, double y, double width, double height) <a name="line.72"></a>
+<FONT color="green">073</FONT>        {<a name="line.73"></a>
+<FONT color="green">074</FONT>                    boundingRect.x = x;<a name="line.74"></a>
+<FONT color="green">075</FONT>                    boundingRect.y = y;<a name="line.75"></a>
+<FONT color="green">076</FONT>                    boundingRect.width = width;<a name="line.76"></a>
+<FONT color="green">077</FONT>                    boundingRect.height = height;<a name="line.77"></a>
+<FONT color="green">078</FONT>        }<a name="line.78"></a>
+<FONT color="green">079</FONT>    <a name="line.79"></a>
+<FONT color="green">080</FONT>            @Override<a name="line.80"></a>
+<FONT color="green">081</FONT>            public Rectangle2D.Double getBounds()<a name="line.81"></a>
+<FONT color="green">082</FONT>            {<a name="line.82"></a>
+<FONT color="green">083</FONT>                    return boundingRect;<a name="line.83"></a>
+<FONT color="green">084</FONT>            }<a name="line.84"></a>
+<FONT color="green">085</FONT>    }<a name="line.85"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

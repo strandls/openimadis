@@ -1,0 +1,10 @@
+com.strandgenomics.imaging.iclient
+com.strandgenomics.imaging.iclient.daemon
+com.strandgenomics.imaging.iclient.dialogs
+com.strandgenomics.imaging.iclient.local
+com.strandgenomics.imaging.iclient.local.genericimport
+com.strandgenomics.imaging.iclient.util
+com.strandgenomics.imaging.icore
+com.strandgenomics.imaging.icore.app
+com.strandgenomics.imaging.icore.image
+com.strandgenomics.imaging.icore.vo

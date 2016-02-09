@@ -1,5 +1,5 @@
 
-task deployWebApp(dependsOn: ':iacquisition:createAcquisitionZip') << {
+task deployWebApp(dependsOn: [':iacquisition:createAcquisitionZip', ':iclient:createClientAPIJar']) << {
     copy {
         from "standard"
         into "$tomcatHome/webapps/iManage/standard"
@@ -19,6 +19,12 @@ task deployWebApp(dependsOn: ':iacquisition:createAcquisitionZip') << {
     copy {
         from "m"
         into "$tomcatHome/webapps/iManage/m"
+    }
+
+    copy {
+        from "api"
+        from "../iclient/build/libs/client-api.jar"
+        into "$tomcatHome/webapps/iManage/api"
     }
 
     copy {
