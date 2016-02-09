@@ -155,7 +155,9 @@ public class BufferedImageReaderPool implements Disposable {
 		}
 
 		imageReaders.clear();
-		imageReaders = null;
+		//imageReaders = null;
+		activeReaders = 0;
+		
 	}
 	
 	/**
@@ -284,6 +286,10 @@ public class BufferedImageReaderPool implements Disposable {
 		else
 		{
 			imageReaders.add(reader);
+			if(reader.actualReader.getUsedFiles().length > 5){			// hack to fix .nd file reading that keeps too many file handles open
+				dispose();
+			}
+				
 		}
 	}
 }
