@@ -155,8 +155,8 @@ public class BufferedImageReaderPool implements Disposable {
 		}
 
 		imageReaders.clear();
-		//imageReaders = null;
-		activeReaders = 0;
+		imageReaders = null;
+		//activeReaders = 0;
 		
 	}
 	
@@ -285,10 +285,28 @@ public class BufferedImageReaderPool implements Disposable {
 		}
 		else
 		{
-			imageReaders.add(reader);
+			
 			if(reader.actualReader.getUsedFiles().length > 5){			// hack to fix .nd file reading that keeps too many file handles open
-				dispose();
+				//dispose();
+				try {
+					reader.actualReader.close();
+					BufferedImageReader tempreader = generator.createBufferedImageReader();
+					
+					if(tempreader != null) //in case of exceptions, the reader will be null
+					{
+						WrappedBufferedImageReader wreader = new WrappedBufferedImageReader(this, tempreader);
+						wreader.setLastUsageTime(lastUsageTime); // set the last usage time for the reader
+						
+						Logger.getRootLogger().info("Successfully created bioformat image reader "+wreader.ID +" from "+generator);
+						reader =  wreader;
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
+			imageReaders.add(reader);
 				
 		}
 	}
