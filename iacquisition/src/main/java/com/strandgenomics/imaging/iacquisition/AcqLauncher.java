@@ -17,7 +17,11 @@ import java.util.Date;
 
 import javax.net.ssl.SSLException;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.UIManager;
 
 import org.apache.axis.AxisProperties;
 import org.apache.commons.httpclient.Credentials;
@@ -44,6 +48,14 @@ import com.strandgenomics.imaging.icore.util.HttpUtil;
 public class AcqLauncher {
 	public static void main(String... args) throws HttpException, IOException
 	{
+		try
+		{
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		boolean login = false;
 		do{
 			HttpClient client = new HttpClient();
@@ -137,7 +149,23 @@ public class AcqLauncher {
 			postMethod.addParameter("services", "[\"AUTHENTICATION\", \"ISPACE\", \"SEARCH\", \"LOADER\", \"UPDATE\", \"MANAGEMENT\", \"COMPUTE\"]");
 			postMethod.addParameter("expiryTime", ""+((new Date()).getTime()+(24*3600*1000)));
 			System.out.println("Connecting to server...");
-
+			
+			
+			
+			JFrame frame = new JFrame();    // progress monitor
+	        JPanel panel = new JPanel();
+	        JLabel label = new JLabel("Connecting to server...");
+	        JProgressBar jpb = new JProgressBar();
+	        jpb.setIndeterminate(true);
+	        panel.add(label);
+	        panel.add(jpb);
+	        frame.add(panel);
+	        frame.pack();
+	        frame.setSize(200,90);
+	        frame.setLocationRelativeTo(null);
+	        frame.setVisible(true);
+	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        
 			try{
 				client.executeMethod(method);
 				String loginResponse = method.getResponseBodyAsString();
@@ -157,6 +185,7 @@ public class AcqLauncher {
 				if(success.equals("true")){
 					System.out.println("Auth code generated");
 					login = true;
+					frame.setVisible(false);
 					AcquisitionUI.main(a);
 				}
 				else{
@@ -188,6 +217,9 @@ public class AcqLauncher {
 				logger.error("Error",e);
 				continue;
 				//System.exit(0);
+			}
+			finally{
+				 frame.setVisible(false);
 			}
 			
 		}while(!login);

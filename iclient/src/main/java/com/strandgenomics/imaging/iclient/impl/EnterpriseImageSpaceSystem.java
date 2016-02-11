@@ -483,7 +483,41 @@ public class EnterpriseImageSpaceSystem extends ImageSpaceSystem {
 		}
 		return projects;
 	}
+	public List<String> getActiveProjectsNames() {
+		validate();
+		String[] projectNames = null;
+		try {
+			projectNames = ispace.getActiveProjects(accessToken);
+			if (projectNames == null)
+				return null;
+		} catch (RemoteException ex) {
+			handleError(ex);
+		}
+		List<String> projectNamesList = null;
+		if(projectNames!=null){
+			projectNamesList = Arrays.asList(projectNames);  
+		}
+		return projectNamesList;
+	}
 	
+	public List<Project> getActiveProjectsUpload() {   // to get projects for which user has upload permission. Not used anywhere right now
+		validate();
+		List<Project> projects = null;
+		try {
+			String[] projectNames = ispace.getActiveProjects(accessToken);
+			if (projectNames == null)
+				return null;
+			projects = new ArrayList<Project>();
+			for (String projectName : projectNames) {
+				Project p = CoercionHelper.toLocalProject(ispace.findProject(accessToken, projectName));
+				if (p != null)
+					projects.add(p);
+			}
+		} catch (RemoteException ex) {
+			handleError(ex);
+		}
+		return projects;
+	}
 	/* (non-Javadoc)
 	 * @see com.strandgenomics.imaging.iclient.ImageSpace#getArchivedProjects()
 	 */

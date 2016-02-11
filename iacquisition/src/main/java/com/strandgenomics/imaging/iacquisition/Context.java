@@ -71,6 +71,8 @@ public class Context implements IRecordSelectionListener, IValidator {
 
 	private List<Project> activeProjects;
 
+	private List<String> activeProjectsNames;
+	
 	public static Context getInstance()
 	{
 		if (context == null)
@@ -199,6 +201,19 @@ public class Context implements IRecordSelectionListener, IValidator {
 		{
 		}
 		return activeProjects;
+	}
+	
+	public List<String> getActiveProjectsNames() {
+		// TODO Auto-generated method stub
+		System.out.println("Getting all the projects names...\n");
+		try
+		{
+			activeProjectsNames = ImageSpaceObject.getConnectionManager().getActiveProjectsNames();
+		}
+		catch (final ImageSpaceException e)
+		{
+		}
+		return activeProjectsNames;
 	}
 
 	public void addDirectImportExperiments(List<RawExperiment> experimentList)
@@ -647,5 +662,7 @@ public class Context implements IRecordSelectionListener, IValidator {
 			this.project = p;
 		}
 	}
+
+	
 }
 

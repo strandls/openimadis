@@ -90,6 +90,17 @@ public interface ImageSpace {
      * @return list of active projects that the connected user have permission to read
      */
     public List<Project> getActiveProjects();
+    /**
+     * The list of active projects that the connected user have permission to upload
+     * @return list of active projects that the connected user have permission to upload
+     */
+    public List<Project> getActiveProjectsUpload();
+    
+    /**
+     * The list of active projects' names that the connected user have permission to read
+     * @return list of active projects that the connected user have permission to upload
+     */
+    public List<String> getActiveProjectsNames();
     
     /**
      * The list of archived projects that the connected user have permission to browse, may be null otherwise

@@ -31,9 +31,7 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -52,8 +50,8 @@ import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -79,6 +77,7 @@ import com.strandgenomics.imaging.iacquisition.thumbnail.ThumbnailTable;
 import com.strandgenomics.imaging.iacquisition.thumbnail.ThumbnailTableModel;
 import com.strandgenomics.imaging.iclient.AcquisitionProfile;
 import com.strandgenomics.imaging.iclient.ImageSpaceException;
+import com.strandgenomics.imaging.iclient.ImageSpaceFactory;
 import com.strandgenomics.imaging.iclient.ImageSpaceObject;
 import com.strandgenomics.imaging.iclient.Project;
 import com.strandgenomics.imaging.iclient.daemon.UploadDaemonService;
@@ -1215,7 +1214,7 @@ public class AcquisitionUI implements IndexerListener, ActionListener, IRecordSe
 			return false;
 		}
 		
-		List<Project> activeProjects = getActiveProjects();
+		List<String> activeProjects = context.getActiveProjectsNames();
 
 		if(activeProjects == null || activeProjects.isEmpty()){
 			JOptionPane.showMessageDialog(frame, "You are not member of any project", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1319,18 +1318,19 @@ public class AcquisitionUI implements IndexerListener, ActionListener, IRecordSe
 			return false;
 		}
 		
-		List<Project> activeProjects = getActiveProjects();
+		List<String> activeProjects = context.getActiveProjectsNames();
 
 		if(activeProjects == null || activeProjects.isEmpty()){
 			JOptionPane.showMessageDialog(frame, "You are not member of any project", "Error", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		
-		for(Project p : activeProjects)
+		for(String p : activeProjects)
 		{
-			if(context.getProject().getName().equals(p.getName()))
+			if(context.getProject().getName().equals(p))
 			{
-				context.updateProjectDetails(p);
+				Project project =  ImageSpaceObject.getConnectionManager().findProject(p);
+				context.updateProjectDetails(project);
 				break;
 			}
 		}
@@ -1522,26 +1522,42 @@ public class AcquisitionUI implements IndexerListener, ActionListener, IRecordSe
 	}
 	
 	public Project selectProject(){
-
-		activeProjects = context.getActiveProjects();
+		
+		JFrame frame = new JFrame();
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("Getting all projects...");
+        JProgressBar jpb = new JProgressBar();
+        jpb.setIndeterminate(true);
+        panel.add(label);
+        panel.add(jpb);
+        frame.add(panel);
+        frame.pack();
+        frame.setSize(200,90);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        
+		List<String> activeProjects = context.getActiveProjectsNames();
+		
+		frame.setVisible(false);
 		if(activeProjects == null){
 			JOptionPane.showMessageDialog(frame, "You do not have access to a project on the server.", "No Project(s) Available", JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
 		
-		Object project = JOptionPane.showInputDialog(frame, "Project: ", "Select Project", JOptionPane.PLAIN_MESSAGE, null, (Project [])activeProjects.toArray(new Project[0]), activeProjects.get(0));
-		return (Project)project;
-		
+		Object projectName = JOptionPane.showInputDialog(frame, "Project: ", "Select Project", JOptionPane.PLAIN_MESSAGE, null, (String [])activeProjects.toArray(new String[0]), activeProjects.get(0));
+		Project project = ImageSpaceObject.getConnectionManager().findProject((String)projectName);
+		return project;
 	}
 	
-	public List<Project> getActiveProjects(){
+	/*public List<Project> getActiveProjects(){
 		if (activeProjects != null)
 			return activeProjects;
 		System.out.println("Getting all the projects...\n");
 		
 		try
 		{
-			activeProjects = ImageSpaceObject.getConnectionManager().getActiveProjects();
+			activeProjects = ImageSpaceObject.getConnectionManager().getActiveProjectsUpload();
 		}
 		catch (final ImageSpaceException e)
 		{
@@ -1553,7 +1569,8 @@ public class AcquisitionUI implements IndexerListener, ActionListener, IRecordSe
 			});
 		}
 		return activeProjects;
-	}
+	}*/
+	
 	
 	/**
 	 * modify the upload time of the records
@@ -1683,41 +1700,104 @@ public class AcquisitionUI implements IndexerListener, ActionListener, IRecordSe
 	
 	private static void launchAcqClient(final String host, final int port,final String clientID,final String authCode, final String version, final String protocol)
 	{
+		
 		SwingUtilities.invokeLater(new Runnable() 
 		{
 			public void run() 
 			{
-				boolean isSSL = "https".equals(protocol);
-				if(!ImageSpaceObject.getImageSpace().login(isSSL, host, port, clientID, authCode))
-				{
-					JOptionPane.showMessageDialog(null, "Application not authorized", "Error", JOptionPane.ERROR_MESSAGE);
-					System.exit(0);
-				}
-				
-				String user = ImageSpaceObject.getImageSpace().getUser();
-				
-				System.out.println("Successfully logged in as "+user);
-				
-				if (!ImageSpaceObject.getImageSpace().requestAcquisitionLicense(user))
-				{
-					JOptionPane.showMessageDialog(null, "Number of Acquisition Licenses are exhausted. Kindly contact administrator or try again later.", "Error", JOptionPane.ERROR_MESSAGE);
-					System.exit(0);
-				}
-				
-				AcquisitionUI acquisitionUI = new AcquisitionUI(user, version);
-				acquisitionUI.launch();
-			
-				Project project = acquisitionUI.selectProject();
-				if(project == null)
-					System.exit(0);
-				acquisitionUI.setUpSession(project);
-				
-				// check if service is running
-				Context.getInstance().getServiceStub();
+				go(host,port,clientID,authCode,version,protocol);
 			}
 		});
 	}
-	
+	public static void go(final String host, final int port,final String clientID,final String authCode, final String version, final String protocol) {
+		JFrame frame = new JFrame();
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("Connected successfully...");
+        JProgressBar jpb = new JProgressBar();
+        jpb.setIndeterminate(true);
+        panel.add(label);
+        panel.add(jpb);
+        frame.add(panel);
+        frame.pack();
+        frame.setSize(200,90);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        new Task_LoadUI(frame,jpb,  label,host, port,clientID,authCode,version, protocol).execute();
+    }
+	static class Task_LoadUI extends SwingWorker<Void, String> {
+
+		JFrame frame;
+        JProgressBar jpb;
+        JLabel label;
+        String host;
+        int port;
+        String authCode;
+        String version;
+        String protocol;
+        String clientID;
+        
+        public Task_LoadUI(JFrame frame,JProgressBar jpb, JLabel label, String host, int port, String clientID, String authCode, String version, String protocol) {
+            this.jpb = jpb;
+            this.label = label;
+            this.host = host;
+            this.port = port;
+            this.authCode = authCode;
+            this.version = version;
+            this.protocol = protocol;
+            this.clientID = clientID;
+            this.frame = frame;
+        }
+
+        @Override
+        protected void process(List<String> chunks) {
+        	label.setText(chunks.get(chunks.size()-1)); // The last value in this array
+            System.out.println(chunks.get(chunks.size()-1));
+        }
+
+        @Override
+        protected Void doInBackground() throws Exception {
+        	boolean isSSL = "https".equals(protocol);
+			if(!ImageSpaceObject.getImageSpace().login(isSSL, host, port, clientID, authCode))
+			{
+				JOptionPane.showMessageDialog(null, "Application not authorized", "Error", JOptionPane.ERROR_MESSAGE);
+				System.exit(0);
+			}
+			
+			String user = ImageSpaceObject.getImageSpace().getUser();
+			publish("Successfully logged in");
+			System.out.println("Successfully logged in as "+user);
+			
+			if (!ImageSpaceObject.getImageSpace().requestAcquisitionLicense(user))
+			{
+				JOptionPane.showMessageDialog(null, "Number of Acquisition Licenses are exhausted. Kindly contact administrator or try again later.", "Error", JOptionPane.ERROR_MESSAGE);
+				System.exit(0);
+			}
+			
+			publish("Loading...");
+			
+			AcquisitionUI acquisitionUI = new AcquisitionUI(user, version);
+			acquisitionUI.launch();
+			frame.setVisible(false);
+			Project project = acquisitionUI.selectProject();
+			if(project == null)
+				System.exit(0);
+			acquisitionUI.setUpSession(project);
+			// check if service is running
+			Context.getInstance().getServiceStub();
+            return null;
+        }
+
+        @Override
+        protected void done() {
+            try {
+                get();
+                jpb.setVisible(false);
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 	public static void main(String... args) {
 		
 		if(args==null || args.length<3)
