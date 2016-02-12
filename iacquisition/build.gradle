@@ -31,3 +31,11 @@ task createAcquisitionZip(dependsOn: copyLibs, type: Zip){
     from "tool"
     archiveName "acquisition.zip"
 }
+
+task updateAcqVersion(type: Exec){
+    //commandLine 'bash', '-c', 'sed -i "s:acq.launcher.version=.*:acq.launcher.version=$version:" src/main/resources/config.properties'
+    commandLine 'bash', '-c', 'sed -i "s:acq.launcher.version=.*:acq.launcher.version=1.30:" src/main/resources/config.properties'
+}
+
+build.dependsOn(updateAcqVersion)
+build.mustRunAfter(updateAcqVersion)
