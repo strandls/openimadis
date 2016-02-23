@@ -3,12 +3,14 @@ package com.strandgenomics.imaging.iacquisition;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 
 import javax.net.ssl.SSLException;
 import javax.swing.JFrame;
@@ -176,7 +178,7 @@ public class AcqLauncher {
 				String auth = postMethod.getResponseBodyAsString();	
 				String success = auth.split(":")[2].split("}")[0];
 				auth = parseString(auth);
-				String a[] = {auth, server, Integer.toString(port), "1.29", protocol};
+				String a[] = {auth, server, Integer.toString(port), getVersion(), protocol};
 				if(success.equals("true")){
 					System.out.println("Auth code generated");
 					login = true;
@@ -221,7 +223,32 @@ public class AcqLauncher {
 	
 	
 	}
-	
+
+	private static String getVersion(){
+		return getVersion("config.properties");
+	}
+
+	private static String getVersion(String propertiesFileName){
+		Properties prop = new Properties();
+		InputStream inp = AcqLauncher.class.getClassLoader().getResourceAsStream(propertiesFileName);
+
+		if (inp != null){
+		    try{
+		        prop.load(inp);
+		    }catch(IOException e){
+		        e.printStackTrace();
+		    }	
+		}
+
+		String version = prop.getProperty("acq.launcher.version");
+		
+		if (version == null){
+		    return "__VERSION__";
+		}
+
+		return version;
+	}
+		
 	private static String parseString(String auth)
 	{
 		return auth.split(":")[1].split(",")[0].split("\"")[1];
