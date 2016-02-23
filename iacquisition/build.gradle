@@ -34,7 +34,7 @@ task createAcquisitionZip(dependsOn: copyLibs, type: Zip){
 
 task updateAcqVersion(type: Exec){
     //commandLine 'bash', '-c', 'sed -i "s:acq.launcher.version=.*:acq.launcher.version=$version:" src/main/resources/config.properties'
-    commandLine 'bash', '-c', 'sed -i "s:acq.launcher.version=.*:acq.launcher.version=1.30:" src/main/resources/config.properties'
+    commandLine 'bash', '-c', 'sed -i "s:acq.launcher.version=.*:acq.launcher.version=1.31:" src/main/resources/config.properties'
 }
 
 build.dependsOn(updateAcqVersion)
