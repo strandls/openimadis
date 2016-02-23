@@ -168,6 +168,11 @@ public class LoginDocomentModel {
 		}
 
 		ConnectionPreferences pref = ConnectionPreferences.getInstance();
+		String sv = getServerAddress();
+		if(sv.toLowerCase().startsWith("https"))
+				useSSL = true;
+		else if(sv.toLowerCase().startsWith("http"))
+				useSSL = false;
 		pref.setServerSettings(getServerAddress(), getServerPort(), getLogin(),getPassword(), useSSL);
 		pref.save();
 
