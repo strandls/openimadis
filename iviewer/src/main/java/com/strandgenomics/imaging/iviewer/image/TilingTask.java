@@ -50,7 +50,7 @@ public class TilingTask extends ImagingTask{
 			bimage = overlay.getImage(zStack, mosaic, useChannelColor, new Rectangle(0, 0, TILE_WIDTH, TILE_HEIGHT));
 			
 			System.out.println("[TilingTask] image read in "+(System.currentTimeMillis()-stime));
-			Logger.getRootLogger().info("[TilingTask] Image is being viewed in low resolution.");
+			Logger.getRootLogger().info("[TilingTask] Only partial image being displayed.");
 			System.out.println("successfully created image with mosaic="+mosaic +", zStack="+zStack +", useChannelColor="+useChannelColor);
 		} 
 		catch(Exception e) 

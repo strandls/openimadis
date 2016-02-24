@@ -247,8 +247,8 @@ public class ConnectionPreferences implements Serializable {
 		} 
 		else 
 		{
-			proxyUser     = null;
-			proxyPassword = null;
+			this.proxyUser     = null;
+			this.proxyPassword = null;
 		}
 	}
 
