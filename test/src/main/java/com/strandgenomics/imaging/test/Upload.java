@@ -1,4 +1,4 @@
-package com.strandgenomics.imaging.test;
+package src.main.java.com.strandgenomics.imaging.test;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import com.gargoylesoftware.htmlunit.javascript.host.Map;
+//import com.gargoylesoftware.htmlunit.javascript.host.Map;
 import com.strandgenomics.imaging.iclient.ImageSpaceObject;
 import com.strandgenomics.imaging.iclient.ImageSpaceSystem;
 import com.strandgenomics.imaging.iclient.Project;
@@ -33,12 +33,12 @@ public class Upload {
 
 	public Upload() throws IOException{
 		GetPropertyValues PropVal = new GetPropertyValues("/home/gs/Eclipse_dir/iManage_automation/config_properties/config.properties");
-		runType = PropVal.getPropValues("runType");
-		projectName = PropVal.getPropValues("project_name");
-		sourcePath = PropVal.getPropValues("source_path");
-		reportPath = PropVal.getPropValues("report_path");
-		recordInfoPath = PropVal.getPropValues("recordInfo_path");
-		benchmarkingReportPath = PropVal.getPropValues("benchmarkingReportPath");
+		runType = System.getProperty("runType");//PropVal.getPropValues("runType");
+		projectName = System.getProperty("project_name");//PropVal.getPropValues("project_name");
+		sourcePath = System.getProperty("source_path");//PropVal.getPropValues("source_path");
+		reportPath = System.getProperty("report_path");//PropVal.getPropValues("report_path");
+		recordInfoPath = System.getProperty("recordInfo_path");//PropVal.getPropValues("recordInfo_path");
+		benchmarkingReportPath = System.getProperty("benchmarkingReportPath");//PropVal.getPropValues("benchmarkingReportPath");
 		repWriter = new ReportWriter(recordInfoPath+"_"+runType);
 	}
 
