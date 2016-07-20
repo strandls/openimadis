@@ -3,7 +3,7 @@
   
   <head>
     <title>
-     iManage Compute Publishers  
+     openImaDis Compute Publishers  
     </title>
   </head>
   <body>
@@ -27,9 +27,9 @@ publisher.code=PUBLISHER_KZqs7QGcm92iUAyXAorZePkM55uCNd
 </pre></li></ol><ol start="2"><li>icompute.properties will contain different properties used by publisher.
 <pre class="wiki"># directory where binaries, source, libraries and properties for Compute Alorithms is specified
 icompute.applications.root.dir=apps
-# url for iManage compute web services
+# url for openImaDis compute web services
 iworkers.webservice.url=http://localhost:8080/iManage/services/iWorkers
-# interval in milis to ping iManage server
+# interval in milis to ping openImaDis server
 icompute.ping.interval=15000
 icompute.threadpool.size=4
 #extension for application launcher files
@@ -49,11 +49,11 @@ iengine.log.level=INFO
 iengine.log.scope=com.strandgenomics.imaging
 iengine.log.filename=avadis_worker_log.txt
 </pre></li></ol><ol start="3"><li>run-compute.sh is a script which runs on publisher machine.
-</li></ol><ol start="4"><li>lib/ This directory contains the libraries required by publisher to co-ordinate with iManage server.
+</li></ol><ol start="4"><li>lib/ This directory contains the libraries required by publisher to co-ordinate with openImaDis server.
 </li></ol><ol start="5"><li>apps/ is the root under which publisher publishes the Compute Algorithm it supports. Name/path of this directory is specified in icompute.properties file.
 </li></ol><h2 id="WritingnewComputeApplication">Writing new Compute Application</h2>
 <ul><li>A new Compute Algorithm can be written using the APIs and authentication mechanism described <a class="wiki" href="/trac/curie/wiki/meetings/Authentication">here</a>.
-</li><li>Compute Algorithm will be client of iManage system and will have a unique client id. This client id can be obtained by registering the client using Manage Client button in workflow panel on right side of web client. 
+</li><li>Compute Algorithm will be client of openImaDis system and will have a unique client id. This client id can be obtained by registering the client using Manage Client button in workflow panel on right side of web client. 
 </li><li>The "Compute" algorithm can be placed at a particular location(icompute.applications.root.dir) in the compute workstation along with a specifications file. The directory structure for application is described in next section.
 </li><li>The newly added "Compute" algorithm becomes available as a workflow link in the web client.
 </li></ul><h2 id="DirectoryStructureforApplicationSpecification">Directory Structure for Application Specification</h2>
@@ -66,7 +66,7 @@ iengine.log.filename=avadis_worker_log.txt
 </li><li>AppName1.gson
 </li><li>lib/
 </li><li>misc files/directory, if required
-</li></ul></li></ul></li></ul></li><li>Example, consider an application(registered as "Center" on iManage server) which draws a circle at center of specified image of specified record. The directory structure will be:
+</li></ul></li></ul></li></ul></li><li>Example, consider an application(registered as "Center" on openImaDis server) which draws a circle at center of specified image of specified record. The directory structure will be:
 <ul><li>apps/
 <ul><li>Center/
 <ul><li>Center.sh
@@ -104,7 +104,7 @@ On compute-workstation, all the inputs are received in an input file. The name o
 The structure of the input file will be &lt;param_name&gt;=&lt;param_value_1&gt;,&lt;param_value_2&gt;,...&lt;param_value_n&gt;
 </p>
 <p>
-Since the typical compute code will be written once and executed many times, unlike other iManage clients, the compute clients will receive one time authentication code from server at time of execution, which will be received as property AuthCode in the input file. Input file will also contain property TaskHandle which is the server side reference to the task and can be used for sending task progress to the server. 
+Since the typical compute code will be written once and executed many times, unlike other openImaDis clients, the compute clients will receive one time authentication code from server at time of execution, which will be received as property AuthCode in the input file. Input file will also contain property TaskHandle which is the server side reference to the task and can be used for sending task progress to the server. 
 </p>
 <p>
 The example task input file is:
