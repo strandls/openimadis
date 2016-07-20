@@ -48,7 +48,7 @@ Ext.define('Manage.view.Headers', {
 				xtype: 'image',
 				width: 143,
 				height: 24,
-				src: 'images/icons/avadis_imanage.png'
+				src: 'images/icons/openimadis.png'
 			}, ' ', ' ', ' ', ' ', //space for logical separation
 			{
 				xtype: 'label',
