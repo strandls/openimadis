@@ -628,7 +628,7 @@ public class AcquisitionUI implements IndexerListener, ActionListener, IRecordSe
 	private String getTitle(String projectName, String user)
 	{
 		String microscopeName = ImageSpaceObject.getImageSpace().getMicroscope();
-		String title = "iManage - Acquisition: " + projectName + " "+"[Logged in as "+user;
+		String title = "openImaDis - Acquisition: " + projectName + " "+"[Logged in as "+user;
 		if(microscopeName!=null && !microscopeName.isEmpty() && !"NA".equalsIgnoreCase(microscopeName))
 			title += " on Microscope "+microscopeName;
 		return title+"]";
