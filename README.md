@@ -1,4 +1,5 @@
 # openImaDis 
-Strand Imaging Project
 
-icore: core classes for client and server
+Open Image Discovery: A paltform for Image Life Cycle Management
+
+openImaDis is an enterprise-wide image and analysis management software platform for Bio-Imaging researchers
