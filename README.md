@@ -1,4 +1,4 @@
 # openImaDis 
-Strand Imaging Project
 
-icore: core classes for client and server
+Open Image Discovery: A paltform for Image Life Cycle Management
+
