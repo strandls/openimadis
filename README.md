@@ -10,3 +10,5 @@ This platform consists of following components:
 2. Upload Client - A java application to upload images to the server
 3. API - SOAP based APIs to access images from programs
 4. Web Admin - A web based interface to manage storage quota, users, permissions etc for images and meta-data.
+
+<b>Home:</b> https://strandls.github.io/openimadis/
