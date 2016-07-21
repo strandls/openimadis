@@ -353,7 +353,7 @@ public class EnterpriseImageSpaceSystem extends ImageSpaceSystem {
 		icompute = iComputeLocator.getiCompute(new URL(protocol, host, port, baseURL + "iCompute"));
 		
 		ImageSpaceManagementServiceLocator iManageLocator = new ImageSpaceManagementServiceLocator();
-		imanage = iManageLocator.getiManage(new URL(protocol, host, port, baseURL + "iManage"));
+		imanage = iManageLocator.getiManage(new URL(protocol, host, port, baseURL + "openImaDis"));
 	}
 
 	/*
