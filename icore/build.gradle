@@ -10,7 +10,8 @@ repositories {
 }
 
 dependencies {
-    compile files('../../../bioformats/5.1.5/loci_tools.jar')
+    compile files('../resources/bioformats/5.1.5/loci_tools.jar')
+    compile files('../resources/openslide/openslide.jar')
     //compile 'ome:loci_tools:5.1.5'
     compile 'colt:colt:1.2.0'
     compile 'org.apache.commons:commons-compress:1.3'
@@ -18,4 +19,6 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.1'
     compile 'commons-httpclient:commons-httpclient:3.0.1'
 }
+
+
 

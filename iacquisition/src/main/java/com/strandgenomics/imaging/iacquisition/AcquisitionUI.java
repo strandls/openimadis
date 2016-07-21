@@ -364,7 +364,7 @@ public class AcquisitionUI implements IndexerListener, ActionListener, IRecordSe
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = new Date();
 			
-			File logFile = new File(Constants.getConfigDirectory(), "imanage-acqclient-" + user +"-"+ dateFormat.format(date)+".log");
+			File logFile = new File(Constants.getConfigDirectory(), "openimadis-acqclient-" + user +"-"+ dateFormat.format(date)+".log");
 			 fileAppender = new RollingFileAppender(new PatternLayout(), logFile.getAbsolutePath());
 			 
 //			 PrintStream pso = new PrintStream(new FileOutputStream(new File(Constants.getConfigDirectory(), "imanage-acqclient-syso-" + user +"-"+ dateFormat.format(date)+".log"), true));
