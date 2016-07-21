@@ -123,7 +123,7 @@ var topLogos = Ext.create('Ext.toolbar.Toolbar', {
 	},
 	items : [ {
 		xtype : 'image',
-		src : 'images/iManageLogo.png',
+		src : 'images/openImadis.png',
 		width : 218
 	} ]
 });
