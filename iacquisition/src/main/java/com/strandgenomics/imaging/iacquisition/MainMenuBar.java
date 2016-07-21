@@ -277,7 +277,7 @@ public class MainMenuBar extends CommandMenuBar {
 		aboutMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AboutDialogBox a = new AboutDialogBox(null);
-				a.setName("iManage - Acquisition Client");
+				a.setName("openImaDis - Acquisition Client");
 				a.setProductIcon(UIUtils.getIcon("largeicon.png"));
 				a.setVersion("System Release");
 				a.setBuild(context.getVersion());
