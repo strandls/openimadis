@@ -1702,7 +1702,7 @@ public class AcquisitionUI implements IndexerListener, ActionListener, IRecordSe
 			System.setProperty("iManageServerPort", port);
 		
 		if(System.getProperty("helpFilePath")==null)
-			System.setProperty("helpFilePath", protocol+"://" + System.getProperty("iManageServerIP") + ":" + System.getProperty("iManageServerPort") + "/iManage/help.html");
+			System.setProperty("helpFilePath", protocol+"://" + System.getProperty("iManageServerIP") + ":" + System.getProperty("iManageServerPort") + "/openImaDis/help.html");
 		
 //		System.setProperty("sun.rmi.transport.tcp.responseTimeout", "1");
 //		System.setProperty("sun.rmi.transport.tcp.readTimeout", "1");
