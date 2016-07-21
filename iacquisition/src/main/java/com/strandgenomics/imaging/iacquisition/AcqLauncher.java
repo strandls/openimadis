@@ -152,14 +152,14 @@ public class AcqLauncher {
 			}
 			
 			
-			PostMethod method = new PostMethod(protocol + "://" + server +":" + port + "/iManage/auth/login");
+			PostMethod method = new PostMethod(protocol + "://" + server +":" + port + "/openImaDis/auth/login");
 			method.addParameter("loginUsername", username);
 			method.addParameter("loginPassword", password);
 			
 			
 			
 			
-			PostMethod postMethod = new PostMethod(protocol+"://" + server +":" + port + "/iManage/compute/generateAuthCode");
+			PostMethod postMethod = new PostMethod(protocol+"://" + server +":" + port + "/openImaDis/compute/generateAuthCode");
 			postMethod.addParameter("clientID", "onW7Eczizs3VdSCPIVkVG9Um5FEIiibKse5YodqI");
 			postMethod.addParameter("services", "[\"AUTHENTICATION\", \"ISPACE\", \"SEARCH\", \"LOADER\", \"UPDATE\", \"MANAGEMENT\", \"COMPUTE\"]");
 			postMethod.addParameter("expiryTime", ""+((new Date()).getTime()+(24*3600*1000)));
