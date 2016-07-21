@@ -16,9 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * 
- */
 package com.strandgenomics.imaging.iacquisition.thumbnail;
 
 import java.util.ArrayList;

@@ -16,13 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * ImageSpaceUpdateServiceLocator.java
- *
- * This file was auto-generated from WSDL
- * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
- */
-
 package com.strandgenomics.imaging.iclient.impl.ws.update;
 
 public class ImageSpaceUpdateServiceLocator extends org.apache.axis.client.Service implements com.strandgenomics.imaging.iclient.impl.ws.update.ImageSpaceUpdateService {

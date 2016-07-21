@@ -16,10 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * ImageJ LUT
- */
-
 package com.strandgenomics.imaging.icore.image;
 
 import java.awt.Color;

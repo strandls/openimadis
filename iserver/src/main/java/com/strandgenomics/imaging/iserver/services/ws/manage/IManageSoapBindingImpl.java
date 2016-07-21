@@ -16,13 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * IManageSoapBindingImpl.java
- *
- * This file was auto-generated from WSDL
- * by the Apache Axis 1.4 Sep 25, 2006 (02:39:47 GMT+05:30) WSDL2Java emitter.
- */
-
 package com.strandgenomics.imaging.iserver.services.ws.manage;
 
 public class IManageSoapBindingImpl implements com.strandgenomics.imaging.iserver.services.ws.manage.ImageSpaceManagement{

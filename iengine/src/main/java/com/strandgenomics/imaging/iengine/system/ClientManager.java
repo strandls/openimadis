@@ -16,8 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*ClientManager.java*/
-
 package com.strandgenomics.imaging.iengine.system;
 
 import java.util.List;

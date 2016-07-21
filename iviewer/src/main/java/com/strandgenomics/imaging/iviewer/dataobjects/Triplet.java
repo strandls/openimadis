@@ -16,27 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Triplet.java
- * 
- * Project imaging
- * Module com.strandgenomics.imaging.framework.dataobjects
- *
- * Copyright 2009-2010 by Strand Life Sciences
- * 237, Sir C.V.Raman Avenue
- * RajMahal Vilas
- * Bangalore 560080
- * India
- * All rights reserved.
- *
- * This software is the confidential and proprietary information
- * of Strand Life Sciences., ("Confidential Information").  You
- * shall not disclose such Confidential Information and shall use
- * it only in accordance with the terms of the license agreement
- * you entered into with Strand Life Sciences.
-
-
- */
 package com.strandgenomics.imaging.iviewer.dataobjects;
 
 /**
