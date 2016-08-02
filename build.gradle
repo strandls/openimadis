@@ -17,7 +17,7 @@ task stopTomcat(type:Exec) {
 }
 
 
-task createServerBundle (dependsOn: [':tileviewer:createTileViewer', ':iengine:createCache'])<< {
+task createServerBundle (dependsOn: [':tileviewer:createTileViewer', ':iengine:createCache', ':iworker:createWorker'])<< {
     copy {
        from "$tomcatHome/webapps/iManage"
        into "build/distributions/ServerBundle/WebApps/iManage"
