@@ -178,7 +178,7 @@
                 override="false"/>
 				
 	<Environment name="param/TaskLogStorageLocation" 
-                value="TASK_LOG_STORAGE_PATH"
+                value="TASK_LOGSTORAGE_PATH"
                 type="java.lang.String" 
                 override="false"/>
                 
