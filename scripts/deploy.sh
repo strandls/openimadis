@@ -46,28 +46,28 @@ mkdir -p $zoom_storage
 
 #update the corresponding locations in <TOMCAT>/iManage/META-INF/context.xml
 echo "Updating log_storage path in $tomcatHome/webapps/iManage/META-INF/context.xml"
-sed -i "s%<LOG_STORAGE_PATH>%$log_storage%" $tomcatHome/webapps/iManage/META-INF/context.xml
+sed -i "s%LOG_STORAGE_PATH%$log_storage%" $tomcatHome/webapps/iManage/META-INF/context.xml
  
 echo "Updating storage_root path in $tomcatHome/webapps/iManage/META-INF/context.xml"
-sed -i "s%<STORAGE_ROOT_PATH>%$storage_root%" $tomcatHome/webapps/iManage/META-INF/context.xml
+sed -i "s%STORAGE_ROOT_PATH%$storage_root%" $tomcatHome/webapps/iManage/META-INF/context.xml
 
 echo "Updating movie_storage path in $tomcatHome/webapps/iManage/META-INF/context.xml"
-sed -i "s%<MOVIE_STORAGE_PATH>%$movie_storage%" $tomcatHome/webapps/iManage/META-INF/context.xml
+sed -i "s%MOVIE_STORAGE_PATH%$movie_storage%" $tomcatHome/webapps/iManage/META-INF/context.xml
 
 echo "Updating image_cache_storage path in $tomcatHome/webapps/iManage/META-INF/context.xml"
-sed -i "s%<IMAGE_CACHE_STORAGE_PATH>%$image_cache_storage%" $tomcatHome/webapps/iManage/META-INF/context.xml
+sed -i "s%IMAGE_CACHE_STORAGE_PATH%$image_cache_storage%" $tomcatHome/webapps/iManage/META-INF/context.xml
 
 echo "Updating task_log_storage path in $tomcatHome/webapps/iManage/META-INF/context.xml"
-sed -i "s%<TASK_LOG_STORAGE_PATH>%$task_log_storage%" $tomcatHome/webapps/iManage/META-INF/context.xml
+sed -i "s%TASK_LOGSTORAGE_PATH%$task_log_storage%" $tomcatHome/webapps/iManage/META-INF/context.xml
 
 echo "Updating backup_storage path in $tomcatHome/webapps/iManage/META-INF/context.xml"
-sed -i "s%<BACKUP_STORAGE_PATH>%$backup_storage%" $tomcatHome/webapps/iManage/META-INF/context.xml
+sed -i "s%BACKUP_STORAGE_PATH%$backup_storage%" $tomcatHome/webapps/iManage/META-INF/context.xml
 
 echo "Updating export_storage path in $tomcatHome/webapps/iManage/META-INF/context.xml"
-sed -i "s%<EXPORT_STORAGE_PATH>%$export_storage%" $tomcatHome/webapps/iManage/META-INF/context.xml
+sed -i "s%EXPORT_STORAGE_PATH%$export_storage%" $tomcatHome/webapps/iManage/META-INF/context.xml
 
 echo "Updating zoom_storage path in $tomcatHome/webapps/iManage/META-INF/context.xml"
-sed -i "s%<ZOOM_STORAGE_PATH>%$zoom_storage%" $tomcatHome/webapps/iManage/META-INF/context.xml
+sed -i "s%ZOOM_STORAGE_PATH%$zoom_storage%" $tomcatHome/webapps/iManage/META-INF/context.xml
 
 #Copy tileviewer from WebApps to <TOMCAT>/webapps
 echo "Deploying tileviewer webapp to Tomcat ..."
@@ -116,19 +116,5 @@ sed -i "s%iengine.image.cache.storage=.*$%iengine.image.cache.storage=$image_cac
 
 sed -i "s%iengine.export.location=.*$%iengine.export.location=$export_storage%" $worker_deploy/iworker.properties
 echo "Updated iworker.properties"
-
-#Start cache
-echo "Starting cache ..."
-cd $cache_deploy
-nohup ./run-cache.sh&
-
-#Start tomcat
-echo "Starting Tomcat ..."
-$tomcatHome/bin/startup.sh
-
-#Start worker
-echo "Starting worker ..."
-cd $worker_deploy
-nohup ./run-worker.sh&
 
 cd -

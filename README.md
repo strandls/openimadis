@@ -12,3 +12,5 @@ This platform consists of following components:
 4. Web Admin - A web based interface to manage storage quota, users, permissions etc for images and meta-data.
 
 <b>Home:</b> https://strandls.github.io/openimadis/
+
+openImaDis uses bioformats for parsing the microscopy images.

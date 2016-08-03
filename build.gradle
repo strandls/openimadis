@@ -17,44 +17,55 @@ task stopTomcat(type:Exec) {
 }
 
 
-task createServerBundle (dependsOn: [':tileviewer:createTileViewer', ':iengine:createCache'])<< {
+task createServerBundle (dependsOn: [':tileviewer:createTileViewer', ':iengine:createCache', ':iworker:createWorker'])<< {
     copy {
        from "$tomcatHome/webapps/iManage"
-       into "build/distributions/ServerBundle/WebApps/iManage"
+       into "build/distributions/OpenImaDis/WebApps/iManage"
     }
 
     copy {
        from "iclient/build/uploadservice"
-       into "build/distributions/ServerBundle/WebApps/iManage/downloads"
+       into "build/distributions/OpenImaDis/WebApps/iManage/downloads"
     }
 
     copy {
        from "web/solr"
-       into "build/distributions/ServerBundle/WebApps/solr"
+       into "build/distributions/OpenImaDis/WebApps/solr"
     }
 
     copy {
        from "tileviewer/build/distributions/tileviewer-deploy/tileviewer"
-       into "build/distributions/ServerBundle/WebApps/tileviewer"
+       into "build/distributions/OpenImaDis/WebApps/tileviewer"
     }
  
     copy {
        from "iengine/cache/cache-deploy"
-       into "build/distributions/ServerBundle/ServerApps/cache-deploy"
+       into "build/distributions/OpenImaDis/ServerApps/cache-deploy"
     }
 
     copy {
        from "iworker/build/distributions/worker-deploy"
-       into "build/distributions/ServerBundle/ServerApps/worker-deploy"
+       into "build/distributions/OpenImaDis/ServerApps/worker-deploy"
     }
 
     copy {
        from "resources/db"
-       into "build/distributions/ServerBundle/ServerApps/db"
+       into "build/distributions/OpenImaDis/ServerApps/db"
     }
 
     copy {
        from "resources/solr_data"
-       into "build/distributions/ServerBundle/ServerApps/solr_data"
+       into "build/distributions/OpenImaDis/ServerApps/solr_data"
     }
+
+    copy {
+       from "scripts/deploy.sh"
+       into "build/distributions/OpenImaDis"
+    }
+
+    copy {
+       from "scripts/server.properties"
+       into "build/distributions/OpenImaDis"
+    }
+
 }
