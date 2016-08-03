@@ -23,7 +23,7 @@ task copyLibs(dependsOn: [build, ':iengine:build', ':resources:build'], type: Co
     into 'build/distributions/worker-deploy/lib'
 }
 
-task createWorker(dependsOn: copyLibs, type: Copy){
+task createWorker(dependsOn: [copyLibs, ':resources:build'], type: Copy){
     from 'bin'
     from 'conf'
     into 'build/distributions/worker-deploy'
