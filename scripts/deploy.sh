@@ -70,9 +70,9 @@ echo "Updating zoom_storage path in $tomcatHome/webapps/iManage/META-INF/context
 sed -i "s%ZOOM_STORAGE_PATH%$zoom_storage%" $tomcatHome/webapps/iManage/META-INF/context.xml
 
 #Copy tileviewer from WebApps to <TOMCAT>/webapps
-echo "Deploying tileviewer webapp to Tomcat ..."
-cp -r WebApps/tileviewer $tomcatHome/webapps
-echo "Deployed tileviewer webapp to Tomcat."
+#echo "Deploying tileviewer webapp to Tomcat ..."
+#cp -r WebApps/tileviewer $tomcatHome/webapps
+#echo "Deployed tileviewer webapp to Tomcat."
 
 #Copy solr from WebApps to <TOMCAT>/webapps
 echo "Deploying solr webapp to Tomcat ..."
