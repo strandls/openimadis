@@ -18,9 +18,10 @@ dependencies {
     compile 'xuggle:xuggle-xuggler:5.4'
     compile 'org.apache.solr:solr-solrj:3.5.0'
     compile 'org.reflections:reflections:0.9.10'
+
 }
 
-task copyLibs(type: Copy){
+task copyLibs(dependsOn: ':resources:build', type: Copy){
     from configurations.runtime
     from 'build/libs/'
     into 'cache/cache-deploy/lib'
