@@ -117,18 +117,4 @@ sed -i "s%iengine.image.cache.storage=.*$%iengine.image.cache.storage=$image_cac
 sed -i "s%iengine.export.location=.*$%iengine.export.location=$export_storage%" $worker_deploy/iworker.properties
 echo "Updated iworker.properties"
 
-#Start cache
-echo "Starting cache ..."
-cd $cache_deploy
-nohup ./run-cache.sh&
-
-#Start tomcat
-echo "Starting Tomcat ..."
-$tomcatHome/bin/startup.sh
-
-#Start worker
-echo "Starting worker ..."
-cd $worker_deploy
-nohup ./run-worker.sh&
-
 cd -
