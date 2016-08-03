@@ -51,7 +51,7 @@ public class BIFFormatReader extends FormatReader{
 	
 	public BIFFormatReader() {
 		super("BIF", new String[] { "bif" });
-		System.out.println("BIF reader initialised.");
+		//System.out.println("BIF reader initialised.");
 		suffixNecessary = true;
 		suffixSufficient = true;
 		domains = new String[] { FormatTools.UNKNOWN_DOMAIN };
