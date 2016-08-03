@@ -1,0 +1,13 @@
+# Update these dummy paths with the actual paths 
+tomcatHome=E:\\\\opt\\\\apache-tomcat-7.0.61
+log_storage=E:\\\\iManage\\\\storage\\\\log_storage
+storage_root==E:\\\\iManage\\\\storage\\\\storage_root
+movie_storage==E:\\\\iManage\\\\storage\\\\movie_storage
+image_cache_storage==E:\\\\iManage\\\\storage\\\\image_cache_storage
+task_log_storage=E:\\\\iManage\\\\storage\\\\task_log_storage
+backup_storage=E:\\\\iManage\\\\storage\\\\backup_storage
+export_storage=E:\\\\iManage\\\\storage\\\\export_storage
+zoom_storage=E:\\\\iManage\\\\storage\\\\zoom_storage
+solr_data=E:\\\\iManage\\\\storage\\\\solr_data
+cache_deploy=E:\\\\iManage\\\\cache_deploy
+worker_deploy=E:\\\\iManage\\\\worker_deploy
