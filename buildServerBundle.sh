@@ -9,6 +9,8 @@ gradle startTomcat;
 gradle --rerun-tasks -p iserver deployAllServices;
 gradle --rerun-tasks -p iclient generateAllStubs;
 gradle stopTomcat;
+gradle --rerun-tasks -p iacquisition createAcquisitionZip;
+gradle --rerun-tasks -p iclient	createClientAPIJar;
 gradle --rerun-tasks -p web deployWebApp;
 gradle --rerun-tasks createServerBundle;
 
