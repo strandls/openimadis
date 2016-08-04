@@ -6,22 +6,26 @@ task createLibsDir() << {
 
 task createErrorMessagesJar(dependsOn:createLibsDir, type: Jar) {
     from 'errormessages'
-    archiveName "build/libs/ierrors.jar"
+    archiveName "ierrors.jar"
+    destinationDir file("$rootDir/resources/build/libs")
 }
 
 task createHistoryMessagesJar(dependsOn:createLibsDir, type: Jar) {
     from 'historymessages'
-    archiveName "build/libs/ihistory.jar"
+    archiveName "ihistory.jar"
+    destinationDir file("$rootDir/resources/build/libs")
 }
 
 task createNotificationMessagesJar(dependsOn:createLibsDir, type: Jar) {
     from 'notificationmessages'
-    archiveName "build/libs/inotification.jar"
+    archiveName "inotification.jar"
+    destinationDir file("$rootDir/resources/build/libs")
 }
 
 task createLutsJar(dependsOn:createLibsDir, type: Jar) {
     from 'lutresources'
-    archiveName "build/libs/luts.jar"
+    archiveName "luts.jar"
+    destinationDir file("$rootDir/resources/build/libs")
 }
 
 task build(dependsOn: [createErrorMessagesJar, createHistoryMessagesJar, createNotificationMessagesJar, createLutsJar]){
