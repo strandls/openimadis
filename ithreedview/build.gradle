@@ -7,6 +7,7 @@ repositories {
     maven { url 'http://artifacts.openmicroscopy.org/artifactory/gradle/' }
     maven { url 'https://repo.gradle.org/gradle/plugins-releases' }
     maven { url 'http://corp.array.ca/nest-web/mavenrepo/' }
+    maven { url 'https://mvnrepository.com/artifact/' }
 }
 
 dependencies {
