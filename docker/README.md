@@ -2,8 +2,8 @@ you can use docker to compile/run openimadis.
 
 * Compile :
   - Go to "build" directory and build image (docker build -t openimadis_build .)
-  - Run container : docker run --it --rm -v PATH_ON_HOST_WHERE_YOU_CLONE_REPOSITORY:/openimadis openimadis_build bash
-  - Inside container : "cd /openimadis/openimadis", and "sh buildServerBundle.sh"
+  - Run container : docker run -it --rm -v PATH_ON_HOST_WHERE_YOU_CLONE_REPOSITORY:/source openimadis_build bash
+  - Inside container : "cd /source", and "sh buildServerBundle.sh"
   - Take one (or more) coffee
   - Quit container, make an archive for "PATH_ON_HOST_WHERE_YOU_CLONE_REPOSITORY/openimadis/build/distribution"
 
