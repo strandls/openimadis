@@ -7,6 +7,7 @@ repositories {
     maven {
         url 'http://artifacts.openmicroscopy.org/artifactory/gradle/'
         url 'http://xuggle.googlecode.com/svn/trunk/repo/share/java/'
+        url 'https://files.liferay.com/mirrors/xuggle.googlecode.com/svn/trunk/repo/share/java/'
     }
 }
 

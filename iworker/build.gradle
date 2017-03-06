@@ -8,6 +8,7 @@ repositories {
     maven { url 'https://repo.gradle.org/gradle/plugins-releases' }
     maven { url 'http://corp.array.ca/nest-web/mavenrepo/' }
     maven { url 'http://xuggle.googlecode.com/svn/trunk/repo/share/java/' }
+    maven { url 'https://files.liferay.com/mirrors/xuggle.googlecode.com/svn/trunk/repo/share/java/' }
 }
 
 dependencies {

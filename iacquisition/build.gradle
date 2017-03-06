@@ -9,6 +9,7 @@ repositories {
     maven { url 'http://corp.array.ca/nest-web/mavenrepo/' }
     maven { url 'http://maven.sk89q.com/repo/'}
     maven { url 'http://xuggle.googlecode.com/svn/trunk/repo/share/java/' }
+    maven { url 'https://files.liferay.com/mirrors/xuggle.googlecode.com/svn/trunk/repo/share/java/' }
 }
 
 dependencies {

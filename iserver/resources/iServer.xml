@@ -258,7 +258,7 @@
                 override="false"/>
                 
         <Environment name="param/ldapCN" 
-                value="CN=ldap-ro-strand, OU=Services, OU=Users, OU=PROD, DC=recherche, DC=curie, DC=fr"  
+                value="CN=xxxxx,OU=Users,DC=xxxx,DC=xxx"  
                 type="java.lang.String" 
                 override="false"/>
                 
@@ -268,12 +268,12 @@
                 override="false"/>
                 
         <Environment name="param/ldapGroupDN" 
-                value="CN=Users-img-cmms,OU=Infra,OU=Groups,OU=PROD,DC=recherche,DC=curie,DC=fr"  
+                value="CN=xxxx,OU=Groups,DC=xxxx,DC=xxx"  
                 type="java.lang.String" 
                 override="false"/>
                 
         <Environment name="param/ldapBaseDN" 
-                value="OU=Users,OU=PROD,DC=recherche,DC=curie,DC=fr"  
+                value="OU=Users,DC=xxxx,DC=xxx"  
                 type="java.lang.String" 
                 override="false"/>
                 

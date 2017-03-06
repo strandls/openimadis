@@ -94,12 +94,12 @@ sed -i "s%SOLR_DATA_PATH%$solr_data%" $tomcatHome/webapps/solr/WEB-INF/web.xml
 
 #Copy cache-deploy from ServerApps to $cache_deploy
 echo "Deploying cache to $cache_deploy ..."
-cp -r ServerApps/cache-deploy $cache_deploy
+cp -r ServerApps/cache-deploy/* $cache_deploy
 echo "Deployed cache to $cache_deploy."
 
 #Copy worker-deploy from ServerApps to $worker_deploy
 echo "Deploying worker to $worker_deploy ..."
-cp -r ServerApps/worker-deploy $worker_deploy
+cp -r ServerApps/worker-deploy/* $worker_deploy
 echo "Deployed worker to $worker_deploy."
 
 #Update worker-deploy/iworker.properties for Logging, Cache, Service, Solr, Database properties
