@@ -1,6 +1,6 @@
 # openImaDis 
 
-Open Image Discovery: A paltform for Image Life Cycle Management
+Open Image Discovery: A platform for Image Life Cycle Management
 
 Open Image Discovery (openImaDis) is an enterprise-wide image and analysis management software platform for Bio-Imaging researchers.
 
