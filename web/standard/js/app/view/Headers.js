@@ -46,6 +46,12 @@ Ext.define('Manage.view.Headers', {
 		items: [
 			{ 
 				xtype: 'image',
+				width: 84,
+				height: 24,
+				src: 'images/fbi_logo.jpg'
+			}, 
+			{ 
+				xtype: 'image',
 				width: 143,
 				height: 24,
 				src: 'images/icons/openimadis.png'
@@ -83,6 +89,12 @@ Ext.define('Manage.view.Headers', {
 				handler : function() {
 					var headers = this.up().up();
 					headers.fireEvent("onSettingsClick");
+				}
+			}, { 
+				xtype : 'button',
+				text : 'Advanced Help',
+				handler : function() {
+					window.open('../advanced-help.html');
 				}
 			}, { 
 				xtype : 'button',
