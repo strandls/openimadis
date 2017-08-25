@@ -1,3 +1,8 @@
+Ext.require([
+    'Ext.tip.*',
+    'Ext.Button',
+    'Ext.window.MessageBox'
+]);
 var login = Ext.create('Ext.form.Panel', {
 					labelWidth : 80,
 					bodyStyle : "background-image:url('images/loginbackground.png')",
@@ -43,6 +48,21 @@ var login = Ext.create('Ext.form.Panel', {
 						handler : function() {
 							this.up().doLogin();
 						}
+					},{
+						xtype : 'button',
+						id : 'guestButton',
+						text : 'Guest User',
+						//handleMouseEvents: true,
+						width : 80,
+						x : 70,
+						y : 150,
+						disabled: false,
+            			tooltip: 'Access for public users',
+						//formBind : false,                		
+						handler : function() {
+							this.up().LoginGuest();
+						}
+
 					} ],
 					doLogin : function() {
 						var form = this.getForm();
@@ -67,6 +87,22 @@ var login = Ext.create('Ext.form.Panel', {
 								}
 							});
 						}
+					},LoginGuest : function() {	
+					var form = this.getForm();
+							Ext.Ajax.request({
+								method : 'POST',
+								url : form.url,
+								params : {
+									loginUsername : "public",
+									loginPassword : "Welcome!1"
+								},
+								success : function (result, response) {
+									if (result.responseText == "success") {
+										window.location = location.href.substring(0, location.href.lastIndexOf("/"));
+									} 
+								}
+								
+							});
 					},
 					listeners : {
 						afterRender : function(thisForm, options) {
@@ -78,6 +114,9 @@ var login = Ext.create('Ext.form.Panel', {
 						}
 					}
 				});
+
+Ext.QuickTips.init();
+
 
 var topLogos = Ext.create('Ext.toolbar.Toolbar', {
 	height : 50,
@@ -109,6 +148,11 @@ var bottomLogos = Ext.create('Ext.toolbar.Toolbar', {
 	items : [ {
 		xtype : 'image',
 		src : 'images/strand_logo.jpg',
+		width : 130
+	},'->',
+	{
+		xtype : 'image',
+		src : 'images/fbi_logo.jpg',
 		width : 130
 	}, '->', {
 		xtype : 'image',
